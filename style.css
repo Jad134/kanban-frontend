@@ -1,0 +1,26 @@
+/* figtree-italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Figtree';
+  font-style: italic;
+  font-weight: 400;
+  src: url('./assets/fonts/figtree-v5-latin/figtree-v5-latin-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+.light-blue{
+    color: rgb(41, 171, 226)
+}
+
+.dark-blue{
+    color: rgb(42, 54, 71);
+}
+
+.border-radius{
+    border-radius: 6px;
+}
+
+body{
+    margin: 0;
+    background-color: #F6F7F8;
+    font-family: 'Figtree';
+}
