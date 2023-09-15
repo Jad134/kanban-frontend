@@ -5,10 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <style>
+        body {
+            margin: 0;
+        }
+        #board{
+            max-width: 1208px;
+            background-color: #F6F7F8;
+            padding: 0px 36px 0px 36px;
+        }
+        #board-head{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 232px;
+            width: 100%;
 
+        }
+        #board-head h2{
+
+        }
+        #input-area{
+            display: flex;
+            height: 48px;
+            padding: 8px, 16px, 8px, 16px;
+            border-radius: 16px;
+            background-color: white;
+            border: 1px solid gray;
+        }
+        #input-area input{
+            max-width: 280px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.0);
+        }
+        #input-area img{
+            background-color: white;
+            object-fit: none;
+            border-radius: 16px;
+        }
+        #board-interaction{
+            display: flex;
+            max-width: 50%;
+            align-items: center;
+        }
+        #add-task img{
+            border-radius: 16px;
+        }
+        #add-task{
+            display: flex;
+            height: 48px;
+            max-width: 160px;
+            background-color: #2A3647;
+            color: white;
+            border-radius: 16px;
+        }
     </style>
 </head>
-<body>
+<body  onload="openBoard()">
     <script src="./board_script.js"></script>
 
     <div id="board"></div>

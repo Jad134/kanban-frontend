@@ -1,17 +1,17 @@
 
 
 function openBoard(){
-    document.getElementById('board') = /*html*/ `
-    <div id="board-head-bar">
+    document.getElementById('board').innerHTML = /*html*/ `
+    <div id="board-head">
         <h2>Board</h2>
-        <div>
-            <div>
-                <input type="text">
-                <img src="" alt="lupe">
+        <div id="board-interaction">
+            <div id="input-area">
+                <input type="text" placeholder="Find Task">
+                <img src="./assets/img/search.png" alt="lupe">
             </div>
-            <div>
+            <div id="add-task">
                 <p>Add task</p>
-                <img src="" alt="add">
+                <img src="./assets/img/add.png" alt="add">
             </div>
         </div>
     </div>
