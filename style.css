@@ -17,10 +17,14 @@
 
 .border-radius{
     border-radius: 6px;
+   /*  Hallo, 
+   es gibt 2:
+   soweit ich gesehen habe, sind es bei Buttons 8px bei den großen weißen Divs 30px
+   (HL) */
 }
 
 body{
     margin: 0;
     background-color: #F6F7F8;
-    font-family: 'Figtree';
+    font-family: 'Figtree';         
 }
