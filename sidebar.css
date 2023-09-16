@@ -1,0 +1,54 @@
+.side-bar {
+    background-color: rgb(42, 54, 71);
+    width: 232px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.side-logo {
+    width: 100px;
+    height: 121px;
+    object-fit: contain;
+}
+
+.sidebar-logo-container {
+    margin-top: 80px;
+    margin-bottom: 32px;
+}
+
+.menu-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 160px;
+}
+
+.menu-buttons img:hover {
+    cursor: pointer;
+    background-color: rgb(42, 61, 89);
+}
+
+.menu-buttons img:focus {
+    background-color: yellow;
+}
+
+.judicial-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: rgb(168, 168, 168);
+    margin-bottom: 80px;
+}
+
+.judicial-info span:hover{
+    cursor: pointer;
+    color: rgb(41, 171, 226);
+    font-weight: bold;
+    transform: scale(1.01);
+}

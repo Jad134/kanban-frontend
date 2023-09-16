@@ -14,22 +14,75 @@
             display: flex;
             align-items: center;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         .side-logo {
             width: 100px;
             height: 121px;
             object-fit: contain;
+        }
 
+        .sidebar-logo-container {
+            margin-top: 80px;
+            margin-bottom: 32px;
+        }
+
+        .menu-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 160px;
+        }
+
+        .menu-buttons img:hover {
+            cursor: pointer;
+            background-color: rgb(42, 61, 89);
+        }
+
+        .menu-buttons img:focus {
+            background-color: yellow;
+        }
+
+        .judicial-info {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            color: rgb(168, 168, 168);
+            margin-bottom: 80px;
+        }
+
+        .judicial-info span:hover{
+            cursor: pointer;
+            color: rgb(41, 171, 226);
+            font-weight: bold;
+            transform: scale(1.01);
         }
     </style>
 </head>
 
 <body>
     <div class="side-bar">
-        <div>
-        <img class="side-logo" src="./assets/img/Logo4SideBar.png" alt="">
-    </div>
+        <div class="sidebar-logo-container">
+            <img class="side-logo" src="./assets/img/logo4SideBar.svg" alt="">
+        </div>
+        <div class="menu-buttons">
+            <img src="./assets/img/Summarybtn.svg" alt="">
+            <img src="./assets/img/Addtaskbtn.svg" alt="">
+            <img src="./assets/img/boardbtn.svg" alt="">
+            <img src="./assets/img/contactbtn.svg" alt="">
+        </div>
+        <div class="judicial-info">
+            <span class="Policy">
+                Privace Policy
+            </span>
+            <span class="legal-notice">
+                Legal notice
+            </span>
+        </div>
     </div>
 </body>
 
