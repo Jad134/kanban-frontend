@@ -3,22 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="w3-include.js"></script>
     <title>Contacts</title>
     <style>
         body{
             margin: 0
             ;
         }
+        .main-cont {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
         #contacts{
             display: flex;
             background-color: #F6F7F8;
-            height: 80vh;
+            height: calc(100vh - 70px);
+            margin-top: 4px;
         }
         #contact-overview{
             display: flex;
+            align-items: center;
             flex-direction: column;
             width: 456px;
-            height: calc(100vh - 64px);
+            height: calc(100vh - 70px);
             background-color: white;
         }
         #add-new-contact{
@@ -33,32 +41,58 @@
             font-family: sans-serif;
             font-size: 20px;
         }
+        #add-new-contact:hover{
+            cursor: pointer;
+        }
         #add-new-contact img{
             background-color: #2A3647;
             height: 32px;
             width: 32px;
             margin-left: 12px;
         }
+        #details-of-contacts{
+
+        }
         #welcome-to-contacts{
             display: flex;
             align-items: center;
-            height: 300px;
+            justify-content: center;
+            gap: 20px;
+            height: 62px;
+            padding: 64px 0 64px 32px;
         }
-        #welcome-to-contacts h1, div {
+        #welcome-to-contacts h1{
             margin: 0 20px 0 20px;
+            font-size: 58px;
         }
         #contact-seperator{
-            width: 3px;
+            height: 59px;
+            width: 1px;
             background-color: #29ABE2;
-            height: 32px;
+            border: 1px solid #29ABE2;
+            border-radius: 3px;
+        }
+        #detail-view-of-contacts{
+            margin-left: 20px;
         }
     </style>
 </head>
-<body onload="openContacts()">
+<body onload="includeHTML(), openContacts()">
 
     <script src="./contacts.js"></script>
+    <div style="display: flex;">
 
-    <div id="contacts"></div>
+            <!-- template left menu -->
+            <div w3-include-html="side_menu.html"></div>
+
+            <!-- right container -->
+            <div class="main-cont">
+
+            <!-- template header -->
+            <div w3-include-html="header.html"></div>
+
+        <div id="contacts"></div>
+    </div>
     
 </body>
 </html>
