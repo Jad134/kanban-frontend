@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="w3-include.js"></script>
     <title>Board</title>
     <style>
         body {
             margin: 0;
             font-family: sans-serif;
+        }
+        .main-cont {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
         #board{
             max-width: 1208px;
@@ -107,10 +113,23 @@
         }
     </style>
 </head>
-<body  onload="openBoard()">
+<body  onload="includeHTML(), openBoard()">
     <script src="./board_script.js"></script>
 
-    <div id="board"></div>
+    <div style="display: flex;">
+
+        <!-- template left menu -->
+        <div w3-include-html="side_menu.html"></div>
+
+        <!-- right container -->
+        <div class="main-cont">
+
+            <!-- template header -->
+            <div w3-include-html="header.html"></div>
+
+            <div id="board"></div>
+
+        </div>
     
 </body>
 </html>
