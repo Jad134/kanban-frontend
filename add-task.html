@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="./w3-include.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body-dummy {
+            display: flex;
+            justify-content: center;
+            margin-top: 80px;
+            height: 100vh;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-side {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            border-right: 1px solid lightgray;
+            padding-right: 24px;
+        }
+
+        .description {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assigned {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #title-input {
+            width: 250px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 12px 21px 12px 21px;
+        }
+
+        input {
+            width: 250px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 12px 21px 12px 21px;
+        }
+
+        #description-textarea {
+            width: 250px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 12px 21px 12px 21px;
+            height: 80px;
+            resize: none;
+        }
+
+        #assignedTo {
+            width: 292px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 8px;
+        }
+
+        select {
+            width: 292px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .seperator {
+            width: 1px;
+            height: 335px;
+            background-color: rgba(209, 209, 209, 1);
+            margin-left: 16px;
+            margin-top: 90px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-side {
+            padding-left: 80px;
+            gap: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #date-input {
+            width: 250px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            padding: 12px 21px 12px 21px;
+        }
+
+        .date-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prio {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prio-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .prio-buttons button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            width: 135px;
+            height: 50px;
+            background: white;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .prio-buttons button:hover {
+            cursor: pointer;
+            transform: scale(1.02);
+            box-shadow: 0px 3px 6px rgb(190, 190, 190);
+            transition: ease-in-out 125ms;
+        }
+
+        .category-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subtask-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subtask-input-btn {
+            display: flex;
+        }
+
+        #subtask-input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .subtask-button {
+            background-color: white;
+            border: 1px solid lightgray;
+            height: 42px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-inline: 10px;
+        }
+
+        span {
+            margin-bottom: 8px
+        }
+
+        h1 {
+            font-size: 61px;
+        }
+
+        .create-buttons {
+            display: flex;
+            justify-content: end;
+            gap: 8px;
+            margin-top: 80px;
+        }
+
+        #clear-btn {
+            background-color: white;
+            height: 42px;
+            width: 88px;
+            border: 1px solid rgb(42, 54, 71);
+            border-radius: 10px;
+            font-family: 'Inter';
+            font-size: 21px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #create-btn {
+            height: 42px;
+            width: 180px;
+            border: 1px solid rgb(42, 54, 71);
+            border-radius: 10px;
+            background-color: rgb(42, 54, 71);
+            color: white;
+            font-family: 'Inter';
+            font-size: 21px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #clear-btn:hover {
+            cursor: pointer;
+            color: rgb(41, 171, 226);
+            border-color: rgb(41, 171, 226);
+            fill: rgb(41, 171, 226);
+        }
+
+        svg:hover {
+            fill: rgb(41, 171, 226);
+        }
+
+        .svg-icon {
+            fill: black;
+            /* Standardfarbe des SVG */
+        }
+
+        #clear-btn:hover .svg-icon {
+            fill: rgb(41, 171, 226);
+            /* Ändern Sie die Füllfarbe des SVG beim Hovern */
+        }
+    </style>
+</head>
+
+<body onload="includeHTML()">
+    <div style="background-color: white;" w3-include-html="assets\html-templates\header.html"></div>
+    <div w3-include-html="assets\html-templates\side_menu.html"></div>
+    <div class="body-dummy">
+
+        <div class="main-content">
+            <div>
+                <h1>Add Task</h1>
+            </div>
+            <div style="display: flex;">
+                <div class="left-side">
+
+                    <div class="title">
+
+                        <span>Title</span>
+                        <input placeholder="Enter a title" id="title-input" type="text">
+                    </div>
+                    <div class="description">
+                        <span>Description</span>
+                        <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
+                            rows="10"></textarea>
+                    </div>
+                    <div class="assigned">
+                        <span>Assigned to</span>
+                        <select name="Select contacts to assign" id="assignedTo">
+                            <option value="">Hello World</option>
+                            <option value="">Test</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <div class="date-container">
+                        <span>Due date</span>
+                        <input id="date-input" type="date" required placeholder="dd/mm/yyyy">
+                    </div>
+                    <div class="prio">
+                        <span>Prio</span>
+                        <div class="prio-buttons">
+                            <button>Urgent
+                                <img src="./assets/img/urgentimg.svg" alt="">
+                            </button>
+                            <button>Medium
+                                <img src="./assets/img/mediumimg.svg" alt="">
+                            </button>
+                            <button>Low
+                                <img src="./assets/img/Prio baja.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="category-container">
+                        <span>Category</span>
+                        <select name="Select contacts to assign" id="select-category">
+                            <option value="" disabled selected hidden>Select task category</option>
+                            <option value="">Technical Task</option>
+                            <option value="">User Story</option>
+                        </select>
+                    </div>
+                    <div class="subtask-container">
+                        <span>Subtasks</span>
+                        <div class="subtask-input-btn">
+                            <input id="subtask-input" placeholder="Add new subtask" type="text">
+                            <button class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+                        </div>
+                    </div>
+                    <div class="create-buttons">
+                        <button id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg" alt="">
+                        </button>
+                        <button id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
