@@ -5,7 +5,7 @@ function openContacts() {
                 <p>Add new contact</p>
                 <img src="./assets/img/person_add.png" alt="">
             </div>
-            <div>hier werden die kontakte hineingerendert</div>
+            <div id="render-contacts-ovewrview">hier werden die kontakte hineingerendert</div>
         </div>
         <div id="details-of-contacts">
             <div id="welcome-to-contacts">
@@ -17,4 +17,11 @@ function openContacts() {
         </div>
     
     `;
+}
+
+const CONTACTS = [];
+
+function renderContactsInOverview(){
+    let contactsInOverview = document.getElementById('render-contacts-ovewrview');
+    //contactsInOverview.innerHTML = ;
 }
