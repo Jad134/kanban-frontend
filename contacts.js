@@ -7,10 +7,13 @@ function openContacts() {
             </div>
             <div>hier werden die kontakte hineingerendert</div>
         </div>
-        <div id="welcome-to-contacts">
-            <h1>Contacts</h1>
-            <div id="contact-seperator"></div>
-            <div iod="contact-slogan">Better with a team</div>
+        <div id="details-of-contacts">
+            <div id="welcome-to-contacts">
+                <h1>Contacts</h1>
+                <div id="contact-seperator"></div>
+                <div iod="contact-slogan">Better with a team</div>
+            </div>
+            <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
         </div>
     
     `;
