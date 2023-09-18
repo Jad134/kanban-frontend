@@ -75,6 +75,43 @@
         #detail-view-of-contacts{
             margin-left: 20px;
         }
+        .contact-input-area{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            border: 1px solid #D1D1D1;
+            margin-bottom: 6px;
+            height: 48px;
+            padding: 0px 8px 0px 16px;
+            border-radius: 16px;
+            margin-right: 24px;
+            width: 300px;
+        }
+        .contact-input-area input{
+            max-width: 280px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.0);
+            color: #000000;
+            text-decoration: none;
+        }
+        .contact-input-area input:focus{
+            outline: none;
+            border: none;
+        }
+        .contact-input-area input::placeholder{
+            color: lightgray;
+        }
+        .contact-input-area img{
+            background-color: white;
+            object-fit: none;
+            border-radius: 16px;
+            height: 32px;
+            width: 32px;
+        }
+        .contact-input-area img:hover{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body onload="includeHTML(), openContacts()">
@@ -92,6 +129,7 @@
             <div w3-include-html="header.html"></div>
 
         <div id="contacts"></div>
+        
     </div>
     
 </body>
