@@ -4,57 +4,93 @@
     <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
     <title>Join</title>
   </head>
-  <body>
-    <div class="all-container">
+
+  <body onload="init()">
+    <img id="logo" src="assets/img/join-logo-at-start.png" alt="Logo" />
+
+    <div class="main-container">
       <div class="top-area">
-        <img src="assets/img/Join-logo-at-start.png" class="start-logo" />
         <div class="sign-up-area">
           <span>Not a Join user?</span>
-          <button class="h-button">Sign up</button>
+          <button class="h-button border-radius-8">Sign up</button>
         </div>
       </div>
 
       <div class="middle-area">
-        <div class="login">
+        <div class="login border-radius-30">
           <h1>Log in</h1>
-          <div class="underline"></div>
-          <input class="login-input" type="text" />
-          <input class="login-input" type="text" />
+          <div class="underline border-radius-8"></div>
+          <form action="/#.php" method="post">
+            <input
+              class="login-input bg-email-icon icon"
+              type="text"
+              placeholder="Email"
+              required
+            />
+            <input
+              class="login-input bg-password-icon icon"
+              type="password"
+              placeholder="Password"
+              required
+            />
 
-          <div>
-            <label class="checkbox-label">
-              <input name="checkbox" type="checkbox" />Remember me
-            </label>
-            <a class="password-link" href="#">I forgot my password</a>
-          </div>
-          <button class="h-button">Log in</button>
+            <div class="checkbox-container">
+              <label class="checkbox-label">
+                <input name="checkbox" type="checkbox" />Remember me
+              </label>
+              <a class="password-link" href="#">I forgot my password</a>
+            </div>
+
+            <div class="login-buttons">
+              <button class="h-button border-radius-8">Log in</button>
+              <button class="h-button-white border-radius-8">
+                Guest Log in
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-
+      <div class="footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Legal Notice</a>
+      </div>
     </div>
   </body>
 
   <style>
-    /* font auf der 1. Seite ist "inter" -- > hinzufügen */
-    .all-container {
+    .main-container {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /*---- Top-Section ---- */
-    .top-area {
-      height: 30vh;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    #logo {
+      width: auto;
+      height: 274px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.5);
+      transition: all 2s ease-in;
     }
 
-    .start-logo {
-      height: 150px;
-      width: auto;
-      margin-left: 7%;
+    .border-radius-30 {
+      border-radius: 30px;
+    }
+
+    .border-radius-8 {
+      border-radius: 8px;
+    }
+
+    /*---- Top-Section ---- */
+    .top-area {
+      height: 33vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
 
     .sign-up-area {
@@ -67,10 +103,91 @@
       font-size: 20px;
     }
 
+    .sign-up-button:active {
+      transform: translateY(5px);
+      transition: transform 75s ease-in-out;
+    }
+
+    /* ---- login-section ---- */
+    .middle-area {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .login {
+      height: 50vh;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: rgb(42, 54, 71);
+      height: auto;
+      width: 650px;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 54px;
+      /* (eigtl. 61px)*/
+    }
+
+    .underline {
+      height: 3px;
+      width: 150px;
+      background-color: rgb(41, 171, 226);
+      margin: 10px 0 32px 0;
+    }
+
+    .login-input {
+      width: 380px;
+      height: 40px;
+      border-radius: 8px;
+      border: 2px solid rgb(168, 168, 168);
+      margin-bottom: 20px;
+    }
+
+      .login-input:focus {
+        border: 2px solid rgb(41, 171, 226);
+        outline:none;
+    }
+
+
+    ::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+      padding-left: 10px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      margin: 10px 10px;
+      cursor: pointer;
+      gap: 8px;
+    }
+
+    .password-link {
+      text-decoration: none;
+      color: rgb(41, 171, 226);
+    }
+
+    .password-link:hover {
+      text-decoration: underline;
+    }
+
+    .login-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 35px;
+      margin-top: 24px;
+    }
+
     .h-button {
       height: 50px;
       width: 100px;
-      border-radius: 8px;
       border: none;
       background-color: rgb(42, 54, 71);
       color: rgb(255, 255, 255);
@@ -85,64 +202,69 @@
       transition: 75ms ease-in-out;
     }
 
-    .sign-up-button:active {
-      transform: translateY(5px);
-      transition: transform 75s ease-in-out;
+    .h-button-white {
+      height: 50px;
+      width: 120px;
+      border: 2px solid rgb(42, 54, 71);
+      background-color: rgb(255, 255, 255);
+      color: rgb(42, 54, 71);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
     }
 
-    /* ---- Login-Section ---- */
-    .middle-area {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      height: 50vh;
+    .h-button-white:hover {
+      border: 2px solid rgb(41, 171, 226);
+      color: rgb(41, 171, 226);
+      box-shadow: 0px 8px 8px -3px rgb(174, 174, 174);
+      transition: 75ms ease-in-out;
     }
 
-    .login {
-      background-color: white;
+    .checkbox-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      color: rgb(42, 54, 71);
-      height: auto;
-      width: 650px;
-      border-radius: 30px;
+      gap: 32px;
     }
 
-    h1 {
-      margin-bottom: 0;
-      font-size: 54px;
-      /* (eigtl. 61px)*/
+    /* ---- end of login-section ---- */
+
+    .bg-icon {
+      height: 20px;
+      width: 20px;
     }
 
-    .underline {
-      height: 2px;
-      width: 150px;
-      background-color: rgb(41, 171, 226);
-      border-radius: 8px;
-      margin: 10px 0 10px 0;
+    .bg-email-icon {
+      background-image: url("assets/img/mail.png");
+      background-repeat: no-repeat;
+      background-position: 340px;
     }
 
-    .login-input {
-      width: 380px;
-      height: 24px;
-      margin-bottom: 20px;
+    .bg-password-icon {
+      background-image: url("assets/img/lock.png");
+      background-repeat: no-repeat;
+      background-position: 340px;
     }
 
-    .checkbox-label {
-      display: inline-block;
-      margin: 10px 10px;
-      cursor: pointer;
+    .footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      height: 10vh;
+      gap: 16px;
+      padding: 8px;
     }
 
-    .password-link {
+    .footer a {
       text-decoration: none;
-      color: rgb(41, 171, 226);
+      color: rgb(168, 168, 168);
+      size: 16px;
     }
 
-    .password-link:hover {
-      text-decoration: underline;
+    .footer a:hover {
+      color: rgb(41, 171, 226);
+      font-weight: bold;
     }
   </style>
 </html>
