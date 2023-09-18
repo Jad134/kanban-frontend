@@ -10,6 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+
+        body{
+            display: flex;
+        }
         .title {
             display: flex;
             flex-direction: column;
@@ -239,8 +243,9 @@
 
 <body onload="includeHTML()">
     <div w3-include-html="assets\html-templates\side_menu.html"></div>
-    <div w3-include-html="assets\html-templates\header.html"></div>
+    
     <div class="main-content">
+        <div w3-include-html="assets\html-templates\header.html"></div>
         <div>
             <h1>Add Task</h1>
         </div>
