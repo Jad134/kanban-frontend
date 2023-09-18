@@ -10,13 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .body-dummy {
-            display: flex;
-            justify-content: center;
-            margin-top: 80px;
-            height: 100vh;
-        }
-
         .title {
             display: flex;
             flex-direction: column;
@@ -216,7 +209,7 @@
             align-items: center;
         }
 
-        #create-btn:hover{
+        #create-btn:hover {
             cursor: pointer;
             background-color: rgb(41, 171, 226);
         }
@@ -245,81 +238,76 @@
 </head>
 
 <body onload="includeHTML()">
-    <div style="background-color: white;" w3-include-html="assets\html-templates\header.html"></div>
     <div w3-include-html="assets\html-templates\side_menu.html"></div>
-    <div class="body-dummy">
+    <div w3-include-html="assets\html-templates\header.html"></div>
+    <div class="main-content">
+        <div>
+            <h1>Add Task</h1>
+        </div>
+        <div style="display: flex;">
+            <div class="left-side">
 
-        <div class="main-content">
-            <div>
-                <h1>Add Task</h1>
+                <div class="title">
+
+                    <span>Title</span>
+                    <input placeholder="Enter a title" id="title-input" type="text">
+                </div>
+                <div class="description">
+                    <span>Description</span>
+                    <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
+                        rows="10"></textarea>
+                </div>
+                <div class="assigned">
+                    <span>Assigned to</span>
+                    <select name="Select contacts to assign" id="assignedTo">
+                        <option value="">Hello World</option>
+                        <option value="">Test</option>
+                    </select>
+                </div>
             </div>
-            <div style="display: flex;">
-                <div class="left-side">
 
-                    <div class="title">
-
-                        <span>Title</span>
-                        <input placeholder="Enter a title" id="title-input" type="text">
-                    </div>
-                    <div class="description">
-                        <span>Description</span>
-                        <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
-                            rows="10"></textarea>
-                    </div>
-                    <div class="assigned">
-                        <span>Assigned to</span>
-                        <select name="Select contacts to assign" id="assignedTo">
-                            <option value="">Hello World</option>
-                            <option value="">Test</option>
-                        </select>
+            <div class="right-side">
+                <div class="date-container">
+                    <span>Due date</span>
+                    <input id="date-input" type="date" required placeholder="dd/mm/yyyy">
+                </div>
+                <div class="prio">
+                    <span>Prio</span>
+                    <div class="prio-buttons">
+                        <button>Urgent
+                            <img src="./assets/img/urgentimg.svg" alt="">
+                        </button>
+                        <button>Medium
+                            <img src="./assets/img/mediumimg.svg" alt="">
+                        </button>
+                        <button>Low
+                            <img src="./assets/img/Prio baja.svg" alt="">
+                        </button>
                     </div>
                 </div>
-
-                <div class="right-side">
-                    <div class="date-container">
-                        <span>Due date</span>
-                        <input id="date-input" type="date" required placeholder="dd/mm/yyyy">
+                <div class="category-container">
+                    <span>Category</span>
+                    <select name="Select contacts to assign" id="select-category">
+                        <option value="" disabled selected hidden>Select task category</option>
+                        <option value="">Technical Task</option>
+                        <option value="">User Story</option>
+                    </select>
+                </div>
+                <div class="subtask-container">
+                    <span>Subtasks</span>
+                    <div class="subtask-input-btn">
+                        <input id="subtask-input" placeholder="Add new subtask" type="text">
+                        <button class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
                     </div>
-                    <div class="prio">
-                        <span>Prio</span>
-                        <div class="prio-buttons">
-                            <button>Urgent
-                                <img src="./assets/img/urgentimg.svg" alt="">
-                            </button>
-                            <button>Medium
-                                <img src="./assets/img/mediumimg.svg" alt="">
-                            </button>
-                            <button>Low
-                                <img src="./assets/img/Prio baja.svg" alt="">
-                            </button>
-                        </div>
-                    </div>
-                    <div class="category-container">
-                        <span>Category</span>
-                        <select name="Select contacts to assign" id="select-category">
-                            <option value="" disabled selected hidden>Select task category</option>
-                            <option value="">Technical Task</option>
-                            <option value="">User Story</option>
-                        </select>
-                    </div>
-                    <div class="subtask-container">
-                        <span>Subtasks</span>
-                        <div class="subtask-input-btn">
-                            <input id="subtask-input" placeholder="Add new subtask" type="text">
-                            <button class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
-                        </div>
-                    </div>
-                    <div class="create-buttons">
-                        <button id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg" alt="">
-                        </button>
-                        <button id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
-                    </div>
+                </div>
+                <div class="create-buttons">
+                    <button id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg" alt="">
+                    </button>
+                    <button id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
                 </div>
             </div>
         </div>
-
     </div>
-
 </body>
 
 </html>
