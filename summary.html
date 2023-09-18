@@ -4,11 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Join - Summary</title>
     <link rel="stylesheet" href="style.css">
     <script src="w3-include.js"></script>
 
     <style>
+        h1 {
+            font-size: 61px;
+            font-weight: 700;
+        }
+
+        .slogan {
+            font-size: 27px;
+        }
+
         .disp-flex-column-center {
             display: flex;
             flex-direction: column;
@@ -44,6 +53,14 @@
             border-radius: 3px;
         }
 
+        .g-v-seperator {
+            height: 102px;
+            width: 1px;
+            background-color: #D1D1D1;
+            border: 0.5px solid #D1D1D1;
+            border-radius: 2px;
+        }
+
         .summary-container {
             padding: 0 64px;
             width: 560px;
@@ -54,6 +71,33 @@
             gap: 32px;
         }
 
+        .summary-number {
+            font-size: 64px;
+            font-weight: 600;
+        }
+
+        .summary-text {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .urgent-task-date {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .urgent-information {
+            display: flex;
+            flex-direction: column;
+            gap: 13px
+        }
+
+        .summary-todos {
+            margin: 16px 0;
+            width: 100%;
+            gap: 32px;
+        }
+
         .summary-task-box {
             /*margin: 16px; --verschoben in summary tasks*/
             border-radius: 30px;
@@ -61,7 +105,6 @@
             width: 168px;
             height: 168px;
             box-shadow: 0px 0px 4px 0px #0000001A;
-            gap: 13px;
 
             -webkit-transition: all 0.1s linear;
             -moz-transition: all 0.1s linear;
@@ -74,12 +117,24 @@
             background-color: #2A3647;
             color: #FFFFFF;
             box-shadow: 0px 4px 4px 0px #00000040;
-            
+            cursor: pointer;
+
             -webkit-transform: scale(1.1);
             -moz-transform: scale(1.1);
             -ms-transform: scale(1.1);
             -o-transform: scale(1.1);
             transform: scale(1.1);
+        }
+
+        .summary-task-box:active {
+            background-color: #FFFFFF;
+            color: #000000;
+
+            -webkit-transform: scale(1.0);
+            -moz-transform: scale(1.0);
+            -ms-transform: scale(1.0);
+            -o-transform: scale(1.0);
+            transform: scale(1.0);
         }
 
         .urgent-task-box {
@@ -89,7 +144,7 @@
             width: 100%;
             height: 168px;
             box-shadow: 0px 0px 4px 0px #0000001A;
-            gap: 13px;
+            gap: 48px;
 
             -webkit-transition: all 0.1s linear;
             -moz-transition: all 0.1s linear;
@@ -102,6 +157,7 @@
             background-color: #2A3647;
             color: #FFFFFF;
             box-shadow: 0px 4px 4px 0px #00000040;
+            cursor: pointer;
 
             -webkit-transform: scale(1.033);
             -moz-transform: scale(1.033);
@@ -110,10 +166,15 @@
             transform: scale(1.033);
         }
 
-        .summary-todos {
-            margin: 16px 0;
-            width: 100%;
-            gap: 32px;
+        .urgent-task-box:active {
+            background-color: #FFFFFF;
+            color: #000000;
+
+            -webkit-transform: scale(1.0);
+            -moz-transform: scale(1.0);
+            -ms-transform: scale(1.0);
+            -o-transform: scale(1.0);
+            transform: scale(1.0);
         }
 
         .summary-todo-box {
@@ -136,12 +197,41 @@
             background-color: #2A3647;
             color: #FFFFFF;
             box-shadow: 0px 4px 4px 0px #00000040;
+            cursor: pointer;
 
             -webkit-transform: scale(1.05);
             -moz-transform: scale(1.05);
             -ms-transform: scale(1.05);
             -o-transform: scale(1.05);
             transform: scale(1.05);
+        }
+
+        .summary-todo-box:active {
+            background-color: #FFFFFF;
+            color: #000000;
+
+            -webkit-transform: scale(1.0);
+            -moz-transform: scale(1.0);
+            -ms-transform: scale(1.0);
+            -o-transform: scale(1.0);
+            transform: scale(1.0);
+        }
+
+        .greeting {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .greeting-daytime {
+            font-size: 47px;
+            font-weight: 500;
+            color: #2A3647;
+        }
+
+        .greeting-name {
+            font-size: 64px;
+            font-weight: 700;
+            color: #29ABE2;
         }
     </style>
 
@@ -164,10 +254,11 @@
             <div class="title">
                 <h1>Summary</h1>
                 <div class="title-seperator"></div>
-                <span>Everything in a nutshell!</span>
+                <span class="slogan">Everything in a nutshell!</span>
             </div>
 
-            <div>
+            <!-- summary -->
+            <div class="disp-flex-row-center">
                 <div class="summary-container disp-flex-column-center">
 
                     <!-- summary tasks -->
@@ -175,20 +266,20 @@
 
                         <!-- tasks in board -->
                         <div class="summary-task-box disp-flex-column-center">
-                            <div>5</div>
-                            <span>Tasks in Board</span>
+                            <div class="summary-number">5</div>
+                            <span class="summary-text">Tasks in <br />Board</span>
                         </div>
 
                         <!-- tasks in progress -->
                         <div class="summary-task-box disp-flex-column-center">
-                            <div>2</div>
-                            <span>Tasks In Progress</span>
+                            <div class="summary-number">2</div>
+                            <span class="summary-text">Tasks In <br />Progress</span>
                         </div>
 
                         <!-- awaiting feedback -->
                         <div class="summary-task-box disp-flex-column-center">
-                            <div>2</div>
-                            <span>Awaiting Feedback</span>
+                            <div class="summary-number">2</div>
+                            <span class="summary-text">Awaiting <br />Feedback</span>
                         </div>
 
                     </div>
@@ -196,13 +287,13 @@
                     <!-- summary urgent tasks -->
                     <div class="urgent-task-box disp-flex-row-center">
                         <img src="./assets/img/summary-urgent.png">
-                        <div>
-                            <div>1</div>
+                        <div class="disp-flex-column-center">
+                            <div class="summary-number">1</div>
                             <span>Urgent</span>
                         </div>
                         <div class="g-v-seperator"></div>
-                        <div>
-                            <div>October 16, 2022</div>
+                        <div class="urgent-information">
+                            <div class="urgent-task-date">October 16, 2022</div>
                             <div>Upcoming Deadline</div>
                         </div>
                     </div>
@@ -213,18 +304,18 @@
                         <!-- unfinished todos -->
                         <div class="summary-todo-box disp-flex-row-center">
                             <img src="./assets/img/summary-todo.png">
-                            <div class="disp-flex-col-center">
-                                <div>1</div>
-                                <span>To-do</span>
+                            <div class="disp-flex-column-center">
+                                <div class="summary-number">1</div>
+                                <span class="summary-text">To-do</span>
                             </div>
                         </div>
 
                         <!-- tasks completed -->
                         <div class="summary-todo-box disp-flex-row-center">
                             <img src="./assets/img/summary-todo-done.png">
-                            <div class="disp-flex-col-center">
-                                <div>1</div>
-                                <span>Done</span>
+                            <div class="disp-flex-column-center">
+                                <div class="summary-number">1</div>
+                                <span class="summary-text">Done</span>
                             </div>
                         </div>
 
@@ -232,7 +323,12 @@
                 </div>
 
                 <!-- greeting -->
-                <div class="greeting"></div>
+                <div class="disp-flex-row-center">
+                    <div class="greeting">
+                        <span class="greeting-daytime">Good morning,</span>
+                        <span class="greeting-name">Sofia Müller</span>
+                    </div>
+                </div>
 
             </div>
 

@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="w3-include.js"></script>
     <title>Board</title>
     <style>
         body {
             margin: 0;
             font-family: sans-serif;
         }
+        .main-cont {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
         #board{
             max-width: 1208px;
             background-color: #F6F7F8;
             padding: 0px 36px 0px 36px;
+            margin-top: 5px;
         }
         #board-head{
             display: flex;
@@ -29,7 +36,7 @@
             display: flex;
             align-items: center;
             height: 48px;
-            padding: 0px 16px 0px 16px;
+            padding: 0px 8px 0px 16px;
             border-radius: 16px;
             background-color: white;
             border: 1px solid #D1D1D1;
@@ -38,7 +45,7 @@
         #seperator{
             width: 1px;
             height: 36px;
-            background-color: grey;
+            background-color: lightgray;
         }
         #input-area input{
             max-width: 280px;
@@ -50,6 +57,9 @@
             background-color: white;
             object-fit: none;
             border-radius: 16px;
+        }
+        #input-area img:hover{
+            cursor: pointer;
         }
         #board-interaction{
             display: flex;
@@ -73,6 +83,9 @@
             color: white;
             border-radius: 16px;
         }
+        #add-task:hover{
+            cursor: pointer;
+        }
         #board-content{
             display: flex;
             max-width: 1208px;
@@ -93,6 +106,9 @@
             height: 20px;
             width: 20px;
         }
+        .board-head-section-images:hover{
+            cursor: pointer;
+        }
         .specific-content{
             margin-top: 10px;
         }
@@ -107,10 +123,23 @@
         }
     </style>
 </head>
-<body  onload="openBoard()">
+<body  onload="includeHTML(), openBoard()">
     <script src="./board_script.js"></script>
 
-    <div id="board"></div>
+    <div style="display: flex;">
+
+        <!-- template left menu -->
+        <div w3-include-html="side_menu.html"></div>
+
+        <!-- right container -->
+        <div class="main-cont">
+
+            <!-- template header -->
+            <div w3-include-html="header.html"></div>
+
+            <div id="board"></div>
+
+        </div>
     
 </body>
 </html>
