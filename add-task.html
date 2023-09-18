@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="./assets/js/addTask.js"></script>
     <link rel="stylesheet" href="assets\css\header.css">
     <link rel="stylesheet" href="assets\css\sidebar.css">
     <script src="assets\js\w3-include.js"></script>
@@ -39,7 +40,7 @@
         }
 
         #title-input {
-            
+
             border: 1px solid lightgray;
             border-radius: 10px;
             padding: 12px 21px 12px 21px;
@@ -96,7 +97,7 @@
         }
 
         #date-input {
-            
+
             border: 1px solid lightgray;
             border-radius: 10px;
             padding: 12px 21px 12px 21px;
@@ -129,6 +130,18 @@
             box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+
+        #urgent-btn.active{
+            background-color: rgb(255, 61,0);
+            
+        }
+        #medium-btn.active{
+            background-color: orange;
+        }
+        #low-btn.active{
+            background-color: green;
+        }
+        
 
         .prio-buttons button:hover {
             cursor: pointer;
@@ -247,6 +260,9 @@
             padding-right: 71px;
             justify-content: center;
         }
+
+    
+
     </style>
 </head>
 
@@ -261,70 +277,72 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <div style="display: flex;">
-                    <div class="left-side">
+                <form>
+                    <div style="display: flex;">
+                        <div class="left-side">
 
-                        <div class="title">
+                            <div class="title">
 
-                            <span>Title</span>
-                            <input placeholder="Enter a title" id="title-input" type="text">
-                        </div>
-                        <div class="description">
-                            <span>Description</span>
-                            <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
-                                rows="10"></textarea>
-                        </div>
-                        <div class="assigned">
-                            <span>Assigned to</span>
-                            <select name="Select contacts to assign" id="assignedTo">
-                                <option value="">Hello World</option>
-                                <option value="">Test</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="right-side">
-                        <div class="date-container">
-                            <span>Due date</span>
-                            <input id="date-input" type="date" required placeholder="dd/mm/yyyy">
-                        </div>
-                        <div class="prio">
-                            <span>Prio</span>
-                            <div class="prio-buttons">
-                                <button>Urgent
-                                    <img src="./assets/img/urgentimg.svg" alt="">
-                                </button>
-                                <button>Medium
-                                    <img src="./assets/img/mediumimg.svg" alt="">
-                                </button>
-                                <button>Low
-                                    <img src="./assets/img/Prio baja.svg" alt="">
-                                </button>
+                                <span>Title</span>
+                                <input required placeholder="Enter a title" id="title-input" type="text">
+                            </div>
+                            <div class="description">
+                                <span>Description</span>
+                                <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
+                                    rows="10"></textarea>
+                            </div>
+                            <div class="assigned">
+                                <span>Assigned to</span>
+                                <select name="Select contacts to assign" id="assignedTo">
+                                    <option value="">Hello World</option>
+                                    <option value="">Test</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="category-container">
-                            <span>Category</span>
-                            <select name="Select contacts to assign" id="select-category">
-                                <option value="" disabled selected hidden>Select task category</option>
-                                <option value="">Technical Task</option>
-                                <option value="">User Story</option>
-                            </select>
-                        </div>
-                        <div class="subtask-container">
-                            <span>Subtasks</span>
-                            <div class="subtask-input-btn">
-                                <input id="subtask-input" placeholder="Add new subtask" type="text">
-                                <button class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+
+                        <div class="right-side">
+                            <div class="date-container">
+                                <span>Due date</span>
+                                <input id="date-input" type="date" required placeholder="dd/mm/yyyy">
+                            </div>
+                            <div class="prio">
+                                <span>Prio</span>
+                                <div class="prio-buttons">
+                                    <button onclick=" ChangeButtonColor('urgent-btn')" type="button" id="urgent-btn">Urgent
+                                        <img src="./assets/img/urgentimg.svg" alt="">
+                                    </button>
+                                    <button  onclick=" ChangeButtonColor('medium-btn')" type="button" id="medium-btn">Medium
+                                        <img src="./assets/img/mediumimg.svg" alt="">
+                                    </button>
+                                    <button  onclick=" ChangeButtonColor('low-btn')" type="button" id="low-btn">Low
+                                        <img src="./assets/img/Prio baja.svg" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="category-container">
+                                <span>Category</span>
+                                <select name="Select contacts to assign" id="select-category">
+                                    <option value="" disabled selected hidden>Select task category</option>
+                                    <option value="">Technical Task</option>
+                                    <option value="">User Story</option>
+                                </select>
+                            </div>
+                            <div class="subtask-container">
+                                <span>Subtasks</span>
+                                <div class="subtask-input-btn">
+                                    <input required id="subtask-input" placeholder="Add new subtask" type="text">
+                                    <button class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+                                </div>
+                            </div>
+                            <div class="create-buttons">
+                                <button type="button" id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg"
+                                        alt="">
+                                </button>
+                                <button type="submit" id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
                             </div>
                         </div>
-                        <div class="create-buttons">
-                            <button id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg"
-                                    alt="">
-                            </button>
-                            <button id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
-                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
