@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,22 +10,24 @@
     <link rel="stylesheet" href="./assets/css/sidebar.css">
     <title>Contacts</title>
     <style>
-        body{
-            margin: 0
-            ;
+        body {
+            margin: 0;
         }
+
         .main-cont {
             display: flex;
             flex-direction: column;
             flex: 1;
         }
-        #contacts{
+
+        #contacts {
             display: flex;
             background-color: #F6F7F8;
             height: calc(100vh - 70px);
             margin-top: 4px;
         }
-        #contact-overview{
+
+        #contact-overview {
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -32,7 +35,8 @@
             height: calc(100vh - 70px);
             background-color: white;
         }
-        #add-new-contact{
+
+        #add-new-contact {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,19 +48,21 @@
             font-family: sans-serif;
             font-size: 20px;
         }
-        #add-new-contact:hover{
+
+        #add-new-contact:hover {
             cursor: pointer;
         }
-        #add-new-contact img{
+
+        #add-new-contact img {
             background-color: #2A3647;
             height: 32px;
             width: 32px;
             margin-left: 12px;
         }
-        #details-of-contacts{
 
-        }
-        #welcome-to-contacts{
+        #details-of-contacts {}
+
+        #welcome-to-contacts {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,21 +70,25 @@
             height: 62px;
             padding: 64px 0 64px 32px;
         }
-        #welcome-to-contacts h1{
+
+        #welcome-to-contacts h1 {
             margin: 0 20px 0 20px;
             font-size: 58px;
         }
-        #contact-seperator{
+
+        #contact-seperator {
             height: 59px;
             width: 1px;
             background-color: #29ABE2;
             border: 1px solid #29ABE2;
             border-radius: 3px;
         }
-        #detail-view-of-contacts{
+
+        #detail-view-of-contacts {
             margin-left: 20px;
         }
-        .contact-input-area{
+
+        .contact-input-area {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -91,46 +101,54 @@
             margin-right: 24px;
             width: 300px;
         }
-        .contact-input-area input{
+
+        .contact-input-area input {
             max-width: 280px;
             border: none;
             background-color: rgba(255, 255, 255, 0.0);
             color: #000000;
             text-decoration: none;
         }
-        .contact-input-area input:focus{
+
+        .contact-input-area input:focus {
             outline: none;
             border: none;
         }
-        .contact-input-area input::placeholder{
+
+        .contact-input-area input::placeholder {
             color: lightgray;
         }
-        .contact-input-area img{
+
+        .contact-input-area img {
             background-color: white;
             object-fit: none;
             border-radius: 16px;
             height: 32px;
             width: 32px;
         }
-        .contact-input-area img:hover{
+
+        .contact-input-area img:hover {
             cursor: pointer;
         }
     </style>
 </head>
+
 <body onload="includeHTML(), openContacts()">
 
     <script src="./assets/js/contacts.js"></script>
 
-            <!-- template left menu -->
-            <div w3-include-html="assets/html-templates/side_menu.html"></div>
+    <!-- template left menu -->
+    <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
 
-            <!-- right container -->
-            <div class="main-cont">
+    <!-- right container -->
+    <div class="main-cont">
 
-            <!-- template header -->
-            <div w3-include-html="assets/html-templates/header.html"></div>
+        <!-- template header -->
+        <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div id="contacts"></div>
-          
+    </div>
+
 </body>
+
 </html>

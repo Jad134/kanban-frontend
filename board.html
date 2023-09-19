@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +14,21 @@
             margin: 0;
             font-family: sans-serif;
         }
+
         .main-cont {
             display: flex;
             flex-direction: column;
             flex: 1;
         }
-        #board{
+
+        #board {
             max-width: 1208px;
             background-color: #F6F7F8;
             padding: 0px 36px 0px 36px;
             margin-top: 5px;
         }
-        #board-head{
+
+        #board-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -32,10 +36,12 @@
             width: 100%;
 
         }
-        #board-head h2{
+
+        #board-head h2 {
             font-size: 60px;
         }
-        #input-area{
+
+        #input-area {
             display: flex;
             align-items: center;
             height: 48px;
@@ -45,44 +51,53 @@
             border: 1px solid #D1D1D1;
             margin-right: 24px;
         }
-        #seperator{
+
+        #seperator {
             width: 1px;
             height: 36px;
             background-color: lightgray;
         }
-        #input-area input{
+
+        #input-area input {
             max-width: 280px;
             border: none;
             background-color: rgba(255, 255, 255, 0.0);
             color: #D1D1D1;
         }
-        #input-area input:focus{
+
+        #input-area input:focus {
             outline: none;
             border: none;
         }
-        #input-area input::placeholder{
+
+        #input-area input::placeholder {
             color: lightgray;
         }
-        #input-area img{
+
+        #input-area img {
             background-color: white;
             object-fit: none;
             border-radius: 16px;
         }
-        #input-area img:hover{
+
+        #input-area img:hover {
             cursor: pointer;
         }
-        #board-interaction{
+
+        #board-interaction {
             display: flex;
             max-width: 50%;
             align-items: center;
         }
-        #add-task img{
+
+        #add-task img {
             border-radius: 16px;
             height: 42px;
             width: 42px;
             margin-left: 6px;
         }
-        #add-task{
+
+        #add-task {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -93,36 +108,44 @@
             color: white;
             border-radius: 16px;
         }
-        #add-task:hover{
+
+        #add-task:hover {
             cursor: pointer;
         }
-        #board-content{
+
+        #board-content {
             display: flex;
             max-width: 1208px;
             background-color: #F6F7F8;
         }
-        .divers-head-sections{
+
+        .divers-head-sections {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .divers-sections{
+
+        .divers-sections {
             display: flex;
             flex-direction: column;
             margin-right: 30px;
             width: 25%;
         }
-        .board-head-section-images{
+
+        .board-head-section-images {
             height: 20px;
             width: 20px;
         }
-        .board-head-section-images:hover{
+
+        .board-head-section-images:hover {
             cursor: pointer;
         }
-        .specific-content{
+
+        .specific-content {
             margin-top: 10px;
         }
-        .empty-task{
+
+        .empty-task {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -133,19 +156,24 @@
         }
     </style>
 </head>
-<body  onload="includeHTML(), openBoard()">
+
+<body onload="includeHTML(), openBoard()">
+
     <script src="./assets/js/board_script.js"></script>
 
-        <!-- template left menu -->
-        <div w3-include-html="assets/html-templates/side_menu.html"></div>
+    <!-- template left menu -->
+    <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
 
-        <!-- right container -->
-        <div class="main-cont">
+    <!-- right container -->
+    <div class="main-cont">
 
-            <!-- template header -->
-            <div w3-include-html="assets/html-templates/header.html"></div>
+        <!-- template header -->
+        <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
-            <div id="board"></div>
-    
+        <div id="board"></div>
+
+    </div>
+
 </body>
+
 </html>
