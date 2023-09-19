@@ -1,0 +1,230 @@
+.disp-flex-column-start {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.disp-flex-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.disp-flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.g-v-seperator {
+    height: 102px;
+    width: 1px;
+    background-color: #D1D1D1;
+    border: 0.5px solid #D1D1D1;
+    border-radius: 2px;
+}
+
+.summary-container {
+    padding: 0 64px;
+    width: 560px;
+}
+
+.summary-tasks {
+    margin: 16px 0;
+    gap: 32px;
+}
+
+.summary-number {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.summary-text {
+    font-size: 20px;
+    text-align: center;
+}
+
+.urgent-task-date {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.urgent-information {
+    display: flex;
+    flex-direction: column;
+    gap: 13px
+}
+
+.summary-todos {
+    margin: 16px 0;
+    width: 100%;
+    gap: 32px;
+}
+
+.summary-task-box {
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    width: 168px;
+    height: 168px;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.summary-task-box:hover {
+    background-color: #2A3647;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    cursor: pointer;
+
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.summary-task-box:active {
+    background-color: #FFFFFF;
+    color: #000000;
+
+    -webkit-transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    -o-transform: scale(1.0);
+    transform: scale(1.0);
+}
+
+.urgent-task-box {
+    margin: 16px;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 168px;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+    gap: 48px;
+
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.urgent-task-box:hover {
+    background-color: #2A3647;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    cursor: pointer;
+
+    -webkit-transform: scale(1.033);
+    -moz-transform: scale(1.033);
+    -ms-transform: scale(1.033);
+    -o-transform: scale(1.033);
+    transform: scale(1.033);
+}
+
+.urgent-task-box:active {
+    background-color: #FFFFFF;
+    color: #000000;
+
+    -webkit-transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    -o-transform: scale(1.0);
+    transform: scale(1.0);
+}
+
+.summary-todo-box {
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 168px;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+    gap: 13px;
+
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -ms-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.summary-todo-box:hover {
+    background-color: #2A3647;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    cursor: pointer;
+
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.summary-todo-box:active {
+    background-color: #FFFFFF;
+    color: #000000;
+
+    -webkit-transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    -o-transform: scale(1.0);
+    transform: scale(1.0);
+}
+
+.summary-todo:hover circle {
+    fill: #FFFFFF;
+}
+
+.summary-todo:hover path {
+    fill: #2A3647;
+}
+
+.summary-todo:active circle {
+    fill: #2A3647;
+}
+
+.summary-todo:active path {
+    fill: #FFFFFF;
+}
+
+.summary-done:hover circle {
+    fill: #FFFFFF;
+}
+
+.summary-done:hover path {
+    stroke: #2A3647;
+}
+
+.summary-done:active circle {
+    fill: #2A3647;
+}
+
+.summary-done:active path {
+    stroke: #FFFFFF;
+}
+
+.greeting {
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting-daytime {
+    font-size: 47px;
+    font-weight: 500;
+    color: #2A3647;
+}
+
+.greeting-name {
+    font-size: 64px;
+    font-weight: 700;
+    color: #29ABE2;
+}

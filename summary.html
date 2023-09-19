@@ -4,247 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Join - Summary</title>
+
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/summary.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/sidebar.css">
+
     <script src="./assets/js/w3-include.js"></script>
-
-    <style>
-        .disp-flex-column-start {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .disp-flex-column-center {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .disp-flex-row-center {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .g-v-seperator {
-            height: 102px;
-            width: 1px;
-            background-color: #D1D1D1;
-            border: 0.5px solid #D1D1D1;
-            border-radius: 2px;
-        }
-
-        .summary-container {
-            padding: 0 64px;
-            width: 560px;
-        }
-
-        .summary-tasks {
-            margin: 16px 0;
-            gap: 32px;
-        }
-
-        .summary-number {
-            font-size: 64px;
-            font-weight: 600;
-        }
-
-        .summary-text {
-            font-size: 20px;
-            text-align: center;
-        }
-
-        .urgent-task-date {
-            font-size: 21px;
-            font-weight: 700;
-        }
-
-        .urgent-information {
-            display: flex;
-            flex-direction: column;
-            gap: 13px
-        }
-
-        .summary-todos {
-            margin: 16px 0;
-            width: 100%;
-            gap: 32px;
-        }
-
-        .summary-task-box {
-            /*margin: 16px; --verschoben in summary tasks*/
-            border-radius: 30px;
-            background-color: #FFFFFF;
-            width: 168px;
-            height: 168px;
-            box-shadow: 0px 0px 4px 0px #0000001A;
-
-            -webkit-transition: all 0.1s linear;
-            -moz-transition: all 0.1s linear;
-            -ms-transition: all 0.1s linear;
-            -o-transition: all 0.1s linear;
-            transition: all 0.1s linear;
-        }
-
-        .summary-task-box:hover {
-            background-color: #2A3647;
-            color: #FFFFFF;
-            box-shadow: 0px 4px 4px 0px #00000040;
-            cursor: pointer;
-
-            -webkit-transform: scale(1.1);
-            -moz-transform: scale(1.1);
-            -ms-transform: scale(1.1);
-            -o-transform: scale(1.1);
-            transform: scale(1.1);
-        }
-
-        .summary-task-box:active {
-            background-color: #FFFFFF;
-            color: #000000;
-
-            -webkit-transform: scale(1.0);
-            -moz-transform: scale(1.0);
-            -ms-transform: scale(1.0);
-            -o-transform: scale(1.0);
-            transform: scale(1.0);
-        }
-
-        .urgent-task-box {
-            margin: 16px;
-            border-radius: 30px;
-            background-color: #FFFFFF;
-            width: 100%;
-            height: 168px;
-            box-shadow: 0px 0px 4px 0px #0000001A;
-            gap: 48px;
-
-            -webkit-transition: all 0.1s linear;
-            -moz-transition: all 0.1s linear;
-            -ms-transition: all 0.1s linear;
-            -o-transition: all 0.1s linear;
-            transition: all 0.1s linear;
-        }
-
-        .urgent-task-box:hover {
-            background-color: #2A3647;
-            color: #FFFFFF;
-            box-shadow: 0px 4px 4px 0px #00000040;
-            cursor: pointer;
-
-            -webkit-transform: scale(1.033);
-            -moz-transform: scale(1.033);
-            -ms-transform: scale(1.033);
-            -o-transform: scale(1.033);
-            transform: scale(1.033);
-        }
-
-        .urgent-task-box:active {
-            background-color: #FFFFFF;
-            color: #000000;
-
-            -webkit-transform: scale(1.0);
-            -moz-transform: scale(1.0);
-            -ms-transform: scale(1.0);
-            -o-transform: scale(1.0);
-            transform: scale(1.0);
-        }
-
-        .summary-todo-box {
-            /*margin: 16px;*/
-            border-radius: 30px;
-            background-color: #FFFFFF;
-            width: 100%;
-            height: 168px;
-            box-shadow: 0px 0px 4px 0px #0000001A;
-            gap: 13px;
-
-            -webkit-transition: all 0.1s linear;
-            -moz-transition: all 0.1s linear;
-            -ms-transition: all 0.1s linear;
-            -o-transition: all 0.1s linear;
-            transition: all 0.1s linear;
-        }
-
-        .summary-todo-box:hover {
-            background-color: #2A3647;
-            color: #FFFFFF;
-            box-shadow: 0px 4px 4px 0px #00000040;
-            cursor: pointer;
-
-            -webkit-transform: scale(1.05);
-            -moz-transform: scale(1.05);
-            -ms-transform: scale(1.05);
-            -o-transform: scale(1.05);
-            transform: scale(1.05);
-        }
-
-        .summary-todo-box:active {
-            background-color: #FFFFFF;
-            color: #000000;
-
-            -webkit-transform: scale(1.0);
-            -moz-transform: scale(1.0);
-            -ms-transform: scale(1.0);
-            -o-transform: scale(1.0);
-            transform: scale(1.0);
-        }
-
-        .summary-todo:hover circle {
-            fill: #FFFFFF;
-        }
-
-        .summary-todo:hover path {
-            fill: #2A3647;
-        }
-
-        .summary-todo:active circle {
-            fill: #2A3647;
-        }
-
-        .summary-todo:active path {
-            fill: #FFFFFF;
-        }
-
-        .summary-done:hover circle {
-            fill: #FFFFFF;
-        }
-
-        .summary-done:hover path {
-            stroke: #2A3647;
-        }
-
-        .summary-done:active circle {
-            fill: #2A3647;
-        }
-
-        .summary-done:active path {
-            stroke: #FFFFFF;
-        }
-
-        .greeting {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .greeting-daytime {
-            font-size: 47px;
-            font-weight: 500;
-            color: #2A3647;
-        }
-
-        .greeting-name {
-            font-size: 64px;
-            font-weight: 700;
-            color: #29ABE2;
-        }
-    </style>
-
+    <script src="./assets/js/summary.js"></script>
 </head>
 
 <body onload="includeHTML()">
@@ -312,7 +81,23 @@
 
                     <!-- summary urgent tasks -->
                     <div class="urgent-task-box disp-flex-row-center">
-                        <img src="./assets/img/summary-urgent.png">
+                        <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="30.1445" cy="30.8083" r="30" fill="#FF3D00" />
+                            <g clip-path="url(#clip0_62_691)">
+                                <path
+                                    d="M45.0159 41.9714C44.6149 41.9721 44.2242 41.8425 43.9014 41.6018L29.7961 31.0719L15.6909 41.6018C15.4928 41.7499 15.2679 41.8571 15.029 41.9172C14.79 41.9774 14.5417 41.9893 14.2981 41.9524C14.0546 41.9154 13.8207 41.8302 13.6097 41.7018C13.3987 41.5733 13.2147 41.4041 13.0684 41.2037C12.922 41.0033 12.8161 40.7757 12.7566 40.5339C12.6972 40.2921 12.6854 40.0408 12.7219 39.7944C12.7957 39.2967 13.0618 38.849 13.4617 38.5499L28.6816 27.1765C29.0041 26.9349 29.3948 26.8044 29.7961 26.8044C30.1974 26.8044 30.5881 26.9349 30.9107 27.1765L46.1305 38.5499C46.4483 38.7869 46.684 39.1194 46.8039 39.5001C46.9238 39.8807 46.9218 40.2899 46.7982 40.6693C46.6746 41.0487 46.4357 41.3789 46.1157 41.6127C45.7956 41.8466 45.4107 41.9721 45.0159 41.9714Z"
+                                    fill="white" />
+                                <path
+                                    d="M45.0159 32.0195C44.6149 32.0202 44.2242 31.8906 43.9014 31.6499L29.7961 21.12L15.6909 31.6499C15.2909 31.949 14.79 32.0751 14.2981 32.0004C13.8063 31.9258 13.364 31.6565 13.0684 31.2518C12.7728 30.8471 12.6482 30.3401 12.7219 29.8425C12.7957 29.3448 13.0618 28.8971 13.4617 28.598L28.6816 17.2246C29.0041 16.983 29.3948 16.8525 29.7961 16.8525C30.1974 16.8525 30.5881 16.983 30.9107 17.2246L46.1305 28.598C46.4483 28.835 46.684 29.1675 46.8039 29.5482C46.9238 29.9288 46.9218 30.338 46.7982 30.7174C46.6746 31.0968 46.4357 31.427 46.1157 31.6608C45.7956 31.8947 45.4107 32.0202 45.0159 32.0195Z"
+                                    fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_62_691">
+                                    <rect width="34.186" height="25.1163" fill="white"
+                                        transform="translate(12.7031 16.855)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
                         <div class="disp-flex-column-center">
                             <div class="summary-number">1</div>
                             <span>Urgent</span>
