@@ -46,10 +46,10 @@
     align-items: center;
     height: 53px;
     width: 53px;
-    border-radius:50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-    background-color:#FFFFFF;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-color: #FFFFFF;
     border: 3px solid #2A3647;
     cursor: pointer;
 }
@@ -58,8 +58,43 @@
     background: rgba(12, 46, 98, 0.12);
 }
 
-#user-initials{
+#user-initials {
     font-size: 20px;
-    color:rgb(41, 171, 226);
+    color: rgb(41, 171, 226);
     font-weight: 700;
+}
+
+#user-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 100px;
+    right: 16px;
+    border-radius: 20px 0px 20px 20px;
+    background: #2A3647;
+    padding: 8px;    
+    z-index: 999;
+}
+
+#user-menu a {
+    padding: 16px 16px 16px 16px;
+    color: #CDCDCD;
+}
+
+#user-menu a:hover {
+    background-color: #2A3D59;
+}
+
+#user-menu-bg {
+    position: fixed;
+    z-index: 998;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.display-none {
+    display: none;
 }
