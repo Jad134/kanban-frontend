@@ -71,8 +71,8 @@ a {
 
 .preload-side-menu {
     background-color: rgb(42, 54, 71);
-    width: 232px;
-    height: 100vh;
+    min-width: 232px;
+    min-height: 100vh;
 }
 
 .preload-header {
