@@ -10,50 +10,21 @@
   </head>
 
   <body onload="init()">
-    <img id="logo" src="assets/img/join-logo-at-start.svg" alt="Logo" />
+    <a href="index.html">
+      <img id="logo" src="assets/img/join-logo-at-start.svg" alt="Logo">
+  </a>
+<!--     <img id="logo" src="assets/img/join-logo-at-start.svg" alt="Logo" href="index.html" /> -->
 
     <div class="main-container">
       <div class="top-area">
         <div class="sign-up-area">
           <span>Not a Join user?</span>
-          <button class="h-button border-radius-8">Sign up</button>
+          <button onclick="renderSignUp()" class="h-button border-radius-8">Sign up</button>
         </div>
       </div>
 
-      <div class="middle-area">
-        <div class="login border-radius-30">
-          <h1>Log in</h1>
-          <div class="underline border-radius-8"></div>
-          <form onsubmit="" method="post">
-            <input
-              class="login-input bg-email-icon icon"
-              type="text"
-              placeholder="Email"
-              required
-            />
-            <input
-              class="login-input bg-password-icon icon"
-              type="password"
-              placeholder="Password"
-              required
-            />
+      <div class="middle-area" id="middle-area"></div>
 
-            <div class="checkbox-container">
-              <label class="checkbox-label">
-                <input name="checkbox" type="checkbox" />Remember me
-              </label>
-              <a class="startpage-links" href="#">I forgot my password</a>
-            </div>
-
-            <div class="login-buttons">
-              <button class="h-button border-radius-8">Log in</button>
-              <button class="h-button-white border-radius-8">
-                Guest Log in
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
       <div class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Legal Notice</a>
@@ -61,3 +32,7 @@
     </div>
   </body>
 </html>
+
+ 
+
+      
