@@ -261,6 +261,14 @@
             justify-content: center;
         }
 
+        
+
+        #urgent-img.active,
+        #medium-img.active,
+        #low-img.active{
+            filter: grayscale(100%) brightness(200%);  
+        }
+
     
 
     </style>
@@ -308,14 +316,14 @@
                             <div class="prio">
                                 <span>Prio</span>
                                 <div class="prio-buttons">
-                                    <button onclick=" ChangeButtonColor('urgent-btn')" type="button" id="urgent-btn">Urgent
-                                        <img src="./assets/img/urgentimg.svg" alt="">
+                                    <button onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')" type="button" id="urgent-btn">Urgent
+                                        <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">                  
                                     </button>
-                                    <button  onclick=" ChangeButtonColor('medium-btn')" type="button" id="medium-btn">Medium
-                                        <img src="./assets/img/mediumimg.svg" alt="">
+                                    <button  onclick=" ChangeButtonColor('medium-btn', 'medium-img')" type="button" id="medium-btn">Medium
+                                        <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
                                     </button>
-                                    <button  onclick=" ChangeButtonColor('low-btn')" type="button" id="low-btn">Low
-                                        <img src="./assets/img/Prio baja.svg" alt="">
+                                    <button  onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button" id="low-btn">Low
+                                        <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
                                     </button>
                                 </div>
                             </div>
@@ -331,7 +339,7 @@
                                 <span>Subtasks</span>
                                 <div class="subtask-input-btn">
                                     <input required id="subtask-input" placeholder="Add new subtask" type="text">
-                                    <button class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+                                    <button type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
                                 </div>
                             </div>
                             <div class="create-buttons">
