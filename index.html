@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets\js\script.js"></script>
+    <script src="assets\js\register.js"></script>
+    <script src="assets\js\storage.js"></script>
     <link rel="stylesheet" href="assets\css\style.css" />
     <link rel="stylesheet" href="assets\css\index.css" />
     <title>Join</title>
   </head>
 
-  <body onload="init()">
+  <body onload="init(); loadAllMembersData()">
     <a href="index.html">
       <img id="logo" src="assets/img/join-logo-at-start.svg" alt="Logo">
   </a>
@@ -24,7 +26,11 @@
       </div>
 
       <div class="middle-area" id="middle-area"></div>
+      
+      <div id="msgBox"></div>
+     <!--  Muss noch korrigiert und angepasst werden!!! -->
 
+     
       <div class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Legal Notice</a>

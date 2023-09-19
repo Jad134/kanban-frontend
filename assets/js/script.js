@@ -1,3 +1,5 @@
+
+
 function init(){
     renderContent();
     const main = document.querySelector('.main-container');
@@ -54,11 +56,11 @@ function renderSignUp() {
                 </a>
               <h1>Sign up</h1>
               <div class="underline border-radius-8"></div>
-              <form onsubmit="" method="post">
+              <form onsubmit="signUp(); return false">
                 
-                <input class="login-input bg-password-icon icon" type="text" placeholder="Name" required/>
-                <input  class="login-input bg-email-icon icon" type="text" placeholder="Email" required/>
-                <input class="login-input bg-password-icon icon" type="password" placeholder="Password" required/>
+                <input id="name" min-length="2" class="login-input bg-password-icon icon" type="text" placeholder="Name" required/>
+                <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" required/>
+                <input id="password" min-length="5" class="login-input bg-password-icon icon" type="password" placeholder="Password" required/>
                 <input class="login-input bg-password-icon icon" type="password" placeholder="Confirm Password" required/>
     
                 <div class="checkbox-container-accept">
@@ -68,14 +70,81 @@ function renderSignUp() {
                 </div>
 
                 <div class="login-buttons">
-                  <button  class="h-button border-radius-8">Sign up</button>
+                  <button id="signUpButton" class="h-button border-radius-8">Sign up</button>
                 </div>
               </form>
+
             </div>
           </div>
     `;
 }
 
-function login() {
-    const login = document.getElementById('login');
+
+let allMembersData = [];
+
+function signUp() {
+
+ let registerName = document.getElementById('name').value;
+ let registerEmail = document.getElementById('email').value;
+ let registerPassword = document.getElementById('password').value;
+
+ let signUpData = {
+  'name': registerName,
+  'email': registerEmail,
+  'password': registerPassword,
+ }
+ allMembersData.push(signUpData);
+ window.location.href ='index.html?msg=Du hast Dich erfolgreich registriert';
+ document.getElementById('msgBox').textContent = 'Du hast Dich erfolgreich registriert';
+
+ let allMembersDataAsString = JSON.stringify(allMembers);
+ localStorage.setItem('all-members-data', allMembersDataAsString);
 }
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const msg = urlParams.get('msg');
+if(msg) {
+  msgBox.innerHTML = msg;
+}
+
+
+function loadAllMembersData() {
+let allMembersDataAsString = localStorage.getItem('all-members-data');
+allMembersData = JSON.parse(allMembersDataAsString);
+}
+
+
+/* 
+let users = [];
+
+
+async function init(){
+    loadUsers();
+}
+
+async function loadUsers(){
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch(e){
+        console.error('Loading error:', e);
+    }
+}
+
+
+async function register() {
+    signUpButton.disabled = true;
+    users.push({
+        email: register-email.value,
+        password: password.value,
+    });
+    await setItem('users', JSON.stringify(users));
+    resetForm();
+}
+
+function resetForm() {
+    email.value = '';
+    password.value = '';
+    signUpButton.disabled = false;
+}
+ */
