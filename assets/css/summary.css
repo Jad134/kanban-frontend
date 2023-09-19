@@ -54,7 +54,7 @@
 .urgent-information {
     display: flex;
     flex-direction: column;
-    gap: 13px
+    gap: 13px;
 }
 
 .summary-todos {
@@ -88,6 +88,10 @@
     -ms-transform: scale(1.1);
     -o-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.summary-task-box:hover .dark-blue {
+    color: #FFFFFF;
 }
 
 .summary-task-box:active {
@@ -130,6 +134,10 @@
     transform: scale(1.033);
 }
 
+.urgent-task-box:hover .dark-blue {
+    color: #FFFFFF;
+}
+
 .urgent-task-box:active {
     background-color: #FFFFFF;
     color: #000000;
@@ -167,6 +175,10 @@
     -ms-transform: scale(1.05);
     -o-transform: scale(1.05);
     transform: scale(1.05);
+}
+
+.summary-todo-box:hover .dark-blue {
+    color: #FFFFFF;
 }
 
 .summary-todo-box:active {
