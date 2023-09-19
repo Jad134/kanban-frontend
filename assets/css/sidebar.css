@@ -3,11 +3,8 @@
     width: 232px;
     height: 100vh;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: space-between;
-    top:  0;
-    
+    justify-content: space-between;  
 }
 
 .side-logo {
@@ -19,6 +16,8 @@
 .sidebar-logo-container {
     margin-top: 80px;
     margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
 }
 
 .menu-buttons {
@@ -41,16 +40,17 @@
 
 .judicial-info {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    gap: 8px;
-    color: rgb(168, 168, 168);
-    margin-bottom: 80px;
+    gap: 12px;
+    margin: 0 0 80px 48px;
 }
 
-.judicial-info span:hover{
+.judicial-info a {
+    color: rgb(168, 168, 168);
+}
+
+.judicial-info a:hover {
     cursor: pointer;
     color: rgb(41, 171, 226);
-    font-weight: bold;
-    transform: scale(1.01);
+    font-weight: 700;
 }

@@ -60,6 +60,10 @@ body {
     font-weight: 400;
 }
 
+a {
+    text-decoration: none;
+}
+
 .light-blue {
     color: rgb(41, 171, 226)
 }
