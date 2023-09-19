@@ -11,15 +11,6 @@
     <script src="./assets/js/w3-include.js"></script>
 
     <style>
-        h1 {
-            font-size: 61px;
-            font-weight: 700;
-        }
-
-        .slogan {
-            font-size: 27px;
-        }
-
         .disp-flex-column-center {
             display: flex;
             flex-direction: column;
@@ -32,27 +23,6 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-        }
-
-        .main-cont {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .title {
-            padding: 64px 0 32px 64px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .title-seperator {
-            height: 59px;
-            width: 1px;
-            background-color: #29ABE2;
-            border: 1px solid #29ABE2;
-            border-radius: 3px;
         }
 
         .g-v-seperator {
@@ -244,13 +214,13 @@
     <div style="display: flex;">
 
         <!-- template left menu -->
-        <div w3-include-html="./assets/html-templates/side_menu.html"></div>
+        <div class="preload-side-menu" w3-include-html="./assets/html-templates/side_menu.html"></div>
 
         <!-- right container -->
         <div class="main-cont">
 
             <!-- template header -->
-            <div w3-include-html="header.html"></div>
+            <div class="preload-header" w3-include-html="header.html"></div>
 
             <!-- headline -->
             <div class="title">
