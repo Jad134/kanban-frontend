@@ -59,11 +59,11 @@ function addContact() {
                     <div id="cancel-and-create-contact-btns">
                         <div id="cancel-contact-btn">
                             <p>Cancel</p>
-                            <img class="cancel-img" src="./assets/img/Cancel-task.svg" alt="">
+                            <img class="cancel-create-img" src="./assets/img/Cancel-task.svg" alt="">
                         </div>
                         <div id="create-contact-btn">
                             <p>Create Task</p>
-                            <img src="./assets/img/check.svg" alt="">
+                            <img class="cancel-create-img" src="./assets/img/check.svg" alt="">
                         </div>
                     </div>
                 </div>

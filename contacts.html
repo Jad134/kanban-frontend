@@ -26,6 +26,7 @@
             background-color: #F6F7F8;
             height: calc(100vh - 70px);
             margin-top: 4px;
+            font-family: sans-serif;
         }
 
         #contact-overview {
@@ -92,14 +93,18 @@
             justify-content: space-between;
             background-color: white;
             border: 1px solid #D1D1D1;
-            margin-bottom: 6px;
+            margin-bottom: 16px;
+            margin-top: 16px;
+            margin-right: 24px;
             height: 48px;
             padding: 0px 8px 0px 16px;
             border-radius: 16px;
-            margin-right: 24px;
             width: 300px;
         }
-
+        #input-fields{
+            display: flex;
+            flex-direction: column;
+        }
         .contact-input-area input {
             max-width: 280px;
             border: none;
@@ -135,38 +140,58 @@
         }
         #create-contact{
             display: flex;
-            max-width: 800px;
-            height: 400px;
+            max-width: 1200px;
+            height: 500px;
         }
         #design-sector{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            max-width: 250px;
+            padding-left: 32px;
+            width: 350px;
             background-color: rgb(42, 54, 71);
+            border-top-left-radius: 24px;
+            border-bottom-left-radius: 24px;
         }
         #design-sector img{
             background-color: rgb(42, 54, 71);
+            height: 100px;
+            width: 80px;
         }
         #design-sector h2{
             color: white;
+            font-size: 42px;
+            margin: 12px 0 0 0;
         }
         #design-sector p{
             color: white;
+            font-size: 20px;
+        }
+        #horizon-seperator{
+            height: 1px;
+            width: 59px;
+            background-color: #29ABE2;
+            border: 1px solid #29ABE2;
+            border-radius: 3px;
         }
         #fill-in-sector{
             display: flex;
             flex-direction: column;
             background-color: white;
+            border-top-right-radius: 24px;
+            border-bottom-right-radius: 24px;
         }
         #move-img{
             display: flex;
             justify-content: flex-end;
+            margin-right: 24px;
+            margin-top: 24px;
         }
         #img-and-inputs{
             display: flex;
             align-items: center;
+            flex: 1;
         }
         #put-the-img{
             display: flex;
@@ -185,6 +210,7 @@
         }
         #cancel-and-create-contact-btns{
             display: flex;
+            margin-top: 20px;
         }
         #cancel-contact-btn{
             display: flex;
@@ -193,10 +219,31 @@
             color: #000000;
             border-radius: 16px;
             margin-right: 20px;
+            border: 2px solid rgb(42, 54, 71);
         }
-        .cancel-img{
-            height: 32px;
-            width: 32px;
+        #cancel-contact-btn:hover{
+            cursor: pointer;
+            box-shadow: 0px 4px 4px 0px #00000040;
+            border: 2px solid #29ABE2;
+            color: #29ABE2;
+            
+        }
+        #cancel-contact-btn:hover > #myPath{
+            fill: #ff0000;
+        }
+        #my-path{
+            background-color: #000000;
+        }
+        #cancel-contact-btn p{
+            margin-left: 12px;
+        }
+        .cancel-create-img{
+            height: 26px;
+            width: 26px;
+            margin-right: 12px;
+        }
+        .cancel-img:hover{
+            cursor: pointer;
         }
         #create-contact-btn{
             display: flex;
@@ -204,6 +251,18 @@
             color: white;
             background-color: rgb(42, 54, 71);
             border-radius: 16px;
+            border: 1px solid rgb(42, 54, 71);
+            font-weight: 700;
+        }
+        #create-contact-btn:hover{
+            cursor: pointer;
+            box-shadow: 0px 4px 4px 0px #00000040;
+            background: #29ABE2;
+            border-color: #29ABE2;
+
+        }
+        #create-contact-btn p{
+            margin-left: 12px;
         }
     </style>
 </head>
