@@ -20,6 +20,12 @@ function ChangeButtonColor(buttonId, imgId) {
     img.classList.add('active')
 }
 
+
+function submitForm(event) {  // Nur für den Test. Später rausnehmen, und auch das onclick entfernen. Verhindert das neu laden der Seite.
+    event.preventDefault();
+    console.log(addedTasks)
+}
+
 function getValues() {
     let title = document.getElementById('title-input');
     let description = document.getElementById('description-textarea');
@@ -41,5 +47,5 @@ function getValues() {
         "subtask": subtask.value,
     };
     addedTasks.push(tasks);
-    console.log(addedTasks)
+    
 }
