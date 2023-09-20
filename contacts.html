@@ -18,6 +18,7 @@
             display: flex;
             flex-direction: column;
             flex: 1;
+            position: relative;
         }
 
         #contacts {
@@ -127,6 +128,83 @@
         .contact-input-area img:hover {
             cursor: pointer;
         }
+        #add-contact-card{
+            position: absolute;
+            top: 400px;
+            right: 300px;
+        }
+        #create-contact{
+            display: flex;
+            max-width: 800px;
+            height: 400px;
+        }
+        #design-sector{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 250px;
+            background-color: rgb(42, 54, 71);
+        }
+        #design-sector img{
+            background-color: rgb(42, 54, 71);
+        }
+        #design-sector h2{
+            color: white;
+        }
+        #design-sector p{
+            color: white;
+        }
+        #fill-in-sector{
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+        #move-img{
+            display: flex;
+            justify-content: flex-end;
+        }
+        #img-and-inputs{
+            display: flex;
+            align-items: center;
+        }
+        #put-the-img{
+            display: flex;
+            justify-content: center;
+            width: 200px;
+        }
+        #img-big-person{
+            display: flex;
+            height: 54px;
+            width: 54px;
+            padding: 20px;
+            background-color: lightgrey;
+            border-radius: 47px;
+            border: 2px solid white;
+            box-shadow: 0 0 12px -5px rgba(0, 0, 0, 0.3);
+        }
+        #cancel-and-create-contact-btns{
+            display: flex;
+        }
+        #cancel-contact-btn{
+            display: flex;
+            align-items: center;
+            background-color: white;
+            color: #000000;
+            border-radius: 16px;
+            margin-right: 20px;
+        }
+        .cancel-img{
+            height: 32px;
+            width: 32px;
+        }
+        #create-contact-btn{
+            display: flex;
+            align-items: center;
+            color: white;
+            background-color: rgb(42, 54, 71);
+            border-radius: 16px;
+        }
     </style>
 </head>
 
@@ -144,6 +222,7 @@
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div id="contacts"></div>
+        <div id="add-contact-card"></div>
     </div>
 
 </body>
