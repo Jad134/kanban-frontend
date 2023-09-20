@@ -285,7 +285,7 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form>
+                <form onsubmit="submitForm(event)">
                     <div style="display: flex;">
                         <div class="left-side">
 
@@ -302,8 +302,8 @@
                             <div class="assigned">
                                 <span>Assigned to</span>
                                 <select name="Select contacts to assign" id="assignedTo">
-                                    <option value="">Hello World</option>
-                                    <option value="">Test</option>
+                                    <option value="1">Hello World</option>
+                                    <option value="2">Test</option>
                                 </select>
                             </div>
                         </div>
@@ -316,13 +316,13 @@
                             <div class="prio">
                                 <span>Prio</span>
                                 <div class="prio-buttons">
-                                    <button onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')" type="button" id="urgent-btn">Urgent
+                                    <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')" type="button" id="urgent-btn">Urgent
                                         <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">                  
                                     </button>
-                                    <button  onclick=" ChangeButtonColor('medium-btn', 'medium-img')" type="button" id="medium-btn">Medium
+                                    <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')" type="button" id="medium-btn">Medium
                                         <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
                                     </button>
-                                    <button  onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button" id="low-btn">Low
+                                    <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button" id="low-btn">Low
                                         <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
                                     </button>
                                 </div>
@@ -331,8 +331,8 @@
                                 <span>Category</span>
                                 <select name="Select contacts to assign" id="select-category">
                                     <option value="" disabled selected hidden>Select task category</option>
-                                    <option value="">Technical Task</option>
-                                    <option value="">User Story</option>
+                                    <option value="1">Technical Task</option>
+                                    <option value="2">User Story</option>
                                 </select>
                             </div>
                             <div class="subtask-container">
@@ -346,7 +346,7 @@
                                 <button type="button" id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg"
                                         alt="">
                                 </button>
-                                <button type="submit" id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
+                                <button onclick="getValues()" type="submit" id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
                             </div>
                         </div>
                     </div>
