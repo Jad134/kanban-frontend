@@ -1,0 +1,270 @@
+body {
+    display: flex;
+}
+
+.title-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.left-side {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-right: 1px solid lightgray;
+    padding-right: 24px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.assigned {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#title-input {
+
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+}
+
+input {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+}
+
+#description-textarea {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+    height: 80px;
+    resize: none;
+}
+
+#assignedTo {
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+select {
+    width: 292px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.seperator {
+    width: 1px;
+    height: 335px;
+    background-color: rgba(209, 209, 209, 1);
+    margin-left: 16px;
+    margin-top: 90px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.right-side {
+    padding-left: 24px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+#date-input {
+
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 12px 21px 12px 21px;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prio-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.prio-buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    width: 135px;
+    height: 50px;
+    background: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#urgent-btn.active {
+    background-color: rgb(255, 61, 0);
+
+}
+
+#medium-btn.active {
+    background-color: orange;
+}
+
+#low-btn.active {
+    background-color: green;
+}
+
+
+.prio-buttons button:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0px 3px 6px rgb(190, 190, 190);
+    transition: ease-in-out 125ms;
+}
+
+.category-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subtask-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100px;
+}
+
+.subtask-list {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.subtask-input-btn {
+    display: flex;
+}
+
+#subtask-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.subtask-button {
+    background-color: white;
+    border: 1px solid lightgray;
+    height: 42px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 10px;
+}
+
+h1 {
+    font-size: 61px;
+}
+
+.create-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    margin-top: 80px;
+}
+
+#clear-btn {
+    background-color: white;
+    height: 42px;
+    width: 88px;
+    border: 1px solid rgb(42, 54, 71);
+    border-radius: 10px;
+    font-family: 'Inter';
+    font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#create-btn {
+    height: 42px;
+    width: 180px;
+    border: 1px solid rgb(42, 54, 71);
+    border-radius: 10px;
+    background-color: rgb(42, 54, 71);
+    color: white;
+    font-family: 'Inter';
+    font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#create-btn:hover {
+    cursor: pointer;
+    background-color: rgb(41, 171, 226);
+}
+
+#clear-btn:hover {
+    cursor: pointer;
+    color: rgb(41, 171, 226);
+    border-color: rgb(41, 171, 226);  
+}
+
+#clear-btn:hover path{
+    stroke: #29ABE2;
+}
+svg:hover {
+    fill: rgb(41, 171, 226);
+}
+
+.svg-icon {
+    fill: black;
+    /* Standardfarbe des SVG */
+}
+
+#clear-btn:hover .svg-icon {
+    fill: rgb(41, 171, 226);
+    /* Ändern Sie die Füllfarbe des SVG beim Hovern */
+}
+
+.align-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-left: 200px; */
+    height: 100%;
+    padding-right: 71px;
+    justify-content: center;
+}
+
+#urgent-img.active,
+#medium-img.active,
+#low-img.active {
+    filter: grayscale(100%) brightness(200%);
+}

@@ -49,7 +49,6 @@ function getValues() {
     };
     addedTasks.push(tasks);
     newSubTasks = [];
-
 }
 
 function addSubTask() {
