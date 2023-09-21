@@ -34,7 +34,12 @@ function addContact() {
 
         <div id="fill-in-sector">
             <div id="move-img">
-                <img class="cancel-img" src="./assets/img/Cancel-task.svg" alt="">
+                <div class="cancel-svg">
+                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path id="change-cancel-svg-color-head" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
+                        11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
             </div>
             <div id="img-and-inputs">
                 <div id="put-the-img">
@@ -59,7 +64,12 @@ function addContact() {
                     <div id="cancel-and-create-contact-btns">
                         <div id="cancel-contact-btn">
                             <p>Cancel</p>
-                            <img class="cancel-create-img" src="./assets/img/Cancel-task.svg" alt="">
+                            <div class="cancel-create-img">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path id="change-cancel-svg-color-btn" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
+                                        11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </div>
                         <div id="create-contact-btn">
                             <p>Create Task</p>
