@@ -134,14 +134,23 @@
             cursor: pointer;
         }
         #add-contact-card{
-            position: absolute;
-            top: 400px;
-            right: 300px;
+            display: flex;
+            align-items: center;
+            right: -1000px;
+            transition: right 0.5s;
         }
         #create-contact{
             display: flex;
             max-width: 1200px;
             height: 500px;
+        }
+        .blur-my-back{
+            display: flex;
+            position: absolute;
+            top: -1485px;
+            left: -232px;
+            height: 100vh;
+            width: 100%;
         }
         #design-sector{
             display: flex;
@@ -285,7 +294,9 @@
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div id="contacts"></div>
-        <div id="add-contact-card"></div>
+        <div id="container-for-blur-effect">
+            <div id="add-contact-card"></div>
+        </div>
     </div>
 
 </body>

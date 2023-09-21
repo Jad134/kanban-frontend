@@ -18,10 +18,16 @@ function openContacts() {
             <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
         </div>    
     `;
-    addContact();
 }
+function slideInCard(){
+    let animation = document.getElementById('add-contact-card');
+    let helpContainer = document.getElementById('container-for-blur-effect');
+    helpContainer.classList.add('.blur-my-back');
+    animation.style.right = "150px";
 
+}
 function addContact() {
+    document.addEventListener('click', slideInCard);
     document.getElementById('add-contact-card').innerHTML = /*html */ `
     <div id="create-contact">
 
@@ -85,4 +91,5 @@ function addContact() {
     </div>
 
     `;
+    slideInCard();
 }
