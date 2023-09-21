@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="/assets/js/storage.js"></script>
     <script src="./assets/js/addTask.js"></script>
     <link rel="stylesheet" href="assets\css\header.css">
     <link rel="stylesheet" href="assets\css\sidebar.css">
@@ -24,7 +25,7 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form onsubmit="submitForm(event)">
+                <form onsubmit="getValues(); return false;">
                     <div style="display: flex;">
                         <div class="left-side">
 
@@ -95,7 +96,7 @@
                             </svg>
                             
                         </button>
-                        <button onclick="getValues()" type="submit" id="create-btn">Create Task <img
+                        <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
                                 src="./assets/img/check.svg" alt=""></button>
                     </div>
                 </form>

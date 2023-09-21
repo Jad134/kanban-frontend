@@ -22,10 +22,10 @@ function ChangeButtonColor(buttonId, imgId) {
 }
 
 
-function submitForm(event) {  // Nur für den Test. Später rausnehmen, und auch das onclick entfernen. Verhindert das neu laden der Seite.
+/*  function submitForm(event) {  // Nur für den Test. Später rausnehmen, und auch das onclick entfernen. Verhindert das neu laden der Seite.
     event.preventDefault();
     console.log(addedTasks)
-}
+}*/
 
 function getValues() {
     let title = document.getElementById('title-input');
@@ -48,7 +48,13 @@ function getValues() {
         "subtask": newSubTasks,
     };
     addedTasks.push(tasks);
+    addTasktoStorage()
+    clearTasks();
     newSubTasks = [];
+}
+
+async function addTasktoStorage() {
+    await setItem('tasks', JSON.stringify(addedTasks))
 }
 
 function addSubTask() {
@@ -69,7 +75,7 @@ function addSubTask() {
 
 function clearTasks() {
     let title = document.getElementById('title-input');
-    let description = document.getElementById('description-textarea'); 
+    let description = document.getElementById('description-textarea');
     let date = document.getElementById('date-input');
     let sublist = document.querySelectorAll('.sublist-container');
     let newTasks = document.getElementById('subtask-input');
