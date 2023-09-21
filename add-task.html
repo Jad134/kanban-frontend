@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="/assets/js/storage.js"></script>
     <script src="./assets/js/addTask.js"></script>
     <link rel="stylesheet" href="assets\css\header.css">
     <link rel="stylesheet" href="assets\css\sidebar.css">
@@ -10,268 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            display: flex;
-        }
-
-        .title-content {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .left-side {
-            width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            border-right: 1px solid lightgray;
-            padding-right: 24px;
-        }
-
-        .description {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .assigned {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #title-input {
-
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 12px 21px 12px 21px;
-        }
-
-        input {
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 12px 21px 12px 21px;
-        }
-
-        #description-textarea {
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 12px 21px 12px 21px;
-            height: 80px;
-            resize: none;
-        }
-
-        #assignedTo {
-            width: 100%;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 8px;
-        }
-
-        select {
-            width: 292px;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        .seperator {
-            width: 1px;
-            height: 335px;
-            background-color: rgba(209, 209, 209, 1);
-            margin-left: 16px;
-            margin-top: 90px;
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .right-side {
-            padding-left: 24px;
-            gap: 16px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #date-input {
-
-            border: 1px solid lightgray;
-            border-radius: 10px;
-            padding: 12px 21px 12px 21px;
-        }
-
-        .date-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .prio {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .prio-buttons {
-            display: flex;
-            gap: 16px;
-        }
-
-        .prio-buttons button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            border: none;
-            width: 135px;
-            height: 50px;
-            background: white;
-            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        #urgent-btn.active{
-            background-color: rgb(255, 61,0);
-            
-        }
-        #medium-btn.active{
-            background-color: orange;
-        }
-        #low-btn.active{
-            background-color: green;
-        }
-        
-
-        .prio-buttons button:hover {
-            cursor: pointer;
-            transform: scale(1.02);
-            box-shadow: 0px 3px 6px rgb(190, 190, 190);
-            transition: ease-in-out 125ms;
-        }
-
-        .category-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .subtask-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .subtask-input-btn {
-            display: flex;
-        }
-
-        #subtask-input {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-right: none;
-        }
-
-        .subtask-button {
-            background-color: white;
-            border: 1px solid lightgray;
-            height: 42px;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-inline: 10px;
-        }
-
-        span {
-            margin-bottom: 8px
-        }
-
-        h1 {
-            font-size: 61px;
-        }
-
-        .create-buttons {
-            display: flex;
-            justify-content: end;
-            gap: 8px;
-            margin-top: 80px;
-        }
-
-        #clear-btn {
-            background-color: white;
-            height: 42px;
-            width: 88px;
-            border: 1px solid rgb(42, 54, 71);
-            border-radius: 10px;
-            font-family: 'Inter';
-            font-size: 21px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #create-btn {
-            height: 42px;
-            width: 180px;
-            border: 1px solid rgb(42, 54, 71);
-            border-radius: 10px;
-            background-color: rgb(42, 54, 71);
-            color: white;
-            font-family: 'Inter';
-            font-size: 21px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #create-btn:hover {
-            cursor: pointer;
-            background-color: rgb(41, 171, 226);
-        }
-
-        #clear-btn:hover {
-            cursor: pointer;
-            color: rgb(41, 171, 226);
-            border-color: rgb(41, 171, 226);
-            fill: rgb(41, 171, 226);
-        }
-
-        svg:hover {
-            fill: rgb(41, 171, 226);
-        }
-
-        .svg-icon {
-            fill: black;
-            /* Standardfarbe des SVG */
-        }
-
-        #clear-btn:hover .svg-icon {
-            fill: rgb(41, 171, 226);
-            /* Ändern Sie die Füllfarbe des SVG beim Hovern */
-        }
-
-        .align-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* margin-left: 200px; */
-            height: 100%;
-            padding-right: 71px;
-            justify-content: center;
-        }
-
-        
-
-        #urgent-img.active,
-        #medium-img.active,
-        #low-img.active{
-            filter: grayscale(100%) brightness(200%);  
-        }
-
-    
-
-    </style>
+    <link rel="stylesheet" href="assets\css\add-task.css">
 </head>
 
 <body onload="includeHTML()">
@@ -285,7 +25,7 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form onsubmit="submitForm(event)">
+                <form onsubmit="getValues(); return false;">
                     <div style="display: flex;">
                         <div class="left-side">
 
@@ -316,13 +56,16 @@
                             <div class="prio">
                                 <span>Prio</span>
                                 <div class="prio-buttons">
-                                    <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')" type="button" id="urgent-btn">Urgent
-                                        <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">                  
+                                    <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
+                                        type="button" id="urgent-btn">Urgent
+                                        <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
                                     </button>
-                                    <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')" type="button" id="medium-btn">Medium
+                                    <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
+                                        type="button" id="medium-btn">Medium
                                         <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
                                     </button>
-                                    <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button" id="low-btn">Low
+                                    <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
+                                        id="low-btn">Low
                                         <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
                                     </button>
                                 </div>
@@ -335,20 +78,26 @@
                                     <option value="2">User Story</option>
                                 </select>
                             </div>
-                            <div class="subtask-container">
+                            <div id="subtask-container" class="subtask-container">
                                 <span>Subtasks</span>
                                 <div class="subtask-input-btn">
-                                    <input required id="subtask-input" placeholder="Add new subtask" type="text">
-                                    <button type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+                                    <input  id="subtask-input" placeholder="Add new subtask" type="text">
+                                    <button onclick="addSubTask()" type="button" class="subtask-button"><img
+                                            src="./assets/img/addSub.svg" alt=""></button>
                                 </div>
                             </div>
-                            <div class="create-buttons">
-                                <button type="button" id="clear-btn"> Clear <img class="svg-icon" src="./assets/img/Cancel-task.svg"
-                                        alt="">
-                                </button>
-                                <button onclick="getValues()" type="submit" id="create-btn">Create Task <img src="./assets/img/check.svg" alt=""></button>
-                            </div>
+
                         </div>
+
+                    </div>
+                    <div class="create-buttons">
+                        <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                        </button>
+                        <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
+                                src="./assets/img/check.svg" alt=""></button>
                     </div>
                 </form>
             </div>

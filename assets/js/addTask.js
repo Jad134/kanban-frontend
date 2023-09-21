@@ -1,5 +1,6 @@
 let addedTasks = [];
 let lastClickedPrio = null;
+let newSubTasks = [];
 
 function ChangeButtonColor(buttonId, imgId) {
     let button = document.getElementById(buttonId);
@@ -21,10 +22,10 @@ function ChangeButtonColor(buttonId, imgId) {
 }
 
 
-function submitForm(event) {  // Nur für den Test. Später rausnehmen, und auch das onclick entfernen. Verhindert das neu laden der Seite.
+/*  function submitForm(event) {  // Nur für den Test. Später rausnehmen, und auch das onclick entfernen. Verhindert das neu laden der Seite.
     event.preventDefault();
     console.log(addedTasks)
-}
+}*/
 
 function getValues() {
     let title = document.getElementById('title-input');
@@ -44,8 +45,59 @@ function getValues() {
         "date": date.value,
         "prio": prioValue,
         "category": categoryText,
-        "subtask": subtask.value,
+        "subtask": newSubTasks,
     };
     addedTasks.push(tasks);
-    
+    addTasktoStorage()
+    clearTasks();
+    newSubTasks = [];
+}
+
+async function addTasktoStorage() {
+    await setItem('tasks', JSON.stringify(addedTasks))
+}
+
+function addSubTask() {
+    let subtaskContent = document.getElementById('subtask-container');
+    let newTasks = document.getElementById('subtask-input').value;
+    if (newTasks !== '') {
+        subtaskContent.innerHTML += /*html*/`
+        <div class="sublist-container">
+            <ul class="subtask-list">
+                <li>${newTasks}</li>
+            </ul>
+            </div>
+        `;
+        newTasks.value = '';
+    }
+    newSubTasks.push(newTasks);
+}
+
+function clearTasks() {
+    let title = document.getElementById('title-input');
+    let description = document.getElementById('description-textarea');
+    let date = document.getElementById('date-input');
+    let sublist = document.querySelectorAll('.sublist-container');
+    let newTasks = document.getElementById('subtask-input');
+
+    newTasks.value = "";
+    date.value = "";
+    description.value = "";
+    title.value = "";
+    sublist.forEach(function (element) {
+        element.innerHTML = '';
+    })
+    newSubTasks = [];
+    removeButtonColor();
+}
+
+function removeButtonColor() {
+    let buttons = document.querySelectorAll('.prio-buttons button');
+    buttons.forEach(function (btn,) {
+        btn.classList.remove('active');
+    });
+    let images = document.querySelectorAll('.prio-buttons button img');
+    images.forEach(function (imag,) {
+        imag.classList.remove('active');
+    });
 }
