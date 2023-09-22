@@ -21,10 +21,7 @@ function openContacts() {
 }
 function slideInCard(){
     let animation = document.getElementById('add-contact-card');
-    let helpContainer = document.getElementById('container-for-blur-effect');
-    helpContainer.classList.add('.blur-my-back');
-    animation.style.right = "150px";
-
+    animation.classList.add('slide-in');
 }
 function addContact() {
     document.addEventListener('click', slideInCard);
