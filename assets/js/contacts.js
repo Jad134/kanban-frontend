@@ -21,10 +21,25 @@ function openContacts() {
 }
 function slideInCard(){
     let animation = document.getElementById('add-contact-card');
-    animation.classList.add('slide-in');
+    let background = document.getElementById('color-my-back');
+    animation.style.right = "50px";
+    animation.style.zIndex = "3";
+    background.style.display = "block";
+    background.style.zIndex = "1";
+}
+function closeContactAddCard(){
+    let animation = document.getElementById('add-contact-card');
+    let background = document.getElementById('color-my-back');
+    animation.style.right = "-1000px";
+    background.style.display = "none";
+        
+    animation.addEventListener('transitionend', function() {
+        if (animation.style.right === "-1000px") {
+        animation.innerHTML = ``;
+        }
+        })
 }
 function addContact() {
-    document.addEventListener('click', slideInCard);
     document.getElementById('add-contact-card').innerHTML = /*html */ `
     <div id="create-contact">
 
@@ -37,7 +52,7 @@ function addContact() {
 
         <div id="fill-in-sector">
             <div id="move-img">
-                <div class="cancel-svg">
+                <div class="cancel-svg" onclick="closeContactAddCard()">
                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path id="change-cancel-svg-color-head" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
                         11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

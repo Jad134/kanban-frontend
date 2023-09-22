@@ -24,7 +24,7 @@
         #contacts {
             display: flex;
             background-color: #F6F7F8;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 100px);
             margin-top: 4px;
             font-family: sans-serif;
         }
@@ -34,7 +34,7 @@
             align-items: center;
             flex-direction: column;
             width: 456px;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 100px);
             background-color: white;
         }
 
@@ -50,11 +50,9 @@
             font-family: sans-serif;
             font-size: 20px;
         }
-
         #add-new-contact:hover {
             cursor: pointer;
         }
-
         #add-new-contact img {
             background-color: #2A3647;
             height: 32px;
@@ -86,7 +84,9 @@
         #detail-view-of-contacts {
             margin-left: 20px;
         }
-
+        #details-of-contacts{
+            height: calc(100vh - 100px);
+        }
         .contact-input-area {
             display: flex;
             align-items: center;
@@ -117,11 +117,9 @@
             outline: none;
             border: none;
         }
-
         .contact-input-area input::placeholder {
             color: lightgray;
         }
-
         .contact-input-area img {
             background-color: white;
             object-fit: none;
@@ -129,28 +127,32 @@
             height: 32px;
             width: 32px;
         }
-
         .contact-input-area img:hover {
             cursor: pointer;
         }
         #add-contact-card{
             display: flex;
             align-items: center;
+            position: absolute;
+            z-index: 3;
+            top: 150px;
             right: -1000px;
             transition: right 0.5s;
+            
+        }
+        #color-my-back{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: -232px;
+            width: calc(100% + 232px);
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.3);
         }
         #create-contact{
             display: flex;
             max-width: 1200px;
             height: 500px;
-        }
-        .blur-my-back{
-            display: flex;
-            position: absolute;
-            top: -1485px;
-            left: -232px;
-            height: 100vh;
-            width: 100%;
         }
         #design-sector{
             display: flex;
@@ -294,9 +296,9 @@
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div id="contacts"></div>
-        <div id="container-for-blur-effect">
-            <div id="add-contact-card"></div>
-        </div>
+        <div id="color-my-back" onclick="closeContactAddCard()"></div>
+        <div id="add-contact-card"></div>
+        
     </div>
 
 </body>
