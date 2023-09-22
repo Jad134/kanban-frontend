@@ -127,3 +127,10 @@ a {
    soweit ich gesehen habe, sind es bei Buttons 8px bei den großen weißen Divs 30px
    (HL) */
 }
+
+.d-flex{
+    display: flex;
+}
+.d-none{
+    display: none;
+}

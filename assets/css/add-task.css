@@ -177,6 +177,9 @@ select {
     margin-block-end: 0;
     font-size: 13px;
     font-weight: bold;
+    height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 .subtask-input-btn {
@@ -187,6 +190,7 @@ select {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: none;
+    width: 100%;
 }
 
 .subtask-button {
@@ -200,6 +204,30 @@ select {
     justify-content: center;
     align-items: center;
     padding-inline: 10px;
+}
+
+.sublist-container{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 6px;
+}
+
+.sublist-container:hover img{
+    display: flex;
+    transition: 125ms all ease-in-out;
+}
+.sublist-container:hover {
+    background-color: rgba(235, 235, 235, 0.9);
+    transition: 125ms all ease-in-out;
+}
+
+.subtask-edit-buttons{
+    gap: 4px;
+}
+
+.edit-subtask{
+    border-right: 1px solid lightgray;
+    padding-right: 4px;
 }
 
 h1 {
