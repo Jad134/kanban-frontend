@@ -225,9 +225,39 @@ select {
     gap: 4px;
 }
 
+.subtask-input-container img{
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+
 .edit-subtask{
     border-right: 1px solid lightgray;
     padding-right: 4px;
+    height: 24px;
+    width: 24px;
+}
+
+.subtask-input-container{
+    align-items: center;
+    gap: 4px;
+    background-color: white;
+    border-bottom: 1px solid rgb(41, 171, 226);
+}
+
+.edit-subtask-input{
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    
+}
+
+.edit-done{
+    border-right: 1px solid lightgray;
+    padding-right: 4px;
+    height: 24px;
+    width: 24px;
 }
 
 h1 {

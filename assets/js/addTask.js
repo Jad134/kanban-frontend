@@ -60,35 +60,59 @@ async function addTasktoStorage() {
 function addSubTask() {
     let subtaskContent = document.getElementById('subtask-lists');
     let newTasksText = document.getElementById('subtask-input').value;
-    newSubTasks.push(newTasksText);
+
+    if (newTasksText !== '') {
+        newSubTasks.push(newTasksText);
+    }
 
     subtaskContent.innerHTML = '';
 
     for (let i = 0; i < newSubTasks.length; i++) {
         const newTasks = newSubTasks[i];
 
-        if (newTasks !== '') {
-            subtaskContent.innerHTML += /*html*/`
+
+        subtaskContent.innerHTML += /*html*/`
         <div id="sublist-container${i}" class="sublist-container">
-          <ul class="subtask-list">
-                <li> <input class="d-none" type="text">${newTasks}</li>
+          <ul id="subtask-list${i}" class="subtask-list">
+                <li> <span id="show-current-subtask${i}">${newTasks}</span></li>
           </ul>
-            <div class="d-flex subtask-edit-buttons">
-              <img class="d-none edit-subtask" style="height: 24px; width: 24px;" src="/assets/img/addtaskedit.svg" alt="">
+            <div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
+               <input  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
+               <img class="edit-done" style="height: 24px; width: 24px;" src="/assets/img/done.svg" alt="">
+               <img style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
+            </div>
+            <div id="task-edit-buttons${i}" class="d-flex subtask-edit-buttons">
+              <img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
               <img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
             </div>
         </div> `;
-            
-        }
 
     }
     document.getElementById('subtask-input').value = '';
 }
 
+function editSubTask(i, currenTask) {
+    let subtaskList = document.getElementById(`subtask-list${i}`);
+    let editSubInput = document.getElementById(`edit-task-input${i}`);
+    let taskbtn = document.getElementById(`task-edit-buttons${i}`);
+    let inputContainer = document.getElementById(`subtask-input-container${i}`)
+
+    inputContainer.classList.add('d-flex');
+    inputContainer.classList.remove('d-none');
+    taskbtn.classList.remove('d-flex');
+    taskbtn.classList.add('d-none');
+    subtaskList.classList.remove('subtask-list')
+    subtaskList.classList.add('d-none')
+    editSubInput.classList.remove('d-none');
+    editSubInput.value = `${currenTask}`;
+
+
+}
+
+
 function deleteSubTask(i) {
     newSubTasks.splice(i, 1)
-   let currentSubtask =  document.getElementById(`sublist-container${i}`);
-   currentSubtask.innerHTML = '';
+    addSubTask()
 }
 
 function clearTasks() {
