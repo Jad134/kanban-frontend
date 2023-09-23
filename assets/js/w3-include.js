@@ -12,12 +12,15 @@ async function includeHTML() {
     }
 }
 
+
 function openUserMenu() {
     document.getElementById('user-menu-container').classList.remove('display-none');
     document.getElementById('user-menu-bg').classList.remove('display-none');
 }
 
+
 function closeUserMenu() {
     document.getElementById('user-menu-container').classList.add('display-none');
     document.getElementById('user-menu-bg').classList.add('display-none');
 }
+

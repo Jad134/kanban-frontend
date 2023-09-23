@@ -20,7 +20,9 @@
             flex: 1;
             position: relative;
         }
-
+        .hide-my-scrolls{
+            overflow: hidden;
+        }
         #contacts {
             display: flex;
             background-color: #F6F7F8;
@@ -279,6 +281,9 @@
         #create-contact-btn p{
             margin-left: 12px;
         }
+        #render-contacts-overview{
+            overflow: auto;
+        }
         .contact-block{
             display: flex;
             flex-direction: column;
@@ -326,7 +331,7 @@
     <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
 
     <!-- right container -->
-    <div class="main-cont">
+    <div class="main-cont" id="main-content">
 
         <!-- template header -->
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>

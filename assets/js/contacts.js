@@ -5,7 +5,7 @@ let contacts = {
 };
 
 function renderContactsOverview(){
-    document.getElementById('render-contacts-ovewrview').innerHTML = ``;
+    document.getElementById('render-contacts-overview').innerHTML = ``;
 
     for (let i = 0; i < contacts['name'].length; i++) {
         let name = contacts['name'][i];
@@ -16,7 +16,7 @@ function renderContactsOverview(){
         if (spaceIndex !== -1 && spaceIndex < name.length - 1) {
             let firstLetterAfterSpace = name.charAt(spaceIndex + 1);
 
-        document.getElementById('render-contacts-ovewrview').innerHTML += /*html*/ `
+        document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
             <div class="contact-block">
                 <p class="alphabet">a-z</p>
                 <div class="contact-seperator-horizontal"></div>
@@ -57,7 +57,7 @@ function openContacts() {
                 <p>Add new contact</p>
                 <img src="./assets/img/person_add.png" alt="">
             </div>
-            <div id="render-contacts-ovewrview">hier werden die kontakte hineingerendert</div>
+            <div id="render-contacts-overview">hier werden die kontakte hineingerendert</div>
         </div>
         <div id="details-of-contacts">
             <div id="welcome-to-contacts">
@@ -73,10 +73,13 @@ function openContacts() {
 function slideInCard(){
     let animation = document.getElementById('add-contact-card');
     let background = document.getElementById('color-my-back');
+    let deactivateOverflow = document.getElementById('main-content');
+    
     animation.style.right = "50px";
     animation.style.zIndex = "3";
     background.style.display = "block";
     background.style.zIndex = "1";
+    deactivateOverflow.classList.add('hide-my-scrolls');
 }
 function closeContactAddCard(){
     let animation = document.getElementById('add-contact-card');
@@ -87,6 +90,8 @@ function closeContactAddCard(){
     animation.addEventListener('transitionend', function() {
         if (animation.style.right === "-1000px") {
         animation.innerHTML = ``;
+        let activateOverflow = document.getElementById('main-content');
+        activateOverflow.classList.remove('hide-my-scrolls');
         }
         })
 }
