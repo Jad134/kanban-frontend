@@ -1,9 +1,59 @@
-let contacts = [];
+let contacts = {
+    'name': ['beispielname h', 'name h'],
+    'email': ['beispiel@test.de', 'email'],
+    'phone-number': ['beispiel', 'phone-number']
+};
+
+function renderContactsOverview(){
+    document.getElementById('render-contacts-ovewrview').innerHTML = ``;
+
+    for (let i = 0; i < contacts['name'].length; i++) {
+        let name = contacts['name'][i];
+        let email = contacts['email'][i];
+        let firstLetters = contacts['name'][i].charAt(0);
+
+        let spaceIndex = name.indexOf(' ');
+        if (spaceIndex !== -1 && spaceIndex < name.length - 1) {
+            let firstLetterAfterSpace = name.charAt(spaceIndex + 1);
+
+        document.getElementById('render-contacts-ovewrview').innerHTML += /*html*/ `
+            <div class="contact-block">
+                <p class="alphabet">a-z</p>
+                <div class="contact-seperator-horizontal"></div>
+                <div class="sub-contact-block">
+                    <div class="first-letters">${firstLetters} ${firstLetterAfterSpace}</div>
+                    <div class="name-and-email">
+                        <p id="name${i}" class="contact-name">${name}</p>
+                        <a id="email${i}" class="contact-email" href="">${email}</a>
+                    </div>
+                </div>
+            </div>
+        `;
+        }
+    }
+}
+
+function pushContactInfo(){
+    let name = document.getElementById('contact-name-input');
+    let email = document.getElementById('contact-email-input');
+    let phoneNumber = document.getElementById('contact-phone-input');
+
+    contacts['name'].push(name.value);
+    contacts['email'].push(email.value);
+    contacts['phone-number'].push(phoneNumber.value);
+
+    name.value = ``;
+    email.value = ``;
+    phoneNumber.value = ``;
+
+    closeContactAddCard();
+    renderContactsOverview();
+}
 
 function openContacts() {
     document.getElementById('contacts').innerHTML = /*html*/ `
         <div id="contact-overview">
-            <div id="add-new-contact" onclick="addContact()">
+            <div id="add-new-contact" onclick="renderAddContactCard()">
                 <p>Add new contact</p>
                 <img src="./assets/img/person_add.png" alt="">
             </div>
@@ -18,6 +68,7 @@ function openContacts() {
             <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
         </div>    
     `;
+    renderContactsOverview();
 }
 function slideInCard(){
     let animation = document.getElementById('add-contact-card');
@@ -39,7 +90,7 @@ function closeContactAddCard(){
         }
         })
 }
-function addContact() {
+function renderAddContactCard() {
     document.getElementById('add-contact-card').innerHTML = /*html */ `
     <div id="create-contact">
 
@@ -80,7 +131,7 @@ function addContact() {
                     </div>
             
                     <div id="cancel-and-create-contact-btns">
-                        <div id="cancel-contact-btn">
+                        <div id="cancel-contact-btn" onclick="closeContactAddCard()">
                             <p>Cancel</p>
                             <div class="cancel-create-img">
                                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +140,7 @@ function addContact() {
                                 </svg>
                             </div>
                         </div>
-                        <div id="create-contact-btn">
+                        <div id="create-contact-btn" onclick="pushContactInfo()">
                             <p>Create Task</p>
                             <img class="cancel-create-img" src="./assets/img/check.svg" alt="">
                         </div>
