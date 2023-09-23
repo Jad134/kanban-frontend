@@ -175,6 +175,12 @@ input:focus::placeholder {
     gap: 32px;
 }
 
+#msg-box {
+    height: 30px;
+    width: 100px;
+    background-color: blueviolet;
+}
+
 /* ---- end of login-section ---- */
 
 .bg-icon {
