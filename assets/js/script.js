@@ -33,8 +33,8 @@ function renderContent() {
     <h1 class="padding-top">Log in</h1>
     <div class="underline border-radius-8"></div>
     <form onsubmit="login(); return false" method="post">
-        <input id="name" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-        <input id="email" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
+        <input id="user-name" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+        <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
       <div class="checkbox-container">
         <label class="checkbox-label">
           <input name="checkbox" type="checkbox"/>Remember me
@@ -51,7 +51,6 @@ function renderContent() {
     `;
 }
 
-let msgBox;
 
 function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
@@ -72,7 +71,7 @@ function renderSignUp() {
     
                 <div class="checkbox-container-accept">
                   <label class="checkbox-label">
-                    <input name="checkbox" type="checkbox"/>I accept the<a class="startpage-links" href="#">Privacy Policy</a>
+                    <input id="checkbox" name="checkbox" type="checkbox"/>I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
                   </label>
                 </div>
 
@@ -83,63 +82,62 @@ function renderSignUp() {
             </div>
           </div>
     `;
-  msgBox = document.getElementById('msgBox');
-}
-
-
-const urlParams = new URLSearchParams(window.location.search);
-const msg = urlParams.get('msg');
-if (msg) {
-  msgBox.innerHTML = msg;
-} else {
-  msgBox.style.display = 'none';
-}
-
-function showMsg() {
-  if (msgBox) {
-    msgBox.style.display = 'block';
-  }
 }
 
 
 function signUpUser() {
   signUpButton.disabled = true;
-  let registerName = document.getElementById('name');
   let registerEmail = document.getElementById('email');
-  let registerPassword = document.getElementById('password');
-  userData.push({ name: registerName.value, email: registerEmail.value, password: registerPassword.value })
-  /*  setItem('user-data', JSON.stringify(userData));
-   savingRemote(); */
-  emailCheck();
+  const emailValue = registerEmail.value;
+  emailCheck(emailValue);
+  checkCheckbox();
   resetForm();
 }
 
 
-function emailCheck() {
-  const emailValue = document.getElementById("email").value;
+function emailCheck(emailValue) {
   const ifEmailExists = userData.some((user) => user.email === emailValue);
-  if (ifEmailExists) {
-    alert('Diese E-Mail-Adresse wurde bereits verwendet.');
-  } else {
-    alert('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet.');
+  if (!ifEmailExists) {
+    let registerName = document.getElementById('name');
+    let registerPassword = document.getElementById('password');
+    userData.push({ name: registerName.value, email: emailValue, password: registerPassword.value });
+      /*  setItem('user-data', JSON.stringify(userData));
+    savingRemote(); */
+    displayMessage('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet.')
+ /*    alert('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet.'); */
     setTimeout(() => {
       window.location.href = 'index.html';
     }, 2000);
+  } else {
+    displayMessage('Diese E-Mail-Adresse wurde bereits verwendet.')
+    /* alert('Diese E-Mail-Adresse wurde bereits verwendet.'); */
   }
 }
 
-// aktuell noch nicht weiterführend, da die 
+
+function checkCheckbox() {
+  let signUpButton = document.getElementById('signUpButton');
+  let checkBox = document.getElementById('checkbox');
+  checkBox.addEventListener('change', function () {
+    signUpButton.disabled = !checkBox.checked;
+  });
+}
+
+
 function login() {
-  let email = document.getElementById('email')[0];
-  let password = document.getElementById('password')[0];
-  let user = userData.find(u => u.email == email.value && u.password == password.value);
-  if (user) {
-    alert('Anmeldung erfolgreich');
+  let email = document.getElementById('user-email')[0];
+  let password = document.getElementById('user-password')[0];
+  let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
+  if (dataExists) {
+    displayMessage('Anmeldung erfolgreich')
+   /*  alert('Anmeldung erfolgreich'); */
     window.location.href = 'board.html';
   }
   else {
-    alert('Falsche Email oder Passwort')
+    displayMessage('Falsche Email oder Passwort')
+    /* alert('Falsche Email oder Passwort') */
   }
+  resetForm();
 }
 
 
@@ -147,8 +145,34 @@ function resetForm() {
   document.getElementById('name').value = '';
   document.getElementById('email').value = '';
   document.getElementById('password').value = '';
+  document.getElementById('user-mail').value = '';
+  document.getElementById('user-password').value = '';
   document.getElementById('password-confirm').value = '';
   signUpButton.disabled = false;
+}
+
+
+function displayMessage(messageText) {
+  const overlay = document.getElementById('overlay');
+  const message = document.getElementById('animated-message');
+  message.textContent = messageText;
+  overlay.style.display = 'flex';
+  setTimeout(() => {
+    message.style.transform = 'translateY(0)';
+  }, 100);
+  setTimeout(() => {
+    hideMessage();
+  }, 2000);
+}
+
+
+function hideMessage() {
+  const overlay = document.getElementById('overlay');
+  const message = document.getElementById('animated-message');
+  message.style.transform = 'translate(-50%, -50%)';
+  setTimeout(() => {
+    overlay.style.display = 'none';
+  }, 300);
 }
 
 
@@ -166,7 +190,7 @@ function savingRemote() {
   try {
     setItem('user-data', JSON.stringify(userData));
     console.log('Daten remote gespeichert');
-  } catch (e) {
+  } catch (e) }
     console.error('Remote Datenspeicherung Error:', e);
   }
 } */
@@ -177,25 +201,3 @@ function savingRemote() {
 
 
 
-/*
-function signUp() {
-  let registerName = document.getElementById('name').value;
-  let registerEmail = document.getElementById('email').value;
-  let registerPassword = document.getElementById('password').value;
-
-  let signUpData = [
-    {
-    'name': registerName,
-    'email': registerEmail,
-    'password': registerPassword,
-  }]
-
-  userData.push(signUpData);
- 
-  document.getElementById('msgBox').textContent = 'Du hast Dich erfolgreich registriert';
-
-  let userDataAsString = JSON.stringify(allUsers);
-  localStorage.setItem('user-data', userDataAsString);
-  loadUserData();
-}
-*/
