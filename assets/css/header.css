@@ -9,12 +9,12 @@
 }
 
 .headline {
-    padding-left: 80px;
+    padding-left: 120px;
     font-size: 20px;
 }
 
 .rightside-header {
-    padding-right: 48px;
+    padding-right: 40px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -22,9 +22,6 @@
 
 .rightside-header a {
     padding: 4px;
-}
-
-.rightside-header a {
     -webkit-transition: all 0.1s linear;
     -moz-transition: all 0.1s linear;
     -ms-transition: all 0.1s linear;
@@ -68,11 +65,11 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 100px;
+    top: 97px;
     right: 16px;
     border-radius: 20px 0px 20px 20px;
     background: #2A3647;
-    padding: 8px;    
+    padding: 8px;
     z-index: 999;
 }
 
@@ -92,7 +89,6 @@
     right: 0;
     bottom: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .display-none {
