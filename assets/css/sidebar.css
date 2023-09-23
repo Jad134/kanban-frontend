@@ -1,48 +1,60 @@
-.side-bar {
-    background-color: rgb(42, 54, 71);
-    width: 232px;
-    height: 100vh;
+.sidebar {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;  
-}
-
-.side-logo {
-    width: 100px;
-    height: 121px;
-    object-fit: contain;
+    justify-content: space-between;
+    width: 232px;
+    height: 100vh;
+    background-color: rgb(42, 54, 71);
+    position: fixed;
 }
 
 .sidebar-logo-container {
-    margin-top: 80px;
-    margin-bottom: 32px;
+    margin: 64px 0 0 0;
     display: flex;
     justify-content: center;
 }
 
-.menu-buttons {
+.sidebar-menu {
+    margin: 112px 0 0 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 160px;
 }
 
-.menu-buttons img:hover {
-    cursor: pointer;
-    background-color: rgb(42, 61, 89);
+.sidebar-menu img {
+    width: 26px;
 }
 
-.menu-buttons img:focus {
-    background-color: yellow;
+.sidebar-menu a {
+    padding: 0 0 0 56px;
+    display: flex;
+    align-items: center;
+    color: #CDCDCD;
+    width: calc(100% - 56px);
+    height: 46px;
+    gap: 8px;
+}
+
+.sidebar-menu a:hover {
+    background-color: #2a3d59;
+}
+
+.active-sidebar-link {
+    padding: 0 0 0 56px;
+    display: flex;
+    align-items: center;
+    color: red;
+    width: calc(100% - 56px);
+    height: 46px;
+    gap: 8px;
 }
 
 .judicial-info {
+    margin: 0 0 72px 56px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin: 0 0 80px 48px;
 }
 
 .judicial-info a {
@@ -50,7 +62,8 @@
 }
 
 .judicial-info a:hover {
-    cursor: pointer;
     color: rgb(41, 171, 226);
     font-weight: 700;
 }
+
+
