@@ -29,16 +29,43 @@ body {
     gap: 8px;
 }
 
-#title-input {
+input {
     border: 1px solid lightgray;
     border-radius: 10px;
     padding: 12px 21px 12px 21px;
 }
 
-input {
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    padding: 12px 21px 12px 21px;
+input:focus {
+    border:1px solid rgb(41, 171, 226) ; 
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
+    outline: none 
+}
+
+
+input[type="date"]:focus{
+    border:1px solid rgb(41, 171, 226) !important; 
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
+    outline: none 
+}
+
+textarea:focus{
+    border:1px solid rgb(41, 171, 226) !important;
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
+    outline: none !important;
+}
+
+.edit-subtask-input:focus{
+    border: none;
+    -webkit-box-shadow: none ;
+    -moz-box-shadow:none;
+    box-shadow:none;
+
 }
 
 input::placeholder {
@@ -102,7 +129,6 @@ select {
 }
 
 #date-input {
-
     border: 1px solid lightgray;
     border-radius: 10px;
     padding: 12px 21px 12px 21px;
