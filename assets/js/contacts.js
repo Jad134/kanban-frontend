@@ -55,7 +55,7 @@ function openContacts() {
         <div id="contact-overview">
             <div id="add-new-contact" onclick="renderAddContactCard()">
                 <p>Add new contact</p>
-                <img src="./assets/img/person_add.png" alt="">
+                <img id="add-new-contact-img" src="./assets/img/person_add.png" alt="">
             </div>
             <div id="render-contacts-overview">hier werden die kontakte hineingerendert</div>
         </div>
@@ -74,9 +74,14 @@ function slideInCard(){
     let animation = document.getElementById('add-contact-card');
     let background = document.getElementById('color-my-back');
     let deactivateOverflow = document.getElementById('main-content');
+    let test = document.getElementsByClassName('preload-side-menu');
+
+    console.log(test);
+
+    test[0].classList.add('add-zIndex');
     
-    animation.style.right = "50px";
-    animation.style.zIndex = "3";
+    animation.style.right = "15%";
+    //animation.style.zIndex = "3";
     background.style.display = "block";
     background.style.zIndex = "1";
     deactivateOverflow.classList.add('hide-my-scrolls');
