@@ -4,41 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./assets/js/w3-include.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <script src="./assets/js/w3-include.js"></script>
     <title>Board</title>
+
     <style>
-        body {
-            margin: 0;
-            font-family: sans-serif;
-        }
-
-        .main-cont {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
         #board {
+            padding: 0 64px 0 64px;
             max-width: 1208px;
-            background-color: #F6F7F8;
-            padding: 0px 36px 0px 36px;
-            margin-top: 5px;
         }
 
         #board-head {
+            padding: 64px 0 64px 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 232px;
-            width: 100%;
-
         }
 
-        #board-head h2 {
-            font-size: 60px;
+        #board-interaction {
+            display: flex;
+            align-items: center;
         }
 
         #input-area {
@@ -59,9 +46,7 @@
         }
 
         #input-area input {
-            max-width: 280px;
             border: none;
-            background-color: rgba(255, 255, 255, 0.0);
             color: #D1D1D1;
         }
 
@@ -82,12 +67,6 @@
 
         #input-area img:hover {
             cursor: pointer;
-        }
-
-        #board-interaction {
-            display: flex;
-            max-width: 50%;
-            align-items: center;
         }
 
         #add-task img {
@@ -155,6 +134,7 @@
             border: 2px dotted gray;
         }
     </style>
+
 </head>
 
 <body onload="includeHTML(), openBoard()">
@@ -170,7 +150,61 @@
         <!-- template header -->
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
-        <div id="board"></div>
+        <div id="board">
+            <div id="board-head">
+                <h1>Board</h1>
+                <div id="board-interaction">
+                    <div id="input-area">
+                        <input type="text" placeholder="Find Task">
+                        <div id="seperator"></div>
+                        <img src="./assets/img/search.png" alt="lupe">
+                    </div>
+                    <div id="add-task">
+                        <p>Add task</p>
+                        <img src="./assets/img/add.png" alt="add">
+                    </div>
+                </div>
+            </div>
+            <div id="board-content">
+
+                <div id="board-todo-section" class="divers-sections">
+                    <div id="board-todo-section-head" class="divers-head-sections">
+                        <h3>To Do</h3>
+                        <img src="./assets/img/plus-button.png" alt="" class="board-head-section-images">
+                    </div>
+                    <div id="todos" class="specific-content">
+                        <div class="empty-task">No tasks To do</div>
+                    </div>
+                </div>
+                <div id="board-in-progress-section" class="divers-sections">
+                    <div id="board-in-progress-section-head" class="divers-head-sections">
+                        <h3>In progress</h3>
+                        <img src="./assets/img/plus-button.png" alt="" class="board-head-section-images">
+                    </div>
+                    <div id="progresses" class="specific-content">
+                        <div class="empty-task">No tasks progress</div>
+                    </div>
+                </div>
+                <div id="board-await-feedback-section" class="divers-sections">
+                    <div id="board-await-feedback-section-head" class="divers-head-sections">
+                        <h3>Await feedback</h3>
+                        <img src="./assets/img/plus-button.png" alt="" class="board-head-section-images">
+                    </div>
+                    <div id="feedbacks" class="specific-content">
+                        <div class="empty-task">No tasks feedback</div>
+                    </div>
+                </div>
+                <div id="board-done-section" class="divers-sections">
+                    <div id="board-done-section-head" class="divers-head-sections">
+                        <h3>Done</h3>
+                    </div>
+                    <div id="dones" class="specific-content">
+                        <div class="empty-task">No tasks done</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
