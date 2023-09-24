@@ -32,8 +32,8 @@ function renderContent() {
     <div class="border-radius-30 login">
     <h1 class="padding-top">Log in</h1>
     <div class="underline border-radius-8"></div>
-    <form onsubmit="login(); return false" method="post">
-        <input id="user-name" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+    <form onsubmit="login(event)">
+        <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
         <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
       <div class="checkbox-container">
         <label class="checkbox-label">
@@ -42,7 +42,7 @@ function renderContent() {
         <a class="startpage-links" href="#">I forgot my password</a>
       </div>
       <div class="login-buttons">
-        <button id="login" class="h-button border-radius-8">Log in</button>
+        <button type="submit" class="h-button border-radius-8">Log in</button>
         <a href="board.html">
           <button class="h-button-white border-radius-8">Guest Log in</button>
         </a>
@@ -76,7 +76,7 @@ function renderSignUp() {
                 </div>
 
                 <div class="login-buttons">
-                  <button onclick="signUpUser()" id="signUpButton" class="h-button border-radius-8" disabled>Sign up</button>
+                  <button id="signUpButton" class="h-button border-radius-8" disabled>Sign up</button>
                 </div>
               </form>
             </div>
@@ -135,7 +135,7 @@ function checkCheckbox() {
     if (!checkBox.checked) {
       displayMessage('Bitte die Privacy Policy akzeptieren');
     } else {
-      hideMessage();
+      signUpUser();
     }
   });
 }
@@ -162,9 +162,10 @@ function hideMessage() {
 }
 
 
-function login() {
-  let email = document.getElementById('user-email')[0];
-  let password = document.getElementById('user-password')[0];
+function login(event) {
+  event.preventDefault();
+  let email = document.getElementById('user-email');
+  let password = document.getElementById('user-password');
   let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
   if (dataExists) {
     displayMessage('Anmeldung erfolgreich')
