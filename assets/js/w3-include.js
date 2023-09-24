@@ -10,7 +10,14 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
-    if (window.location.pathname == 'summary.html' || 'add-task.html' || 'board.html' || 'contacts.html' ) {
+    checkPath();
+}
+
+
+function checkPath() {
+    let currentPath = window.location.pathname;
+
+    if (currentPath === '/summary.html' || currentPath === '/add-task.html' || currentPath === '/board.html' || currentPath === '/contacts.html') {
         activeMenuLink();
     }
 }
@@ -18,7 +25,6 @@ async function includeHTML() {
 
 function activeMenuLink() {
     let urlAsId = window.location.pathname.split('/').pop().split('.html')[0] + '-link';
-    console.log(urlAsId);
     document.getElementById(urlAsId).classList.add('sidebar-menu-link-active');
 }
 
