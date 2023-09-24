@@ -10,6 +10,16 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
+    if (window.location.pathname == 'summary.html' || 'add-task.html' || 'board.html' || 'contacts.html' ) {
+        activeMenuLink();
+    }
+}
+
+
+function activeMenuLink() {
+    let urlAsId = window.location.pathname.split('/').pop().split('.html')[0] + '-link';
+    console.log(urlAsId);
+    document.getElementById(urlAsId).classList.add('sidebar-menu-link-active');
 }
 
 
@@ -23,4 +33,3 @@ function closeUserMenu() {
     document.getElementById('user-menu-container').classList.add('display-none');
     document.getElementById('user-menu-bg').classList.add('display-none');
 }
-

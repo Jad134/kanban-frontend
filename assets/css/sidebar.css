@@ -26,7 +26,7 @@
     width: 26px;
 }
 
-.sidebar-menu a {
+.sidebar-menu-link {
     padding: 0 0 0 56px;
     display: flex;
     align-items: center;
@@ -36,18 +36,12 @@
     gap: 8px;
 }
 
-.sidebar-menu a:hover {
+.sidebar-menu-link:hover {
     background-color: #2a3d59;
 }
 
-.active-sidebar-link {
-    padding: 0 0 0 56px;
-    display: flex;
-    align-items: center;
-    color: red;
-    width: calc(100% - 56px);
-    height: 46px;
-    gap: 8px;
+.sidebar-menu-link-active {
+    background-color: #091931;
 }
 
 .judicial-info {
@@ -65,5 +59,3 @@
     color: rgb(41, 171, 226);
     font-weight: 700;
 }
-
-
