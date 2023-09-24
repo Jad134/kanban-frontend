@@ -41,6 +41,7 @@
     font-size: 20px;
 }
 
+
 .sign-up-button:active {
     transform: translateY(5px);
     transition: transform 75s ease-in-out;

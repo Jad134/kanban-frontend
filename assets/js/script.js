@@ -53,6 +53,10 @@ function renderContent() {
 
 
 function renderSignUp() {
+  let signUpArea = document.getElementById('sign-up-area');
+  signUpArea.style.display = 'none';
+  let topArea = document.getElementById('top-area');
+  topArea.style.height = '130px';
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += /*html*/`
