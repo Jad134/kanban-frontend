@@ -43,8 +43,7 @@ function renderContent() {
       </div>
       <div class="login-buttons">
         <button type="submit" class="h-button border-radius-8">Log in</button>
-        <a href="board.html">
-          <button class="h-button-white border-radius-8">Guest Log in</button>
+        <a href="board.html" class="link-button-white border-radius-8">Guest Log in</a>
         </a>
       </div>
     </form>
@@ -53,6 +52,10 @@ function renderContent() {
 
 
 function renderSignUp() {
+  let signUpArea = document.getElementById('sign-up-area');
+  signUpArea.style.display = 'none';
+  let topArea = document.getElementById('top-area');
+  topArea.style.height = '130px';
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += /*html*/`

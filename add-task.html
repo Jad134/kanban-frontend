@@ -81,7 +81,7 @@
                             <div id="subtask-container" class="subtask-container">
                                 <span>Subtasks</span>
                                 <div class="subtask-input-btn">
-                                    <input  id="subtask-input" placeholder="Add new subtask" type="text">
+                                    <input onkeydown="handleEnterKeyPress(event , 'subtask-input')"  id="subtask-input" placeholder="Add new subtask" type="text">
                                     <button onclick="addSubTask()" type="button" class="subtask-button"><img
                                             src="./assets/img/addSub.svg" alt=""></button>
                                 </div>
