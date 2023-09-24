@@ -71,36 +71,39 @@ function openContacts() {
     renderContactsOverview();
 }
 function slideInCard(){
-    let animation = document.getElementById('add-contact-card');
-    let background = document.getElementById('color-my-back');
-    let deactivateOverflow = document.getElementById('main-content');
-    let test = document.getElementsByClassName('preload-side-menu');
-
-    console.log(test);
-
-    test[0].classList.add('add-zIndex');
+    createBackgroundDiv();
+    let animation = document.getElementById('add-contact-card');    
+    let deactivateOverflow = document.body;
     
-    animation.style.right = "15%";
-    //animation.style.zIndex = "3";
+    deactivateOverflow.classList.add('hide-my-scrolls');        
+    animation.style.display = "flex";
+    animation.style.right = "0%";
+        
+
+}
+function createBackgroundDiv(){
+    let background = document.getElementById('color-my-back');
     background.style.display = "block";
     background.style.zIndex = "1";
-    deactivateOverflow.classList.add('hide-my-scrolls');
 }
 function closeContactAddCard(){
     let animation = document.getElementById('add-contact-card');
     let background = document.getElementById('color-my-back');
-    animation.style.right = "-1000px";
+    
+    animation.style.right = "-100%";
     background.style.display = "none";
         
     animation.addEventListener('transitionend', function() {
-        if (animation.style.right === "-1000px") {
+        if (animation.style.right === "-100%") {
         animation.innerHTML = ``;
-        let activateOverflow = document.getElementById('main-content');
+        let activateOverflow = document.body;
         activateOverflow.classList.remove('hide-my-scrolls');
+        animation.style.display = "none";
         }
         })
 }
 function renderAddContactCard() {
+    document.getElementById('add-contact-card').style.display = "flex";
     document.getElementById('add-contact-card').innerHTML = /*html */ `
     <div id="create-contact">
 
