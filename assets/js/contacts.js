@@ -70,40 +70,41 @@ function openContacts() {
     `;
     renderContactsOverview();
 }
-function slideInCard(){
-    createBackgroundDiv();
-    let animation = document.getElementById('add-contact-card');    
+
+async function slideInCard(){
+    await waitForIt();
+    startAnimation();
+}
+async function waitForIt(){
+    let background = document.getElementById('color-my-back');       
     let deactivateOverflow = document.body;
     
-    deactivateOverflow.classList.add('hide-my-scrolls');        
-    animation.style.display = "flex";
-    animation.style.right = "0%";
-        
-
+    background.style.display = "flex";
+    deactivateOverflow.classList.add('hide-my-scrolls');
 }
-function createBackgroundDiv(){
-    let background = document.getElementById('color-my-back');
-    background.style.display = "block";
-    background.style.zIndex = "1";
+async function startAnimation(){   
+    let animation = document.getElementById('add-contact-card');
+    animation.style.width = "100%";
+    animation.style.right = "0%";
 }
 function closeContactAddCard(){
     let animation = document.getElementById('add-contact-card');
     let background = document.getElementById('color-my-back');
-    
-    animation.style.right = "-100%";
+        
+    animation.style.right = "-200%";
     background.style.display = "none";
         
     animation.addEventListener('transitionend', function() {
-        if (animation.style.right === "-100%") {
-        animation.innerHTML = ``;
+        if (animation.style.right === "-200%") {
         let activateOverflow = document.body;
+        let shrikDiv = document.getElementById('create-contact');
         activateOverflow.classList.remove('hide-my-scrolls');
-        animation.style.display = "none";
+        animation.style.width = "0%";
+        shrikDiv.style.display = "none";
         }
         })
 }
 function renderAddContactCard() {
-    document.getElementById('add-contact-card').style.display = "flex";
     document.getElementById('add-contact-card').innerHTML = /*html */ `
     <div id="create-contact">
 
