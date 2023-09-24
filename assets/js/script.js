@@ -43,8 +43,7 @@ function renderContent() {
       </div>
       <div class="login-buttons">
         <button type="submit" class="h-button border-radius-8">Log in</button>
-        <a href="board.html">
-          <button class="h-button-white border-radius-8">Guest Log in</button>
+        <a href="board.html" class="link-button-white border-radius-8">Guest Log in</a>
         </a>
       </div>
     </form>
