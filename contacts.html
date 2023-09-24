@@ -17,7 +17,6 @@
             display: flex;
             flex-direction: column;
             flex: 1;
-            position: relative;
         }
         .hide-my-scrolls{
             overflow: hidden;
@@ -138,29 +137,30 @@
             cursor: pointer;
         }
         #add-contact-card{
-            display: flex;
+            display: none;
             align-items: center;
+            justify-content: center;
             position: absolute;
-            z-index: 3;
-            top: 150px;
-            right: -1000px;
-            transition: right 0.5s;            
+            z-index: 1;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            right: -1600px;
+            transition: right 0.5s;
         }
         #color-my-back{
             display: none;
             position: absolute;
+            z-index: 2;
             top: 0;
             left: -232px;
             width: calc(100% + 232px);
             height: 100vh;
             background-color: rgba(0, 0, 0, 0.3);
         }
-        .add-zIndex{
-            position: static;
-            z-index: -2;
-        }
         #create-contact{
             display: flex;
+            z-index: 3;
             max-width: 1200px;
             height: 500px;
         }
@@ -345,8 +345,8 @@
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div id="contacts"></div>
-        <div id="color-my-back" onclick="closeContactAddCard()"></div>
-        <div id="add-contact-card"></div>
+        <div id="color-my-back"></div>
+        <div id="add-contact-card" onclick="closeContactAddCard()"></div>
         
     </div>
 

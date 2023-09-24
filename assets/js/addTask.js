@@ -70,25 +70,44 @@ function addSubTask() {
     for (let i = 0; i < newSubTasks.length; i++) {
         const newTasks = newSubTasks[i];
 
-
         subtaskContent.innerHTML += /*html*/`
         <div id="sublist-container${i}" class="sublist-container">
           <ul id="subtask-list${i}" class="subtask-list">
                 <li> <span id="show-current-subtask${i}">${newTasks}</span></li>
           </ul>
             <div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
-               <input  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
-               <img class="edit-done" style="height: 24px; width: 24px;" src="/assets/img/done.svg" alt="">
-               <img style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
+               <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${i})"  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
+               <img onclick="renameSubTask(${i})" class="edit-done" style="height: 24px; width: 24px;" src="/assets/img/done.svg" alt="">
+               <img onclick="deleteSubTask(${i})" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
             </div>
             <div id="task-edit-buttons${i}" class="d-flex subtask-edit-buttons">
               <img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
               <img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
             </div>
         </div> `;
-
     }
     document.getElementById('subtask-input').value = '';
+}
+
+
+function handleEnterKeyPress(event, action, i) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Verhindere das Standardverhalten des Formulars
+        if(action === 'subtask-input'){
+        addSubTask();
+            } else if(action === 'edit-Input'){
+              renameSubTask(i)
+             }
+    }
+}
+
+function renameSubTask(i) {
+    let editSubTask = document.getElementById(`edit-task-input${i}`).value;
+    if (editSubTask !== '') {
+        newSubTasks.push(editSubTask);
+    }
+    deleteSubTask(i)
+    addSubTask();
 }
 
 function editSubTask(i, currenTask) {
@@ -105,8 +124,6 @@ function editSubTask(i, currenTask) {
     subtaskList.classList.add('d-none')
     editSubInput.classList.remove('d-none');
     editSubInput.value = `${currenTask}`;
-
-
 }
 
 
