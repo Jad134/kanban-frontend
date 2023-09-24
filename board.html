@@ -13,7 +13,7 @@
     <style>
         #board {
             padding: 0 64px 0 64px;
-            max-width: 1208px;
+            max-width: 1440px;
         }
 
         #board-head {
@@ -143,8 +143,22 @@
 
         #board-content {
             display: flex;
-            max-width: 1208px;
+            max-width: 1440px;
             background-color: #F6F7F8;
+            gap: 26px;
+        }
+
+        #board-content h3 {
+            margin: 0;
+            color: #42526E;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .divers-sections {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
         }
 
         .divers-head-sections {
@@ -153,24 +167,66 @@
             align-items: center;
         }
 
-        .divers-sections {
-            display: flex;
-            flex-direction: column;
-            margin-right: 30px;
-            width: 25%;
-        }
-
-        .board-head-section-images {
-            height: 20px;
-            width: 20px;
-        }
-
-        .board-head-section-images:hover {
+        .divers-head-sections svg:hover {
             cursor: pointer;
         }
 
+        .divers-head-sections svg:hover path {
+            stroke: #29ABE2;
+        }
+
+        .divers-head-sections svg:hover rect {
+            stroke: #29ABE2;
+        }
+
+        .divers-head-sections svg:active path {
+            stroke: #091931;
+        }
+
+        .divers-head-sections svg:active rect {
+            stroke: #091931;
+        }
+
         .specific-content {
-            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 24px;
+            gap: 24px;
+        }
+
+        .task-container {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background-color: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0px 0px 10px 3px #00000014;
+        }
+
+        .task-category-container {
+            padding: 4px 16px 4px 16px;
+            background-color: #0038FF;
+            border-radius: 8px;
+            color: #FFFFFF;
+        }
+
+        .task-title-container {
+            margin: 24px 0 0 0; 
+            color: #2A3647;
+        }
+
+        .task-description-container {
+            margin: 8px 0 0 0; 
+            color: #A8A8A8;
+        }
+
+        .task-subtasks-container {
+            margin: 24px 0 0 0; 
+        }
+
+        .task-assignment-container {
+            margin: 24px 0 0 0; 
         }
 
         .empty-task {
@@ -180,13 +236,15 @@
             background-color: #E7E7E7;
             height: 48px;
             border-radius: 16px;
-            border: 2px dotted gray;
+            color: #A8A8A8;
+            border: 1px dashed #A8A8A8;
+            border-radius: 10px;
         }
     </style>
 
 </head>
 
-<body onload="includeHTML(), openBoard()">
+<body onload="includeHTML()">
 
     <script src="./assets/js/board_script.js"></script>
 
@@ -199,6 +257,7 @@
         <!-- template header -->
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
+        <!-- board header -->
         <div id="board">
             <div id="board-head">
                 <h1>Board</h1>
@@ -230,12 +289,17 @@
                     </div>
                 </div>
             </div>
-            <div id="board-content">
 
+            <!-- board content -->
+            <div id="board-content">
                 <div id="board-todo-section" class="divers-sections">
                     <div id="board-todo-section-head" class="divers-head-sections">
                         <h3>To Do</h3>
-                        <img src="./assets/img/plus-button.png" alt="" class="board-head-section-images">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        </svg>
                     </div>
                     <div id="todos" class="specific-content">
                         <div class="empty-task">No tasks To do</div>
@@ -244,16 +308,31 @@
                 <div id="board-in-progress-section" class="divers-sections">
                     <div id="board-in-progress-section-head" class="divers-head-sections">
                         <h3>In progress</h3>
-                        <img src="./assets/img/plus-button.png" alt="" class="board-head-section-images">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        </svg>
                     </div>
                     <div id="progresses" class="specific-content">
+                        <div class="task-container">
+                            <div class="task-category-container">User Story</div>
+                            <h4 class="task-title-container">Contact Form & Imprint</h4>
+                            <div class="task-description-container">Create a contact form and imprint page...</div>
+                            <div class="task-subtasks-container">0/2 Subtasks</div>
+                            <div class="task-assignment-container">User and prio</div>
+                        </div>
                         <div class="empty-task">No tasks progress</div>
                     </div>
                 </div>
                 <div id="board-await-feedback-section" class="divers-sections">
                     <div id="board-await-feedback-section-head" class="divers-head-sections">
                         <h3>Await feedback</h3>
-                        <img src="./assets/img/plus-button.png" alt="" class="board-head-section-images">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                            <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        </svg>
                     </div>
                     <div id="feedbacks" class="specific-content">
                         <div class="empty-task">No tasks feedback</div>
@@ -267,8 +346,8 @@
                         <div class="empty-task">No tasks done</div>
                     </div>
                 </div>
-
             </div>
+
         </div>
 
     </div>
