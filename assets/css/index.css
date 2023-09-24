@@ -99,7 +99,6 @@ h1 {
     outline: none;
 }
 
-
 ::placeholder {
     color: rgba(0, 0, 0, 0.3);
     padding-left: 16px;
@@ -186,23 +185,22 @@ input:focus::placeholder {
 /* ---- end of login-section ---- */
 
 .overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.1);
     justify-content: flex-end;
     align-items: center;
     z-index: 99;
-    transition: opacity 0.3s, transform 0.3s;
+    transition: transform 0.5s;
     transform: translateY(100%);
 }
 
-
-#animated-message {
-    width: 100px;
+.message {
+    height: 50px;
+    width: auto;
     border-radius: 8px;
     background-color: rgb(42, 54, 71);
     color: rgb(255, 255, 255);
@@ -214,11 +212,9 @@ input:focus::placeholder {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 18px;
+    padding: 18px 24px 18px 24px;
+    align-items: center;
 }
-
-
-
 
 .bg-icon {
     height: 20px;

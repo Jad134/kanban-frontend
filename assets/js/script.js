@@ -13,7 +13,6 @@ async function init() {
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById('logo');
   const main = document.querySelector('.main-container')
-
   setTimeout(() => {
     logo.style.position = "absolute";
     logo.style.top = "130px";
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += /*html*/`
+  
     <div class="border-radius-30 login">
     <h1 class="padding-top">Log in</h1>
     <div class="underline border-radius-8"></div>
@@ -71,12 +71,12 @@ function renderSignUp() {
     
                 <div class="checkbox-container-accept">
                   <label class="checkbox-label">
-                    <input id="checkbox" name="checkbox" type="checkbox"/>I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
+                    <input id="checkbox" name="checkbox" type="checkbox" onclick="checkCheckbox()" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
                   </label>
                 </div>
 
                 <div class="login-buttons">
-                  <button id="signUpButton" class="h-button border-radius-8">Sign up</button>
+                  <button onclick="signUpUser()" id="signUpButton" class="h-button border-radius-8" disabled>Sign up</button>
                 </div>
               </form>
             </div>
@@ -86,12 +86,10 @@ function renderSignUp() {
 
 
 function signUpUser() {
-  signUpButton.disabled = true;
   let registerEmail = document.getElementById('email');
   const emailValue = registerEmail.value;
   emailCheck(emailValue);
-  checkCheckbox();
-  resetForm();
+  passwordCheck();
 }
 
 
@@ -101,16 +99,30 @@ function emailCheck(emailValue) {
     let registerName = document.getElementById('name');
     let registerPassword = document.getElementById('password');
     userData.push({ name: registerName.value, email: emailValue, password: registerPassword.value });
-      /*  setItem('user-data', JSON.stringify(userData));
-    savingRemote(); */
-    displayMessage('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet.')
- /*    alert('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet.'); */
+    console.log('eingegeben', userData);
+    /*  setItem('user-data', JSON.stringify(userData));
+  savingRemote(); */
+    displayMessage('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet')
     setTimeout(() => {
       window.location.href = 'index.html';
-    }, 2000);
+    }, 3000);
   } else {
-    displayMessage('Diese E-Mail-Adresse wurde bereits verwendet.')
-    /* alert('Diese E-Mail-Adresse wurde bereits verwendet.'); */
+    displayMessage('Diese E-Mail-Adresse wurde bereits verwendet')
+  }
+}
+
+
+function passwordCheck() {
+  let passwordInput = document.getElementById('password');
+  let confirmPasswordInput = document.getElementById('password-confirm');
+  let password = passwordInput.value;
+  let confirmPassword = confirmPasswordInput.value;
+  if (password === confirmPassword) {
+     // Hier noch die alternative Form-Validation einbauen
+    return true;
+  } else {
+    displayMessage('Die Passwörter stimmen nicht überein. Bitte überprüfen Sie Ihre Eingabe');
+    // Hier noch die alternative Form-Validation einbauen
   }
 }
 
@@ -120,35 +132,12 @@ function checkCheckbox() {
   let checkBox = document.getElementById('checkbox');
   checkBox.addEventListener('change', function () {
     signUpButton.disabled = !checkBox.checked;
+    if (!checkBox.checked) {
+      displayMessage('Bitte die Privacy Policy akzeptieren');
+    } else {
+      hideMessage();
+    }
   });
-}
-
-
-function login() {
-  let email = document.getElementById('user-email')[0];
-  let password = document.getElementById('user-password')[0];
-  let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
-  if (dataExists) {
-    displayMessage('Anmeldung erfolgreich')
-   /*  alert('Anmeldung erfolgreich'); */
-    window.location.href = 'board.html';
-  }
-  else {
-    displayMessage('Falsche Email oder Passwort')
-    /* alert('Falsche Email oder Passwort') */
-  }
-  resetForm();
-}
-
-
-function resetForm() {
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('password').value = '';
-  document.getElementById('user-mail').value = '';
-  document.getElementById('user-password').value = '';
-  document.getElementById('password-confirm').value = '';
-  signUpButton.disabled = false;
 }
 
 
@@ -158,22 +147,49 @@ function displayMessage(messageText) {
   message.textContent = messageText;
   overlay.style.display = 'flex';
   setTimeout(() => {
-    message.style.transform = 'translateY(0)';
-  }, 100);
+    overlay.style.transform = 'translateY(0)';
+    message.style.transform = 'translate(-50%, -50%)';
+  }, 300);
   setTimeout(() => {
     hideMessage();
-  }, 2000);
+  }, 2500);
 }
 
 
 function hideMessage() {
   const overlay = document.getElementById('overlay');
-  const message = document.getElementById('animated-message');
-  message.style.transform = 'translate(-50%, -50%)';
-  setTimeout(() => {
-    overlay.style.display = 'none';
-  }, 300);
+  overlay.style.transform = 'translateY(100%)';
 }
+
+
+function login() {
+  let email = document.getElementById('user-email')[0];
+  let password = document.getElementById('user-password')[0];
+  let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
+  if (dataExists) {
+    displayMessage('Anmeldung erfolgreich')
+    setTimeout(() => {
+      window.location.href = 'board.html';
+    }, 3000);
+  }
+  else {
+    displayMessage('Falsche Email oder Passwort')
+  }
+}
+
+
+// Braucht es die Reset-Funktion bei Formularen überhaupt? Sie werden onsubmit zurückgesetzt.. 
+
+/* function resetForm() {
+  document.getElementById('name').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('user-mail').value = '';
+  document.getElementById('user-password').value = '';
+  document.getElementById('password-confirm').value = '';
+  signUpButton.disabled = false;
+} */
+
 
 
 /* Remote Storage Speicherung und Laden wird gemeinsam/extra implementiert
