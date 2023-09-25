@@ -11,38 +11,44 @@ async function loadTestTasks() {
         testTasks.push(loadedTask);
     }
 
-    renderTestTasks();
+    loadTestTaskInformation();
 }
 
 
-function renderTestTasks() {
+function loadTestTaskInformation() {
     for (let i = 0; i < testTasks.length; i++) {
+
         let id = testTasks[i]['id'];
-        console.log(id);
-
         let bucket = testTasks[i]['bucket'];
-        console.log(bucket);
-
         let title = testTasks[i]['title'];
-        console.log(title);
-
         let description = testTasks[i]['description'];
-        console.log(description);
-
         let assigned = testTasks[i]['assigned'];
-        console.log(assigned);
-
         let duedate = testTasks[i]['duedate'];
-        console.log(duedate);
-
         let prio = testTasks[i]['prio'];
-        console.log(prio);
-
         let category = testTasks[i]['category'];
-        console.log(category);
-
         let subtask = testTasks[i]['subtask'];
-        console.log(subtask);
+
+        renderTestTasks(id, bucket, title, description, assigned, duedate, prio, category, subtask);
+    }
+}
+
+
+function renderTestTasks(id, bucket, title, description, assigned, duedate, prio, category, subtask) {
+    if (bucket = 'todo') {
+        console.log(bucket, ':', title);
+        //renderTodo(id, bucket, title, description, assigned, duedate, prio, category, subtask);
+    }
+    if (bucket = 'in-progress') {
+        console.log(bucket, ':', title);
+        //renderTodo(id, bucket, title, description, assigned, duedate, prio, category, subtask);
+    }
+    if (bucket = 'await-feedback') {
+        console.log(bucket, ':', title);
+        //renderTodo(id, bucket, title, description, assigned, duedate, prio, category, subtask);
+    }
+    if (bucket = 'done') {
+        console.log(bucket, ':', title);
+        //renderTodo(id, bucket, title, description, assigned, duedate, prio, category, subtask);
     }
 }
 
