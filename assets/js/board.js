@@ -80,19 +80,19 @@ function slider() {
     document.getElementById('screen-center').classList.remove('d-none');
     document.getElementById('slider-bg').classList.add('slider-bg');
     document.getElementById('slider-bg').classList.remove('d-none');
-    document.getElementById('add-task-container').classList.add('add-task-container');
-    document.getElementById('add-task-container').classList.remove('slide-to-right');
-    document.getElementById('add-task-container').classList.add('slide-from-right');
-    document.getElementById('add-task-container').classList.remove('d-none');
+    document.getElementById('slider-container').classList.add('slider-container');
+    document.getElementById('slider-container').classList.remove('slide-to-right');
+    document.getElementById('slider-container').classList.add('slide-from-right');
+    document.getElementById('slider-container').classList.remove('d-none');
 }
 
 
 function closeSlider() {
-    document.getElementById('add-task-container').classList.remove('slide-from-right');
-    document.getElementById('add-task-container').classList.add('slide-to-right');
+    document.getElementById('slider-container').classList.remove('slide-from-right');
+    document.getElementById('slider-container').classList.add('slide-to-right');
     setTimeout(function() {
-        document.getElementById('add-task-container').classList.add('d-none');
-        document.getElementById('add-task-container').classList.remove('add-task-container');
+        document.getElementById('slider-container').classList.add('d-none');
+        document.getElementById('slider-container').classList.remove('slider-container');
         document.getElementById('slider-bg').classList.add('d-none');
         document.getElementById('slider-bg').classList.remove('slider-bg');
         document.getElementById('screen-center').classList.add('d-none');
@@ -105,7 +105,7 @@ function closeSlider() {
 /*
 div id="screen-center" class="d-none">
         <div id="slider-bg" class="d-none"></div>
-        <div id="add-task-container" class="d-none">
+        <div id="slider-container" class="d-none">
 */
 
 
