@@ -13,9 +13,84 @@
     <script src="./assets/js/storage.js"></script>
     <title>Board</title>
 
+    <style>
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(+150%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutToRight {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(+150%);
+            }
+        }
+
+        .screen-center {
+            z-index: 997;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-bg {
+            z-index: 998;
+            background-color: rgba(0, 0, 0, 0.4);
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .add-task-container {
+            z-index: 999;
+            position: fixed;
+            width: 800px;
+            height: 600px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            box-shadow: 0px 0px 4px 0px #0000001A;
+            border-radius: 30px;
+            background-color: white;
+        }
+
+        .slide-from-right {
+            animation: 500ms ease-out 0s 1 slideInFromRight;
+        }
+
+        .slide-to-right {
+            animation: 500ms ease-out 0s 1 slideOutToRight;
+        }
+    </style>
+
 </head>
 
 <body onload="includeHTML(), loadTestTasks()">
+
+    <div id="screen-center" class="d-none">
+        <div id="slider-bg" class="d-none" onclick="closeSlider()"></div>
+        <div id="add-task-container" class="d-none">
+            <div></div>
+        </div>
+    </div>
 
     <!-- template left menu -->
     <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
@@ -45,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="add-task-button">
+                    <div id="add-task-button" onclick="slider()">
                         <div>
                             <span>Add task</span>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
