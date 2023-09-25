@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="assets\css\add-task.css">
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), init()">
     <div class="preload-side-menu" w3-include-html="assets\html-templates\side_menu.html"></div>
 
     <div class="main-content">
@@ -25,22 +25,22 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form onsubmit="getValues(); return false;">
+                <form onsubmit="getValues(); ">
                     <div style="display: flex;">
                         <div class="left-side">
 
                             <div class="title-content">
 
-                                <span>Title</span>
+                                <span class="span-style">Title</span>
                                 <input required placeholder="Enter a title" id="title-input" type="text">
                             </div>
                             <div class="description">
-                                <span>Description</span>
+                                <span class="span-style">Description</span>
                                 <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
                                     rows="10"></textarea>
                             </div>
                             <div class="assigned">
-                                <span>Assigned to</span>
+                                <span class="span-style">Assigned to</span>
                                 <select name="Select contacts to assign" id="assignedTo">
                                     <option value="1">Hello World</option>
                                     <option value="2">Test</option>
@@ -50,11 +50,11 @@
 
                         <div class="right-side">
                             <div class="date-container">
-                                <span>Due date</span>
-                                <input id="date-input" type="date" required placeholder="dd/mm/yyyy">
+                                <span class="span-style">Due date</span>
+                                <input onfocus="(this. type='date')" id="date-input"  required placeholder="dd/mm/yyyy">
                             </div>
                             <div class="prio">
-                                <span>Prio</span>
+                                <span class="span-style">Prio</span>
                                 <div class="prio-buttons">
                                     <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
                                         type="button" id="urgent-btn">Urgent
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div class="category-container">
-                                <span>Category</span>
+                                <span class="span-style">Category</span>
                                 <select name="Select contacts to assign" id="select-category">
                                     <option value="" disabled selected hidden>Select task category</option>
                                     <option value="1">Technical Task</option>
@@ -79,7 +79,7 @@
                                 </select>
                             </div>
                             <div id="subtask-container" class="subtask-container">
-                                <span>Subtasks</span>
+                                <span class="span-style">Subtasks</span>
                                 <div class="subtask-input-btn">
                                     <input onkeydown="handleEnterKeyPress(event , 'subtask-input')"  id="subtask-input" placeholder="Add new subtask" type="text">
                                     <button onclick="addSubTask()" type="button" class="subtask-button"><img
