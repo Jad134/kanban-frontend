@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="assets\css\add-task.css">
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), init()">
     <div class="preload-side-menu" w3-include-html="assets\html-templates\side_menu.html"></div>
 
     <div class="main-content">
@@ -25,7 +25,7 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form onsubmit="getValues(); return false;">
+                <form onsubmit="getValues(); ">
                     <div style="display: flex;">
                         <div class="left-side">
 

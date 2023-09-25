@@ -1,6 +1,11 @@
-let addedTasks = [];
+let addedTasks = [{}];
 let lastClickedPrio = null;
 let newSubTasks = [];
+
+
+function init(){
+    getTaskStorage()
+}
 
 function ChangeButtonColor(buttonId, imgId) {
     let button = document.getElementById(buttonId);
@@ -28,6 +33,7 @@ function ChangeButtonColor(buttonId, imgId) {
 }*/
 
 function getValues() {
+    let bucket = "todo"
     let title = document.getElementById('title-input');
     let description = document.getElementById('description-textarea');
     let assignTo = document.getElementById('assignedTo');
@@ -46,11 +52,23 @@ function getValues() {
         "prio": prioValue,
         "category": categoryText,
         "subtask": newSubTasks,
+        "bucket": bucket,
     };
     addedTasks.push(tasks);
     addTasktoStorage()
     clearTasks();
     newSubTasks = [];
+}
+
+async function getTaskStorage(){
+    addedTasks = [];
+    let currentTasks = await getItem('tasks');
+    currentTasks = JSON.parse(currentTasks['data']['value']);
+
+    for (let i = 0; i < currentTasks.length; i++) {
+        let tasks = currentTasks[i];
+        addedTasks.push(tasks);
+    }
 }
 
 async function addTasktoStorage() {
