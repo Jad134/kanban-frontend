@@ -5,6 +5,7 @@
 
 let testTasks = [{
     "id": 0,
+    "bucket": "in-progress",
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
     "assigned": ["Emanuel Mauer", "Marcel Bauer", "Anton Mayer"],
@@ -26,6 +27,7 @@ let testTasks = [{
 },
 {
     "id": 1,
+    "bucket": "done",
     "title": "CSS Architecture Planning",
     "description": "Define CSS naming conventions and structure.",
     "assigned": ["Sofia Müller (You)", "Benedikt Ziegler"],
@@ -52,3 +54,30 @@ let testTasks = [{
 }];
 
 
+function loadTestTasks() {
+    //document.getElementById('todo').innerHTML = '';
+    if ( testTasks[1] ) {
+        console.log('true');
+    } else {
+        console.log('false');
+    }
+
+    //loadTestData();
+}
+
+
+async function saveTestTasks() {
+    await setItem('account', JSON.stringify(accounts));
+}
+
+
+/*
+async function loadTestData() {
+    testArray = [];
+    try {
+        testArray = JSON.parse(await getItem('tasks'));
+    } catch (error) {
+        console.error('Loading error:', error);
+    }
+}
+*/
