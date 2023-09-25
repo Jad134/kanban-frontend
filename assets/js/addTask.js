@@ -91,7 +91,7 @@ function addSubTask() {
         subtaskContent.innerHTML += /*html*/`
         <div id="sublist-container${i}" class="sublist-container">
           <ul id="subtask-list${i}" class="subtask-list">
-                <li> <span id="show-current-subtask${i}">${newTasks}</span></li>
+                <li> <span  id="show-current-subtask${i}">${newTasks}</span></li>
           </ul>
             <div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
                <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${i})"  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
