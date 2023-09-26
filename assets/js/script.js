@@ -1,12 +1,37 @@
 
-let userData = [{}];
-// (damit mehrere JSON in einem Array gespeichert werden können)
+let userData = [];
 
 async function init() {
   renderContent();
   const main = document.querySelector('.main-container');
   main.style.opacity = "0";
-  /*   loadUserData(); */
+  await loadUserDataFromRemote();
+  console.log(userData);                                           // console.log
+  rememberMe();                                       
+}
+
+
+async function loadUserDataFromRemote() {
+  try {
+    const newUserDataString = await getItem('users');
+    console.log('Daten aus Remote-Speicher:', newUserDataString);   // console.log
+    if (newUserDataString && newUserDataString.value) {
+      userData = JSON.parse(newUserDataString.value);               // hier gibt's noch einen Fehler. userData wird nicht befüllt
+    }
+  } catch (e) {
+    console.error('Fehler beim Laden von Benutzerdaten:', e);
+  }
+}
+
+
+async function saveUserDataInRemote() {
+  try {
+    const userDataString = JSON.stringify(userData);
+    await setItem('users', userDataString); 
+    console.log('Daten remote gespeichert');                        // console.log
+  } catch (e) {
+    console.error('Fehler bei der Remote-Datenspeicherung', e);
+  }
 }
 
 
@@ -37,7 +62,7 @@ function renderContent() {
         <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
       <div class="checkbox-container">
         <label class="checkbox-label">
-          <input name="checkbox" type="checkbox"/>Remember me
+          <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
         </label>
         <a class="startpage-links" href="#">I forgot my password</a>
       </div>
@@ -85,16 +110,37 @@ function renderSignUp() {
 }
 
 
+function userDatafromSignUp() {
+  let name = document.getElementById('name');
+  let email = document.getElementById('email');
+  let password = document.getElementById('password');
+  // Stellen Sie sicher, dass userData immer ein Array ist, selbst wenn keine Benutzerdaten vorhanden sind
+  if (!Array.isArray(userData)) {
+    userData = [];
+  }
+  let users = {
+    'name': name.value,
+    'email': email.value,
+    'password': password.value,
+  }
+  userData.push(users);
+  saveUserDataInRemote();
+}
+
+  
+
 function signUpUser() {
   let registerEmail = document.getElementById('email');
-  const emailValue = registerEmail.value;
-  const passwordsMatch = passwordCheck(); 
+  let emailValue = registerEmail.value;
+  let passwordsMatch = passwordCheck();
   if (passwordsMatch) {
     emailCheck(emailValue);
+    // Array userData erfährt hier ein Update mit den jeweiligen Daten
+    userDatafromSignUp();
     displayMessage('Registrierung erfolgreich!');
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 2500);
+     setTimeout(() => {
+       window.location.href = 'index.html';                               
+     }, 2500);
   }
 }
 
@@ -102,9 +148,7 @@ function signUpUser() {
 function emailCheck(emailValue) {
   const ifEmailExists = userData.some((user) => user.email === emailValue);
   if (!ifEmailExists) {
-    let registerName = document.getElementById('name');
-    let registerPassword = document.getElementById('password');
-    userData.push({ name: registerName.value, email: emailValue, password: registerPassword.value });
+    return true;
   } else {
     displayMessage('Diese E-Mail-Adresse wurde bereits verwendet')
     return false;
@@ -120,7 +164,7 @@ function passwordCheck() {
   if (password === confirmPassword) {
     return true;
   } else {
-    displayMessage('Die Passwörter stimmen nicht überein. Bitte überprüfen Sie Ihre Eingabe');
+    displayMessage('Die Passwörter stimmen nicht überein');
     return false;
   }
 }
@@ -175,6 +219,30 @@ function login(event) {
 }
 
 
+function rememberMe() {
+  const rememberMeCheckbox = document.getElementById('remember-me');
+  const userEmailInput = document.getElementById('user-email');
+  const userPasswordInput = document.getElementById('user-password');
+  const storedUserEmail = localStorage.getItem('userEmail');
+  const storedUserPassword = localStorage.getItem('userPassword');
+  if (rememberMeCheckbox.checked) {
+    localStorage.setItem('userEmail', userEmailInput.value);
+    localStorage.setItem('userPassword', userPasswordInput.value);
+  } else {
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userPassword');
+  } if (storedUserEmail) {
+    userEmailInput.value = storedUserEmail;
+  } if (storedUserPassword) {
+    userPasswordInput.value = storedUserPassword;
+  }
+}
+
+
+
+
+
+
 // Braucht es die Reset-Funktion bei Formularen überhaupt? Sie werden onsubmit zurückgesetzt.. 
 
 /* function resetForm() {
@@ -188,32 +256,7 @@ function login(event) {
 } */
 
 
-/* Remote Storage Speicherung und Laden wird gemeinsam/extra implementiert
-async function loadUserData() {
-  try {
-    const userDataString = await getItem('user-data');
-    userData = JSON.parse(userDataString);
-  } catch (e) {
-    console.error('error:', e);
-  }
-}
 
- setItem('user-data', JSON.stringify(userData));
-  savingRemote(); 
-
-
-function savingRemote() {
-  try {
-    setItem('user-data', JSON.stringify(userData));
-    console.log('Daten remote gespeichert');
-  } catch (e) }
-    console.error('Remote Datenspeicherung Error:', e);
-  }
-} 
-
-async function getUserfromStorage() {
-  await getItems('userData')
-}*/
 
 
 
