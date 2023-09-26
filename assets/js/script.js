@@ -1,6 +1,6 @@
 
-let userData = [];
-
+let userData = [{}];
+// (damit mehrere JSON in einem Array gespeichert werden können)
 
 async function init() {
   renderContent();
@@ -65,21 +65,18 @@ function renderSignUp() {
                 </a>
               <h1>Sign up</h1>
               <div class="underline border-radius-8"></div>
-              <form onsubmit="signUpUser(); return false">
-                
+              <form onsubmit="checkCheckbox(); return false">
                 <input id="name" minlength="2" class="login-input bg-password-icon icon" type="text" placeholder="Name" name="userName"required/>
-                <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail"required/>
+                <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
                 <input id="password" minlength="5" class="login-input bg-password-icon icon" type="password" placeholder="Password" name="userPassword" required/>
                 <input id="password-confirm" class="login-input bg-password-icon icon" type="password" placeholder="Confirm Password" required/>
-    
                 <div class="checkbox-container-accept">
                   <label class="checkbox-label">
-                    <input id="checkbox" name="checkbox" type="checkbox" onclick="checkCheckbox()" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
+                    <input id="checkbox" name="checkbox" type="checkbox" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
                   </label>
                 </div>
-
                 <div class="login-buttons">
-                  <button id="signUpButton" class="h-button border-radius-8" disabled>Sign up</button>
+                  <button type="submit" id="sign-up-button" class="h-button border-radius-8" >Sign up</button>
                 </div>
               </form>
             </div>
@@ -91,8 +88,14 @@ function renderSignUp() {
 function signUpUser() {
   let registerEmail = document.getElementById('email');
   const emailValue = registerEmail.value;
-  emailCheck(emailValue);
-  passwordCheck();
+  const passwordsMatch = passwordCheck(); 
+  if (passwordsMatch) {
+    emailCheck(emailValue);
+    displayMessage('Registrierung erfolgreich!');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 2500);
+  }
 }
 
 
@@ -102,15 +105,9 @@ function emailCheck(emailValue) {
     let registerName = document.getElementById('name');
     let registerPassword = document.getElementById('password');
     userData.push({ name: registerName.value, email: emailValue, password: registerPassword.value });
-    console.log('eingegeben', userData);
-    /*  setItem('user-data', JSON.stringify(userData));
-  savingRemote(); */
-    displayMessage('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet')
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 3000);
   } else {
     displayMessage('Diese E-Mail-Adresse wurde bereits verwendet')
+    return false;
   }
 }
 
@@ -121,26 +118,22 @@ function passwordCheck() {
   let password = passwordInput.value;
   let confirmPassword = confirmPasswordInput.value;
   if (password === confirmPassword) {
-     // Hier noch die alternative Form-Validation einbauen
     return true;
   } else {
     displayMessage('Die Passwörter stimmen nicht überein. Bitte überprüfen Sie Ihre Eingabe');
-    // Hier noch die alternative Form-Validation einbauen
+    return false;
   }
 }
 
 
 function checkCheckbox() {
-  let signUpButton = document.getElementById('signUpButton');
   let checkBox = document.getElementById('checkbox');
-  checkBox.addEventListener('change', function () {
-    signUpButton.disabled = !checkBox.checked;
-    if (!checkBox.checked) {
-      displayMessage('Bitte die Privacy Policy akzeptieren');
-    } else {
-      signUpUser();
-    }
-  });
+  if (!checkBox.checked) {
+    displayMessage('Bitte die Privacy Policy akzeptieren');
+    return false;
+  } else {
+    signUpUser();
+  }
 }
 
 
@@ -152,10 +145,10 @@ function displayMessage(messageText) {
   setTimeout(() => {
     overlay.style.transform = 'translateY(0)';
     message.style.transform = 'translate(-50%, -50%)';
-  }, 300);
+  }, 200);
   setTimeout(() => {
     hideMessage();
-  }, 2500);
+  }, 1500);
 }
 
 
@@ -195,7 +188,6 @@ function login(event) {
 } */
 
 
-
 /* Remote Storage Speicherung und Laden wird gemeinsam/extra implementiert
 async function loadUserData() {
   try {
@@ -206,6 +198,10 @@ async function loadUserData() {
   }
 }
 
+ setItem('user-data', JSON.stringify(userData));
+  savingRemote(); 
+
+
 function savingRemote() {
   try {
     setItem('user-data', JSON.stringify(userData));
@@ -213,7 +209,11 @@ function savingRemote() {
   } catch (e) }
     console.error('Remote Datenspeicherung Error:', e);
   }
-} */
+} 
+
+async function getUserfromStorage() {
+  await getItems('userData')
+}*/
 
 
 
