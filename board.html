@@ -73,8 +73,8 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="todo" class="specific-content">
-                        <!-- <div class="empty-task">No tasks To do</div> -->
+                    <div class="specific-content" ondrop="moveTo('todo')" ondragover="allowDrop(event)">
+                        <div id="todo"></div>
                     </div>
                 </div>
                 <div id="board-in-progress-section" class="divers-sections">
@@ -86,8 +86,8 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="in-progress" class="specific-content">
-                        <div class="empty-task">No tasks progress</div>
+                    <div id="in-progress" class="specific-content" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-await-feedback-section" class="divers-sections">
@@ -99,16 +99,16 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="await-feedback" class="specific-content">
-                        <div class="empty-task">No tasks feedback</div>
+                    <div id="await-feedback" class="specific-content" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks feedback</div> -->
                     </div>
                 </div>
                 <div id="board-done-section" class="divers-sections">
                     <div id="board-done-section-head" class="divers-head-sections">
                         <h3>Done</h3>
                     </div>
-                    <div id="done" class="specific-content">
-                        <div class="empty-task">No tasks done</div>
+                    <div id="done" class="specific-content" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks done</div> -->
                     </div>
                 </div>
             </div>

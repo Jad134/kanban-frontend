@@ -55,7 +55,7 @@ function getValues() {
         "bucket": bucket,
     };
     addedTasks.push(tasks);
-    addTasktoStorage()
+    addTaskToStorage()
     clearTasks();
     newSubTasks = [];
 }
@@ -71,7 +71,7 @@ async function getTaskStorage(){
     }
 }
 
-async function addTasktoStorage() {
+async function addTaskToStorage() {
     await setItem('tasks', JSON.stringify(addedTasks))
 }
 

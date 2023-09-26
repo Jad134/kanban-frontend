@@ -13,6 +13,15 @@ async function getTaskStorage() {
 }
 
 
+function getTaskFromArray() {
+    clearBuckets();
+
+    for (let i = 0; i < addedTasks.length; i++) {
+        loadTasksForBoard(i);
+    }
+}
+
+
 function loadTasksForBoard(i) {
     let bucket = addedTasks[i]['bucket'];
     let title = addedTasks[i]['title'];
@@ -25,7 +34,7 @@ function loadTasksForBoard(i) {
     // Kann nicht mehr vorkommen wenn der Code final ist
     // gesamte Funktion dann ausbauen
     if (bucket === undefined) {
-        bucket = "todo";
+        bucket = 'todo';
     }
 
     categoryClassPicker(category);
@@ -64,38 +73,65 @@ function loadTask(i) {
 function openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask) {
     document.getElementById('slider-container').innerHtml = '';
     document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask);
-    slider();
+    openSlider();
 }
 
 
-async function saveTestTasks() {
-    await setItem('test', JSON.stringify(testTasks));
+function startDragging(i) {
+    currentDraggedElement = i;
+}
+
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+
+function moveTo(bucket) {
+    addedTasks[currentDraggedElement]['bucket'] = bucket;
+    getTaskFromArray();
+    addTaskToStorage();
+}
+
+
+function clearBuckets() {
+    let todoTasks = document.getElementById('todo');
+    todoTasks.innerHTML = '';
+    let inProgressTasks = document.getElementById('in-progress');
+    inProgressTasks.innerHTML = '';
+    let awaitFeedbackTasks = document.getElementById('await-feedback');
+    awaitFeedbackTasks.innerHTML = '';
+    let doneTasks = document.getElementById('done');
+    doneTasks.innerHTML = '';
 }
 
 
 function addTaskSlider() {
     document.getElementById('slider-container').innerHtml = '';
     document.getElementById('slider-container').innerHTML = addTaskHtml();
-    slider();
+    openSlider();
 }
 
 
-function slider() {
+function openSlider() {
+    document.getElementById('slider-container').classList.remove('slide-to-right');
+    document.getElementById('slider-bg').classList.remove('fadeOut');
     document.getElementById('screen-center').classList.add('screen-center');
-    document.getElementById('screen-center').classList.remove('d-none');
     document.getElementById('slider-bg').classList.add('slider-bg');
+    document.getElementById('screen-center').classList.remove('d-none');
     document.getElementById('slider-bg').classList.remove('d-none');
     document.getElementById('slider-container').classList.add('slider-container');
-    document.getElementById('slider-container').classList.remove('slide-to-right');
+    document.getElementById('slider-bg').classList.add('fadeIn');
     document.getElementById('slider-container').classList.add('slide-from-right');
     document.getElementById('slider-container').classList.remove('d-none');
-    setTimeout(250);
 }
 
 
 function closeSlider() {
     document.getElementById('slider-container').classList.remove('slide-from-right');
+    document.getElementById('slider-bg').classList.remove('fadeIn');
     document.getElementById('slider-container').classList.add('slide-to-right');
+    document.getElementById('slider-bg').classList.add('fadeOut');
     setTimeout(function () {
         document.getElementById('slider-container').classList.add('d-none');
         document.getElementById('slider-container').classList.remove('slider-container');
@@ -105,18 +141,18 @@ function closeSlider() {
         document.getElementById('slider-bg').classList.remove('slider-bg');
         document.getElementById('screen-center').classList.add('d-none');
         document.getElementById('screen-center').classList.remove('screen-center');
-    }, 300);
+    }, 200);
 }
 
 
 function renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio) {
     return `
-        <div class="task-container" onclick="loadTask(${i})">
+        <div class="task-container" onclick="loadTask(${i})" ondragstart="startDragging(${i})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <h4 class="task-title-container">${title}</h4>
             <div class="task-description-container">${description}</div>
             <div class="task-subtasks-container">${subtask}</div>
-            <div class="task-assignment-container">${assigned}<br />${prio}</div>
+            <div class="task-assignment-container">${assigned} ${prio}</div>
         </div>
     `
 }
@@ -124,7 +160,7 @@ function renderBuckets(i, bucket, title, description, assigned, category, catego
 
 function renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask) {
     return `
-        <div id="slider">
+        <div id="slider" class="open-task-container">
             <div class="${categoryCssClass}">${category}</div>
             <div class="open-task-title">${title}</div>
             <div class="open-task-description">${description}</div>
@@ -146,97 +182,94 @@ function renderOpenTask(i, category, categoryCssClass, title, description, dueda
 
 function addTaskHtml() {
     return `
-    <div id="slider">
-        <div>
-            <h1>Add Task</h1>
-        </div>
-        <form onsubmit="getValues(); ">
-            <div style="display: flex;">
-                <div class="left-side">
-
-                    <div class="title-content">
-
-                        <span class="span-style">Title</span>
-                        <input required placeholder="Enter a title" id="title-input" type="text">
-                    </div>
-                    <div class="description">
-                        <span class="span-style">Description</span>
-                        <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
-                            rows="10"></textarea>
-                    </div>
-                    <div class="assigned">
-                        <span class="span-style">Assigned to</span>
-                        <select name="Select contacts to assign" id="assignedTo">
-                            <option value="1">Hello World</option>
-                            <option value="2">Test</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="right-side">
-                    <div class="date-container">
-                        <span class="span-style">Due date</span>
-                        <input onfocus="(this. type='date')" id="date-input"  required placeholder="dd/mm/yyyy">
-                    </div>
-                    <div class="prio">
-                        <span class="span-style">Prio</span>
-                        <div class="prio-buttons">
-                            <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
-                                type="button" id="urgent-btn">Urgent
-                                <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
-                            </button>
-                            <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
-                                type="button" id="medium-btn">Medium
-                                <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
-                            </button>
-                            <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
-                                id="low-btn">Low
-                                <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
-                            </button>
-                        </div>
-                    </div>
-                    <div class="category-container">
-                        <span class="span-style">Category</span>
-                        <select name="Select contacts to assign" id="select-category">
-                            <option value="" disabled selected hidden>Select task category</option>
-                            <option value="1">Technical Task</option>
-                            <option value="2">User Story</option>
-                        </select>
-                    </div>
-                    <div id="subtask-container" class="subtask-container">
-                        <span class="span-style">Subtasks</span>
-                        <div class="subtask-input-btn">
-                            <input onkeydown="handleEnterKeyPress(event , 'subtask-input')"  id="subtask-input" placeholder="Add new subtask" type="text">
-                            <button onclick="addSubTask()" type="button" class="subtask-button"><img
-                                    src="./assets/img/addSub.svg" alt=""></button>
-                        </div>
-                        <div id="subtask-lists"></div>
-                        <div class="create-buttons">
-                            <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                
-                            </button>
-                            <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
-                                    src="./assets/img/check.svg" alt=""></button>
-                        </div>
-                    </div>
-                </div>
+        <div id="slider">
+            <div>
+                <h1>Add Task</h1>
             </div>
-        </form>
-    </div>
+            <form onsubmit="getValues(); ">
+                <div style="display: flex;">
+                    <div class="left-side">
+
+                        <div class="title-content">
+
+                            <span class="span-style">Title</span>
+                            <input required placeholder="Enter a title" id="title-input" type="text">
+                        </div>
+                        <div class="description">
+                            <span class="span-style">Description</span>
+                            <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
+                                rows="10"></textarea>
+                        </div>
+                        <div class="assigned">
+                            <span class="span-style">Assigned to</span>
+                            <select name="Select contacts to assign" id="assignedTo">
+                                <option value="1">Hello World</option>
+                                <option value="2">Test</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="right-side">
+                        <div class="date-container">
+                            <span class="span-style">Due date</span>
+                            <input onfocus="(this. type='date')" id="date-input"  required placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="prio">
+                            <span class="span-style">Prio</span>
+                            <div class="prio-buttons">
+                                <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
+                                    type="button" id="urgent-btn">Urgent
+                                    <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
+                                </button>
+                                <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
+                                    type="button" id="medium-btn">Medium
+                                    <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
+                                </button>
+                                <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
+                                    id="low-btn">Low
+                                    <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="category-container">
+                            <span class="span-style">Category</span>
+                            <select name="Select contacts to assign" id="select-category">
+                                <option value="" disabled selected hidden>Select task category</option>
+                                <option value="1">Technical Task</option>
+                                <option value="2">User Story</option>
+                            </select>
+                        </div>
+                        <div id="subtask-container" class="subtask-container">
+                            <span class="span-style">Subtasks</span>
+                            <div class="subtask-input-btn">
+                                <input onkeydown="handleEnterKeyPress(event , 'subtask-input')"  id="subtask-input" placeholder="Add new subtask" type="text">
+                                <button onclick="addSubTask()" type="button" class="subtask-button"><img
+                                        src="./assets/img/addSub.svg" alt=""></button>
+                            </div>
+                            <div id="subtask-lists"></div>
+                            <div class="create-buttons">
+                                <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    
+                                </button>
+                                <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
+                                        src="./assets/img/check.svg" alt=""></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     `
 }
 
 
+////////////////////////// TESTDATA ///////////////////////////////
+/******************************************************************
 
 
-
-// TESTDATA
-
-/*
-let tasks = [{
-    "id": 0,
+addedTasks = [{
     "bucket": "in-progress",
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
@@ -246,19 +279,16 @@ let tasks = [{
     "category": "User Story",
     "subtask": [
         {
-            "subid": 0,
             "subtitle": "Implement Recipe Recommendation",
             "subdone": true
         },
         {
-            "subid": 1,
             "subtitle": "Start Page Layout",
             "subdone": false
         }
     ]
 },
 {
-    "id": 1,
     "bucket": "done",
     "title": "CSS Architecture Planning",
     "description": "Define CSS naming conventions and structure.",
@@ -268,20 +298,19 @@ let tasks = [{
     "category": "Technical Task",
     "subtask": [
         {
-            "subid": 0,
             "title": "Establish CSS Methodology",
             "done": true
         },
         {
-            "subid": 1,
             "title": "Setup Base Styles",
             "done": true
         },
         {
-            "subid": 2,
             "subtitle": "Subtaks 3",
             "subdone": false
         }
     ]
 }];
-*/
+
+
+******************************************************************/
