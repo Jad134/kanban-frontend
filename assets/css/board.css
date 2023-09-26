@@ -248,7 +248,7 @@
     justify-content: center;
 }
 
-/*
+/* move to slider.css
 .slider-bg {
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.4);
