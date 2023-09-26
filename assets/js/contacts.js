@@ -106,7 +106,8 @@ function closeContactAddCard(){
 }
 function renderAddContactCard() {
     document.getElementById('add-contact-card').innerHTML = /*html */ `
-    <div id="create-contact">
+    <div id="color-my-back" onclick="closeContactAddCard()"></div>
+    <div id="create-contact" onclick="">
 
         <div id="design-sector">
             <img src="./assets/img/logo4SideBar.svg" alt="join logo">
