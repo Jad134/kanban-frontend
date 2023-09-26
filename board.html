@@ -5,248 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/add-task.css">
+    <link rel="stylesheet" href="./assets/css/board.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <link rel="stylesheet" href="./assets/css/slider.css">
+
+    <script src="./assets/js/addTask.js"></script>
+    <script src="./assets/js/board.js"></script>
     <script src="./assets/js/w3-include.js"></script>
+    <script src="./assets/js/storage.js"></script>
+    <script src="./assets/js/slider.js"></script>
     <title>Board</title>
-
-    <style>
-        #board {
-            padding: 0 64px 0 64px;
-            max-width: 1440px;
-        }
-
-        #board-head {
-            padding: 64px 0 64px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        #board-interaction {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        #input-area {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 48px;
-            width: 312px;
-            background-color: #FFFFFF;
-            border: 1px solid #A8A8A8;
-            border-radius: 10px;
-        }
-
-        #input-area input {
-            padding: 0 8px 0 16px;
-            width: 100%;
-            border: none;
-            color: #000000;
-            font-size: 20px;
-        }
-
-        #input-area:focus-within {
-            border: 1px solid #29ABE2;
-        }
-
-        #seperator {
-            width: 1px;
-            height: 31px;
-            background-color: #D1D1D1;
-        }
-
-        #input-area input:focus {
-            outline: none;
-            border: none;
-        }
-
-        #input-area input::placeholder {
-            color: #D1D1D1;
-        }
-
-        .task-search-field {
-            display: flex;
-            align-items: center;
-        }
-
-        .search-button {
-            margin: 0 12px 0 12px;
-            padding: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 32px;
-            width: 32px;
-        }
-
-        .search-button:hover {
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            background-color: #D9D9D9;
-            cursor: pointer;
-        }
-
-        .search-button path {
-            fill: #2A3647;
-        }
-
-        .search-button:active {
-            background-color: unset;
-        }
-
-        .search-button:active path {
-            fill: #29ABE2;
-        }
-
-        #add-task img {
-            border-radius: 16px;
-            height: 42px;
-            width: 42px;
-            margin-left: 6px;
-        }
-
-        #add-task-button {
-            display: flex;
-            align-items: center;
-            font-size: 21px;
-            font-weight: 700;
-            height: 48px;
-            width: 160px;
-            background-color: #2A3647;
-            color: #FFFFFF;
-            border-radius: 10px;
-        }
-
-        #add-task-button div {
-            padding: 0 16px 0 16px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4px;
-        }
-
-        #add-task-button:hover {
-            cursor: pointer;
-            background-color: #29ABE2;
-            box-shadow: 0px 4px 4px 0px #00000040;
-        }
-
-        #add-task-button:active {
-            background-color: #091931;
-            box-shadow: unset;
-        }
-
-        #board-content {
-            display: flex;
-            max-width: 1440px;
-            background-color: #F6F7F8;
-            gap: 26px;
-        }
-
-        #board-content h3 {
-            margin: 0;
-            color: #42526E;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .divers-sections {
-            display: flex;
-            flex-direction: column;
-            width: 25%;
-        }
-
-        .divers-head-sections {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .divers-head-sections svg:hover {
-            cursor: pointer;
-        }
-
-        .divers-head-sections svg:hover path {
-            stroke: #29ABE2;
-        }
-
-        .divers-head-sections svg:hover rect {
-            stroke: #29ABE2;
-        }
-
-        .divers-head-sections svg:active path {
-            stroke: #091931;
-        }
-
-        .divers-head-sections svg:active rect {
-            stroke: #091931;
-        }
-
-        .specific-content {
-            display: flex;
-            flex-direction: column;
-            margin-top: 24px;
-            gap: 24px;
-        }
-
-        .task-container {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            background-color: #FFFFFF;
-            border-radius: 24px;
-            box-shadow: 0px 0px 10px 3px #00000014;
-        }
-
-        .task-category-container {
-            padding: 4px 16px 4px 16px;
-            background-color: #0038FF;
-            border-radius: 8px;
-            color: #FFFFFF;
-        }
-
-        .task-title-container {
-            margin: 24px 0 0 0; 
-            color: #2A3647;
-        }
-
-        .task-description-container {
-            margin: 8px 0 0 0; 
-            color: #A8A8A8;
-        }
-
-        .task-subtasks-container {
-            margin: 24px 0 0 0; 
-        }
-
-        .task-assignment-container {
-            margin: 24px 0 0 0; 
-        }
-
-        .empty-task {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #E7E7E7;
-            height: 48px;
-            border-radius: 16px;
-            color: #A8A8A8;
-            border: 1px dashed #A8A8A8;
-            border-radius: 10px;
-        }
-    </style>
 
 </head>
 
-<body onload="includeHTML()">
-
-    <script src="./assets/js/board_script.js"></script>
+<body onload="includeHTML(), getTaskStorage()">
 
     <!-- template left menu -->
     <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
@@ -276,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="add-task-button">
+                    <div id="add-task-button" onclick="addTaskSlider()">
                         <div>
                             <span>Add task</span>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -301,8 +75,8 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="todos" class="specific-content">
-                        <div class="empty-task">No tasks To do</div>
+                    <div id="todo" class="specific-content" ondrop="moveTo('todo')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-in-progress-section" class="divers-sections">
@@ -314,15 +88,8 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="progresses" class="specific-content">
-                        <div class="task-container">
-                            <div class="task-category-container">User Story</div>
-                            <h4 class="task-title-container">Contact Form & Imprint</h4>
-                            <div class="task-description-container">Create a contact form and imprint page...</div>
-                            <div class="task-subtasks-container">0/2 Subtasks</div>
-                            <div class="task-assignment-container">User and prio</div>
-                        </div>
-                        <div class="empty-task">No tasks progress</div>
+                    <div id="in-progress" class="specific-content" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-await-feedback-section" class="divers-sections">
@@ -334,22 +101,27 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="feedbacks" class="specific-content">
-                        <div class="empty-task">No tasks feedback</div>
+                    <div id="await-feedback" class="specific-content" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks feedback</div> -->
                     </div>
                 </div>
                 <div id="board-done-section" class="divers-sections">
                     <div id="board-done-section-head" class="divers-head-sections">
                         <h3>Done</h3>
                     </div>
-                    <div id="dones" class="specific-content">
-                        <div class="empty-task">No tasks done</div>
+                    <div id="done" class="specific-content" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks done</div> -->
                     </div>
                 </div>
             </div>
 
         </div>
 
+    </div>
+
+    <div id="screen-center" class="d-none">
+        <div id="slider-bg" class="d-none" onclick="closeSlider()"></div>
+        <div id="slider-container" class="d-none"></div>
     </div>
 
 </body>

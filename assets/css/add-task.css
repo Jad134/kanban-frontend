@@ -8,8 +8,15 @@ body {
     gap: 8px;
 }
 
+.span-style{
+    color:rgba(42, 54, 71, 1);
+    font-size: 20px;
+    font-family: 'inter';
+    font-weight: 400;
+}
+
 .left-side {
-    width: 400px;
+    width: 440px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -32,39 +39,41 @@ body {
 input {
     border: 1px solid lightgray;
     border-radius: 10px;
-    padding: 12px 21px 12px 21px;
+    padding-left: 16px;
+    height: 48px;
+    font-size: 20px;
 }
 
 input:focus {
-    border:1px solid rgb(41, 171, 226) ; 
-    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
-    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
-    outline: none 
+    border: 1px solid rgb(41, 171, 226);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    outline: none
 }
 
 
-input[type="date"]:focus{
-    border:1px solid rgb(41, 171, 226) !important; 
-    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
-    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset ;
-    outline: none 
+input[type="date"]:focus {
+    border: 1px solid rgb(41, 171, 226) !important;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    outline: none
 }
 
-textarea:focus{
-    border:1px solid rgb(41, 171, 226) !important;
-    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
-    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
+textarea:focus {
+    border: 1px solid rgb(41, 171, 226) !important;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset !important;
     outline: none !important;
 }
 
-.edit-subtask-input:focus{
+.edit-subtask-input:focus {
     border: none;
-    -webkit-box-shadow: none ;
-    -moz-box-shadow:none;
-    box-shadow:none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 
 }
 
@@ -73,8 +82,16 @@ input::placeholder {
     font-weight: 400;
     color: rgba(209, 209, 209, 1);
     font-size: 20px;
-    text-align:start;   
-  }
+    text-align: start;
+}
+
+input[type="date"]::placeholder {
+    font-family: 'inter';
+    font-weight: 400;
+    color: rgba(209, 209, 209, 1);
+    font-size: 20px;
+    text-align: start;
+}
 
 #description-textarea {
     border: 1px solid lightgray;
@@ -82,14 +99,15 @@ input::placeholder {
     padding: 12px 21px 12px 21px;
     height: 80px;
     resize: none;
+    font-size: 20px;
 }
 
-textarea::placeholder{
+textarea::placeholder {
     font-family: 'inter';
     font-weight: 400;
     color: rgba(209, 209, 209, 1);
     font-size: 20px;
-    text-align:start;  
+    text-align: start;
 }
 
 #assignedTo {
@@ -97,14 +115,15 @@ textarea::placeholder{
     border: 1px solid lightgray;
     border-radius: 10px;
     padding: 8px;
+    font-size: 20px;
 }
 
 select {
-    width: 292px;
     border: 1px solid lightgray;
     border-radius: 10px;
     padding: 8px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 .seperator {
@@ -122,6 +141,7 @@ select {
 }
 
 .right-side {
+    width: 440px;
     padding-left: 24px;
     gap: 16px;
     display: flex;
@@ -131,7 +151,8 @@ select {
 #date-input {
     border: 1px solid lightgray;
     border-radius: 10px;
-    padding: 12px 21px 12px 21px;
+    padding-left: 16px;
+    height: 48px;
 }
 
 .date-container {
@@ -152,29 +173,40 @@ select {
 }
 
 .prio-buttons button {
+    font-family: 'inter';
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     border: none;
-    width: 135px;
-    height: 50px;
+    width: 136px;
+    height: 56px;
     background: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    font-weight: 400;
+    font-size: 20px;
 }
 
 #urgent-btn.active {
     background-color: rgb(255, 61, 0);
-
+    color: white;
+    font-weight: 700;
+    font-size: 21px;
 }
 
 #medium-btn.active {
     background-color: orange;
+    color: white;
+    font-weight: 700;
+    font-size: 21px;
 }
 
 #low-btn.active {
     background-color: green;
+    color: white;
+    font-weight: 700;
+    font-size: 21px;
 }
 
 
@@ -208,6 +240,10 @@ select {
     align-items: center;
 }
 
+.subtask-list span {
+    font-size: 16px;
+}
+
 .subtask-input-btn {
     display: flex;
 }
@@ -222,7 +258,7 @@ select {
 .subtask-button {
     background-color: white;
     border: 1px solid lightgray;
-    height: 42px;
+    height: 52px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     cursor: pointer;
@@ -232,54 +268,55 @@ select {
     padding-inline: 10px;
 }
 
-.sublist-container{
+.sublist-container {
     display: flex;
     justify-content: space-between;
     border-radius: 6px;
 }
 
-.sublist-container:hover img{
+.sublist-container:hover img {
     display: flex;
     transition: 125ms all ease-in-out;
 }
+
 .sublist-container:hover {
     background-color: rgba(235, 235, 235, 0.9);
     transition: 125ms all ease-in-out;
 }
 
-.subtask-edit-buttons{
+.subtask-edit-buttons {
     gap: 4px;
 }
 
-.subtask-input-container img{
+.subtask-input-container img {
     cursor: pointer;
     height: 24px;
     width: 24px;
 }
 
 
-.edit-subtask{
+.edit-subtask {
     border-right: 1px solid lightgray;
     padding-right: 4px;
     height: 24px;
     width: 24px;
 }
 
-.subtask-input-container{
+.subtask-input-container {
     align-items: center;
     gap: 4px;
     background-color: white;
     border-bottom: 1px solid rgb(41, 171, 226);
 }
 
-.edit-subtask-input{
+.edit-subtask-input {
     width: 100%;
     border-radius: 0;
     border: none;
-    
+
 }
 
-.edit-done{
+.edit-done {
     border-right: 1px solid lightgray;
     padding-right: 4px;
     height: 24px;
@@ -288,6 +325,8 @@ select {
 
 h1 {
     font-size: 61px;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
 }
 
 .create-buttons {
@@ -299,8 +338,8 @@ h1 {
 
 #clear-btn {
     background-color: white;
-    height: 42px;
-    width: 88px;
+    height: 56px;
+    width: 110px;
     border: 1px solid rgb(42, 54, 71);
     border-radius: 10px;
     font-family: 'Inter';
@@ -311,8 +350,8 @@ h1 {
 }
 
 #create-btn {
-    height: 42px;
-    width: 180px;
+    height: 56px;
+    width: 183px;
     border: 1px solid rgb(42, 54, 71);
     border-radius: 10px;
     background-color: rgb(42, 54, 71);
@@ -335,15 +374,16 @@ h1 {
 #clear-btn:hover {
     cursor: pointer;
     color: rgb(41, 171, 226);
-    border-color: rgb(41, 171, 226);  
+    border-color: rgb(41, 171, 226);
     transition: 125ms all ease-in-out;
     box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.5);
 }
 
-#clear-btn:hover path{
+#clear-btn:hover path {
     stroke: #29ABE2;
     transition: 125ms all ease-in-out
 }
+
 svg:hover {
     fill: rgb(41, 171, 226);
 }
@@ -365,7 +405,7 @@ svg:hover {
     /* margin-left: 200px; */
     height: 100%;
     padding-right: 71px;
-    justify-content: center;
+    margin-top: 64px;
 }
 
 #urgent-img.active,
