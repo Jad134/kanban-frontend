@@ -248,6 +248,7 @@
     justify-content: center;
 }
 
+/*
 .slider-bg {
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.4);
@@ -279,7 +280,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-}
+}*/
 
 .open-task-container {
     width: 525px;
@@ -309,6 +310,7 @@
     gap: 16px;
 }
 
+/* move to slider.css
 .slide-from-right {
     animation: 250ms ease-out 0s 1 slideInFromRight;
 }
@@ -364,3 +366,4 @@
         opacity: 0;
     }
 }
+*/

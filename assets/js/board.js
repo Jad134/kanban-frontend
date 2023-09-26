@@ -113,6 +113,7 @@ function addTaskSlider() {
 }
 
 
+/* move to slider.js
 function openSlider() {
     document.getElementById('slider-container').classList.remove('slide-to-right');
     document.getElementById('slider-bg').classList.remove('fadeOut');
@@ -143,6 +144,7 @@ function closeSlider() {
         document.getElementById('screen-center').classList.remove('screen-center');
     }, 200);
 }
+*/
 
 
 function renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio) {
