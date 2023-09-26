@@ -11,6 +11,7 @@ async function init() {
 }
 
 
+/* 
 async function loadUserDataFromRemote() {
   try {
     const newUserDataString = await getItem('users');
@@ -21,6 +22,18 @@ async function loadUserDataFromRemote() {
   } catch (e) {
     console.error('Fehler beim Laden von Benutzerdaten:', e);
   }
+}
+*/
+
+
+async function loadUserDataFromRemote() {
+    let newUserDataString = await getItem('users');
+    newUserDataString = JSON.parse(newUserDataString['data']['value']);
+
+    for (let i = 0; i < newUserDataString.length; i++) {
+        let users = newUserDataString[i];
+        userData.push(users);
+    }
 }
 
 
