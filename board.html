@@ -4,93 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/add-task.css">
     <link rel="stylesheet" href="./assets/css/board.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <link rel="stylesheet" href="./assets/css/slider.css">
+
+    <script src="./assets/js/login-status.js"></script>
+    <script src="./assets/js/addTask.js"></script>
     <script src="./assets/js/board.js"></script>
     <script src="./assets/js/w3-include.js"></script>
     <script src="./assets/js/storage.js"></script>
+    <script src="./assets/js/slider.js"></script>
+    
     <title>Board</title>
-
-    <style>
-        @keyframes slideInFromRight {
-            0% {
-                transform: translateX(+150%);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideOutToRight {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(+150%);
-            }
-        }
-
-        .screen-center {
-            z-index: 997;
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slider-bg {
-            z-index: 998;
-            background-color: rgba(0, 0, 0, 0.4);
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .slider-container {
-            z-index: 999;
-            position: fixed;
-            width: 800px;
-            height: 600px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            box-shadow: 0px 0px 4px 0px #0000001A;
-            border-radius: 30px;
-            background-color: white;
-        }
-
-        .slide-from-right {
-            animation: 500ms ease-out 0s 1 slideInFromRight;
-        }
-
-        .slide-to-right {
-            animation: 500ms ease-out 0s 1 slideOutToRight;
-        }
-    </style>
 
 </head>
 
-<body onload="includeHTML(), loadTestTasks()">
-
-    <div id="screen-center" class="d-none">
-        <div id="slider-bg" class="d-none" onclick="closeSlider()"></div>
-        <div id="slider-container" class="d-none">
-            <div></div>
-        </div>
-    </div>
+<body onload="includeHTML(), getTaskStorage()">
 
     <!-- template left menu -->
     <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
@@ -120,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="add-task-button" onclick="slider()">
+                    <div id="add-task-button" onclick="addTaskSlider()">
                         <div>
                             <span>Add task</span>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -145,8 +78,8 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="todo" class="specific-content">
-                        <div class="empty-task">No tasks To do</div>
+                    <div id="todo" class="specific-content" ondrop="moveTo('todo')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-in-progress-section" class="divers-sections">
@@ -158,15 +91,8 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="in-progress" class="specific-content">
-                        <div class="task-container">
-                            <div class="task-category-container">User Story</div>
-                            <h4 class="task-title-container">Contact Form & Imprint</h4>
-                            <div class="task-description-container">Create a contact form and imprint page...</div>
-                            <div class="task-subtasks-container">0/2 Subtasks</div>
-                            <div class="task-assignment-container">User and prio</div>
-                        </div>
-                        <div class="empty-task">No tasks progress</div>
+                    <div id="in-progress" class="specific-content" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-await-feedback-section" class="divers-sections">
@@ -178,22 +104,27 @@
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                         </svg>
                     </div>
-                    <div id="await-feedback" class="specific-content">
-                        <div class="empty-task">No tasks feedback</div>
+                    <div id="await-feedback" class="specific-content" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks feedback</div> -->
                     </div>
                 </div>
                 <div id="board-done-section" class="divers-sections">
                     <div id="board-done-section-head" class="divers-head-sections">
                         <h3>Done</h3>
                     </div>
-                    <div id="done" class="specific-content">
-                        <div class="empty-task">No tasks done</div>
+                    <div id="done" class="specific-content" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+                        <!-- <div class="empty-task">No tasks done</div> -->
                     </div>
                 </div>
             </div>
 
         </div>
 
+    </div>
+
+    <div id="screen-center" class="d-none">
+        <div id="slider-bg" class="d-none" onclick="closeSlider()"></div>
+        <div id="slider-container" class="d-none"></div>
     </div>
 
 </body>

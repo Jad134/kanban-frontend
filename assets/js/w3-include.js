@@ -11,6 +11,7 @@ async function includeHTML() {
         }
     }
     checkPath();
+    renderInitials();
 }
 
 
@@ -38,4 +39,16 @@ function openUserMenu() {
 function closeUserMenu() {
     document.getElementById('user-menu-container').classList.add('display-none');
     document.getElementById('user-menu-bg').classList.add('display-none');
+}
+
+
+function renderInitials() {
+    let userInitials = localStorage.getItem('login-initials');
+    let userInitialsElement = document.getElementById('user-initials');
+
+    if (userInitialsElement) {
+        userInitialsElement.innerHTML = userInitials;
+    } else {
+        console.error('Element mit ID "user-initials" wurde nicht gefunden.');
+    }
 }

@@ -4,331 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./assets/js/login-status.js"></script>
     <script src="./assets/js/w3-include.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <link rel="stylesheet" href="./assets/css/contacts.css">
     <title>Contacts</title>
-    <style>
-        body {
-            margin: 0;
-        }
-        .main-cont {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .hide-my-scrolls{
-            overflow: hidden;
-        }
-        #contacts {
-            display: flex;
-            background-color: #F6F7F8;
-            height: calc(100vh - 100px);
-            margin-top: 4px;
-            font-family: sans-serif;
-        }
 
-        #contact-overview {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            width: 456px;
-            height: calc(100vh - 100px);
-            background-color: white;
-        }
-
-        #add-new-contact {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 352px;
-            background-color: #2A3647;
-            color: white;
-            margin: 16px;
-            border-radius: 16px;
-            font-family: sans-serif;
-            font-size: 20px;
-        }
-        #add-new-contact:hover {
-            cursor: pointer;
-            box-shadow: 0px 4px 4px 0px #00000040;
-            background: #29ABE2;
-            border-color: #29ABE2;
-        }
-        #add-new-contact:hover #add-new-contact-img {
-            background: #29ABE2;
-        }
-        #add-new-contact img {
-            background-color: #2A3647;
-            height: 32px;
-            width: 32px;
-            margin-left: 12px;
-        }
-        #welcome-to-contacts {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            height: 62px;
-            padding: 64px 0 64px 32px;
-        }
-
-        #welcome-to-contacts h1 {
-            margin: 0 20px 0 20px;
-            font-size: 58px;
-        }
-
-        #contact-seperator {
-            height: 59px;
-            width: 1px;
-            background-color: #29ABE2;
-            border: 1px solid #29ABE2;
-            border-radius: 3px;
-        }
-
-        #detail-view-of-contacts {
-            margin-left: 20px;
-        }
-        #details-of-contacts{
-            height: calc(100vh - 100px);
-        }
-        .contact-input-area {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: white;
-            border: 1px solid #D1D1D1;
-            margin-bottom: 16px;
-            margin-top: 16px;
-            margin-right: 24px;
-            height: 48px;
-            padding: 0px 8px 0px 16px;
-            border-radius: 16px;
-            width: 300px;
-        }
-        #input-fields{
-            display: flex;
-            flex-direction: column;
-        }
-        .contact-input-area input {
-            max-width: 280px;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.0);
-            color: #000000;
-            text-decoration: none;
-        }
-
-        .contact-input-area input:focus {
-            outline: none;
-            border: none;
-        }
-        .contact-input-area input::placeholder {
-            color: lightgray;
-        }
-        .contact-input-area img {
-            background-color: white;
-            object-fit: none;
-            border-radius: 16px;
-            height: 32px;
-            width: 32px;
-        }
-        .contact-input-area img:hover {
-            cursor: pointer;
-        }
-        #add-contact-card{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            z-index: 2;
-            width: 0%;
-            height: 100vh;
-            top: 0;
-            right: -200%;
-            transition: right 0.6s;
-        }
-        #color-my-back{
-            display: none;
-            position: absolute;
-            z-index: 1;
-            top: 0;
-            left: -232px;
-            width: calc(100% + 232px);
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.3);
-        }
-        #create-contact{
-            display: flex;
-            z-index: 3;
-            max-width: 1200px;
-            height: 500px;
-        }
-        #design-sector{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding-left: 32px;
-            width: 350px;
-            background-color: rgb(42, 54, 71);
-            border-top-left-radius: 24px;
-            border-bottom-left-radius: 24px;
-        }
-        #design-sector img{
-            background-color: rgb(42, 54, 71);
-            height: 100px;
-            width: 80px;
-        }
-        #design-sector h2{
-            color: white;
-            font-size: 42px;
-            margin: 12px 0 0 0;
-        }
-        #design-sector p{
-            color: white;
-            font-size: 20px;
-        }
-        #horizon-seperator{
-            height: 1px;
-            width: 59px;
-            background-color: #29ABE2;
-            border: 1px solid #29ABE2;
-            border-radius: 3px;
-        }
-        #fill-in-sector{
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-            border-top-right-radius: 24px;
-            border-bottom-right-radius: 24px;
-        }
-        #move-img{
-            display: flex;
-            justify-content: flex-end;
-            margin-right: 24px;
-            margin-top: 24px;
-        }
-        #img-and-inputs{
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-        #put-the-img{
-            display: flex;
-            justify-content: center;
-            width: 200px;
-        }
-        #img-big-person{
-            display: flex;
-            height: 54px;
-            width: 54px;
-            padding: 20px;
-            background-color: lightgrey;
-            border-radius: 47px;
-            border: 2px solid white;
-            box-shadow: 0 0 12px -5px rgba(0, 0, 0, 0.3);
-        }
-        #cancel-and-create-contact-btns{
-            display: flex;
-            margin-top: 20px;
-        }
-        #cancel-contact-btn{
-            display: flex;
-            align-items: center;
-            background-color: white;
-            color: #000000;
-            border-radius: 16px;
-            margin-right: 20px;
-            border: 2px solid rgb(42, 54, 71);
-        }
-        #cancel-contact-btn:hover{
-            cursor: pointer;
-            box-shadow: 0px 4px 4px 0px #00000040;
-            border: 2px solid #29ABE2;
-            color: #29ABE2;
-            
-        }
-        #cancel-contact-btn:hover #change-cancel-svg-color-btn{
-            stroke: #29ABE2;
-        }
-        .cancel-svg{
-            height: 24px;
-            width: 24px;
-        }
-        .cancel-svg:hover{
-            cursor: pointer;
-        }
-        .cancel-svg:hover #change-cancel-svg-color-head{
-            stroke: #29ABE2;
-        }
-        #cancel-contact-btn p{
-            margin-left: 12px;
-        }
-        .cancel-create-img{
-            height: 26px;
-            width: 26px;
-            margin-right: 12px;
-        }
-        #create-contact-btn{
-            display: flex;
-            align-items: center;
-            color: white;
-            background-color: rgb(42, 54, 71);
-            border-radius: 16px;
-            border: 1px solid rgb(42, 54, 71);
-            font-weight: 700;
-        }
-        #create-contact-btn:hover{
-            cursor: pointer;
-            box-shadow: 0px 4px 4px 0px #00000040;
-            background: #29ABE2;
-            border-color: #29ABE2;
-
-        }
-        #create-contact-btn p{
-            margin-left: 12px;
-        }
-        #render-contacts-overview{
-            overflow: auto;
-        }
-        .contact-block{
-            display: flex;
-            flex-direction: column;
-            margin: 16px;
-            width: 352px;
-        }
-        .contact-seperator-horizontal{
-            height: 1px;
-            width: 352px;
-            background-color: lightgray;
-        }
-        .sub-contact-block{
-            display: flex;
-            align-items: center;
-        }
-        .first-letters{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 48px;
-            width: 48px;
-            background-color: orange;
-            margin: 20px;
-            border-radius: 50%;
-        }
-        .name-and-email{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .contact-name{
-            margin: 10px 0px 10px 0px;
-        }
-        .contact-email{
-            margin: 10px 0px 10px 0px;
-        }
-    </style>
 </head>
 
 <body onload="includeHTML(), openContacts()">
@@ -344,10 +27,92 @@
         <!-- template header -->
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
-        <div id="contacts"></div>
+        <div id="contacts">
+            <div id="contact-overview">
+                <div id="add-new-contact" onclick="renderAddContactCard()">
+                    <p>Add new contact</p>
+                    <img id="add-new-contact-img" src="./assets/img/person_add.png" alt="">
+                </div>
+                <div id="render-contacts-overview">hier werden die kontakte hineingerendert</div>
+            </div>
+            <div id="details-of-contacts">
+                <div id="welcome-to-contacts">
+                    <h1>Contacts</h1>
+                    <div id="contact-seperator"></div>
+                    <div iod="contact-slogan">Better with a team</div>
+                </div>
+                <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
+            </div>  
+        </div>
         <div id="color-my-back"></div>
-        <div id="add-contact-card" onclick="closeContactAddCard()"></div>
-        
+        <div id="add-contact-card">
+            <div id="slide-container" onclick="closeContactAddCard()"></div>
+            <div id="create-contact" onclick="">
+
+                <div id="design-sector">
+                    <img src="./assets/img/logo4SideBar.svg" alt="join logo">
+                    <h2>Add contact</h2>
+                    <p>Tasks are better with a team!</p>
+                    <div id="horizon-seperator"></div>
+                </div>
+
+                <div id="fill-in-sector">
+                    <div id="move-img">
+                        <div class="cancel-svg" onclick="closeContactAddCard()">
+                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path id="change-cancel-svg-color-head" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
+                        11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="img-and-inputs">
+                        <div id="put-the-img">
+                            <img id="img-big-person" src="./assets/img/person.svg" alt="">
+                        </div>
+                        <div>
+                            <div id="input-fields">
+                                <div id="contact-name" class="contact-input-area">
+                                    <input required type="text" placeholder="Name" id="contact-name-input">
+                                    <img src="./assets/img/person.png" alt="Name" onclick="pushContactInfo()">
+                                </div>
+                                <div id="contact-email" class="contact-input-area">
+                                    <input required type="email" placeholder="E-Mail" id="contact-email-input">
+                                    <img src="./assets/img/mail.png" alt="E-Mail" onclick="pushContactInfo()">
+                                </div>
+                                <div id="contact-phone" class="contact-input-area">
+                                    <input type="tel" placeholder="Phone" id="contact-phone-input">
+                                    <img src="./assets/img/call.png" alt="Phone" onclick="pushContactInfo()">
+                                </div>
+                            </div>
+
+                            <div id="cancel-and-create-contact-btns">
+                                <div id="cancel-contact-btn" onclick="closeContactAddCard()">
+                                    <p>Cancel</p>
+                                    <div class="cancel-create-img">
+                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path id="change-cancel-svg-color-btn" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
+                                        11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div id="create-contact-btn" onclick="pushContactInfo()">
+                                    <p>Create Task</p>
+                                    <img class="cancel-create-img" src="./assets/img/check.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 </body>

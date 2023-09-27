@@ -154,7 +154,7 @@ input:focus::placeholder {
 
 .link-button-white {
     display: block;
-    line-height: 50px; 
+    line-height: 50px;
     height: 50px;
     width: 120px;
     border: 2px solid rgb(42, 54, 71);
@@ -216,6 +216,8 @@ input:focus::placeholder {
     transform: translate(-50%, -50%);
     text-align: center;
     padding: 18px 24px 18px 24px;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -230,11 +232,57 @@ input:focus::placeholder {
     background-position: 340px;
 }
 
+.bg-person-icon {
+    background-image: url("../img/person_new.svg");
+    background-repeat: no-repeat;
+    background-position: 340px;
+}
+
 .bg-password-icon {
     background-image: url("../img/lock.svg");
     background-repeat: no-repeat;
     background-position: 340px;
 }
+
+.bg-visibility-icon {
+    background-image: url("../img/visibility.svg");
+    background-repeat: no-repeat;
+    background-position: 340px;
+}
+
+.bg-visibility-off-icon {
+    background-image: url("../img/visibility_off.svg");
+    background-repeat: no-repeat;
+    background-position: 340px;
+}
+
+
+/* 
+.bg-password-icon-container .bg-visibility-off-icon {
+    display: none;
+  }
+  
+  .bg-password-icon-container .bg-visibility-icon {
+    display: block; 
+  }
+  
+  .bg-password-icon-container .bg-visibility-off-icon.hidden {
+    display: block; 
+  }
+  
+  .bg-password-icon-container .bg-visibility-icon.hidden {
+    display: none; 
+   
+
+
+.bg-password-icon.show-password {
+    background-image: url("../img/visibility_off.svg");
+}
+
+.bg-password-icon.show-password-text {
+    background-image: url("../img/visibility.svg");
+} */
+
 
 .footer {
     display: flex;
@@ -301,4 +349,11 @@ input:focus::placeholder {
     top: 130px;
     left: 130px;
     transform: translate(-50%, -50%);
+}
+
+/* zum Testen, kann dann gelöscht werden */
+#randomColor {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
 }

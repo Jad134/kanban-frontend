@@ -1,16 +1,52 @@
-let contacts = {
-    'name': ['beispielname h', 'name h'],
-    'email': ['beispiel@test.de', 'email'],
-    'phone-number': ['beispiel', 'phone-number']
-};
+let contacts = [
+
+    {
+        'name': 'Tobi Mayer',
+        'email': 'tobimayer@test.de',
+        'phone-number': [111111111111]
+    },
+    {
+        'name': 'Clara Müller',
+        'email': 'claramüller@test.de',
+        'phone-number': 2222222222222
+    },
+    {
+        'name': 'Hans Peter',
+        'email': 'hanspeter@test.de',
+        'phone-number': 3333333333333
+    },
+    {
+        'name': 'Sabine Berg',
+        'email': 'sabineberg.de',
+        'phone-number': 4444444444
+    },
+    {
+        'name': 'Charly Fiedler',
+        'email': 'charlyfiedler@test.de',
+        'phone-number': 55555555555
+    }
+];
 
 function renderContactsOverview(){
     document.getElementById('render-contacts-overview').innerHTML = ``;
 
-    for (let i = 0; i < contacts['name'].length; i++) {
-        let name = contacts['name'][i];
-        let email = contacts['email'][i];
-        let firstLetters = contacts['name'][i].charAt(0);
+    contacts.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+      
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+
+    for (let i = 0; i < contacts.length; i++) {
+        let name = contacts[i]['name'];
+        let email = contacts[i]['email'];
+        let firstLetters = contacts[i]['name'][0].charAt(0);
 
         let spaceIndex = name.indexOf(' ');
         if (spaceIndex !== -1 && spaceIndex < name.length - 1) {
@@ -51,23 +87,6 @@ function pushContactInfo(){
 }
 
 function openContacts() {
-    document.getElementById('contacts').innerHTML = /*html*/ `
-        <div id="contact-overview">
-            <div id="add-new-contact" onclick="renderAddContactCard()">
-                <p>Add new contact</p>
-                <img id="add-new-contact-img" src="./assets/img/person_add.png" alt="">
-            </div>
-            <div id="render-contacts-overview">hier werden die kontakte hineingerendert</div>
-        </div>
-        <div id="details-of-contacts">
-            <div id="welcome-to-contacts">
-                <h1>Contacts</h1>
-                <div id="contact-seperator"></div>
-                <div iod="contact-slogan">Better with a team</div>
-            </div>
-            <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
-        </div>    
-    `;
     renderContactsOverview();
 }
 
@@ -76,10 +95,10 @@ async function slideInCard(){
     startAnimation();
 }
 async function waitForIt(){
-    let background = document.getElementById('color-my-back');       
+    let slider = document.getElementById('slide-container');       
     let deactivateOverflow = document.body;
     
-    background.style.display = "flex";
+    slider.style.display = "flex";
     deactivateOverflow.classList.add('hide-my-scrolls');
 }
 async function startAnimation(){   
@@ -89,10 +108,15 @@ async function startAnimation(){
 }
 function closeContactAddCard(){
     let animation = document.getElementById('add-contact-card');
-    let background = document.getElementById('color-my-back');
+    let slider = document.getElementById('slide-container');
+    let back = document.getElementById('color-my-back');
         
     animation.style.right = "-200%";
-    background.style.display = "none";
+    slider.style.display = "none";
+    setTimeout(() => {
+        back.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';
+      }, 100);
+    back.style.display = "none"
         
     animation.addEventListener('transitionend', function() {
         if (animation.style.right === "-200%") {
@@ -100,73 +124,25 @@ function closeContactAddCard(){
         let shrikDiv = document.getElementById('create-contact');
         activateOverflow.classList.remove('hide-my-scrolls');
         animation.style.width = "0%";
+        shrikDiv.style.width = "0%";
         shrikDiv.style.display = "none";
         }
         })
 }
-function renderAddContactCard() {
-    document.getElementById('add-contact-card').innerHTML = /*html */ `
-    <div id="create-contact">
-
-        <div id="design-sector">
-            <img src="./assets/img/logo4SideBar.svg" alt="join logo">
-            <h2>Add contact</h2>
-            <p>Tasks are better with a team!</p>
-            <div id="horizon-seperator"></div>    
-        </div>
-
-        <div id="fill-in-sector">
-            <div id="move-img">
-                <div class="cancel-svg" onclick="closeContactAddCard()">
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path id="change-cancel-svg-color-head" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
-                        11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div id="img-and-inputs">
-                <div id="put-the-img">
-                    <img id="img-big-person" src="./assets/img/person.svg" alt="">
-                </div>
-                <div>
-                    <div id="input-fields">
-                        <div id="contact-name" class="contact-input-area">
-                            <input required type="text" placeholder="Name" id="contact-name-input">
-                            <img src="./assets/img/person.png" alt="Name" onclick="pushContactInfo()">
-                        </div>
-                        <div id="contact-email" class="contact-input-area">
-                            <input required type="email" placeholder="E-Mail" id="contact-email-input">
-                            <img src="./assets/img/mail.png" alt="E-Mail" onclick="pushContactInfo()">
-                        </div>
-                        <div id="contact-phone" class="contact-input-area">
-                            <input type="tel" placeholder="Phone" id="contact-phone-input">
-                            <img src="./assets/img/call.png" alt="Phone" onclick="pushContactInfo()">
-                        </div>
-                    </div>
-            
-                    <div id="cancel-and-create-contact-btns">
-                        <div id="cancel-contact-btn" onclick="closeContactAddCard()">
-                            <p>Cancel</p>
-                            <div class="cancel-create-img">
-                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path id="change-cancel-svg-color-btn" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
-                                        11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div id="create-contact-btn" onclick="pushContactInfo()">
-                            <p>Create Task</p>
-                            <img class="cancel-create-img" src="./assets/img/check.svg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-
-    `;
+async function renderAddContactCard() {
+    await showMyCard();
+    await colorMyBack();
     slideInCard();
+}
+async function showMyCard(){
+    document.getElementById('add-contact-card').style.width = "100%";
+    document.getElementById('create-contact').style.width = "100%";
+    document.getElementById('create-contact').style.display = "flex";
+}
+async function colorMyBack(){
+        const background = document.getElementById('color-my-back');
+        background.style.display = 'block';
+        setTimeout(() => {
+          background.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+        }, 100);
 }

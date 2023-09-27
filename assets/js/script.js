@@ -1,14 +1,24 @@
 
 let userData = [];
 
-
 async function init() {
   renderContent();
   const main = document.querySelector('.main-container');
   main.style.opacity = "0";
-  /*   loadUserData(); */
+  await loadUserDataFromRemote();
+  getLoginFromLocal();                                              // Funktion wird nicht geöffnet, egal wo ich sie hinlege --> ?
+  console.log(userData);                                           // console.log
 }
 
+
+async function loadUserDataFromRemote() {
+  let newUserDataString = await getItem('users');
+  newUserDataString = JSON.parse(newUserDataString['data']['value']);
+  for (let i = 0; i < newUserDataString.length; i++) {
+    let users = newUserDataString[i];
+    userData.push(users);
+  }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById('logo');
@@ -27,27 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
-  middleContent.innerHTML += /*html*/`
-  
-    <div class="border-radius-30 login">
-    <h1 class="padding-top">Log in</h1>
-    <div class="underline border-radius-8"></div>
-    <form onsubmit="login(event)">
-        <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-        <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
-      <div class="checkbox-container">
-        <label class="checkbox-label">
-          <input name="checkbox" type="checkbox"/>Remember me
-        </label>
-        <a class="startpage-links" href="#">I forgot my password</a>
-      </div>
-      <div class="login-buttons">
-        <button type="submit" class="h-button border-radius-8">Log in</button>
-        <a href="board.html" class="link-button-white border-radius-8">Guest Log in</a>
-        </a>
-      </div>
-    </form>
-    `;
+  middleContent.innerHTML += renderHtmlTemplate();
+/*   togglePasswordVisibility(); */
 }
 
 
@@ -58,59 +49,90 @@ function renderSignUp() {
   topArea.style.height = '130px';
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
-  middleContent.innerHTML += /*html*/`
-            <div class="border-radius-30 login">
-                <a href="index.html">
-                    <img src="assets/img/arrow-left.svg" class="arrow-left" alt="left arrow">
-                </a>
-              <h1>Sign up</h1>
-              <div class="underline border-radius-8"></div>
-              <form onsubmit="signUpUser(); return false">
-                
-                <input id="name" minlength="2" class="login-input bg-password-icon icon" type="text" placeholder="Name" name="userName"required/>
-                <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail"required/>
-                <input id="password" minlength="5" class="login-input bg-password-icon icon" type="password" placeholder="Password" name="userPassword" required/>
-                <input id="password-confirm" class="login-input bg-password-icon icon" type="password" placeholder="Confirm Password" required/>
-    
-                <div class="checkbox-container-accept">
-                  <label class="checkbox-label">
-                    <input id="checkbox" name="checkbox" type="checkbox" onclick="checkCheckbox()" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
-                  </label>
-                </div>
+  middleContent.innerHTML += signUpHtmlTemplate();
+ /*  togglePasswordVisibility(); */
+}
 
-                <div class="login-buttons">
-                  <button id="signUpButton" class="h-button border-radius-8" disabled>Sign up</button>
-                </div>
-              </form>
-            </div>
-          </div>
-    `;
+
+function userDataFromSignUp() {
+  let name = document.getElementById('name');
+  let email = document.getElementById('email');
+  let password = document.getElementById('password');
+  let color = document.getElementById('randomColor')
+  if (!Array.isArray(userData)) {                       // so wird geprüft, dass es immer ein Array ist
+    userData = [];
+  }
+  let backgroundColor = color.style.backgroundColor;
+  let hexColor = rgbToHex(backgroundColor);
+  let users = {
+    'name': name.value,
+    'email': email.value,
+    'password': password.value,
+    'color': hexColor,
+  }
+  userData.push(users);
+  saveUserDataInRemote();
+}
+
+
+async function saveUserDataInRemote() {
+  try {
+    const userDataString = JSON.stringify(userData);
+    await setItem('users', userDataString);
+    console.log('Daten remote gespeichert');                        // console.log
+  } catch (e) {
+    console.error('Fehler bei der Remote-Datenspeicherung', e);
+  }
+}
+
+
+// muss eingebaut werden, weil die Speicherung von Farbcodes von Browser zu Browser verschieden angezeigt
+// und dann auch so gespeichert wird
+function rgbToHex(rgb) {
+  if (/^#[0-9A-F]{6}$/i.test(rgb)) {
+    return rgb;
+  }
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+  function hex(x) {
+    return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+
+function setColor() {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const colorElement = document.getElementById("randomColor");
+  colorElement.style.backgroundColor = "#" + randomColor;
+  colorElement.innerHTML = "#" + randomColor;
 }
 
 
 function signUpUser() {
   let registerEmail = document.getElementById('email');
-  const emailValue = registerEmail.value;
-  emailCheck(emailValue);
-  passwordCheck();
+  let emailValue = registerEmail.value;
+  let passwordsMatch = passwordCheck();
+  if (passwordsMatch) {
+    emailCheck(emailValue);
+    setColor();
+    // Array userData erfährt hier ein Update mit den jeweiligen Daten
+    userDataFromSignUp();
+    displayMessage('Registrierung erfolgreich!');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 2500);
+  }
 }
 
 
 function emailCheck(emailValue) {
   const ifEmailExists = userData.some((user) => user.email === emailValue);
   if (!ifEmailExists) {
-    let registerName = document.getElementById('name');
-    let registerPassword = document.getElementById('password');
-    userData.push({ name: registerName.value, email: emailValue, password: registerPassword.value });
-    console.log('eingegeben', userData);
-    /*  setItem('user-data', JSON.stringify(userData));
-  savingRemote(); */
-    displayMessage('Erfolgreich registriert. Sie werden in 2 Sekunden zur Startseite weitergeleitet')
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 3000);
+    return true;
   } else {
     displayMessage('Diese E-Mail-Adresse wurde bereits verwendet')
+    return false;
   }
 }
 
@@ -121,26 +143,74 @@ function passwordCheck() {
   let password = passwordInput.value;
   let confirmPassword = confirmPasswordInput.value;
   if (password === confirmPassword) {
-     // Hier noch die alternative Form-Validation einbauen
     return true;
   } else {
-    displayMessage('Die Passwörter stimmen nicht überein. Bitte überprüfen Sie Ihre Eingabe');
-    // Hier noch die alternative Form-Validation einbauen
+    displayMessage('Die Passwörter stimmen nicht überein');
+    return false;
   }
 }
 
 
-function checkCheckbox() {
-  let signUpButton = document.getElementById('signUpButton');
-  let checkBox = document.getElementById('checkbox');
-  checkBox.addEventListener('change', function () {
-    signUpButton.disabled = !checkBox.checked;
-    if (!checkBox.checked) {
-      displayMessage('Bitte die Privacy Policy akzeptieren');
+// ------------------ password-toggling ... TRIAL ----------
+
+/* function togglePasswordVisibility() {
+  const passwordInputs = document.querySelectorAll('.visibility-change');
+  passwordInputs.forEach((passwordInputs) => {
+    const passwordIcon = passwordInputs.nextElementSibling;
+    const visibilityOffIcon = passwordIcon.closest('.container').querySelector('.bg-visibility-off-icon');
+
+    passwordIcon.addEventListener('click', () => {
+      passwordInputs.type = (passwordInputs.type === 'password') ? 'text' : 'password';
+      visibilityOffIcon.classList.toggle('hidden');
+    });
+  });
+} */
+
+
+/* w3
+function togglePasswordVisibility() {
+  const passwordIcons = document.querySelectorAll('.bg-password-icon');
+  passwordIcons.forEach((passwordIcon) => {
+    const passwordInput = passwordIcon.previousElementSibling;
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
     } else {
-      signUpUser();
+      passwordInput.type = 'password';
     }
   });
+} */
+
+/* window.onload = function(){
+const passwordIcons = document.querySelectorAll('.bg-password-icon');
+passwordIcons.forEach((passwordIcon) => {
+  const passwordInput = passwordIcon.previousElementSibling;
+  passwordIcon.addEventListener('click', () => {
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+    passwordIcon.classList.toggle('show-password');
+    passwordIcon.classList.toggle('show-password-text');
+  });
+
+  passwordInput.addEventListener('blur', () => {
+    passwordInput.type = 'password';
+    passwordIcon.classList.remove('show-password-text');
+  });
+});
+}
+ */
+// ------------------ password-toggling end ----------------------------
+
+function checkCheckbox() {
+  let checkBox = document.getElementById('checkbox');
+  if (!checkBox.checked) {
+    displayMessage('Bitte die Privacy Policy akzeptieren');
+    return false;
+  } else {
+    signUpUser();
+  }
 }
 
 
@@ -152,10 +222,10 @@ function displayMessage(messageText) {
   setTimeout(() => {
     overlay.style.transform = 'translateY(0)';
     message.style.transform = 'translate(-50%, -50%)';
-  }, 300);
+  }, 200);
   setTimeout(() => {
     hideMessage();
-  }, 2500);
+  }, 1500);
 }
 
 
@@ -171,9 +241,12 @@ function login(event) {
   let password = document.getElementById('user-password');
   let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
   if (dataExists) {
+    debugger;
+    rememberMe();
     displayMessage('Anmeldung erfolgreich')
+    loginToLocalStorage(dataExists);             // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
     setTimeout(() => {
-      window.location.href = 'board.html';
+      window.location.href = '/summary.html';
     }, 3000);
   }
   else {
@@ -182,38 +255,153 @@ function login(event) {
 }
 
 
-// Braucht es die Reset-Funktion bei Formularen überhaupt? Sie werden onsubmit zurückgesetzt.. 
-
-/* function resetForm() {
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('password').value = '';
-  document.getElementById('user-mail').value = '';
-  document.getElementById('user-password').value = '';
-  document.getElementById('password-confirm').value = '';
-  signUpButton.disabled = false;
-} */
-
-
-
-/* Remote Storage Speicherung und Laden wird gemeinsam/extra implementiert
-async function loadUserData() {
-  try {
-    const userDataString = await getItem('user-data');
-    userData = JSON.parse(userDataString);
-  } catch (e) {
-    console.error('error:', e);
+function rememberMe() {
+  let checkBox = document.getElementById('remember-me');
+  const userEmailInput = document.getElementById('user-email');
+  const userPasswordInput = document.getElementById('user-password');
+  if (checkBox.checked) {
+    localStorage.setItem('userEmail', userEmailInput.value);
+    localStorage.setItem('userPassword', userPasswordInput.value);
+  } else {
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userPassword');
   }
 }
 
-function savingRemote() {
-  try {
-    setItem('user-data', JSON.stringify(userData));
-    console.log('Daten remote gespeichert');
-  } catch (e) }
-    console.error('Remote Datenspeicherung Error:', e);
+
+function getLoginFromLocal() {
+  const savedEmail = localStorage.getItem('userEmail');
+  const savedPassword = localStorage.getItem('userPassword');
+  const emailInput = document.getElementById('user-email');
+  const passwordInput = document.getElementById('user-password');
+  if (savedEmail) {
+    emailInput.value = savedEmail;
   }
+  if (savedPassword) {
+    passwordInput.value = savedPassword;
+  }
+}
+
+// -------------------       HTML-Templates       --------------------
+function renderHtmlTemplate() {
+  return /*html*/`
+  <div class="border-radius-30 login">
+  <h1 class="padding-top">Log in</h1>
+  <div class="underline border-radius-8"></div>
+  <form onsubmit="login(event)">
+      <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+        <input id="user-password" class="login-input bg-password-icon icon visibility-change" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
+        <div class="checkbox-container">
+      <label class="checkbox-label">
+        <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
+      </label>
+    </div>
+    <div class="login-buttons">
+      <button  class="h-button border-radius-8">Log in</button>
+      <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
+    </div>
+  </form>
+  `;
+}
+
+
+function signUpHtmlTemplate() {
+  return /*html*/`
+           <div class="border-radius-30 login">
+               <a href="index.html">
+                   <img src="assets/img/arrow-left.svg" class="arrow-left" alt="left arrow">
+               </a>
+             <h1>Sign up</h1>
+             <div class="underline border-radius-8"></div>
+             <form onsubmit="checkCheckbox(); return false">
+               <input id="name" minlength="2" class="login-input bg-person-icon icon" type="text" placeholder="Name" name="userName"required/>
+               <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+               <input id="password" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
+               <input id="password-confirm" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Confirm Password" required/>
+               <div class="checkbox-container-accept">
+                 <label class="checkbox-label">
+                   <input id="checkbox" name="checkbox" type="checkbox" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
+                 </label>
+               </div>
+               <div class="login-buttons">
+                 <button type="submit" id="sign-up-button" class="h-button border-radius-8" >Sign up</button>
+               </div>
+             </form>
+           </div>
+         </div>
+   `;
+}
+// -------------------- HTML-Templates Ende --------------------------
+
+// 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
+function loginToLocalStorage(dataExists) {
+  let loginName = dataExists['name'];
+  let loginInitials = getInitials(loginName);
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = '#cb4948';       //// PLATZHALTER
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor);
+}
+
+
+function loginAsGuest() {
+  let loginName = 'Guest';
+  let loginInitials = 'G';
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = '#FFFFFF';       //// PLATZHALTER
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor);
+}
+
+
+// 26.09.2023 - Alexander Riedel: Initialien erstellen
+function getInitials(loginName) {
+  let nameInput = loginName.split(' ');
+  let initials = nameInput[0].charAt(0);
+  if (nameInput.length > 1) {
+    let lastName = nameInput[nameInput.length - 1];
+    initials += lastName.charAt(0);
+  }
+  return initials;
+}
+
+
+/* -------------- Für Board -------------------
+Suchfunktion Anfang        
+
+function findTasks() {
+    // Suchfeld id="find-task" geben
+  const searchInput = document.getElementById('find-task');
+  const taskCards = document.querySelectorAll('.task-container');
+
+  searchInput.addEventListener('input', () => {
+    const searchText = searchInput.value.toLowerCase();
+    let noTasksFound = true;
+    taskCards.forEach((card) => {
+      const cardText = card.innerText.toLowerCase();
+      if (cardText.includes(searchText)) {
+        card.style.display = 'block';
+        noTasksFound = false; // Eine Übereinstimmung wurde gefunden
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    if (noTasksFound) {
+      alert('Es gibt keine Aufgabe mit deinen Suchkriterien');
+    }
+  });
+}
 } */
+
+
 
 
 
