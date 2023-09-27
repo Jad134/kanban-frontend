@@ -6,8 +6,8 @@ async function init() {
   const main = document.querySelector('.main-container');
   main.style.opacity = "0";
   await loadUserDataFromRemote();
+  getLoginFromLocal();                                              // Funktion wird nicht geöffnet, egal wo ich sie hinlege --> ?
   console.log(userData);                                           // console.log
-  rememberMe();
 }
 
 
@@ -187,9 +187,10 @@ function login(event) {
   let password = document.getElementById('user-password');
   let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
   if (dataExists) {
+    debugger;
+    rememberMe();
     displayMessage('Anmeldung erfolgreich')
-    // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
-    loginToLocalStorage(dataExists);
+    loginToLocalStorage(dataExists);             // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
     setTimeout(() => {
       window.location.href = '/summary.html';
     }, 3000);
@@ -201,21 +202,29 @@ function login(event) {
 
 
 function rememberMe() {
-  const rememberMeCheckbox = document.getElementById('remember-me');
+  let checkBox = document.getElementById('remember-me');
   const userEmailInput = document.getElementById('user-email');
   const userPasswordInput = document.getElementById('user-password');
-  const storedUserEmail = localStorage.getItem('userEmail');
-  const storedUserPassword = localStorage.getItem('userPassword');
-  if (rememberMeCheckbox.checked) {
+  if (checkBox.checked) {
     localStorage.setItem('userEmail', userEmailInput.value);
     localStorage.setItem('userPassword', userPasswordInput.value);
   } else {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userPassword');
-  } if (storedUserEmail) {
-    userEmailInput.value = storedUserEmail;
-  } if (storedUserPassword) {
-    userPasswordInput.value = storedUserPassword;
+  }
+}
+
+
+function getLoginFromLocal() {
+  const savedEmail = localStorage.getItem('userEmail');
+  const savedPassword = localStorage.getItem('userPassword');
+  const emailInput = document.getElementById('user-email');
+  const passwordInput = document.getElementById('user-password');
+  if (savedEmail) {
+    emailInput.value = savedEmail;
+  }
+  if (savedPassword) {
+    passwordInput.value = savedPassword;
   }
 }
 
@@ -234,9 +243,8 @@ function renderHtmlTemplate() {
       </label>
     </div>
     <div class="login-buttons">
-      <button type="submit" class="h-button border-radius-8">Log in</button>
+      <button  class="h-button border-radius-8">Log in</button>
       <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
-      </a>
     </div>
   </form>
   `; 
@@ -269,8 +277,7 @@ function signUpHtmlTemplate(){
          </div>
    `;
 }
-
-
+// -------------------- HTML-Templates Ende --------------------------
 
 // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
 function loginToLocalStorage(dataExists) {
