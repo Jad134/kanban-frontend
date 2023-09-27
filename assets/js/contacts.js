@@ -1,16 +1,52 @@
-let contacts = {
-    'name': ['beispielname h', 'name h'],
-    'email': ['beispiel@test.de', 'email'],
-    'phone-number': ['beispiel', 'phone-number']
-};
+let contacts = [
+
+    {
+        'name': 'Tobi Mayer',
+        'email': 'tobimayer@test.de',
+        'phone-number': [111111111111]
+    },
+    {
+        'name': 'Clara Müller',
+        'email': 'claramüller@test.de',
+        'phone-number': 2222222222222
+    },
+    {
+        'name': 'Hans Peter',
+        'email': 'hanspeter@test.de',
+        'phone-number': 3333333333333
+    },
+    {
+        'name': 'Sabine Berg',
+        'email': 'sabineberg.de',
+        'phone-number': 4444444444
+    },
+    {
+        'name': 'Charly Fiedler',
+        'email': 'charlyfiedler@test.de',
+        'phone-number': 55555555555
+    }
+];
 
 function renderContactsOverview(){
     document.getElementById('render-contacts-overview').innerHTML = ``;
 
-    for (let i = 0; i < contacts['name'].length; i++) {
-        let name = contacts['name'][i];
-        let email = contacts['email'][i];
-        let firstLetters = contacts['name'][i].charAt(0);
+    contacts.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+      
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+
+    for (let i = 0; i < contacts.length; i++) {
+        let name = contacts[i]['name'];
+        let email = contacts[i]['email'];
+        let firstLetters = contacts[i]['name'][0].charAt(0);
 
         let spaceIndex = name.indexOf(' ');
         if (spaceIndex !== -1 && spaceIndex < name.length - 1) {
