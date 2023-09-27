@@ -198,8 +198,10 @@ function login(event) {
   let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
   if (dataExists) {
     displayMessage('Anmeldung erfolgreich')
+    // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
+    loginToLocalStorage(dataExists);
     setTimeout(() => {
-      window.location.href = 'board.html';
+      window.location.href = '/summary.html';
     }, 3000);
   }
   else {
@@ -278,8 +280,31 @@ function signUpHtmlTemplate(){
          </div>
    `;
 }
+// 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
+function loginToLocalStorage(dataExists) {
+  let loginName = dataExists['name'];
+  let loginInitials = getInitials(loginName);
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = '#cb4948';       //// PLATZHALTER
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor); 
+}
 
 
+// 26.09.2023 - Alexander Riedel: Initialien erstellen
+function getInitials(loginName) {
+  let nameInput = loginName.split(' ');
+  let initials = nameInput[0].charAt(0);
+  if (nameInput.length > 1) {
+      let lastName = nameInput[nameInput.length - 1];
+      initials += lastName.charAt(0);
+  }
+  return initials;
+}
 
 
 // Braucht es die Reset-Funktion bei Formularen überhaupt? Sie werden onsubmit zurückgesetzt.. 

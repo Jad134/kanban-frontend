@@ -229,13 +229,13 @@
     flex-direction: column;
 }
 
-.greeting-daytime {
+#greeting-daytime {
     font-size: 47px;
     font-weight: 500;
     color: #2A3647;
 }
 
-.greeting-name {
+#greeting-name {
     font-size: 64px;
     font-weight: 700;
     color: #29ABE2;
