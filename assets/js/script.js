@@ -61,7 +61,6 @@ function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
-  
 }
 
 
@@ -101,7 +100,7 @@ function rgbToHex(rgb) {
 }
 
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async function () {       
   const signUpButton = document.getElementById('sign-up-button');
   if (signUpButton) {
     signUpButton.addEventListener("click", setColor);
