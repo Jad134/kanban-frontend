@@ -3,27 +3,39 @@ let lastClickedPrio = null;
 let newSubTasks = [];
 
 
-function init(){
+
+function init() {
     getTaskStorage()
+    //assignContacts()
+
 }
 
 function ChangeButtonColor(buttonId, imgId) {
     let button = document.getElementById(buttonId);
-    let img = document.getElementById(imgId)
-    lastClickedPrio = button;
+    let img = document.getElementById(imgId);
 
-    let buttons = document.querySelectorAll('.prio-buttons button');
-    buttons.forEach(function (btn,) {
-        btn.classList.remove('active');
-    });
 
-    let images = document.querySelectorAll('.prio-buttons button img');
-    images.forEach(function (imag,) {
-        imag.classList.remove('active');
-    });
+    if (button.classList.contains('active')) {
+        button.classList.remove('active');
+        img.classList.remove('active');
+        lastClickedPrio = null;
+    } else {
 
-    button.classList.add('active');
-    img.classList.add('active')
+        let buttons = document.querySelectorAll('.prio-buttons button');
+        buttons.forEach(function (btn) {
+            btn.classList.remove('active');
+        });
+
+        let images = document.querySelectorAll('.prio-buttons button img');
+        images.forEach(function (imag) {
+            imag.classList.remove('active');
+        });
+
+        lastClickedPrio = button;
+
+        button.classList.add('active');
+        img.classList.add('active');
+    }
 }
 
 
@@ -60,7 +72,7 @@ function getValues() {
     newSubTasks = [];
 }
 
-async function getTaskStorage(){
+async function getTaskStorage() {
     addedTasks = [];
     let currentTasks = await getItem('tasks');
     currentTasks = JSON.parse(currentTasks['data']['value']);
@@ -70,6 +82,7 @@ async function getTaskStorage(){
         addedTasks.push(tasks);
     }
 }
+
 
 async function addTaskToStorage() {
     await setItem('tasks', JSON.stringify(addedTasks))
@@ -107,15 +120,45 @@ function addSubTask() {
     document.getElementById('subtask-input').value = '';
 }
 
+function assignContacts() { // FÜr Später wieder wichtig stichwort: Contacts!!!!
+    let select = document.getElementById('assignedTo');
+
+    for (let i = 0; i < contacts.length; i++) {
+        let currentContact = contacts[i];
+        let name = currentContact['name'];
+
+        select.innerHTML += /*html*/`
+            <option value="${i}"> ${name}</option>
+        `
+    }
+}
+
+function openContactOverlay() {
+    let overlayContainer = document.getElementById('contact-overlay');
+
+    for (let i = 0; i < contacts.length; i++) {
+        let currentContact = contacts[i];
+        let name = currentContact['name'];
+
+        overlayContainer.innerHTML += /*html*/`
+        <div class="current-contacts">
+            <div class="add-task-contacts"> 
+                <span class="current-name">${name}</span>
+            </div>
+        </div>
+        `
+    }
+
+}
 
 function handleEnterKeyPress(event, action, i) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Verhindere das Standardverhalten des Formulars
-        if(action === 'subtask-input'){
-        addSubTask();
-            } else if(action === 'edit-Input'){
-              renameSubTask(i)
-             }
+        event.preventDefault();
+        if (action === 'subtask-input') {
+            addSubTask();
+        } else if (action === 'edit-Input') {
+            renameSubTask(i)
+        }
     }
 }
 

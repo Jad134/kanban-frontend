@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="./assets/js/contacts.js"></script>
     <script src="./assets/js/login-status.js"></script>
     <script src="/assets/js/storage.js"></script>
     <script src="./assets/js/addTask.js"></script>
@@ -42,10 +43,8 @@
                             </div>
                             <div class="assigned">
                                 <span class="span-style">Assigned to</span>
-                                <select name="Select contacts to assign" id="assignedTo">
-                                    <option value="1">Hello World</option>
-                                    <option value="2">Test</option>
-                                </select>
+                                <input onclick="openContactOverlay()" id="assignedTo" readonly type="text" placeholder="Select contacts to assign" >  
+                                <div id="contact-overlay"></div>
                             </div>
                         </div>
 

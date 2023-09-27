@@ -36,6 +36,11 @@ body {
     gap: 8px;
 }
 
+
+.custom-select select:focus {
+    outline: none; /* Entfernt den Standard-Fokusrahmen */
+}
+
 input {
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -109,14 +114,14 @@ textarea::placeholder {
     font-size: 20px;
     text-align: start;
 }
-
-#assignedTo {
-    width: 100%;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    padding: 8px;
-    font-size: 20px;
+#assignedTo{
+    background-image: url(/assets/img/arrow-assign-down.svg);
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 95%;
+    cursor: pointer;
 }
+
 
 select {
     border: 1px solid lightgray;
@@ -124,6 +129,11 @@ select {
     padding: 8px;
     cursor: pointer;
     font-size: 20px;
+    appearance: none;
+    background-image: url(/assets/img/arrow-assign-down.svg);
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 95%
 }
 
 .seperator {
@@ -413,3 +423,18 @@ svg:hover {
 #low-img.active {
     filter: grayscale(100%) brightness(200%);
 }
+
+
+#contact-overlay{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background-color: white;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.current-name{
+    font-size: 20px;
+}
+
