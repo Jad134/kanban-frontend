@@ -304,3 +304,10 @@ input:focus::placeholder {
     left: 130px;
     transform: translate(-50%, -50%);
 }
+
+/* zum Testen, kann dann gelöscht werden */
+#randomColor {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
