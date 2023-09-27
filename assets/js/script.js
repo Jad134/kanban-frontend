@@ -123,23 +123,44 @@ function renderSignUp() {
 }
 
 
-function userDatafromSignUp() {
+function userDataFromSignUp() {
   let name = document.getElementById('name');
   let email = document.getElementById('email');
   let password = document.getElementById('password');
-  // Stellen Sie sicher, dass userData immer ein Array ist, selbst wenn keine Benutzerdaten vorhanden sind
-  if (!Array.isArray(userData)) {
+  let color = document.getElementById('randomColor')
+  if (!Array.isArray(userData)) {                       // so wird geprüft, dass es immer ein Array ist
     userData = [];
   }
   let users = {
     'name': name.value,
     'email': email.value,
     'password': password.value,
+    'color': color.style.backgroundColor, 
   }
   userData.push(users);
   saveUserDataInRemote();
 }
 
+
+// kann nach Einbau bei board, contacts etc entfernt werden.. nur zum Testen
+document.addEventListener("DOMContentLoaded", async function() {
+  const signUpButton = document.getElementById('sign-up-button');
+  if (signUpButton) {
+    signUpButton.addEventListener("click", setColor);
+    setColor();
+    colorElement.style.display = block;
+   
+  }
+});
+
+
+function setColor() {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const colorElement = document.getElementById("randomColor");
+  colorElement.style.backgroundColor = "#" + randomColor;
+  colorElement.innerHTML = "#" + randomColor;                           //  besser Hex-Code übergeben
+  userDataFromSignUp();
+}
 
 
 function signUpUser() {
@@ -149,7 +170,7 @@ function signUpUser() {
   if (passwordsMatch) {
     emailCheck(emailValue);
     // Array userData erfährt hier ein Update mit den jeweiligen Daten
-    userDatafromSignUp();
+    userDataFromSignUp();
     displayMessage('Registrierung erfolgreich!');
     setTimeout(() => {
       window.location.href = 'index.html';
