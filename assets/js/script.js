@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += renderHtmlTemplate();
-  togglePasswordVisibility();
+/*   togglePasswordVisibility(); */
 }
 
 
@@ -50,7 +50,7 @@ function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
-  togglePasswordVisibility();
+ /*  togglePasswordVisibility(); */
 }
 
 
@@ -374,18 +374,32 @@ function getInitials(loginName) {
 }
 
 
-// Braucht es die Reset-Funktion bei Formularen überhaupt? Sie werden onsubmit zurückgesetzt.. 
+/* -------------- Für Board -------------------
+Suchfunktion Anfang        
 
-/* function resetForm() {
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('password').value = '';
-  document.getElementById('user-mail').value = '';
-  document.getElementById('user-password').value = '';
-  document.getElementById('password-confirm').value = '';
-  signUpButton.disabled = false;
+function findTasks() {
+    // Suchfeld id="find-task" geben
+  const searchInput = document.getElementById('find-task');
+  const taskCards = document.querySelectorAll('.task-container');
+
+  searchInput.addEventListener('input', () => {
+    const searchText = searchInput.value.toLowerCase();
+    let noTasksFound = true;
+    taskCards.forEach((card) => {
+      const cardText = card.innerText.toLowerCase();
+      if (cardText.includes(searchText)) {
+        card.style.display = 'block';
+        noTasksFound = false; // Eine Übereinstimmung wurde gefunden
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    if (noTasksFound) {
+      alert('Es gibt keine Aufgabe mit deinen Suchkriterien');
+    }
+  });
+}
 } */
-
 
 
 
