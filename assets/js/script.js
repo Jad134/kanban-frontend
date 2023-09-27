@@ -20,18 +20,6 @@ async function loadUserDataFromRemote() {
   }
 }
 
-
-async function saveUserDataInRemote() {
-  try {
-    const userDataString = JSON.stringify(userData);
-    await setItem('users', userDataString);
-    console.log('Daten remote gespeichert');                        // console.log
-  } catch (e) {
-    console.error('Fehler bei der Remote-Datenspeicherung', e);
-  }
-}
-
-
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById('logo');
   const main = document.querySelector('.main-container')
@@ -85,6 +73,17 @@ function userDataFromSignUp() {
 }
 
 
+async function saveUserDataInRemote() {
+  try {
+    const userDataString = JSON.stringify(userData);
+    await setItem('users', userDataString);
+    console.log('Daten remote gespeichert');                        // console.log
+  } catch (e) {
+    console.error('Fehler bei der Remote-Datenspeicherung', e);
+  }
+}
+
+
 // muss eingebaut werden, weil die Speicherung von Farbcodes von Browser zu Browser verschieden angezeigt
 // und dann auch so gespeichert wird
 function rgbToHex(rgb) {
@@ -100,21 +99,11 @@ function rgbToHex(rgb) {
 }
 
 
-document.addEventListener("DOMContentLoaded", async function () {       
-  const signUpButton = document.getElementById('sign-up-button');
-  if (signUpButton) {
-    signUpButton.addEventListener("click", setColor);
-    setColor();
-  }
-});
-
-
 function setColor() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const colorElement = document.getElementById("randomColor");
   colorElement.style.backgroundColor = "#" + randomColor;
   colorElement.innerHTML = "#" + randomColor;                         
-  userDataFromSignUp();
 }
 
 
@@ -124,6 +113,7 @@ function signUpUser() {
   let passwordsMatch = passwordCheck();
   if (passwordsMatch) {
     emailCheck(emailValue);
+    setColor();
     // Array userData erfährt hier ein Update mit den jeweiligen Daten
     userDataFromSignUp();
     displayMessage('Registrierung erfolgreich!');
@@ -242,7 +232,6 @@ function renderHtmlTemplate() {
       <label class="checkbox-label">
         <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
       </label>
-      <a class="startpage-links" href="#">I forgot my password</a>
     </div>
     <div class="login-buttons">
       <button type="submit" class="h-button border-radius-8">Log in</button>
