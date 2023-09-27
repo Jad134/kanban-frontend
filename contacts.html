@@ -27,7 +27,23 @@
         <!-- template header -->
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
-        <div id="contacts"></div>
+        <div id="contacts">
+            <div id="contact-overview">
+                <div id="add-new-contact" onclick="renderAddContactCard()">
+                    <p>Add new contact</p>
+                    <img id="add-new-contact-img" src="./assets/img/person_add.png" alt="">
+                </div>
+                <div id="render-contacts-overview">hier werden die kontakte hineingerendert</div>
+            </div>
+            <div id="details-of-contacts">
+                <div id="welcome-to-contacts">
+                    <h1>Contacts</h1>
+                    <div id="contact-seperator"></div>
+                    <div iod="contact-slogan">Better with a team</div>
+                </div>
+                <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
+            </div>  
+        </div>
         <div id="color-my-back"></div>
         <div id="add-contact-card">
             <div id="slide-container" onclick="closeContactAddCard()"></div>
