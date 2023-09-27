@@ -7,7 +7,7 @@ async function init() {
   main.style.opacity = "0";
   await loadUserDataFromRemote();
   console.log(userData);                                           // console.log
-  rememberMe();                                       
+  rememberMe();
 }
 
 
@@ -27,20 +27,20 @@ async function loadUserDataFromRemote() {
 
 
 async function loadUserDataFromRemote() {
-    let newUserDataString = await getItem('users');
-    newUserDataString = JSON.parse(newUserDataString['data']['value']);
+  let newUserDataString = await getItem('users');
+  newUserDataString = JSON.parse(newUserDataString['data']['value']);
 
-    for (let i = 0; i < newUserDataString.length; i++) {
-        let users = newUserDataString[i];
-        userData.push(users);
-    }
+  for (let i = 0; i < newUserDataString.length; i++) {
+    let users = newUserDataString[i];
+    userData.push(users);
+  }
 }
 
 
 async function saveUserDataInRemote() {
   try {
     const userDataString = JSON.stringify(userData);
-    await setItem('users', userDataString); 
+    await setItem('users', userDataString);
     console.log('Daten remote gespeichert');                        // console.log
   } catch (e) {
     console.error('Fehler bei der Remote-Datenspeicherung', e);
@@ -140,7 +140,7 @@ function userDatafromSignUp() {
   saveUserDataInRemote();
 }
 
-  
+
 
 function signUpUser() {
   let registerEmail = document.getElementById('email');
@@ -151,9 +151,9 @@ function signUpUser() {
     // Array userData erfährt hier ein Update mit den jeweiligen Daten
     userDatafromSignUp();
     displayMessage('Registrierung erfolgreich!');
-     setTimeout(() => {
-       window.location.href = 'index.html';                               
-     }, 2500);
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 2500);
   }
 }
 
@@ -222,8 +222,10 @@ function login(event) {
   let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
   if (dataExists) {
     displayMessage('Anmeldung erfolgreich')
+    // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
+    loginToLocalStorage(dataExists);
     setTimeout(() => {
-      window.location.href = 'board.html';
+      window.location.href = '/summary.html';
     }, 3000);
   }
   else {
@@ -252,8 +254,31 @@ function rememberMe() {
 }
 
 
+// 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
+function loginToLocalStorage(dataExists) {
+  let loginName = dataExists['name'];
+  let loginInitials = getInitials(loginName);
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = '#cb4948';       //// PLATZHALTER
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor); 
+}
 
 
+// 26.09.2023 - Alexander Riedel: Initialien erstellen
+function getInitials(loginName) {
+  let nameInput = loginName.split(' ');
+  let initials = nameInput[0].charAt(0);
+  if (nameInput.length > 1) {
+      let lastName = nameInput[nameInput.length - 1];
+      initials += lastName.charAt(0);
+  }
+  return initials;
+}
 
 
 // Braucht es die Reset-Funktion bei Formularen überhaupt? Sie werden onsubmit zurückgesetzt.. 
