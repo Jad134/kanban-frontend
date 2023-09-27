@@ -280,6 +280,8 @@ function signUpHtmlTemplate(){
          </div>
    `;
 }
+
+
 // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
 function loginToLocalStorage(dataExists) {
   let loginName = dataExists['name'];
