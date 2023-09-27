@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += renderHtmlTemplate();
+  togglePasswordVisibility();
 }
 
 
@@ -49,6 +50,7 @@ function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
+  togglePasswordVisibility();
 }
 
 
@@ -103,7 +105,7 @@ function setColor() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const colorElement = document.getElementById("randomColor");
   colorElement.style.backgroundColor = "#" + randomColor;
-  colorElement.innerHTML = "#" + randomColor;                         
+  colorElement.innerHTML = "#" + randomColor;
 }
 
 
@@ -148,6 +150,58 @@ function passwordCheck() {
   }
 }
 
+
+// ------------------ password-toggling ... TRIAL ----------
+
+/* function togglePasswordVisibility() {
+  const passwordInputs = document.querySelectorAll('.visibility-change');
+  passwordInputs.forEach((passwordInputs) => {
+    const passwordIcon = passwordInputs.nextElementSibling;
+    const visibilityOffIcon = passwordIcon.closest('.container').querySelector('.bg-visibility-off-icon');
+
+    passwordIcon.addEventListener('click', () => {
+      passwordInputs.type = (passwordInputs.type === 'password') ? 'text' : 'password';
+      visibilityOffIcon.classList.toggle('hidden');
+    });
+  });
+} */
+
+
+/* w3
+function togglePasswordVisibility() {
+  const passwordIcons = document.querySelectorAll('.bg-password-icon');
+  passwordIcons.forEach((passwordIcon) => {
+    const passwordInput = passwordIcon.previousElementSibling;
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  });
+} */
+
+/* window.onload = function(){
+const passwordIcons = document.querySelectorAll('.bg-password-icon');
+passwordIcons.forEach((passwordIcon) => {
+  const passwordInput = passwordIcon.previousElementSibling;
+  passwordIcon.addEventListener('click', () => {
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+    passwordIcon.classList.toggle('show-password');
+    passwordIcon.classList.toggle('show-password-text');
+  });
+
+  passwordInput.addEventListener('blur', () => {
+    passwordInput.type = 'password';
+    passwordIcon.classList.remove('show-password-text');
+  });
+});
+}
+ */
+// ------------------ password-toggling end ----------------------------
 
 function checkCheckbox() {
   let checkBox = document.getElementById('checkbox');
@@ -236,8 +290,8 @@ function renderHtmlTemplate() {
   <div class="underline border-radius-8"></div>
   <form onsubmit="login(event)">
       <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-      <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
-    <div class="checkbox-container">
+        <input id="user-password" class="login-input bg-password-icon icon visibility-change" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
+        <div class="checkbox-container">
       <label class="checkbox-label">
         <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
       </label>
@@ -247,11 +301,11 @@ function renderHtmlTemplate() {
       <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
     </div>
   </form>
-  `; 
+  `;
 }
 
 
-function signUpHtmlTemplate(){
+function signUpHtmlTemplate() {
   return /*html*/`
            <div class="border-radius-30 login">
                <a href="index.html">
@@ -260,10 +314,10 @@ function signUpHtmlTemplate(){
              <h1>Sign up</h1>
              <div class="underline border-radius-8"></div>
              <form onsubmit="checkCheckbox(); return false">
-               <input id="name" minlength="2" class="login-input bg-password-icon icon" type="text" placeholder="Name" name="userName"required/>
+               <input id="name" minlength="2" class="login-input bg-person-icon icon" type="text" placeholder="Name" name="userName"required/>
                <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-               <input id="password" minlength="5" class="login-input bg-password-icon icon" type="password" placeholder="Password" name="userPassword" required/>
-               <input id="password-confirm" class="login-input bg-password-icon icon" type="password" placeholder="Confirm Password" required/>
+               <input id="password" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
+               <input id="password-confirm" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Confirm Password" required/>
                <div class="checkbox-container-accept">
                  <label class="checkbox-label">
                    <input id="checkbox" name="checkbox" type="checkbox" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
@@ -290,7 +344,7 @@ function loginToLocalStorage(dataExists) {
   localStorage.setItem('login-initials', loginInitials);
   localStorage.setItem('login-status', loginStatus);
   localStorage.setItem('login-time', loginTime);
-  localStorage.setItem('user-color', userColor); 
+  localStorage.setItem('user-color', userColor);
 }
 
 
@@ -304,7 +358,7 @@ function loginAsGuest() {
   localStorage.setItem('login-initials', loginInitials);
   localStorage.setItem('login-status', loginStatus);
   localStorage.setItem('login-time', loginTime);
-  localStorage.setItem('user-color', userColor); 
+  localStorage.setItem('user-color', userColor);
 }
 
 
@@ -313,8 +367,8 @@ function getInitials(loginName) {
   let nameInput = loginName.split(' ');
   let initials = nameInput[0].charAt(0);
   if (nameInput.length > 1) {
-      let lastName = nameInput[nameInput.length - 1];
-      initials += lastName.charAt(0);
+    let lastName = nameInput[nameInput.length - 1];
+    initials += lastName.charAt(0);
   }
   return initials;
 }
