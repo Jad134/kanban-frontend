@@ -7,40 +7,24 @@ async function init() {
   main.style.opacity = "0";
   await loadUserDataFromRemote();
   console.log(userData);                                           // console.log
-  rememberMe();                                       
+  rememberMe();
 }
 
 
-/* 
 async function loadUserDataFromRemote() {
-  try {
-    const newUserDataString = await getItem('users');
-    console.log('Daten aus Remote-Speicher:', newUserDataString);   // console.log
-    if (newUserDataString && newUserDataString.value) {
-      userData = JSON.parse(newUserDataString.value);               // hier gibt's noch einen Fehler. userData wird nicht befüllt
-    }
-  } catch (e) {
-    console.error('Fehler beim Laden von Benutzerdaten:', e);
+  let newUserDataString = await getItem('users');
+  newUserDataString = JSON.parse(newUserDataString['data']['value']);
+  for (let i = 0; i < newUserDataString.length; i++) {
+    let users = newUserDataString[i];
+    userData.push(users);
   }
-}
-*/
-
-
-async function loadUserDataFromRemote() {
-    let newUserDataString = await getItem('users');
-    newUserDataString = JSON.parse(newUserDataString['data']['value']);
-
-    for (let i = 0; i < newUserDataString.length; i++) {
-        let users = newUserDataString[i];
-        userData.push(users);
-    }
 }
 
 
 async function saveUserDataInRemote() {
   try {
     const userDataString = JSON.stringify(userData);
-    await setItem('users', userDataString); 
+    await setItem('users', userDataString);
     console.log('Daten remote gespeichert');                        // console.log
   } catch (e) {
     console.error('Fehler bei der Remote-Datenspeicherung', e);
@@ -65,27 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
-  middleContent.innerHTML += /*html*/`
-  
-    <div class="border-radius-30 login">
-    <h1 class="padding-top">Log in</h1>
-    <div class="underline border-radius-8"></div>
-    <form onsubmit="login(event)">
-        <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-        <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
-      <div class="checkbox-container">
-        <label class="checkbox-label">
-          <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
-        </label>
-        <a class="startpage-links" href="#">I forgot my password</a>
-      </div>
-      <div class="login-buttons">
-        <button type="submit" class="h-button border-radius-8">Log in</button>
-        <a href="board.html" class="link-button-white border-radius-8">Guest Log in</a>
-        </a>
-      </div>
-    </form>
-    `;
+  middleContent.innerHTML += renderHtmlTemplate();
 }
 
 
@@ -96,30 +60,8 @@ function renderSignUp() {
   topArea.style.height = '130px';
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
-  middleContent.innerHTML += /*html*/`
-            <div class="border-radius-30 login">
-                <a href="index.html">
-                    <img src="assets/img/arrow-left.svg" class="arrow-left" alt="left arrow">
-                </a>
-              <h1>Sign up</h1>
-              <div class="underline border-radius-8"></div>
-              <form onsubmit="checkCheckbox(); return false">
-                <input id="name" minlength="2" class="login-input bg-password-icon icon" type="text" placeholder="Name" name="userName"required/>
-                <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-                <input id="password" minlength="5" class="login-input bg-password-icon icon" type="password" placeholder="Password" name="userPassword" required/>
-                <input id="password-confirm" class="login-input bg-password-icon icon" type="password" placeholder="Confirm Password" required/>
-                <div class="checkbox-container-accept">
-                  <label class="checkbox-label">
-                    <input id="checkbox" name="checkbox" type="checkbox" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
-                  </label>
-                </div>
-                <div class="login-buttons">
-                  <button type="submit" id="sign-up-button" class="h-button border-radius-8" >Sign up</button>
-                </div>
-              </form>
-            </div>
-          </div>
-    `;
+  middleContent.innerHTML += signUpHtmlTemplate();
+  
 }
 
 
@@ -131,25 +73,39 @@ function userDataFromSignUp() {
   if (!Array.isArray(userData)) {                       // so wird geprüft, dass es immer ein Array ist
     userData = [];
   }
+  let backgroundColor = color.style.backgroundColor;
+  let hexColor = rgbToHex(backgroundColor);
   let users = {
     'name': name.value,
     'email': email.value,
     'password': password.value,
-    'color': color.style.backgroundColor, 
+    'color': hexColor,
   }
   userData.push(users);
   saveUserDataInRemote();
 }
 
 
-// kann nach Einbau bei board, contacts etc entfernt werden.. nur zum Testen
-document.addEventListener("DOMContentLoaded", async function() {
+// muss eingebaut werden, weil die Speicherung von Farbcodes von Browser zu Browser verschieden angezeigt
+// und dann auch so gespeichert wird
+function rgbToHex(rgb) {
+  if (/^#[0-9A-F]{6}$/i.test(rgb)) {
+    return rgb;
+  }
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+  function hex(x) {
+    return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+
+document.addEventListener("DOMContentLoaded", async function () {
   const signUpButton = document.getElementById('sign-up-button');
   if (signUpButton) {
     signUpButton.addEventListener("click", setColor);
     setColor();
-    colorElement.style.display = block;
-   
   }
 });
 
@@ -158,7 +114,7 @@ function setColor() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   const colorElement = document.getElementById("randomColor");
   colorElement.style.backgroundColor = "#" + randomColor;
-  colorElement.innerHTML = "#" + randomColor;                           //  besser Hex-Code übergeben
+  colorElement.innerHTML = "#" + randomColor;                         
   userDataFromSignUp();
 }
 
@@ -172,9 +128,9 @@ function signUpUser() {
     // Array userData erfährt hier ein Update mit den jeweiligen Daten
     userDataFromSignUp();
     displayMessage('Registrierung erfolgreich!');
-     setTimeout(() => {
-       window.location.href = 'index.html';                               
-     }, 2500);
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 2500);
   }
 }
 
@@ -272,7 +228,57 @@ function rememberMe() {
   }
 }
 
+// -------------------       HTML-Templates       --------------------
+function renderHtmlTemplate() {
+  return /*html*/`
+  <div class="border-radius-30 login">
+  <h1 class="padding-top">Log in</h1>
+  <div class="underline border-radius-8"></div>
+  <form onsubmit="login(event)">
+      <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+      <input id="user-password" class="login-input bg-password-icon icon" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
+    <div class="checkbox-container">
+      <label class="checkbox-label">
+        <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
+      </label>
+      <a class="startpage-links" href="#">I forgot my password</a>
+    </div>
+    <div class="login-buttons">
+      <button type="submit" class="h-button border-radius-8">Log in</button>
+      <a href="board.html" class="link-button-white border-radius-8">Guest Log in</a>
+      </a>
+    </div>
+  </form>
+  `; 
+}
 
+
+function signUpHtmlTemplate(){
+  return /*html*/`
+           <div class="border-radius-30 login">
+               <a href="index.html">
+                   <img src="assets/img/arrow-left.svg" class="arrow-left" alt="left arrow">
+               </a>
+             <h1>Sign up</h1>
+             <div class="underline border-radius-8"></div>
+             <form onsubmit="checkCheckbox(); return false">
+               <input id="name" minlength="2" class="login-input bg-password-icon icon" type="text" placeholder="Name" name="userName"required/>
+               <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+               <input id="password" minlength="5" class="login-input bg-password-icon icon" type="password" placeholder="Password" name="userPassword" required/>
+               <input id="password-confirm" class="login-input bg-password-icon icon" type="password" placeholder="Confirm Password" required/>
+               <div class="checkbox-container-accept">
+                 <label class="checkbox-label">
+                   <input id="checkbox" name="checkbox" type="checkbox" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
+                 </label>
+               </div>
+               <div class="login-buttons">
+                 <button type="submit" id="sign-up-button" class="h-button border-radius-8" >Sign up</button>
+               </div>
+             </form>
+           </div>
+         </div>
+   `;
+}
 
 
 
