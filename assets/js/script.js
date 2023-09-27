@@ -247,7 +247,7 @@ function renderHtmlTemplate() {
     </div>
     <div class="login-buttons">
       <button type="submit" class="h-button border-radius-8">Log in</button>
-      <a href="board.html" class="link-button-white border-radius-8">Guest Log in</a>
+      <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
       </a>
     </div>
   </form>
@@ -281,6 +281,9 @@ function signUpHtmlTemplate(){
          </div>
    `;
 }
+
+
+
 // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
 function loginToLocalStorage(dataExists) {
   let loginName = dataExists['name'];
@@ -288,6 +291,20 @@ function loginToLocalStorage(dataExists) {
   let loginStatus = true;
   let loginTime = new Date();
   let userColor = '#cb4948';       //// PLATZHALTER
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor); 
+}
+
+
+function loginAsGuest() {
+  let loginName = 'Guest';
+  let loginInitials = 'G';
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = '#FFFFFF';       //// PLATZHALTER
   localStorage.setItem('login-name', loginName);
   localStorage.setItem('login-initials', loginInitials);
   localStorage.setItem('login-status', loginStatus);
