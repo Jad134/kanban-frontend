@@ -1,11 +1,13 @@
 let addedTasks = [{}];
 let lastClickedPrio = null;
 let newSubTasks = [];
+let assignedContact = []
 
 
 
 function init() {
     getTaskStorage()
+    renderContacts()
     //assignContacts()
 
 }
@@ -120,24 +122,24 @@ function addSubTask() {
     document.getElementById('subtask-input').value = '';
 }
 
-function assignContacts() { // FÜr Später wieder wichtig stichwort: Contacts!!!!
-    let select = document.getElementById('assignedTo');
 
-    for (let i = 0; i < contacts.length; i++) {
-        let currentContact = contacts[i];
-        let name = currentContact['name'];
-
-        select.innerHTML += /*html*/`
-            <option value="${i}"> ${name}</option>
-        `
-    }
-}
 
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo')
     let overlayContainer = document.getElementById('contact-overlay');
+    
+    overlayContainer.classList.remove('d-none');
+    overlayContainer.classList.add('d-flex');
 
     onclick.removeAttribute('onClick')
+
+    document.addEventListener('click', closeOnClickOutside);
+    onclick.onclick = closeContactOverlay;
+}
+
+function renderContacts() {
+    let overlayContainer = document.getElementById('contact-overlay');
+
 
     for (let i = 0; i < contacts.length; i++) {
         let currentContact = contacts[i];
@@ -148,31 +150,46 @@ function openContactOverlay() {
             <div class="current-contacts">
                 <div class="add-task-contacts"> 
                    <span class="current-name">${name}</span>
-                   <input class="check-contact" id="check-contact${i}" type="checkbox" onchange="changeCheckboxColor(this)">
+                   <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="changeCheckboxfunction(this, '${name}', ${i})">
                 </div>
             </div>
-        </label>
-        `
+        </label>        
+        `;
     }
-    document.addEventListener('click', closeOnClickOutside);
-    onclick.onclick = closeContactOverlay;
 }
 
-function changeCheckboxColor(checkbox) {
+function changeCheckboxfunction(checkbox, name, i) {
     let container = checkbox.closest('.contact-label');
     if (checkbox.checked) {
-        container.style.backgroundColor = 'rgb(9, 25, 49)' ; // Ändern Sie 'your-desired-color' auf die gewünschte Hintergrundfarbe
+        container.style.backgroundColor = 'rgb(9, 25, 49)';
         container.style.color = 'white';
+        pushContact(name);
+
     } else {
-        container.style.backgroundColor = ''; // Zurücksetzen auf die Standard-Hintergrundfarbe oder ändern Sie dies entsprechend
+        container.style.backgroundColor = '';
         container.style.color = '';
+        spliceContact(i, name)
     }
 }
+
+function pushContact(name) {
+    assignedContact.push(name)
+    console.log(assignedContact)
+}
+
+function spliceContact(i) {
+    assignedContact.splice(i, 1)
+    
+    console.log(assignedContact)
+}
+
+
 
 function closeContactOverlay() {
     let overlayContainer = document.getElementById('contact-overlay');
     let onclick = document.getElementById('assignedTo')
-    overlayContainer.innerHTML = '';
+    overlayContainer.classList.remove('d-flex');
+    overlayContainer.classList.add('d-none');
 
     document.removeEventListener('click', closeOnClickOutside);
     onclick.onclick = openContactOverlay;
@@ -183,7 +200,7 @@ function closeOnClickOutside(event) {
     let overlayContainer = document.getElementById('contact-overlay');
     let assignedTo = document.getElementById('assignedTo');
 
-    // Überprüfen, ob der Klick außerhalb des Popups liegt
+    // Überprüfung ob der Klick außerhalb des Popups liegt
     if (!overlayContainer.contains(event.target) && event.target !== assignedTo) {
         closeContactOverlay();
     }

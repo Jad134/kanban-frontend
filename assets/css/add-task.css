@@ -426,7 +426,6 @@ svg:hover {
 
 
 #contact-overlay{
-    display: flex;
     flex-direction: column;
     gap: 3px;
     background-color: white;
