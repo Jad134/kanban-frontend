@@ -50,9 +50,6 @@ function getValues() {
     let bucket = "todo";
     let title = document.getElementById('title-input');
     let description = document.getElementById('description-textarea');
-    debugger;
-    //let assignTo = document.getElementById('assignedTo');
-    //let assignedText = assignTo.options[assignTo.selectedIndex].text;
     let date = document.getElementById('date-input');
     let category = document.getElementById('select-category');
     let categoryText = category.options[category.selectedIndex].text;
