@@ -26,10 +26,7 @@ let contacts = [
         'phone-number': 55555555555
     }
 ];
-
-function renderContactsOverview(){
-    document.getElementById('render-contacts-overview').innerHTML = ``;
-
+function sortMyContacts(){
     contacts.sort((a, b) => {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
@@ -42,30 +39,56 @@ function renderContactsOverview(){
         }
         return 0;
       });
+      getLettersFromNames(contacts);
+}
+function getLettersFromNames(){
+    let letters = [];
 
+    for (let i = 0; i < contacts.length; i++) {
+        const firstLetterString = contacts[i]['name'].charAt(0);
+        for (const char of firstLetterString) {            
+            letters.push(char);            
+        }
+    }
+    eliminateDoubles(letters);
+}
+function eliminateDoubles(letters){
+    let cleanLetters = new Set(letters)
+    let letterArray = Array.from(cleanLetters);
+    renderSortContainer(letterArray);
+}
+function renderSortContainer(letterArray){
+    document.getElementById('render-contacts-overview').innerHTML = ``; 
+
+    console.log(letterArray);
+    
+    for (let k = 0; k < letterArray.length; k++) {
+        const letter = letterArray[k];
+        
+        document.getElementById('render-contacts-overview').innerHTML += /*html*/ `    
+        <div class="contact-block">
+            <p id="" class="alphabet">${letter}</p>
+            <div class="contact-seperator-horizontal"></div>
+            <div class="sub-contact-block">
+                <div class="first-letters"></div>
+                <div id="name-and-email" class="name-and-email">
+                <p id="${k}-contact-name" class="contact-name"></p>
+                <a id="${k}-contact-email" class="contact-email" href=""></a>                 
+                </div>
+            </div>
+        </div>
+        `;
+    }
+    renderContactsOverview();
+}
+function renderContactsOverview(){
+    let inputName = document.getElementById(``);
+    let inputEmail = document.getElementById(``);
+    
     for (let i = 0; i < contacts.length; i++) {
         let name = contacts[i]['name'];
         let email = contacts[i]['email'];
-        let firstLetters = contacts[i]['name'][0].charAt(0);
 
-        let spaceIndex = name.indexOf(' ');
-        if (spaceIndex !== -1 && spaceIndex < name.length - 1) {
-            let firstLetterAfterSpace = name.charAt(spaceIndex + 1);
-
-        document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
-            <div class="contact-block">
-                <p class="alphabet">a-z</p>
-                <div class="contact-seperator-horizontal"></div>
-                <div class="sub-contact-block">
-                    <div class="first-letters">${firstLetters} ${firstLetterAfterSpace}</div>
-                    <div class="name-and-email">
-                        <p id="name${i}" class="contact-name">${name}</p>
-                        <a id="email${i}" class="contact-email" href="">${email}</a>
-                    </div>
-                </div>
-            </div>
-        `;
-        }
     }
 }
 
@@ -74,9 +97,13 @@ function pushContactInfo(){
     let email = document.getElementById('contact-email-input');
     let phoneNumber = document.getElementById('contact-phone-input');
 
-    contacts['name'].push(name.value);
-    contacts['email'].push(email.value);
-    contacts['phone-number'].push(phoneNumber.value);
+    let newContact = {
+        "name": `${name.value}`,
+        "email": `${email.value}`,
+        "phone": `${phoneNumber.value}`
+    }
+
+    contacts.push(newContact);
 
     name.value = ``;
     email.value = ``;
@@ -87,7 +114,7 @@ function pushContactInfo(){
 }
 
 function openContacts() {
-    renderContactsOverview();
+    sortMyContacts();
 }
 
 async function slideInCard(){
