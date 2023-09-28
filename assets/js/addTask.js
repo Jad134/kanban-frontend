@@ -134,21 +134,59 @@ function assignContacts() { // FÜr Später wieder wichtig stichwort: Contacts!!
 }
 
 function openContactOverlay() {
+    let onclick = document.getElementById('assignedTo')
     let overlayContainer = document.getElementById('contact-overlay');
+
+    onclick.removeAttribute('onClick')
 
     for (let i = 0; i < contacts.length; i++) {
         let currentContact = contacts[i];
         let name = currentContact['name'];
 
         overlayContainer.innerHTML += /*html*/`
-        <div class="current-contacts">
-            <div class="add-task-contacts"> 
-                <span class="current-name">${name}</span>
+        <label class="contact-label" for="check-contact${i}">
+            <div class="current-contacts">
+                <div class="add-task-contacts"> 
+                   <span class="current-name">${name}</span>
+                   <input class="check-contact" id="check-contact${i}" type="checkbox" onchange="changeCheckboxColor(this)">
+                </div>
             </div>
-        </div>
+        </label>
         `
     }
+    document.addEventListener('click', closeOnClickOutside);
+    onclick.onclick = closeContactOverlay;
+}
 
+function changeCheckboxColor(checkbox) {
+    let container = checkbox.closest('.contact-label');
+    if (checkbox.checked) {
+        container.style.backgroundColor = 'rgb(9, 25, 49)' ; // Ändern Sie 'your-desired-color' auf die gewünschte Hintergrundfarbe
+        container.style.color = 'white';
+    } else {
+        container.style.backgroundColor = ''; // Zurücksetzen auf die Standard-Hintergrundfarbe oder ändern Sie dies entsprechend
+        container.style.color = '';
+    }
+}
+
+function closeContactOverlay() {
+    let overlayContainer = document.getElementById('contact-overlay');
+    let onclick = document.getElementById('assignedTo')
+    overlayContainer.innerHTML = '';
+
+    document.removeEventListener('click', closeOnClickOutside);
+    onclick.onclick = openContactOverlay;
+}
+
+
+function closeOnClickOutside(event) {
+    let overlayContainer = document.getElementById('contact-overlay');
+    let assignedTo = document.getElementById('assignedTo');
+
+    // Überprüfen, ob der Klick außerhalb des Popups liegt
+    if (!overlayContainer.contains(event.target) && event.target !== assignedTo) {
+        closeContactOverlay();
+    }
 }
 
 function handleEnterKeyPress(event, action, i) {

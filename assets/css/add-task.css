@@ -430,7 +430,7 @@ svg:hover {
     flex-direction: column;
     gap: 3px;
     background-color: white;
-    max-height: 100px;
+    max-height: 150px;
     overflow-y: auto;
 }
 
@@ -438,3 +438,32 @@ svg:hover {
     font-size: 20px;
 }
 
+.add-task-contacts{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    font-size: 20px;
+    font-family: 'inter';
+    border-radius: 10px;
+    padding-inline: 8px;
+}
+
+.add-task-contacts:hover{
+    cursor: pointer;
+    background-color: rgb(42, 54,71);
+    color: white;
+}
+
+.check-contact{
+    border: 0;
+    border-radius:0;
+    padding-left: 0;
+    height: auto;
+    font-size: 0;
+    width: 16px;
+    height: 16px;
+}
+.contact-label{
+    border-radius: 10px;
+}
