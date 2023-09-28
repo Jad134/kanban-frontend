@@ -53,6 +53,7 @@ function categoryClassPicker(category) {
 
 function renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio) {
     document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio);
+    findTasks();
 }
 
 
@@ -110,6 +111,24 @@ function addTaskSlider() {
     document.getElementById('slider-container').innerHtml = '';
     document.getElementById('slider-container').innerHTML = addTaskHtml();
     openSlider();
+}
+
+// 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
+
+function findTasks() {
+  const searchInput = document.getElementById('find-task');
+  const taskCards = document.querySelectorAll('.task-container');
+  searchInput.addEventListener('input', () => {
+    const searchText = searchInput.value.toLowerCase();
+    taskCards.forEach((card) => {
+      const cardText = card.innerText.toLowerCase();
+      if (cardText.includes(searchText)) {
+        card.style.display = 'block'; 
+      } else {
+        card.style.display = 'none'; 
+      }
+    });
+  });
 }
 
 
