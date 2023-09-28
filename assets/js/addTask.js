@@ -2,10 +2,12 @@ let addedTasks = [{}];
 let lastClickedPrio = null;
 let newSubTasks = [];
 let assignedContact = []
+let userData = [];
 
 
 
 function init() {
+    loadUserDataFromRemote()
     getTaskStorage();
     renderContacts();
     //assignContacts()
@@ -71,6 +73,15 @@ function getValues() {
     clearTasks();
     newSubTasks = [];
 }
+
+async function loadUserDataFromRemote() {
+    let newUserDataString = await getItem('users');
+    newUserDataString = JSON.parse(newUserDataString['data']['value']);
+    for (let i = 0; i < newUserDataString.length; i++) {
+      let users = newUserDataString[i];
+      userData.push(users);
+    }
+  }
 
 async function getTaskStorage() {
     addedTasks = [];
@@ -139,8 +150,8 @@ function renderContacts() {
     let overlayContainer = document.getElementById('contact-overlay');
 
 
-    for (let i = 0; i < contacts.length; i++) {
-        let currentContact = contacts[i];
+    for (let i = 0; i < userData.length; i++) {
+        let currentContact = userData[i];
         let name = currentContact['name'];
 
         overlayContainer.innerHTML += /*html*/`
