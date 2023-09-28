@@ -7,7 +7,7 @@ let userData = [];
 
 
 function init() {
-    loadUserDataFromRemote()
+    loadUserDataFromRemote();
     getTaskStorage();
     renderContacts();
     //assignContacts()
