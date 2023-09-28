@@ -61,7 +61,7 @@ function getValues() {
     let tasks = {
         "title": title.value,
         "description": description.value,
-        "assigned": assignedText,
+        "assigned":  assignedContact,
         "date": date.value,
         "prio": prioValue,
         "category": categoryText,
@@ -127,7 +127,7 @@ function addSubTask() {
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo')
     let overlayContainer = document.getElementById('contact-overlay');
-    
+
     overlayContainer.classList.remove('d-none');
     overlayContainer.classList.add('d-flex');
 
@@ -150,7 +150,7 @@ function renderContacts() {
             <div class="current-contacts">
                 <div class="add-task-contacts"> 
                    <span class="current-name">${name}</span>
-                   <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="changeCheckboxfunction(this, '${name}', ${i})">
+                   <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
                 </div>
             </div>
         </label>        
@@ -158,7 +158,7 @@ function renderContacts() {
     }
 }
 
-function changeCheckboxfunction(checkbox, name, i) {
+function setCheckbox(checkbox, name, i) {
     let container = checkbox.closest('.contact-label');
     if (checkbox.checked) {
         container.style.backgroundColor = 'rgb(9, 25, 49)';
@@ -168,7 +168,7 @@ function changeCheckboxfunction(checkbox, name, i) {
     } else {
         container.style.backgroundColor = '';
         container.style.color = '';
-        spliceContact(i, name)
+        spliceContact(name)
     }
 }
 
@@ -177,10 +177,21 @@ function pushContact(name) {
     console.log(assignedContact)
 }
 
-function spliceContact(i) {
-    assignedContact.splice(i, 1)
-    
-    console.log(assignedContact)
+
+function spliceContact(name) {
+    // Suche den Index des Kontakts im assignedContact-Array
+    let indexToRemove = assignedContact.indexOf(name);
+
+    if (indexToRemove !== -1) {
+        assignedContact.splice(indexToRemove, 1);
+        console.log(assignedContact);
+    }
+}
+
+function removeCheckboxStyle(){
+    let overlayContainer = document.getElementById('contact-overlay');
+    overlayContainer.innerHTML = '';
+     renderContacts()
 }
 
 
@@ -263,7 +274,10 @@ function clearTasks() {
         element.innerHTML = '';
     })
     newSubTasks = [];
+    assignedContact = [];
+    removeCheckboxStyle()
     removeButtonColor();
+    
 }
 
 function removeButtonColor() {
