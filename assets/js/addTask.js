@@ -9,7 +9,6 @@ let userData = [];
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
-    renderContacts();
     //assignContacts()
 
 }
@@ -61,7 +60,7 @@ function getValues() {
     let tasks = {
         "title": title.value,
         "description": description.value,
-        "assigned":  assignedContact,
+        "assigned": assignedContact,
         "date": date.value,
         "prio": prioValue,
         "category": categoryText,
@@ -74,14 +73,17 @@ function getValues() {
     newSubTasks = [];
 }
 
+
 async function loadUserDataFromRemote() {
     let newUserDataString = await getItem('users');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
     for (let i = 0; i < newUserDataString.length; i++) {
-      let users = newUserDataString[i];
-      userData.push(users);
+        let users = newUserDataString[i];
+        userData.push(users);
     }
-  }
+    renderContacts();
+}
+
 
 async function getTaskStorage() {
     addedTasks = [];
@@ -197,10 +199,10 @@ function spliceContact(name) {
     }
 }
 
-function removeCheckboxStyle(){
+function removeCheckboxStyle() {
     let overlayContainer = document.getElementById('contact-overlay');
     overlayContainer.innerHTML = '';
-     renderContacts()
+    renderContacts()
 }
 
 
@@ -286,7 +288,7 @@ function clearTasks() {
     assignedContact = [];
     removeCheckboxStyle()
     removeButtonColor();
-    
+
 }
 
 function removeButtonColor() {
