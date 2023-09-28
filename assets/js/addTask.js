@@ -6,8 +6,8 @@ let assignedContact = []
 
 
 function init() {
-    getTaskStorage()
-    renderContacts()
+    getTaskStorage();
+    renderContacts();
     //assignContacts()
 
 }
@@ -47,11 +47,12 @@ function ChangeButtonColor(buttonId, imgId) {
 }*/
 
 function getValues() {
-    let bucket = "todo"
+    let bucket = "todo";
     let title = document.getElementById('title-input');
     let description = document.getElementById('description-textarea');
-    let assignTo = document.getElementById('assignedTo');
-    let assignedText = assignTo.options[assignTo.selectedIndex].text;
+    debugger;
+    //let assignTo = document.getElementById('assignedTo');
+    //let assignedText = assignTo.options[assignTo.selectedIndex].text;
     let date = document.getElementById('date-input');
     let category = document.getElementById('select-category');
     let categoryText = category.options[category.selectedIndex].text;
@@ -69,7 +70,7 @@ function getValues() {
         "bucket": bucket,
     };
     addedTasks.push(tasks);
-    addTaskToStorage()
+    addTaskToStorage();
     clearTasks();
     newSubTasks = [];
 }
