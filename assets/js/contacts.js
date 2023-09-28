@@ -62,32 +62,40 @@ function renderSortContainer(letterArray){
 
     console.log(letterArray);
     
-    for (let k = 0; k < letterArray.length; k++) {
-        const letter = letterArray[k];
+    for (let k = 0; k < letterArray.length; k++) {        
+        const letter = letterArray[k];        
         
-        document.getElementById('render-contacts-overview').innerHTML += /*html*/ `    
+        document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
         <div class="contact-block">
             <p id="" class="alphabet">${letter}</p>
-            <div class="contact-seperator-horizontal"></div>
+            <div class="contact-seperator-horizontal"></div>            
+        </div>
+        `;
+        for (let i = 0; i < contacts.length; i++) {
+            let name = contacts[i]['name'];
+            let email = contacts[i]['email'];
+            if (name.charAt(0) === letter) {
+
+            document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
             <div class="sub-contact-block">
                 <div class="first-letters"></div>
                 <div id="name-and-email" class="name-and-email">
-                <p id="${k}-contact-name" class="contact-name"></p>
-                <a id="${k}-contact-email" class="contact-email" href=""></a>                 
+                    <p id="${k}-contact-name" class="contact-name">${name}</p>
+                    <a id="${k}-contact-email" class="contact-email" href="">${email}</a>
                 </div>
             </div>
-        </div>
-        `;
+            `;
+            }
+            
+        }
     }
-    renderContactsOverview();
 }
 function renderContactsOverview(){
     let inputName = document.getElementById(``);
     let inputEmail = document.getElementById(``);
     
     for (let i = 0; i < contacts.length; i++) {
-        let name = contacts[i]['name'];
-        let email = contacts[i]['email'];
+        
 
     }
 }
@@ -110,7 +118,7 @@ function pushContactInfo(){
     phoneNumber.value = ``;
 
     closeContactAddCard();
-    renderContactsOverview();
+    sortMyContacts();
 }
 
 function openContacts() {
