@@ -26,6 +26,9 @@ let contacts = [
         'phone-number': 55555555555
     }
 ];
+function openContacts() {
+    sortMyContacts();
+}
 function sortMyContacts(){
     contacts.sort((a, b) => {
         const nameA = a.name.toLowerCase();
@@ -57,11 +60,23 @@ function eliminateDoubles(letters){
     let letterArray = Array.from(cleanLetters);
     renderSortContainer(letterArray);
 }
-function renderSortContainer(letterArray){
-    document.getElementById('render-contacts-overview').innerHTML = ``; 
+function getFirstLettersForOverview(i, contacts){
+    let name = contacts[i]['name'];
+    let splitName = name.split(' ');
+    let firstName = splitName[0];
+    let secondName = splitName[1];
+    let thirdName = splitName[2];
+    let firstLetter = firstName.charAt(0);
+    let secondLetter = secondName.charAt(0);
 
-    console.log(letterArray);
-    
+    if (thirdName !== undefined) {
+            let secondLetter = thirdName.charAt(0);
+            return  [firstLetter + ' ' + secondLetter];
+    } else return [firstLetter + ' ' + secondLetter];
+}
+function renderSortContainer(letterArray){
+    document.getElementById('render-contacts-overview').innerHTML = ``;
+        
     for (let k = 0; k < letterArray.length; k++) {        
         const letter = letterArray[k];        
         
@@ -74,57 +89,52 @@ function renderSortContainer(letterArray){
         for (let i = 0; i < contacts.length; i++) {
             let name = contacts[i]['name'];
             let email = contacts[i]['email'];
-            if (name.charAt(0) === letter) {
-
-            document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
-            <div class="sub-contact-block">
-                <div class="first-letters"></div>
-                <div id="name-and-email" class="name-and-email">
-                    <p id="${k}-contact-name" class="contact-name">${name}</p>
-                    <a id="${k}-contact-email" class="contact-email" href="">${email}</a>
+            let setLetters = getFirstLettersForOverview(i, contacts);
+                        
+            if (name.charAt(0) === letter) {                    
+                document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
+                <div class="sub-contact-block">
+                    <div id="${i}first-letters" class="first-letters">${setLetters}</div>
+                    <div id="name-and-email" class="name-and-email">
+                        <p id="${k}-contact-name" class="contact-name">${name}</p>
+                        <a id="${k}-contact-email" class="contact-email" href="">${email}</a>
+                    </div>
                 </div>
-            </div>
             `;
             }
-            
         }
     }
 }
-function renderContactsOverview(){
-    let inputName = document.getElementById(``);
-    let inputEmail = document.getElementById(``);
-    
-    for (let i = 0; i < contacts.length; i++) {
+async function formatNames(){
+    let formatMyName = document.getElementById('contact-name-input').value;
+    let splitedName = formatMyName.split(' ');
         
-
+    for (let k = 0; k < splitedName.length; k++) {
+        const name = splitedName[k];
+        if (name.length > 0) {
+            splitedName[k] = name.charAt(0).toUpperCase() + name.slice(1);
+            newString = splitedName.join(' ');
+        }
     }
+    return newString;
 }
-
-function pushContactInfo(){
-    let name = document.getElementById('contact-name-input');
+async function pushContactInfo(){
+    let name = await formatNames();
     let email = document.getElementById('contact-email-input');
     let phoneNumber = document.getElementById('contact-phone-input');
-
     let newContact = {
-        "name": `${name.value}`,
+        "name": `${name}`,
         "email": `${email.value}`,
         "phone": `${phoneNumber.value}`
     }
-
     contacts.push(newContact);
-
-    name.value = ``;
+    document.getElementById('contact-name-input').value = ``;
     email.value = ``;
     phoneNumber.value = ``;
 
     closeContactAddCard();
     sortMyContacts();
 }
-
-function openContacts() {
-    sortMyContacts();
-}
-
 async function slideInCard(){
     await waitForIt();
     startAnimation();
