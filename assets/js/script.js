@@ -112,11 +112,11 @@ function setColor() {
 
 
 function signUpUser() {
-  let registerEmail = document.getElementById('email');
-  let emailValue = registerEmail.value;
+  let registerEmail = document.getElementById('email').value;
+ /*  let emailValue = registerEmail.value; */
   let passwordsMatch = passwordCheck();
   if (passwordsMatch) {
-    emailCheck(emailValue);
+    emailCheck(registerEmail);
     setColor();
     // Array userData erfährt hier ein Update mit den jeweiligen Daten
     userDataFromSignUp();
@@ -128,8 +128,8 @@ function signUpUser() {
 }
 
 
-function emailCheck(emailValue) {
-  const ifEmailExists = userData.some((user) => user.email === emailValue);
+function emailCheck(registerEmail) {
+  const ifEmailExists = userData.some((user) => user.email === registerEmail);
   if (!ifEmailExists) {
     return true;
   } else {
