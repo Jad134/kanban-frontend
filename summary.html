@@ -14,6 +14,7 @@
     <script src="./assets/js/w3-include.js"></script>
     <script src="./assets/js/storage.js"></script>
     <script src="./assets/js/summary.js"></script>
+    <script src="./assets/js/board.js"></script>
 
     <title>Join - Summary</title>
     
@@ -61,7 +62,7 @@
                                 </g>
                             </svg>
                             <div class="disp-flex-column-center">
-                                <div class="summary-number">1</div>
+                                <div id="todos" class="summary-number">1</div>
                                 <span class="summary-text dark-blue">To-do</span>
                             </div>
                         </a>
@@ -75,7 +76,7 @@
                                     stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                             <div class="disp-flex-column-center">
-                                <div class="summary-number">1</div>
+                                <div id="completed-tasks" class="summary-number">1</div>
                                 <span class="summary-text dark-blue">Done</span>
                             </div>
                         </a>
@@ -102,7 +103,7 @@
                             </defs>
                         </svg>
                         <div class="disp-flex-column-center">
-                            <div class="summary-number">1</div>
+                            <div id="urgent-tasks" class="summary-number">1</div>
                             <span class="dark-blue">Urgent</span>
                         </div>
                         <div class="g-v-seperator"></div>
@@ -117,19 +118,19 @@
 
                         <!-- tasks in board -->
                         <a href="./board.html" class="summary-task-box disp-flex-column-center">
-                            <div class="summary-number">5</div>
+                            <div id="total-tasks" class="summary-number">5</div>
                             <span class="summary-text dark-blue">Tasks in <br />Board</span>
                         </a>
 
                         <!-- tasks in progress -->
                         <a href="./board.html" class="summary-task-box disp-flex-column-center">
-                            <div class="summary-number">2</div>
+                            <div id="tasks-in-progress" class="summary-number">2</div>
                             <span class="summary-text dark-blue">Tasks in <br />Progress</span>
                         </a>
 
                         <!-- awaiting feedback -->
                         <a href="./board.html" class="summary-task-box disp-flex-column-center">
-                            <div class="summary-number">2</div>
+                            <div id="await-feedback" class="summary-number">2</div>
                             <span class="summary-text dark-blue">Awaiting <br />Feedback</span>
                         </a>
 

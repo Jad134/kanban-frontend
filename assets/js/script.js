@@ -6,8 +6,8 @@ async function init() {
   const main = document.querySelector('.main-container');
   main.style.opacity = "0";
   await loadUserDataFromRemote();
-  getLoginFromLocal();                                              // Funktion wird nicht geöffnet, egal wo ich sie hinlege --> ?
-  console.log(userData);                                           // console.log
+  console.log(userData);                  // console.log
+  getLoginFromLocal();
 }
 
 
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += renderHtmlTemplate();
-/*   togglePasswordVisibility(); */
+  /*   togglePasswordVisibility(); */
 }
 
 
@@ -50,7 +50,7 @@ function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
- /*  togglePasswordVisibility(); */
+  /*  togglePasswordVisibility(); */
 }
 
 
@@ -64,11 +64,13 @@ function userDataFromSignUp() {
   }
   let backgroundColor = color.style.backgroundColor;
   let hexColor = rgbToHex(backgroundColor);
+  let initials = getInitials(initials);
   let users = {
     'name': name.value,
     'email': email.value,
     'password': password.value,
     'color': hexColor,
+    'initials': initials.value,
   }
   userData.push(users);
   saveUserDataInRemote();
@@ -120,7 +122,7 @@ function signUpUser() {
     userDataFromSignUp();
     displayMessage('Registrierung erfolgreich!');
     setTimeout(() => {
-      window.location.href = 'index.html';
+    window.location.href = 'index.html'; 
     }, 2500);
   }
 }
@@ -153,54 +155,11 @@ function passwordCheck() {
 
 // ------------------ password-toggling ... TRIAL ----------
 
+
 /* function togglePasswordVisibility() {
-  const passwordInputs = document.querySelectorAll('.visibility-change');
-  passwordInputs.forEach((passwordInputs) => {
-    const passwordIcon = passwordInputs.nextElementSibling;
-    const visibilityOffIcon = passwordIcon.closest('.container').querySelector('.bg-visibility-off-icon');
-
-    passwordIcon.addEventListener('click', () => {
-      passwordInputs.type = (passwordInputs.type === 'password') ? 'text' : 'password';
-      visibilityOffIcon.classList.toggle('hidden');
-    });
-  });
-} */
-
-
-/* w3
-function togglePasswordVisibility() {
-  const passwordIcons = document.querySelectorAll('.bg-password-icon');
-  passwordIcons.forEach((passwordIcon) => {
-    const passwordInput = passwordIcon.previousElementSibling;
-    if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-    } else {
-      passwordInput.type = 'password';
-    }
-  });
-} */
-
-/* window.onload = function(){
-const passwordIcons = document.querySelectorAll('.bg-password-icon');
-passwordIcons.forEach((passwordIcon) => {
-  const passwordInput = passwordIcon.previousElementSibling;
-  passwordIcon.addEventListener('click', () => {
-    if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-    } else {
-      passwordInput.type = 'password';
-    }
-    passwordIcon.classList.toggle('show-password');
-    passwordIcon.classList.toggle('show-password-text');
-  });
-
-  passwordInput.addEventListener('blur', () => {
-    passwordInput.type = 'password';
-    passwordIcon.classList.remove('show-password-text');
-  });
-});
-}
+--> neu aufsetzen mit einzelnen icons, nicht als background-image
  */
+
 // ------------------ password-toggling end ----------------------------
 
 function checkCheckbox() {
@@ -220,7 +179,7 @@ function displayMessage(messageText) {
   message.textContent = messageText;
   overlay.style.display = 'flex';
   setTimeout(() => {
-    overlay.style.transform = 'translateY(0)';
+    /*  overlay.style.transform = 'translateY(0)'; */
     message.style.transform = 'translate(-50%, -50%)';
   }, 200);
   setTimeout(() => {
@@ -231,7 +190,8 @@ function displayMessage(messageText) {
 
 function hideMessage() {
   const overlay = document.getElementById('overlay');
-  overlay.style.transform = 'translateY(100%)';
+  /*  overlay.style.transform = 'translateY(100%)'; */
+  overlay.style.display = 'none';
 }
 
 
@@ -314,13 +274,19 @@ function signUpHtmlTemplate() {
              <h1>Sign up</h1>
              <div class="underline border-radius-8"></div>
              <form onsubmit="checkCheckbox(); return false">
-               <input id="name" minlength="2" class="login-input bg-person-icon icon" type="text" placeholder="Name" name="userName"required/>
-               <input id="email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-               <input id="password" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
-               <input id="password-confirm" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Confirm Password" required/>
+               <input id="name" minlength="2" class="login-input bg-person-icon" type="text" placeholder="Name" name="userName"required/>
+               <input id="email" class="login-input bg-email-icon" type="email" placeholder="Email" name="userEmail" required/>
+              
+                <input id="password" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
+              <!--   <input id="password" minlength="5" class="login-input" type="password" placeholder="Password" name="userPassword" required/>
+                <i class="password-icon" onclick="togglePasswordVisibility()"></i> -->
+       
+                <input id="password-confirm" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
+             <!--   <input id="password-confirm" class="login-input" type="password" placeholder="Confirm Password" required/>
+               <i class="password-icon" onclick="togglePasswordVisibility()"></i> -->
                <div class="checkbox-container-accept">
                  <label class="checkbox-label">
-                   <input id="checkbox" name="checkbox" type="checkbox" />I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
+                   <input id="checkbox" name="checkbox" type="checkbox"/>I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>
                  </label>
                </div>
                <div class="login-buttons">
@@ -331,6 +297,7 @@ function signUpHtmlTemplate() {
          </div>
    `;
 }
+
 // -------------------- HTML-Templates Ende --------------------------
 
 // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
