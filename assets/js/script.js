@@ -55,7 +55,7 @@ function renderSignUp() {
 
 
 function userDataFromSignUp() {
-  let name = document.getElementById('name');
+  let name = document.getElementById('name').value;
   let email = document.getElementById('email');
   let password = document.getElementById('password');
   let color = document.getElementById('randomColor')
@@ -66,7 +66,7 @@ function userDataFromSignUp() {
   let hexColor = rgbToHex(backgroundColor);
   let initials = getInitials(initials);
   let users = {
-    'name': name.value,
+    'name': name,
     'email': email.value,
     'password': password.value,
     'color': hexColor,
