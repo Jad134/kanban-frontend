@@ -44,11 +44,5 @@ function closeUserMenu() {
 
 function renderInitials() {
     let userInitials = localStorage.getItem('login-initials');
-    let userInitialsElement = document.getElementById('user-initials');
-
-    if (userInitialsElement) {
-        userInitialsElement.innerHTML = userInitials;
-    } else {
-        console.error('Element mit ID "user-initials" wurde nicht gefunden.');
-    }
+    document.getElementById('user-initials').innerHTML = userInitials;
 }

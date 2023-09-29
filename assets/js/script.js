@@ -54,24 +54,23 @@ function renderSignUp() {
 }
 
 
-function userDataFromSignUp() {
-  let name = document.getElementById('name').value;
+function userDataFromSignUp(a) {
+  let name = document.getElementById('name');
+  name = name.value;
+  let initials = getInitials(name);
   let email = document.getElementById('email');
   let password = document.getElementById('password');
-  let color = document.getElementById('randomColor')
+  let color = a;
   if (!Array.isArray(userData)) {                       // so wird geprüft, dass es immer ein Array ist
     userData = [];
   }
-  let backgroundColor = color.style.backgroundColor;
-  let hexColor = rgbToHex(backgroundColor);
-  let initials = getInitials(initials);
   let users = {
     'name': name,
     'email': email.value,
     'password': password.value,
-    'color': hexColor,
-    'initials': initials.value,
-  }
+    'color': color,
+    'initials': initials
+  };
   userData.push(users);
   saveUserDataInRemote();
 }
@@ -88,41 +87,22 @@ async function saveUserDataInRemote() {
 }
 
 
-// muss eingebaut werden, weil die Speicherung von Farbcodes von Browser zu Browser verschieden angezeigt
-// und dann auch so gespeichert wird
-function rgbToHex(rgb) {
-  if (/^#[0-9A-F]{6}$/i.test(rgb)) {
-    return rgb;
-  }
-  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-
-  function hex(x) {
-    return ("0" + parseInt(x).toString(16)).slice(-2);
-  }
-  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-}
-
-
 function setColor() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  const colorElement = document.getElementById("randomColor");
-  colorElement.style.backgroundColor = "#" + randomColor;
-  colorElement.innerHTML = "#" + randomColor;
+  return "#" + randomColor;
 }
 
 
 function signUpUser() {
   let registerEmail = document.getElementById('email').value;
- /*  let emailValue = registerEmail.value; */
   let passwordsMatch = passwordCheck();
   if (passwordsMatch) {
     emailCheck(registerEmail);
-    setColor();
-    // Array userData erfährt hier ein Update mit den jeweiligen Daten
-    userDataFromSignUp();
+    let color = setColor();
+    userDataFromSignUp(color);
     displayMessage('Registrierung erfolgreich!');
     setTimeout(() => {
-    window.location.href = 'index.html'; 
+      window.location.href = 'index.html';
     }, 2500);
   }
 }
@@ -204,7 +184,7 @@ function login(event) {
     debugger;
     rememberMe();
     displayMessage('Anmeldung erfolgreich')
-    loginToLocalStorage(dataExists);             // 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
+    loginToLocalStorage(dataExists);
     setTimeout(() => {
       window.location.href = '/summary.html';
     }, 3000);
@@ -241,6 +221,46 @@ function getLoginFromLocal() {
     passwordInput.value = savedPassword;
   }
 }
+
+
+function loginToLocalStorage(dataExists) {
+  let loginName = dataExists['name'];
+  let loginInitials = dataExists['initials'];
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = dataExists['color'];
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor);
+}
+
+
+function loginAsGuest() {
+  let loginName = 'Guest';
+  let loginInitials = 'G';
+  let loginStatus = true;
+  let loginTime = new Date();
+  let userColor = '#FFFFFF';
+  localStorage.setItem('login-name', loginName);
+  localStorage.setItem('login-initials', loginInitials);
+  localStorage.setItem('login-status', loginStatus);
+  localStorage.setItem('login-time', loginTime);
+  localStorage.setItem('user-color', userColor);
+}
+
+
+function getInitials(loginName) {
+  let nameInput = loginName.split(' ');
+  let initials = nameInput[0].charAt(0);
+  if (nameInput.length > 1) {
+    let lastName = nameInput[nameInput.length - 1];
+    initials += lastName.charAt(0);
+  }
+  return initials;
+}
+
 
 // -------------------       HTML-Templates       --------------------
 function renderHtmlTemplate() {
@@ -300,51 +320,25 @@ function signUpHtmlTemplate() {
 
 // -------------------- HTML-Templates Ende --------------------------
 
-// 26.09.2023 - Alexander Riedel: Login im LocalStorage speichern
-function loginToLocalStorage(dataExists) {
-  let loginName = dataExists['name'];
-  let loginInitials = getInitials(loginName);
-  let loginStatus = true;
-  let loginTime = new Date();
-  let userColor = '#cb4948';       //// PLATZHALTER
-  localStorage.setItem('login-name', loginName);
-  localStorage.setItem('login-initials', loginInitials);
-  localStorage.setItem('login-status', loginStatus);
-  localStorage.setItem('login-time', loginTime);
-  localStorage.setItem('user-color', userColor);
-}
 
+/* ############ EXAMPLE DATA #############
 
-function loginAsGuest() {
-  let loginName = 'Guest';
-  let loginInitials = 'G';
-  let loginStatus = true;
-  let loginTime = new Date();
-  let userColor = '#FFFFFF';       //// PLATZHALTER
-  localStorage.setItem('login-name', loginName);
-  localStorage.setItem('login-initials', loginInitials);
-  localStorage.setItem('login-status', loginStatus);
-  localStorage.setItem('login-time', loginTime);
-  localStorage.setItem('user-color', userColor);
-}
+[{
+  "name": "Alexander Riedel",
+  "email": "alex@alex",
+  "password": "password123",
+  "color": "#ce2abe",
+  "initials": "AR"
+},
+{
+  "name": "Jad",
+  "email": "jadTest@Test.de",
+  "password": "12345",
+  "color": "#2fb93c",
+  "initials": "J"
+}]
 
-
-// 26.09.2023 - Alexander Riedel: Initialien erstellen
-function getInitials(loginName) {
-  let nameInput = loginName.split(' ');
-  let initials = nameInput[0].charAt(0);
-  if (nameInput.length > 1) {
-    let lastName = nameInput[nameInput.length - 1];
-    initials += lastName.charAt(0);
-  }
-  return initials;
-}
-
-
-
-
-
-
+ ###################################### */
 
 
 
