@@ -185,11 +185,13 @@ function setCheckbox(checkbox, name, i) {
     }
 }
 
-function removeInitialsimg(i){
+function removeInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
-    content.innerHTML = '';
-    
+    let divToRemove = document.getElementById(`initials${i}`);
 
+    if (divToRemove) {
+        content.removeChild(divToRemove);
+    }
 }
 
 
@@ -199,7 +201,7 @@ function renderInitialsimg(i){
     
 
     content.innerHTML += /*html*/`
-         <div class="contact-circle"> <span>${userInitial}</span></div>
+         <div id="initials${i}" class="contact-circle"> <span>${userInitial}</span></div>
     `
 }
 
