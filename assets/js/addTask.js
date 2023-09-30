@@ -175,12 +175,32 @@ function setCheckbox(checkbox, name, i) {
         container.style.backgroundColor = 'rgb(9, 25, 49)';
         container.style.color = 'white';
         pushContact(name);
+        renderInitialsimg(i);
 
     } else {
         container.style.backgroundColor = '';
         container.style.color = '';
-        spliceContact(name)
+        spliceContact(name);
+        removeInitialsimg(i);
     }
+}
+
+function removeInitialsimg(i){
+    let content = document.getElementById('selected-contacts');
+    content.innerHTML = '';
+    
+
+}
+
+
+function renderInitialsimg(i){
+    let content = document.getElementById('selected-contacts');
+    let userInitial = userData[i]['initials'];
+    
+
+    content.innerHTML += /*html*/`
+         <div class="contact-circle"> <span>${userInitial}</span></div>
+    `
 }
 
 function pushContact(name) {

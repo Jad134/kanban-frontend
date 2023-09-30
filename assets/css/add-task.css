@@ -424,7 +424,6 @@ svg:hover {
     filter: grayscale(100%) brightness(200%);
 }
 
-
 #contact-overlay{
     flex-direction: column;
     gap: 3px;
@@ -465,4 +464,28 @@ svg:hover {
 }
 .contact-label{
     border-radius: 10px;
+}
+
+.contact-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 3px solid #2A3647;
+    cursor: pointer;
+}
+
+.contact-circle:hover {
+    background: rgba(12, 46, 98, 0.12);
+}
+
+#selected-contacts{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
