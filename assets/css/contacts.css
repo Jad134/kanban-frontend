@@ -303,6 +303,10 @@ body {
     display: flex;
     align-items: center;
 }
+.sub-contact-block:hover{
+    cursor: pointer;
+    background-color: #29ABE2;
+}
 .first-letters{
     display: flex;
     justify-content: center;
@@ -318,10 +322,50 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+#name-and-email a:hover{
+    color: aquamarine;
+}
 .contact-name{
     margin: 10px 0px 10px 0px;
 }
 .contact-email{
     margin: 10px 0px 10px 0px;
     color: rgb(37, 37, 255);
+}
+.first-letters-for-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 48px;
+    background-color: orange;
+    margin: 20px;
+    border-radius: 50%;
+}
+#letters-and-name{
+    display: flex;
+    align-items: center;
+}
+#main-name{
+    display: flex;
+    flex-direction: column;
+}
+.edit-and-delete{
+    display: flex;
+    justify-content: space-between;
+}
+#delete-contact{
+    display: flex;
+}
+#edit-contact img{
+    filter: invert();
+}
+#edit-contact{
+    display: flex;
+}
+#edit-contact:hover{
+    cursor: pointer;
+}
+#delete-contact:hover{
+    cursor: pointer;
 }

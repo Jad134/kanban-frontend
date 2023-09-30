@@ -26,6 +26,8 @@ let contacts = [
         'phone-number': 55555555555
     }
 ];
+let letters = [];
+
 function openContacts() {
     sortMyContacts();
 }
@@ -44,8 +46,7 @@ function sortMyContacts(){
       });
       getLettersFromNames(contacts);
 }
-function getLettersFromNames(){
-    let letters = [];
+function getLettersFromNames(){    
 
     for (let i = 0; i < contacts.length; i++) {
         const firstLetterString = contacts[i]['name'].charAt(0);
@@ -93,7 +94,7 @@ function renderSortContainer(letterArray){
                         
             if (name.charAt(0) === letter) {                    
                 document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
-                <div class="sub-contact-block">
+                <div id="${i}sub-contact-block" class="sub-contact-block" onclick="openContactDetails(${i})">
                     <div id="${i}first-letters" class="first-letters">${setLetters}</div>
                     <div id="name-and-email" class="name-and-email">
                         <p id="${k}-contact-name" class="contact-name">${name}</p>
@@ -104,6 +105,48 @@ function renderSortContainer(letterArray){
             }
         }
     }
+}
+function openContactDetails(i) {
+    let details = document.getElementById('detail-view-of-contacts');
+    let lettersOfContact = document.getElementById(`${i}first-letters`).innerHTML;
+    let name = contacts[i]['name'];
+    let email = contacts[i]['email'];
+    let phone = contacts[i]['phone-number'];
+
+    details.innerHTML = ``;
+    details.innerHTML = /*html*/ `
+        <div id="letters-and-name">
+            <div class="first-letters-for-details">
+                ${lettersOfContact}
+            </div>
+            <div id="main-name">
+                <h2>${name}</h2>
+                <div class="edit-and-delete">
+                    <div id="edit-contact">
+                        <img src="./assets/img/edit.svg" alt="">
+                        <p>Edit</p>
+                    </div>
+                    <div id="delete-contact">
+                        <img src="./assets/img/delete.svg" alt="">
+                        <p>Delete</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="contact-information">
+            <p>Contact Information</p>
+            <div>
+                <h3>Email</h3>
+                <div>
+                    <a>${email}</a>
+                </div>
+            </div>
+            <div>
+                <h3>Phone</h3>
+                <div>${phone}</div>
+            </div>
+        </div>
+    `;
 }
 async function formatNames(){
     let formatMyName = document.getElementById('contact-name-input').value;
@@ -125,7 +168,7 @@ async function pushContactInfo(){
     let newContact = {
         "name": `${name}`,
         "email": `${email.value}`,
-        "phone": `${phoneNumber.value}`
+        "phone-number": `${phoneNumber.value}`
     }
     contacts.push(newContact);
     document.getElementById('contact-name-input').value = ``;
