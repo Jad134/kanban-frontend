@@ -1,7 +1,8 @@
 function initSummary() {
     renderGreeting();
     renderGreetingName();
-}
+    totalTasks();
+    }
 
 
 function renderGreeting() {
@@ -25,3 +26,21 @@ function renderGreetingName() {
     let greetingName = localStorage.getItem('login-name');
     document.getElementById('greeting-name').innerHTML = greetingName;
 }
+
+
+/*  async function totalTasks() {
+    await getTaskStorage();
+    let total = addedTasks.length;
+    let totalInBoard = document.getElementById('total-tasks');
+    totalInBoard.textContent = total;
+} */
+
+
+function totalTasks() {
+    let total = addedTasks.length;
+    let totalInBoard= document.getElementById('total-tasks');
+    totalInBoard.textContent = total;
+}
+ getTaskStorage().then(() => {
+   totalTasks();
+ });  
