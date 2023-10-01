@@ -7,7 +7,6 @@ async function getTaskStorage() {
     for (let i = 0; i < currentTasks.length; i++) {
         let tasks = currentTasks[i];
         addedTasks.push(tasks);
-
         loadTasksForBoard(i);
     }
 }
@@ -28,8 +27,9 @@ function loadTasksForBoard(i) {
     let description = addedTasks[i]['description'];
     let assigned = addedTasks[i]['assigned'];
     let category = addedTasks[i]['category'];
-    let subtask = addedTasks[i]['subtask'];
     let prio = addedTasks[i]['prio'];
+    let subtitle = getSubtasks(i);
+    let subdone = getSubtasks(i);
 
     // Kann nicht mehr vorkommen wenn der Code final ist
     // gesamte Funktion dann ausbauen
@@ -38,7 +38,7 @@ function loadTasksForBoard(i) {
     }
 
     categoryClassPicker(category);
-    renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio);
+    renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtitle, subdone, prio);
 }
 
 
@@ -51,8 +51,8 @@ function categoryClassPicker(category) {
 }
 
 
-function renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio) {
-    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio);
+function renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtitle, subdone, prio) {
+    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtitle, subdone, prio);
     findTasks();
 }
 
@@ -64,16 +64,35 @@ function loadTask(i) {
     let duedate = addedTasks[i]['duedate'];
     let prio = addedTasks[i]['prio'];
     let assigned = addedTasks[i]['assigned'];
-    let subtask = addedTasks[i]['subtask'];
+    let subtitle = getSubtasks(i);
+    let subdone = getSubtasks(i);
 
     categoryClassPicker(category);
-    openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask);
+    openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtitle, subdone);
 }
 
 
-function openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask) {
+function getSubtasks(a) {
+    if ( addedTasks[a]['subtask'].length > 0) {
+        for (let i = 0; i < addedTasks[a]['subtask'].length; i++) {
+            loadSubtasks(a, i);
+            
+        }
+    }
+
+}
+
+
+function loadSubtasks(a, i) {
+    let subtitle = addedTasks[a]['subtask'][i]['subtitle'];
+    let subdone = addedTasks[a]['subtask'][i]['subdone'];
+    console.log(subtitle + subdone);
+}
+
+
+function openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtitle, subdone) {
     document.getElementById('slider-container').innerHtml = '';
-    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask);
+    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtitle, subdone);
     openSlider();
 }
 
@@ -116,19 +135,19 @@ function addTaskSlider() {
 // 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
 
 function findTasks() {
-  const searchInput = document.getElementById('find-task');
-  const taskCards = document.querySelectorAll('.task-container');
-  searchInput.addEventListener('input', () => {
-    const searchText = searchInput.value.toLowerCase();
-    taskCards.forEach((card) => {
-      const cardText = card.innerText.toLowerCase();
-      if (cardText.includes(searchText)) {
-        card.style.display = 'block'; 
-      } else {
-        card.style.display = 'none'; 
-      }
+    const searchInput = document.getElementById('find-task');
+    const taskCards = document.querySelectorAll('.task-container');
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value.toLowerCase();
+        taskCards.forEach((card) => {
+            const cardText = card.innerText.toLowerCase();
+            if (cardText.includes(searchText)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     });
-  });
 }
 
 
