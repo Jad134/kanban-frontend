@@ -476,7 +476,6 @@ svg:hover {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     background-color: #FFFFFF;
-    border: 3px solid #2A3647;
     cursor: pointer;
 }
 

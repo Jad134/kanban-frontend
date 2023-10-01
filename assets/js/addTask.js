@@ -4,13 +4,9 @@ let newSubTasks = [];
 let assignedContact = []
 let userData = [];
 
-
-
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
-    //assignContacts()
-
 }
 
 function ChangeButtonColor(buttonId, imgId) {
@@ -41,12 +37,6 @@ function ChangeButtonColor(buttonId, imgId) {
     }
 }
 
-
-/*  function submitForm(event) {  // Nur für den Test. Später rausnehmen, und auch das onclick entfernen. Verhindert das neu laden der Seite.
-    event.preventDefault();
-    console.log(addedTasks)
-}*/
-
 function getValues() {
     let bucket = "todo";
     let title = document.getElementById('title-input');
@@ -67,10 +57,16 @@ function getValues() {
         "subtask": newSubTasks,
         "bucket": bucket,
     };
+    sendFormular(tasks)
+    
+}
+
+function sendFormular(tasks){
     addedTasks.push(tasks);
     addTaskToStorage();
     clearTasks();
     newSubTasks = [];
+    location.href = "board.html"; // Geht noch nicht !!!!!!!!!!!
 }
 
 
@@ -81,7 +77,7 @@ async function loadUserDataFromRemote() {
         let users = newUserDataString[i];
         userData.push(users);
     }
-    renderContacts();
+    loadContacts();
 }
 
 
@@ -108,31 +104,34 @@ function addSubTask() {
     if (newTasksText !== '') {
         newSubTasks.push(newTasksText);
     }
-
     subtaskContent.innerHTML = '';
 
     for (let i = 0; i < newSubTasks.length; i++) {
         const newTasks = newSubTasks[i];
 
-        subtaskContent.innerHTML += /*html*/`
-        <div id="sublist-container${i}" class="sublist-container">
-          <ul id="subtask-list${i}" class="subtask-list">
-                <li> <span  id="show-current-subtask${i}">${newTasks}</span></li>
-          </ul>
-            <div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
-               <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${i})"  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
-               <img onclick="renameSubTask(${i})" class="edit-done"  src="/assets/img/done.svg" alt="">
-               <img onclick="deleteSubTask(${i})"  src="/assets/img/addtasktrash.svg" alt="">
-            </div>
-            <div id="task-edit-buttons${i}" class="d-flex subtask-edit-buttons">
-              <img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
-              <img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
-            </div>
-        </div> `;
+        subtaskContent.innerHTML += renderSubTask(newTasks, i)
     }
     document.getElementById('subtask-input').value = '';
 }
 
+function renderSubTask(newTasks, i) {
+    return /*html*/`
+    <div id="sublist-container${i}" class="sublist-container">
+      <ul id="subtask-list${i}" class="subtask-list">
+            <li> <span  id="show-current-subtask${i}">${newTasks}</span></li>
+      </ul>
+        <div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
+           <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${i})"  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
+           <img onclick="renameSubTask(${i})" class="edit-done"  src="/assets/img/done.svg" alt="">
+           <img onclick="deleteSubTask(${i})"  src="/assets/img/addtasktrash.svg" alt="">
+        </div>
+        <div id="task-edit-buttons${i}" class="d-flex subtask-edit-buttons">
+          <img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
+          <img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
+        </div>
+    </div> `;
+
+}
 
 
 function openContactOverlay() {
@@ -148,25 +147,43 @@ function openContactOverlay() {
     onclick.onclick = closeContactOverlay;
 }
 
-function renderContacts() {
+function closeContactOverlay() {
     let overlayContainer = document.getElementById('contact-overlay');
+    let onclick = document.getElementById('assignedTo')
+    overlayContainer.classList.remove('d-flex');
+    overlayContainer.classList.add('d-none');
 
+    document.removeEventListener('click', closeOnClickOutside);
+    onclick.onclick = openContactOverlay;
+}
+
+function loadContacts() {
+    let overlayContainer = document.getElementById('contact-overlay');
 
     for (let i = 0; i < userData.length; i++) {
         let currentContact = userData[i];
         let name = currentContact['name'];
+        let userInitial = userData[i]['initials'];
+        let nameColor = userData[i]['color'];
 
-        overlayContainer.innerHTML += /*html*/`
-        <label class="contact-label" for="check-contact${i}">
-            <div class="current-contacts">
-                <div class="add-task-contacts"> 
-                   <span class="current-name">${name}</span>
-                   <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
-                </div>
-            </div>
-        </label>        
-        `;
+        overlayContainer.innerHTML += renderContacts(name, i, userInitial)
+        let initialDiv = document.getElementById(`list-circle${i}`)
+        initialDiv.style.backgroundColor = nameColor;
     }
+}
+
+function renderContacts(name, i, userInitial) {
+    return /*html*/`
+    <label class="contact-label" for="check-contact${i}">
+        <div class="current-contacts">
+            <div class="add-task-contacts"> 
+               <div id="list-circle${i}" class="contact-circle"> <span>${userInitial}</span></div>
+               <span class="current-name">${name}</span>
+               <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
+            </div>
+        </div>
+    </label>        
+    `;
 }
 
 function setCheckbox(checkbox, name, i) {
@@ -185,6 +202,17 @@ function setCheckbox(checkbox, name, i) {
     }
 }
 
+function renderInitialsimg(i) {
+    let content = document.getElementById('selected-contacts');
+    let userInitial = userData[i]['initials'];
+    let nameColor = userData[i]['color'];
+
+    content.innerHTML += /*html*/`
+         <div id="initials${i}" class="contact-circle"> <span>${userInitial}</span></div>`;
+    let initialDiv = document.getElementById(`initials${i}`)
+    initialDiv.style.backgroundColor = nameColor;
+}
+
 function removeInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
     let divToRemove = document.getElementById(`initials${i}`);
@@ -195,21 +223,10 @@ function removeInitialsimg(i) {
 }
 
 
-function renderInitialsimg(i){
-    let content = document.getElementById('selected-contacts');
-    let userInitial = userData[i]['initials'];
-    
-
-    content.innerHTML += /*html*/`
-         <div id="initials${i}" class="contact-circle"> <span>${userInitial}</span></div>
-    `
-}
-
 function pushContact(name) {
     assignedContact.push(name)
     console.log(assignedContact)
 }
-
 
 function spliceContact(name) {
     // Suche den Index des Kontakts im assignedContact-Array
@@ -224,21 +241,8 @@ function spliceContact(name) {
 function removeCheckboxStyle() {
     let overlayContainer = document.getElementById('contact-overlay');
     overlayContainer.innerHTML = '';
-    renderContacts()
+    loadContacts()
 }
-
-
-
-function closeContactOverlay() {
-    let overlayContainer = document.getElementById('contact-overlay');
-    let onclick = document.getElementById('assignedTo')
-    overlayContainer.classList.remove('d-flex');
-    overlayContainer.classList.add('d-none');
-
-    document.removeEventListener('click', closeOnClickOutside);
-    onclick.onclick = openContactOverlay;
-}
-
 
 function closeOnClickOutside(event) {
     let overlayContainer = document.getElementById('contact-overlay');
