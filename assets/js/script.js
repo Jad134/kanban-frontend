@@ -140,6 +140,22 @@ function passwordCheck() {
 --> neu aufsetzen mit einzelnen icons, nicht als background-image
  */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ------------------ password-toggling end ----------------------------
 
 function checkCheckbox() {
@@ -270,7 +286,10 @@ function renderHtmlTemplate() {
   <div class="underline border-radius-8"></div>
   <form onsubmit="login(event)">
       <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
-        <input id="user-password" class="login-input bg-password-icon icon visibility-change" minlength="5" type="password" placeholder="Password" name="userPassword" required/>
+      <div class="input-icons">
+                <input id="user-password" minlength="5" class="login-input password-input" type="password" placeholder="Password" name="userPassword" required/>
+              </div>
+       <!--  <input id="user-password" class="login-input bg-password-icon icon visibility-change" minlength="5" type="password" placeholder="Password" name="userPassword" required/> -->
         <div class="checkbox-container">
       <label class="checkbox-label">
         <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
@@ -294,16 +313,17 @@ function signUpHtmlTemplate() {
              <h1>Sign up</h1>
              <div class="underline border-radius-8"></div>
              <form onsubmit="checkCheckbox(); return false">
-               <input id="name" minlength="2" class="login-input bg-person-icon" type="text" placeholder="Name" name="userName"required/>
-               <input id="email" class="login-input bg-email-icon" type="email" placeholder="Email" name="userEmail" required/>
-              
-                <input id="password" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
-              <!--   <input id="password" minlength="5" class="login-input" type="password" placeholder="Password" name="userPassword" required/>
-                <i class="password-icon" onclick="togglePasswordVisibility()"></i> -->
-       
-                <input id="password-confirm" minlength="5" class="login-input bg-password-icon icon visibility-change" type="password" placeholder="Password" name="userPassword" required/>
-             <!--   <input id="password-confirm" class="login-input" type="password" placeholder="Confirm Password" required/>
-               <i class="password-icon" onclick="togglePasswordVisibility()"></i> -->
+
+                <input id="name" minlength="2" class="login-input bg-person-icon" type="text" placeholder="Name" name="userName"required/>
+                <input id="email" class="login-input bg-email-icon" type="email" placeholder="Email" name="userEmail" required/>
+  
+              <div class="input-icons">
+                <input id="password" minlength="5" class="login-input password-input" type="password" placeholder="Password" name="userPassword" required/>
+              </div>
+              <div class="input-icons">
+                <input id="password-confirm" minlength="5" class="login-input password-input" type="password" placeholder="Password" name="userPassword" required/>
+              </div>
+
                <div class="checkbox-container-accept">
                  <label class="checkbox-label">
                    <input id="checkbox" name="checkbox" type="checkbox"/>I accept the<a class="startpage-links" href="privace-policy.html">Privacy Policy</a>

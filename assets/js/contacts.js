@@ -17,7 +17,7 @@ let contacts = [
     },
     {
         'name': 'Sabine Berg',
-        'email': 'sabineberg.de',
+        'email': 'sabineberg@test.de',
         'phone-number': 4444444444
     },
     {
@@ -106,13 +106,28 @@ function renderSortContainer(letterArray){
         }
     }
 }
+function markMyContact(i){
+    let excludeElement = document.getElementById(`${i}sub-contact-block`);
+    deMarkMyContact();
+    excludeElement.classList.add('sub-contact-block-marked');
+
+}
+function deMarkMyContact(){    
+    let container = document.getElementById('render-contacts-overview');
+    let elements = container.querySelectorAll('.sub-contact-block-marked');
+
+    elements.forEach((element) => {
+        element.classList.remove('sub-contact-block-marked');
+    })
+}
 function openContactDetails(i) {
-    let details = document.getElementById('detail-view-of-contacts');
+    markMyContact(i);
+    let details = document.getElementById('detail-view-of-contacts');    
     let lettersOfContact = document.getElementById(`${i}first-letters`).innerHTML;
     let name = contacts[i]['name'];
     let email = contacts[i]['email'];
     let phone = contacts[i]['phone-number'];
-
+    
     details.innerHTML = ``;
     details.innerHTML = /*html*/ `
         <div id="letters-and-name">
