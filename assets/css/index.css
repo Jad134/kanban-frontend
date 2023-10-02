@@ -93,6 +93,7 @@ h1 {
     border: 2px solid rgb(168, 168, 168);
     margin-bottom: 20px;
     cursor: pointer;
+    padding-left: 10px;
 }
 
 .login-input:focus {
@@ -197,8 +198,6 @@ input:focus::placeholder {
     justify-content: flex-end;
     align-items: center;
     z-index: 99;
- /*    transition: transform 0.5s;
-    transform: translateY(100%); */
     display: none;
 }
 
@@ -234,29 +233,24 @@ input:focus::placeholder {
     background-position: 340px;
 }
 
-.bg-password-icon {
-    background-image: url("../img/lock.svg");
-    background-repeat: no-repeat;
-    background-position: 340px; 
-}
-/* --- password toggle ---*/
-/* .password-icon {
-    background-image: url("../img/lock.svg");
-    background-repeat: no-repeat;
-    background-position: 340px; 
+/* --- password toggle --- */
+
+.input-icons {
+    position: relative;
 }
 
-.visibility-icon {
-    background-image: url("../img/visibility.svg");
+.password-input {
+    background-image: url(../img/lock.svg);
     background-repeat: no-repeat;
     background-position: 340px;
+    cursor: pointer;
+    transition: background-position 0.3s ease-in-out;
 }
 
-.visibility-off-icon {
-    background-image: url("../img/visibility_off.svg");
-    background-repeat: no-repeat;
-    background-position: 340px;
-} */
+.password-input:focus {
+    background-image: url(../img/visibility_off.svg);
+}
+
 /* --- password toggle end ---*/
 
 .footer {

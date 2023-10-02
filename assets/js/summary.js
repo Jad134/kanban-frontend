@@ -1,8 +1,10 @@
 function initSummary() {
     renderGreeting();
     renderGreetingName();
+/*     toDos(); */
     totalTasks();
-    }
+    tasksInProgress();
+}
 
 
 function renderGreeting() {
@@ -27,20 +29,36 @@ function renderGreetingName() {
     document.getElementById('greeting-name').innerHTML = greetingName;
 }
 
+// ----------------- Summary Calculation ---------------
 
-/*  async function totalTasks() {
-    await getTaskStorage();
+let taskContainer= 0;
+
+function totalTasks() {                                                         // funktioniert
     let total = addedTasks.length;
     let totalInBoard = document.getElementById('total-tasks');
     totalInBoard.textContent = total;
-} */
-
-
-function totalTasks() {
-    let total = addedTasks.length;
-    let totalInBoard= document.getElementById('total-tasks');
-    totalInBoard.textContent = total;
 }
- getTaskStorage().then(() => {
-   totalTasks();
- });  
+getTaskStorage().then(() => {
+    totalTasks();
+});
+
+
+/* function tasksInProgress() {
+    let progress = document.getElementById('in-progress');                  // Allgemeiner progress-Container im board.html
+    let taskContainer = progress.querySelectorAll('.task-container');       // Zugriff auf dessen Task-Container (Anzahl)
+    let taskContainerCount = taskContainer.length;                          // Anzahl
+    let tasksInProgress = document.getElementById('tasks-in-progress');     // Zu ändernder Summary-Container
+    tasksInProgress.textContent = taskContainerCount;                       // Einfüllen der Anzahl
+      // bucket/Array-Verbindung fehlt noch
+}    */
+
+// Versuch, geht aber noch nicht. 
+function tasksInProgress() {                                        
+    for (let i = 0; i < addedTasks.length; i++) {
+        if (addedTasks[i].bucket === 'in-progress') {
+            taskContainer++;
+        }
+    }
+    let tasksInProgress = document.getElementById('tasks-in-progress');
+    tasksInProgress.textContent = taskContainer;
+}
