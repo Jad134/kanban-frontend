@@ -28,8 +28,7 @@ function loadTasksForBoard(i) {
     let assigned = addedTasks[i]['assigned'];
     let category = addedTasks[i]['category'];
     let prio = addedTasks[i]['prio'];
-    let subtaskCounter = addedTasks[i]['subtask'].length + ' Subtasks';
-    let subtaskDoneCounter = countSubtasksDone(i);
+    let subtaskCounter = countSubtasks(i);
 
     // Kann nicht mehr vorkommen wenn der Code final ist
     // gesamte Funktion dann ausbauen
@@ -38,7 +37,7 @@ function loadTasksForBoard(i) {
     }
 
     categoryClassPicker(category);
-    renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter);
+    renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter);
 }
 
 
@@ -51,8 +50,8 @@ function categoryClassPicker(category) {
 }
 
 
-function renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter) {
-    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter);
+function renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter) {
+    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter);
     findTasks();
 }
 
@@ -72,49 +71,15 @@ function loadTask(i) {
 }
 
 
-/*function getSubtasks(a) {
-    if (addedTasks[a]['subtask'].length > 0) {
-        //console.log(title);
-
-        for (let i = 0; i < addedTasks[a]['subtask'].length; i++) {
-            //
-        }
-    }
-}*/
-
-
-function countSubtasksDone() {
-    let subtaskCount = {};
-
+function countSubtasks(i) {
+    let subtaskCounter = addedTasks[i]['subtask'].length;
+    let subtaskDoneCounter;
     addedTasks.forEach(task => {
-        if (task && task.subtask) {
-            let anzahlSubtasksMitStatusTrue = 0;
-
-            task.subtask.forEach(subtask => {
-                if (subtask.subdone === true) {
-                    anzahlSubtasksMitStatusTrue++;
-                }
-            });
-
-            if (subtaskCount[task.title]) {
-                subtaskCount[task.title] += anzahlSubtasksMitStatusTrue;
-            } else {
-                subtaskCount[task.title] = anzahlSubtasksMitStatusTrue;
-            }
-        } else {
-            console.error(`Das Task-Objekt ist ungültig oder enthält keine Subtasks.`);
-        }
+        subtaskDoneCounter = task.subtask.filter(subtask => subtask.subdone).length;
     });
-
-    // Sammle die Ausgaben
-    let output = '';
-
-    for (const [taskTitle, count] of Object.entries(subtaskCount)) {
-        output += `Gesamte Anzahl der Subtasks mit Status 'true' für "${taskTitle}": ${count}\n`;
+    if (addedTasks[i]['subtask'].length > 0) {
+        return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
     }
-
-    // Gib die gesammelte Ausgabe aus
-    console.log(output);
 }
 
 
@@ -179,13 +144,13 @@ function findTasks() {
 }
 
 
-function renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter) {
+function renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter) {
     return `
         <div class="task-container" onclick="loadTask(${i})" ondragstart="startDragging(${i})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <h4 class="task-title-container">${title}</h4>
             <div class="task-description-container">${description}</div>
-            <div id="subtasks-container" class="task-subtasks-container">${subtaskDoneCounter}/${subtaskCounter}</div>
+            <div id="subtasks-container" class="task-subtasks-container">${subtaskCounter}</div>
             <div class="task-assignment-container">${assigned} ${prio}</div>
         </div>
     `
@@ -344,11 +309,69 @@ addedTasks = [{
             "subdone": false
         }
     ]
+},
+{
+    "bucket": "done",
+    "title": "Add hover function to tasks at board",
+    "description": "add cursor: pointer to board.css",
+    "assigned": ["Alexander Riedel (You)"],
+    "duedate": "20231003",
+    "prio": "mnedium",
+    "category": "Technical Task",
+    "subtask": []
 }];
 
 
 ******************************************************************/
 
+/*
+const jsonData = `{
+    "status": "success",
+    "data": {
+      "token": "I6UE37M81WPHG1CYOP17O5XNIFP9VCIPG0GVDZE8",
+      "key": "tasks",
+      "value": [
+        {
+          "bucket": "in-progress",
+          "title": "Kochwelt Page & Recipe Recommender",
+          "description": "Build start page with recipe recommendation.",
+          "assigned": ["Emanuel Mauer", "Marcel Bauer", "Anton Mayer"],
+          "duedate": "20230510",
+          "prio": "medium",
+          "category": "User Story",
+          "subtask": [
+            {"subtitle": "Implement Recipe Recommendation", "subdone": true},
+            {"subtitle": "Start Page Layout", "subdone": false}
+          ]
+        },
+        {
+          "bucket": "done",
+          "title": "CSS Architecture Planning",
+          "description": "Define CSS naming conventions and structure.",
+          "assigned": ["Sofia M\\u00fcller (You)", "Benedikt Ziegler"],
+          "duedate": "20230902",
+          "prio": "urgent",
+          "category": "Technical Task",
+          "subtask": [
+            {"title": "Establish CSS Methodology", "subdone": true},
+            {"title": "Setup Base Styles", "subdone": true},
+            {"subtitle": "Subtaks 3", "subdone": false}
+          ]
+        }
+      ]
+    }
+  }`;
 
-//TEST
+const data = JSON.parse(jsonData);
+const tasks = data.data.value;
 
+const erledigteSubtasksProAufgabe = {};
+
+tasks.forEach(task => {
+  const erledigteSubtasks = task.subtask.filter(subtask => subtask.subdone).length;
+  erledigteSubtasksProAufgabe[task.title] = erledigteSubtasks;
+});
+
+for (const aufgabe in erledigteSubtasksProAufgabe) {
+  console.log(`Anzahl der erledigten Subtasks für Aufgabe "${aufgabe}": ${erledigteSubtasksProAufgabe[aufgabe]}`);
+}*/
