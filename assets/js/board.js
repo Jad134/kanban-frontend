@@ -79,6 +79,8 @@ function countSubtasks(i) {
     });
     if (addedTasks[i]['subtask'].length > 0) {
         return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
+    } else {
+        return '';
     }
 }
 
@@ -323,55 +325,3 @@ addedTasks = [{
 
 
 ******************************************************************/
-
-/*
-const jsonData = `{
-    "status": "success",
-    "data": {
-      "token": "I6UE37M81WPHG1CYOP17O5XNIFP9VCIPG0GVDZE8",
-      "key": "tasks",
-      "value": [
-        {
-          "bucket": "in-progress",
-          "title": "Kochwelt Page & Recipe Recommender",
-          "description": "Build start page with recipe recommendation.",
-          "assigned": ["Emanuel Mauer", "Marcel Bauer", "Anton Mayer"],
-          "duedate": "20230510",
-          "prio": "medium",
-          "category": "User Story",
-          "subtask": [
-            {"subtitle": "Implement Recipe Recommendation", "subdone": true},
-            {"subtitle": "Start Page Layout", "subdone": false}
-          ]
-        },
-        {
-          "bucket": "done",
-          "title": "CSS Architecture Planning",
-          "description": "Define CSS naming conventions and structure.",
-          "assigned": ["Sofia M\\u00fcller (You)", "Benedikt Ziegler"],
-          "duedate": "20230902",
-          "prio": "urgent",
-          "category": "Technical Task",
-          "subtask": [
-            {"title": "Establish CSS Methodology", "subdone": true},
-            {"title": "Setup Base Styles", "subdone": true},
-            {"subtitle": "Subtaks 3", "subdone": false}
-          ]
-        }
-      ]
-    }
-  }`;
-
-const data = JSON.parse(jsonData);
-const tasks = data.data.value;
-
-const erledigteSubtasksProAufgabe = {};
-
-tasks.forEach(task => {
-  const erledigteSubtasks = task.subtask.filter(subtask => subtask.subdone).length;
-  erledigteSubtasksProAufgabe[task.title] = erledigteSubtasks;
-});
-
-for (const aufgabe in erledigteSubtasksProAufgabe) {
-  console.log(`Anzahl der erledigten Subtasks für Aufgabe "${aufgabe}": ${erledigteSubtasksProAufgabe[aufgabe]}`);
-}*/
