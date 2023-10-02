@@ -28,8 +28,8 @@ function loadTasksForBoard(i) {
     let assigned = addedTasks[i]['assigned'];
     let category = addedTasks[i]['category'];
     let prio = addedTasks[i]['prio'];
-    let subtitle = getSubtasks(i);
-    let subdone = getSubtasks(i);
+    let subtaskCounter = addedTasks[i]['subtask'].length + ' Subtasks';
+    let subtaskDoneCounter = countSubtasksDone(i);
 
     // Kann nicht mehr vorkommen wenn der Code final ist
     // gesamte Funktion dann ausbauen
@@ -38,7 +38,7 @@ function loadTasksForBoard(i) {
     }
 
     categoryClassPicker(category);
-    renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtitle, subdone, prio);
+    renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter);
 }
 
 
@@ -51,8 +51,8 @@ function categoryClassPicker(category) {
 }
 
 
-function renderByBucket(i, bucket, title, description, assigned, category, categoryCssClass, subtitle, subdone, prio) {
-    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtitle, subdone, prio);
+function renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter) {
+    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter);
     findTasks();
 }
 
@@ -64,29 +64,57 @@ function loadTask(i) {
     let duedate = addedTasks[i]['duedate'];
     let prio = addedTasks[i]['prio'];
     let assigned = addedTasks[i]['assigned'];
-    let subtitle = getSubtasks(i);
-    let subdone = getSubtasks(i);
+    //let subtitle = getSubtasks(i);
+    //let subdone = getSubtasks(i);
 
     categoryClassPicker(category);
-    openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtitle, subdone);
+    openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned);
 }
 
 
-function getSubtasks(a) {
-    if ( addedTasks[a]['subtask'].length > 0) {
+/*function getSubtasks(a) {
+    if (addedTasks[a]['subtask'].length > 0) {
+        //console.log(title);
+
         for (let i = 0; i < addedTasks[a]['subtask'].length; i++) {
-            loadSubtasks(a, i);
-            
+            //
         }
     }
+}*/
 
-}
 
+function countSubtasksDone() {
+    let subtaskCount = {};
 
-function loadSubtasks(a, i) {
-    let subtitle = addedTasks[a]['subtask'][i]['subtitle'];
-    let subdone = addedTasks[a]['subtask'][i]['subdone'];
-    console.log(subtitle + subdone);
+    addedTasks.forEach(task => {
+        if (task && task.subtask) {
+            let anzahlSubtasksMitStatusTrue = 0;
+
+            task.subtask.forEach(subtask => {
+                if (subtask.subdone === true) {
+                    anzahlSubtasksMitStatusTrue++;
+                }
+            });
+
+            if (subtaskCount[task.title]) {
+                subtaskCount[task.title] += anzahlSubtasksMitStatusTrue;
+            } else {
+                subtaskCount[task.title] = anzahlSubtasksMitStatusTrue;
+            }
+        } else {
+            console.error(`Das Task-Objekt ist ungültig oder enthält keine Subtasks.`);
+        }
+    });
+
+    // Sammle die Ausgaben
+    let output = '';
+
+    for (const [taskTitle, count] of Object.entries(subtaskCount)) {
+        output += `Gesamte Anzahl der Subtasks mit Status 'true' für "${taskTitle}": ${count}\n`;
+    }
+
+    // Gib die gesammelte Ausgabe aus
+    console.log(output);
 }
 
 
@@ -151,13 +179,13 @@ function findTasks() {
 }
 
 
-function renderBuckets(i, bucket, title, description, assigned, category, categoryCssClass, subtask, prio) {
+function renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter, subtaskDoneCounter) {
     return `
         <div class="task-container" onclick="loadTask(${i})" ondragstart="startDragging(${i})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <h4 class="task-title-container">${title}</h4>
             <div class="task-description-container">${description}</div>
-            <div class="task-subtasks-container">${subtask}</div>
+            <div id="subtasks-container" class="task-subtasks-container">${subtaskDoneCounter}/${subtaskCounter}</div>
             <div class="task-assignment-container">${assigned} ${prio}</div>
         </div>
     `
@@ -305,11 +333,11 @@ addedTasks = [{
     "subtask": [
         {
             "title": "Establish CSS Methodology",
-            "done": true
+            "subdone": true
         },
         {
             "title": "Setup Base Styles",
-            "done": true
+            "subdone": true
         },
         {
             "subtitle": "Subtaks 3",
@@ -320,3 +348,7 @@ addedTasks = [{
 
 
 ******************************************************************/
+
+
+//TEST
+
