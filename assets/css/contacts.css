@@ -75,6 +75,7 @@ body {
 
 #detail-view-of-contacts {
     margin-left: 20px;
+    padding-left: 32px;
 }
 #details-of-contacts{
     height: calc(100vh - 100px);
@@ -299,13 +300,24 @@ body {
     width: 352px;
     background-color: lightgray;
 }
+.alphabet{
+    display: flex;
+    margin-left: 40px;
+}
 .sub-contact-block{
     display: flex;
     align-items: center;
+    margin: 0 20px 0 20px;
+    border-radius: 12px;
+}
+.sub-contact-block-marked{
+    background-color: #2A3647;
+    color: white;
 }
 .sub-contact-block:hover{
     cursor: pointer;
-    background-color: #29ABE2;
+    background-color: #2A3647;
+    color: white;
 }
 .first-letters{
     display: flex;
@@ -313,6 +325,7 @@ body {
     align-items: center;
     height: 48px;
     width: 48px;
+    color: white;
     background-color: orange;
     margin: 20px;
     border-radius: 50%;
@@ -331,16 +344,6 @@ body {
 .contact-email{
     margin: 10px 0px 10px 0px;
     color: rgb(37, 37, 255);
-}
-.first-letters-for-details{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 48px;
-    width: 48px;
-    background-color: orange;
-    margin: 20px;
-    border-radius: 50%;
 }
 #letters-and-name{
     display: flex;
@@ -368,4 +371,19 @@ body {
 }
 #delete-contact:hover{
     cursor: pointer;
+}
+.first-letters-for-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 54px;
+    width: 54px;
+    padding: 20px;
+    margin-right: 60px;
+    background-color: lightgrey;
+    border-radius: 47px;
+    border: 2px solid white;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 0 12px -5px rgba(0, 0, 0, 0.3);
 }
