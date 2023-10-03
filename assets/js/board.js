@@ -30,14 +30,13 @@ function loadTasksForBoard(i) {
     let prio = addedTasks[i]['prio'];
     let subtaskCounter = countSubtasks(i);
 
-    // Kann nicht mehr vorkommen wenn der Code final ist
-    // gesamte Funktion dann ausbauen
-    if (bucket === undefined) {
+    if (bucket === undefined) {         // Kann nicht mehr vorkommen wenn der Code final ist. Gesamte Funktion dann ausbauen
         bucket = 'todo';
     }
 
     categoryClassPicker(category);
-    renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter);
+    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter);
+    findTasks();
 }
 
 
@@ -62,12 +61,6 @@ function categoryClassPicker(category) {
 }
 
 
-function renderByBucket(i, bucket, title, description, assigned, category, prio, subtaskCounter) {
-    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter);
-    findTasks();
-}
-
-
 function loadTask(i) {
     let category = addedTasks[i]['category'];
     let title = addedTasks[i]['title'];
@@ -78,7 +71,8 @@ function loadTask(i) {
     let subtasks = loadSubtasks(i);
 
     categoryClassPicker(category);
-    openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
+    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
+    openSlider();
 }
 
 
@@ -91,13 +85,6 @@ function loadSubtasks(i) {
     } else {
         return '';
     }
-}
-
-
-function openTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks) {
-    document.getElementById('slider-container').innerHtml = '';
-    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
-    openSlider();
 }
 
 
