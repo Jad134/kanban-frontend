@@ -157,7 +157,7 @@ function editTask(i) {
     let assigned = addedTasks[i]['assigned'];
     let subtasks = addedTasks[i]['subtasks'];
 
-    document.getElementById('slider-container').innerHTML = renderEditTask(title, description, duedate, prio, assigned, subtasks);
+    document.getElementById('slider-container').innerHTML = renderEditTask(i, title, description, duedate, prio, assigned, subtasks);
 }
 
 
