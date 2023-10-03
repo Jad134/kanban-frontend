@@ -155,7 +155,7 @@ function findTasks() {
 
 
 function deleteTask(i) {
-    addedTasks.splice(i);
+    addedTasks.splice(i,1);
     // setItem Funktion muss noch integriert werden
     getTaskFromArray();
     closeSlider();
@@ -223,27 +223,27 @@ function renderOpenTask(i, category, categoryCssClass, title, description, dueda
 function renderEditTask(i, title, description, duedate, prio, assigned, subtasks) {
     return `
         <div id="slider" class="edit-task-container">
-            <div class="disp-flex-column-start">
+            <div class="edit-task disp-flex-column-start">
                 <span>Title</span>
                 <input required id="edit-title" type="text" value="${title}">
             </div>
-            <div class="disp-flex-column-start">
+            <div class="edit-task disp-flex-column-start">
                 <span>Description</span>
                 <input required id="edit-description" type="text" value="${description}">
             </div>
-            <div class="disp-flex-column-start">
+            <div class="edit-task disp-flex-column-start">
                 <span>Due Date</span>
                 <input required id="edit-duedate" type="text" value="${duedate}">
             </div>
-            <div class="disp-flex-column-start">
+            <div class="edit-task disp-flex-column-start">
                 <span>Priority</span>
                 <input required id="edit-prio" type="text" value="${prio}">
             </div>
-            <div class="disp-flex-column-start">
+            <div class="edit-task disp-flex-column-start">
                 <span>Assigned to</span>
                 <input required id="edit-assigned" type="text" value="${assigned}">
             </div>
-            <div class="disp-flex-column-start">
+            <div class="edit-task disp-flex-column-start">
                 <span>Subtasks</span>
                 <input required id="edit-assigned" type="text" value="${subtasks}">
             </div>

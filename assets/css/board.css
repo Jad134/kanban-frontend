@@ -319,9 +319,16 @@
     width: 525px;
 }
 
+.edit-task {
+    width: 100%;
+}
+
 .edit-task-container input {
     padding: 12px 21px;
-    width: 100%;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
+}
+
+.edit-task-container input:focus {
+    border: 1px solid #29ABE2;
 }
