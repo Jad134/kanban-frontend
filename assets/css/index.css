@@ -249,7 +249,23 @@ input:focus::placeholder {
 
 .password-input:focus {
     background-image: url(../img/visibility_off.svg);
+
 }
+
+.toggle-password {
+    background-image: url(../img/visibility.svg); 
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 8%;
+    top: 15%;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+/* .show-password {
+    background-image: url(../img/visibility.svg); 
+}  */
 
 /* --- password toggle end ---*/
 

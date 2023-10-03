@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += renderHtmlTemplate();
-  /*   togglePasswordVisibility(); */
+    /* togglePasswordVisibility(); */
 }
 
 
@@ -50,7 +50,7 @@ function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
-  /*  togglePasswordVisibility(); */
+ /*   togglePasswordVisibility(); */
 }
 
 
@@ -136,16 +136,6 @@ function passwordCheck() {
 // ------------------ password-toggling ... TRIAL ----------
 
 
-/* function togglePasswordVisibility() {
---> neu aufsetzen mit einzelnen icons, nicht als background-image
- */
-
-
-
-
-
-
-
 
 
 
@@ -175,7 +165,6 @@ function displayMessage(messageText) {
   message.textContent = messageText;
   overlay.style.display = 'flex';
   setTimeout(() => {
-    /*  overlay.style.transform = 'translateY(0)'; */
     message.style.transform = 'translate(-50%, -50%)';
   }, 200);
   setTimeout(() => {
@@ -186,7 +175,6 @@ function displayMessage(messageText) {
 
 function hideMessage() {
   const overlay = document.getElementById('overlay');
-  /*  overlay.style.transform = 'translateY(100%)'; */
   overlay.style.display = 'none';
 }
 
@@ -284,22 +272,23 @@ function renderHtmlTemplate() {
   <div class="border-radius-30 login">
   <h1 class="padding-top">Log in</h1>
   <div class="underline border-radius-8"></div>
-  <form onsubmit="login(event)">
+    <form onsubmit="login(event)">
       <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
       <div class="input-icons">
-                <input id="user-password" minlength="5" class="login-input password-input" type="password" placeholder="Password" name="userPassword" required/>
-              </div>
-       <!--  <input id="user-password" class="login-input bg-password-icon icon visibility-change" minlength="5" type="password" placeholder="Password" name="userPassword" required/> -->
-        <div class="checkbox-container">
-      <label class="checkbox-label">
+    <input id="user-password" minlength="5" class="login-input password-input" type="password" placeholder="Password" name="userPassword" required/>
+    <!-- <img class="toggle-password" id="toggle-password" src="assets/img/lock.svg"> -->
+</div>
+
+      <div class="checkbox-container">
+        <label class="checkbox-label">
         <input id="remember-me" name="checkbox" type="checkbox"/>Remember me
       </label>
-    </div>
-    <div class="login-buttons">
-      <button  class="h-button border-radius-8">Log in</button>
-      <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
-    </div>
-  </form>
+      </div>
+      <div class="login-buttons">
+        <button  class="h-button border-radius-8">Log in</button>
+        <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
+      </div>
+    </form>
   `;
 }
 
@@ -337,6 +326,26 @@ function signUpHtmlTemplate() {
          </div>
    `;
 }
+
+
+/* window.onload = function () {
+const passwordInput = document.getElementById("user-password");
+const togglePassword = document.getElementById("toggle-password");
+
+togglePassword.addEventListener("click", function() {
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePassword.src = "../img/visibility.svg";
+    } else {
+        passwordInput.type = "password";
+        togglePassword.src = "../img/visibility_off.svg";
+    }
+});}
+ */
+
+
+
+
 
 // -------------------- HTML-Templates Ende --------------------------
 
