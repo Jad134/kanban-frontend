@@ -343,6 +343,34 @@ togglePassword.addEventListener("click", function() {
 });}
  */
 
+/* 
+
+                    
+window.onload = function() {
+  const passwordField = document.getElementById('password-input');
+
+  passwordField.addEventListener("focus", () => {
+      passwordField.style.backgroundImage = 'url(../img/visibility_off.svg)';
+  });
+} */
+
+
+
+/* document.addEventListener("DOMContentLoaded", function() {
+  const passwordInput = document.getElementById("user-password");
+  const togglePassword = document.getElementById("toggle-password");
+
+  togglePassword.addEventListener("click", function() {
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          togglePassword.classList.add("show-password");
+      } else {
+          passwordInput.type = "password";
+          togglePassword.classList.remove("show-password");
+      }
+  });
+}); */
+
 
 
 
