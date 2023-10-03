@@ -71,6 +71,7 @@ function loadTask(i) {
     let subtasks = loadSubtasks(i);
 
     categoryClassPicker(category);
+    document.getElementById('slider-container').innerHTML = '';
     document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
     openSlider();
 }
@@ -93,8 +94,14 @@ function startDragging(i) {
 }
 
 
+/*function dragLeave(event) {
+    event.target.classList.remove('dropzone-hover');
+}*/
+
+
 function allowDrop(event) {
     event.preventDefault();
+    //event.target.classList.add('dropzone-hover');
 }
 
 
@@ -102,6 +109,7 @@ function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
     getTaskFromArray();
     addTaskToStorage();
+    //document.getElementById(bucket).classList.remove('dropzone-hover');
 }
 
 
@@ -118,6 +126,7 @@ function clearBuckets() {
 
 
 function addTaskSlider() {
+    document.getElementById('slider-container').innerHTML = '';
     document.getElementById('slider-container').innerHTML = addTaskHtml();
     openSlider();
 }
@@ -143,9 +152,9 @@ function findTasks() {
 
 function deleteTask(i) {
     addedTasks.splice(i,1);
-    // setItem Funktion muss noch integriert werden
     getTaskFromArray();
     closeSlider();
+    addTaskToStorage();
 }
 
 
@@ -210,30 +219,32 @@ function renderOpenTask(i, category, categoryCssClass, title, description, dueda
 function renderEditTask(i, title, description, duedate, prio, assigned, subtasks) {
     return `
         <div id="slider" class="edit-task-container">
-            <div class="edit-task disp-flex-column-start">
-                <span>Title</span>
-                <input required id="edit-title" type="text" value="${title}">
-            </div>
-            <div class="edit-task disp-flex-column-start">
-                <span>Description</span>
-                <input required id="edit-description" type="text" value="${description}">
-            </div>
-            <div class="edit-task disp-flex-column-start">
-                <span>Due Date</span>
-                <input required id="edit-duedate" type="text" value="${duedate}">
-            </div>
-            <div class="edit-task disp-flex-column-start">
-                <span>Priority</span>
-                <input required id="edit-prio" type="text" value="${prio}">
-            </div>
-            <div class="edit-task disp-flex-column-start">
-                <span>Assigned to</span>
-                <input required id="edit-assigned" type="text" value="${assigned}">
-            </div>
-            <div class="edit-task disp-flex-column-start">
-                <span>Subtasks</span>
-                <input required id="edit-assigned" type="text" value="${subtasks}">
-            </div>
+            <form>
+                <div class="edit-task disp-flex-column-start">
+                    <span>Title</span>
+                    <input required id="edit-title" type="text" value="${title}">
+                </div>
+                <div class="edit-task disp-flex-column-start">
+                    <span>Description</span>
+                    <textarea required id="edit-description" row="3">${description}</textarea>
+                </div>
+                <div class="edit-task disp-flex-column-start">
+                    <span>Due Date</span>
+                    <input required id="edit-duedate" type="text" value="${duedate}">
+                </div>
+                <div class="edit-task disp-flex-column-start">
+                    <span>Priority</span>
+                    <input required id="edit-prio" type="text" value="${prio}">
+                </div>
+                <div class="edit-task disp-flex-column-start">
+                    <span>Assigned to</span>
+                    <input required id="edit-assigned" type="text" value="${assigned}">
+                </div>
+                <div class="edit-task disp-flex-column-start">
+                    <span>Subtasks</span>
+                    <input required id="edit-subtasks" type="text" value="${subtasks}">
+                </div>
+            </form>
         </div>
     `
 }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag-and-Drop mit Hover-Effekt</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .draggable {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .draggable:hover {
+            background-color: #2980b9;
+        }
+
+        .draggable:active {
+            cursor: move;
+        }
+
+        .drop-zone {
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .drop-zone.highlighted {
+            border-color: #3498db;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="draggableElement" class="draggable" draggable="true">Zieh mich!</div>
+
+    <div id="dropZone" class="drop-zone">Hier ablegen</div>
+
+    <script>
+        const draggableElement = document.getElementById('draggableElement');
+        const dropZone = document.getElementById('dropZone');
+
+        draggableElement.addEventListener('dragstart', (event) => {
+            event.dataTransfer.setData('text/plain', 'Drag Me!');
+        });
+
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.classList.add('highlighted');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('highlighted');
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.classList.remove('highlighted');
+            const data = event.dataTransfer.getData('text/plain');
+            dropZone.innerText = data;
+        });
+
+        draggableElement.addEventListener('drag', (event) => {
+            // Optional: Do something while dragging, if needed
+        });
+
+        draggableElement.addEventListener('dragend', (event) => {
+            // Optional: Do something after dragging, if needed
+        });
+    </script>
+
+</body>
+
+</html>
