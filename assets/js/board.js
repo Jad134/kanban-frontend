@@ -73,10 +73,8 @@ function loadTask(i) {
 
 function countSubtasks(i) {
     let subtaskCounter = addedTasks[i]['subtask'].length;
-    let subtaskDoneCounter;
-    addedTasks.forEach(task => {
-        subtaskDoneCounter = task.subtask.filter(subtask => subtask.subdone).length;
-    });
+    let subtaskDoneCounter = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
+
     if (addedTasks[i]['subtask'].length > 0) {
         return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
     } else {
