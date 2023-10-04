@@ -88,6 +88,7 @@ async function loadUserDataFromRemote() {
         userData.push(users);
     }
     loadContacts();
+    findContact()
 }
 
 
@@ -376,6 +377,22 @@ function validateForm() {
     }
     return isValid;
   }
+
+  function findContact() {
+    const searchInput = document.getElementById('assignedTo');
+    const contactCards = document.querySelectorAll('.add-task-contacts');
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value.toLowerCase();
+        contactCards.forEach((card) => {
+            const cardText = card.innerText.toLowerCase();
+            if (cardText.includes(searchText)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
 
 
 
