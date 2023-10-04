@@ -3,10 +3,12 @@ let lastClickedPrio = null;
 let newSubTasks = [];
 let assignedContact = []
 let userData = [];
+let taskId;
 
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
+    getTaskId();
 }
 
 function ChangeButtonColor(buttonId, imgId) {
@@ -48,8 +50,10 @@ function getValues() {
     let categoryText = category.options[category.selectedIndex].text;
     let subtask = document.getElementById('subtask-input');
     let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
+    let taskIdCounter = taskId++;
 
     let tasks = {
+        "id": taskIdCounter,
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
@@ -74,9 +78,21 @@ function submitForm() {
 function sendFormular(tasks){
     addedTasks.push(tasks);
     addTaskToStorage();
+    addTaskIdToStorage();
     clearTasks();
     newSubTasks = [];
     location.href = "board.html"; // Geht noch nicht !!!!!!!!!!!
+}
+
+
+async function getTaskId() {
+    taskId = await getItem('taskid');
+    taskId = JSON.parse(taskId['data']['value']);
+}
+
+
+async function addTaskIdToStorage() {
+    setItem('taskid', taskId);
 }
 
 
