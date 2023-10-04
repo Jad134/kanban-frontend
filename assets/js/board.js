@@ -170,6 +170,15 @@ function editTask(i) {
 }
 
 
+async function taskIdCounter() {
+    let taskId = await getItem('taskid');
+    taskId = JSON.parse(taskId['data']['value']);
+    taskId++;
+    setItem('taskid', taskId);
+    console.log(taskId);
+}
+
+
 function renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter) {
     return `
         <div class="task-container" onclick="loadTask(${i})" ondragstart="startDragging(${i})" draggable="true">
@@ -340,6 +349,7 @@ function addTaskHtml() {
 
 
 addedTasks = [{
+    "id": 1,
     "bucket": "in-progress",
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
@@ -359,6 +369,7 @@ addedTasks = [{
     ]
 },
 {
+    "id": 2,
     "bucket": "done",
     "title": "CSS Architecture Planning",
     "description": "Define CSS naming conventions and structure.",
@@ -368,6 +379,7 @@ addedTasks = [{
     "category": "Technical Task",
     "subtask": [
         {
+            "subid": 1/2
             "title": "Establish CSS Methodology",
             "subdone": true
         },
@@ -382,6 +394,7 @@ addedTasks = [{
     ]
 },
 {
+    "id": 3,
     "bucket": "done",
     "title": "Add hover function to tasks at board",
     "description": "add cursor: pointer to board.css",
