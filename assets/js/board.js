@@ -355,7 +355,7 @@ addedTasks = [{
     "description": "Build start page with recipe recommendation.",
     "assigned": ["Emanuel Mauer", "Marcel Bauer", "Anton Mayer"],
     "duedate": "20230510",
-    "prio": "medium",
+    "prio": "Medium",
     "category": "User Story",
     "subtask": [
         {
@@ -375,11 +375,10 @@ addedTasks = [{
     "description": "Define CSS naming conventions and structure.",
     "assigned": ["Sofia Müller (You)", "Benedikt Ziegler"],
     "duedate": "20230902",
-    "prio": "urgent",
+    "prio": "Urgent",
     "category": "Technical Task",
     "subtask": [
         {
-            "subid": 1/2
             "title": "Establish CSS Methodology",
             "subdone": true
         },
@@ -400,7 +399,7 @@ addedTasks = [{
     "description": "add cursor: pointer to board.css",
     "assigned": ["Alexander Riedel (You)"],
     "duedate": "20231003",
-    "prio": "mnedium",
+    "prio": "Medium",
     "category": "Technical Task",
     "subtask": []
 }];
