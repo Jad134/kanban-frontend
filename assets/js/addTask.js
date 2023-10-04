@@ -1,12 +1,15 @@
 let addedTasks = [{}];
 let lastClickedPrio = null;
 let newSubTasks = [];
-let assignedContact = []
+let assignedContact = [];
 let userData = [];
+let taskId;
+//let subId = 0;
 
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
+    countTaskId();
 }
 
 function ChangeButtonColor(buttonId, imgId) {
@@ -46,10 +49,12 @@ function getValues() {
     let date = document.getElementById('date-input');
     let category = document.getElementById('select-category');
     let categoryText = category.options[category.selectedIndex].text;
-    let subtask = document.getElementById('subtask-input');
+    //let subtask = document.getElementById('subtask-input');
     let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
+    let taskIdCounter = taskId;
 
     let tasks = {
+        "id": taskIdCounter,
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
@@ -74,9 +79,23 @@ function submitForm() {
 function sendFormular(tasks){
     addedTasks.push(tasks);
     addTaskToStorage();
+    addTaskIdToStorage();
     clearTasks();
     newSubTasks = [];
     location.href = "board.html"; // Geht noch nicht !!!!!!!!!!!
+}
+
+
+async function countTaskId() {
+    taskId = await getItem('taskid');
+    taskId = JSON.parse(taskId['data']['value']);
+    taskId++;
+    setItem('taskid', taskId);
+}
+
+
+async function addTaskIdToStorage() {
+    setItem('taskid', taskId);
 }
 
 
@@ -111,7 +130,6 @@ async function addTaskToStorage() {
 function addSubTask() {
     let subtaskContent = document.getElementById('subtask-lists');
     let newTasksText = document.getElementById('subtask-input').value;
-
     if (newTasksText !== '') {
         newSubTasks.push(newTasksText);
     }
@@ -123,6 +141,10 @@ function addSubTask() {
         subtaskContent.innerHTML += renderSubTask(newTasks, i)
     }
     document.getElementById('subtask-input').value = '';
+
+    /*subId++;
+    let subIdString = `${taskId}-${subId}`;
+    console.log(subIdString);*/
 }
 
 function renderSubTask(newTasks, i) {
