@@ -327,3 +327,5 @@ function removeButtonColor() {
         imag.classList.remove('active');
     });
 }
+
+

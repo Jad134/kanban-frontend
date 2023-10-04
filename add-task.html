@@ -27,7 +27,7 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form onsubmit="getValues(); ">
+                <form novalidate onsubmit="getValues(); ">
                     <div style="display: flex;">
                         <div class="left-side">
 
@@ -38,7 +38,7 @@
                             </div>
                             <div class="description">
                                 <span class="span-style">Description</span>
-                                <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
+                                <textarea required placeholder="Enter a Description" name="" id="description-textarea" cols="20"
                                     rows="10"></textarea>
                             </div>
                             <div class="assigned">
