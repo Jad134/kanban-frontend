@@ -488,3 +488,12 @@ svg:hover {
     flex-wrap: wrap;
     gap: 8px;
 }
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .required-star{
+    color: red;
+  }

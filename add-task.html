@@ -27,19 +27,20 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form novalidate onsubmit="getValues(); ">
+                <form novalidate onsubmit="return submitForm();">
                     <div style="display: flex;">
                         <div class="left-side">
 
                             <div class="title-content">
-
-                                <span class="span-style">Title</span>
+                                <span class="span-style">Title <span class="required-star">*</span></span>
                                 <input required placeholder="Enter a title" id="title-input" type="text">
+                                <div class="error-message" id="title-error"></div>
                             </div>
                             <div class="description">
                                 <span class="span-style">Description</span>
                                 <textarea required placeholder="Enter a Description" name="" id="description-textarea" cols="20"
                                     rows="10"></textarea>
+                                    <div class="error-message" id="description-error"></div>
                             </div>
                             <div class="assigned">
                                 <span class="span-style">Assigned to</span>
@@ -53,8 +54,9 @@
 
                         <div class="right-side">
                             <div class="date-container">
-                                <span class="span-style">Due date</span>
+                                <span class="span-style">Due date <span class="required-star">*</span></span>
                                 <input onfocus="(this. type='date')" id="date-input"  required placeholder="dd/mm/yyyy">
+                                <div class="error-message" id="date-error"></div>
                             </div>
                             <div class="prio">
                                 <span class="span-style">Prio</span>
@@ -74,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="category-container">
-                                <span class="span-style">Category</span>
+                                <span class="span-style">Category <span class="required-star">*</span></span>
                                 <select name="Select contacts to assign" id="select-category">
                                     <option value="" disabled selected hidden>Select task category</option>
                                     <option value="1">Technical Task</option>

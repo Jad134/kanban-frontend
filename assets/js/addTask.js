@@ -37,6 +37,8 @@ function ChangeButtonColor(buttonId, imgId) {
     }
 }
 
+
+
 function getValues() {
     let bucket = "todo";
     let title = document.getElementById('title-input');
@@ -57,9 +59,17 @@ function getValues() {
         "subtask": newSubTasks,
         "bucket": bucket,
     };
-    sendFormular(tasks)
-    
+    sendFormular(tasks);  
 }
+
+function submitForm() {
+    if (validateForm()) {
+      getValues(); // Rufen Sie getValues() auf, wenn die Validierung erfolgreich ist
+      return true; // Das Formular wird abgesendet
+    } else {
+      return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
+    }
+  }
 
 function sendFormular(tasks){
     addedTasks.push(tasks);
@@ -327,5 +337,45 @@ function removeButtonColor() {
         imag.classList.remove('active');
     });
 }
+
+function validateForm() {
+    let isValid = true;
+  
+    // Überprüfen Sie das Titelfeld
+    const titleInput = document.getElementById('title-input');
+    const titleError = document.getElementById('title-error');
+    if (titleInput.value.trim() === '') {
+      titleError.textContent = 'This field is requiered';
+      titleInput.style.border = '1px solid red'; 
+      isValid = false;
+    } else {
+      titleError.textContent = ''; 
+      titleInput.style.border = '';
+    }
+  
+    const descriptionTextarea = document.getElementById('description-textarea');
+    const descriptionError = document.getElementById('description-error');
+    if (descriptionTextarea.value.trim() === '') {
+      descriptionError.textContent = 'This field is requiered';
+      descriptionTextarea.style.border = '1px solid red';
+      isValid = false;
+    } else {
+      descriptionError.textContent = ''; 
+      descriptionTextarea.style.border = '';
+    }
+
+    const dateInput = document.getElementById('date-input');
+    const dateError = document.getElementById('date-error');
+    if (dateInput.value.trim() === '') {
+      dateError.textContent = 'This field is requiered';
+      dateInput.style.border = '1px solid red';
+      isValid = false;
+    } else {
+      dateError.textContent = ''; 
+      dateInput.style.border = '';
+    }
+    return isValid;
+  }
+
 
 
