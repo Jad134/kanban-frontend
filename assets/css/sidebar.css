@@ -60,3 +60,51 @@
     color: rgb(41, 171, 226);
     font-weight: 700;
 }
+
+@media(max-width: 800px) {
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100vw;
+        height: 80px;
+        background-color: rgb(42, 54, 71);
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar-menu {
+        margin: 0;
+        flex-direction: row;
+    }
+
+    .sidebar-logo-container {
+        display: none;
+    }
+
+    .judicial-info {
+        display: none;
+    }
+
+    .preload-side-menu {
+        background-color: rgb(42, 54, 71);
+        min-width: 0;
+        min-height: 0;
+    }
+
+    #summary-link{
+        flex-direction: column;
+    }
+
+    #add-task-link{
+        flex-direction: column;
+    }
+
+    #board-link{
+        flex-direction: column;
+    }
+
+    #contacts-link{
+        flex-direction: column;
+    }
+}

@@ -135,3 +135,12 @@ a {
 .d-none{
     display: none;
 }
+
+
+@media(max-width: 800px) {
+    .preload-side-menu {
+        background-color: rgb(42, 54, 71);
+        min-width: 0;
+        min-height: 0;
+    }
+}

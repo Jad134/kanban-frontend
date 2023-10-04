@@ -22,13 +22,13 @@
     <div class="main-content">
         <div class="preload-header" w3-include-html="assets\html-templates\header.html"></div>
 
-        <div  class="align-content">
+        <div class="align-content">
             <div>
                 <div>
                     <h1>Add Task</h1>
                 </div>
                 <form novalidate onsubmit="return submitForm();">
-                    <div style="display: flex;">
+                    <div class="left-right-container">
                         <div class="left-side">
 
                             <div class="title-content">
@@ -38,16 +38,16 @@
                             </div>
                             <div class="description">
                                 <span class="span-style">Description</span>
-                                <textarea required placeholder="Enter a Description" name="" id="description-textarea" cols="20"
-                                    rows="10"></textarea>
-                                    <div class="error-message" id="description-error"></div>
+                                <textarea required placeholder="Enter a Description" name="" id="description-textarea"
+                                    cols="20" rows="10"></textarea>
+                                <div class="error-message" id="description-error"></div>
                             </div>
                             <div class="assigned">
                                 <span class="span-style">Assigned to</span>
-                                <input onclick="openContactOverlay()" id="assignedTo"  type="text" placeholder="Select contacts to assign" >  
+                                <input onclick="openContactOverlay()" id="assignedTo" type="text"
+                                    placeholder="Select contacts to assign">
                                 <div class="d-none" id="contact-overlay"></div>
                                 <div id="selected-contacts">
-                                   
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                         <div class="right-side">
                             <div class="date-container">
                                 <span class="span-style">Due date <span class="required-star">*</span></span>
-                                <input onfocus="(this. type='date')" id="date-input"  required placeholder="dd/mm/yyyy">
+                                <input onfocus="(this. type='date')" id="date-input" required placeholder="dd/mm/yyyy">
                                 <div class="error-message" id="date-error"></div>
                             </div>
                             <div class="prio">
@@ -86,27 +86,33 @@
                             <div id="subtask-container" class="subtask-container">
                                 <span class="span-style">Subtasks</span>
                                 <div class="subtask-input-btn">
-                                    <input onkeydown="handleEnterKeyPress(event , 'subtask-input')"  id="subtask-input" placeholder="Add new subtask" type="text">
+                                    <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
+                                        placeholder="Add new subtask" type="text">
                                     <button onclick="addSubTask()" type="button" class="subtask-button"><img
                                             src="./assets/img/addSub.svg" alt=""></button>
                                 </div>
                                 <div id="subtask-lists"></div>
                                 <div class="create-buttons">
-                                    <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25"
+                                            height="24" viewBox="0 0 25 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z"
+                                                stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
                                         </svg>
-                                        
+
                                     </button>
                                     <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
                                             src="./assets/img/check.svg" alt=""></button>
                                 </div>
                             </div>
-                            
+
 
                         </div>
 
                     </div>
-                   
+
                 </form>
             </div>
         </div>

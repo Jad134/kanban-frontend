@@ -151,6 +151,7 @@ function openContactOverlay() {
 
     overlayContainer.classList.remove('d-none');
     overlayContainer.classList.add('d-flex');
+    onclick.style.backgroundImage="url(./assets/img/arrow-up.svg)"; 
 
     onclick.removeAttribute('onClick')
 
@@ -163,6 +164,7 @@ function closeContactOverlay() {
     let onclick = document.getElementById('assignedTo')
     overlayContainer.classList.remove('d-flex');
     overlayContainer.classList.add('d-none');
+    onclick.style.backgroundImage="url(./assets/img/arrow-assign-down.svg)";
 
     document.removeEventListener('click', closeOnClickOutside);
     onclick.onclick = openContactOverlay;
@@ -342,39 +344,26 @@ function removeButtonColor() {
 function validateForm() {
     let isValid = true;
   
-    // Überprüfen Sie das Titelfeld
-    const titleInput = document.getElementById('title-input');
-    const titleError = document.getElementById('title-error');
-    if (titleInput.value.trim() === '') {
-      titleError.textContent = 'This field is requiered';
-      titleInput.style.border = '1px solid red'; 
-      isValid = false;
-    } else {
-      titleError.textContent = ''; 
-      titleInput.style.border = '';
-    }
+    const fieldsToValidate = [
+      { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
+      { id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
+      { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
+    ];
   
-    const descriptionTextarea = document.getElementById('description-textarea');
-    const descriptionError = document.getElementById('description-error');
-    if (descriptionTextarea.value.trim() === '') {
-      descriptionError.textContent = 'This field is requiered';
-      descriptionTextarea.style.border = '1px solid red';
-      isValid = false;
-    } else {
-      descriptionError.textContent = ''; 
-      descriptionTextarea.style.border = '';
-    }
-
-    const dateInput = document.getElementById('date-input');
-    const dateError = document.getElementById('date-error');
-    if (dateInput.value.trim() === '') {
-      dateError.textContent = 'This field is requiered';
-      dateInput.style.border = '1px solid red';
-      isValid = false;
-    } else {
-      dateError.textContent = ''; 
-      dateInput.style.border = '';
-    }
+    fieldsToValidate.forEach((field) => {
+      const inputElement = document.getElementById(field.id);
+      const errorElement = document.getElementById(field.errorId);
+  
+      if (inputElement.value.trim() === '') {
+        errorElement.textContent = field.errorMessage;
+        inputElement.style.border = '1px solid red';
+        isValid = false;
+      } else {
+        errorElement.textContent = '';
+        inputElement.style.border = '';
+      }
+    });
+  
     return isValid;
   }
 

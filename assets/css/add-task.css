@@ -8,8 +8,8 @@ body {
     gap: 8px;
 }
 
-.span-style{
-    color:rgba(42, 54, 71, 1);
+.span-style {
+    color: rgba(42, 54, 71, 1);
     font-size: 20px;
     font-family: 'inter';
     font-weight: 400;
@@ -38,7 +38,8 @@ body {
 
 
 .custom-select select:focus {
-    outline: none; /* Entfernt den Standard-Fokusrahmen */
+    outline: none;
+    /* Entfernt den Standard-Fokusrahmen */
 }
 
 input {
@@ -47,6 +48,7 @@ input {
     padding-left: 16px;
     height: 48px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 input:focus {
@@ -105,6 +107,7 @@ input[type="date"]::placeholder {
     height: 80px;
     resize: none;
     font-size: 20px;
+    cursor: pointer;
 }
 
 textarea::placeholder {
@@ -114,7 +117,8 @@ textarea::placeholder {
     font-size: 20px;
     text-align: start;
 }
-#assignedTo{
+
+#assignedTo {
     background-image: url(/assets/img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
@@ -424,19 +428,20 @@ svg:hover {
     filter: grayscale(100%) brightness(200%);
 }
 
-#contact-overlay{
+#contact-overlay {
     flex-direction: column;
     gap: 3px;
     background-color: white;
     max-height: 150px;
     overflow-y: auto;
+    border-radius: 10px;
 }
 
-.current-name{
+.current-name {
     font-size: 20px;
 }
 
-.add-task-contacts{
+.add-task-contacts {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -447,22 +452,23 @@ svg:hover {
     padding-inline: 8px;
 }
 
-.add-task-contacts:hover{
+.add-task-contacts:hover {
     cursor: pointer;
-    background-color: rgb(42, 54,71);
+    background-color: rgb(42, 54, 71);
     color: white;
 }
 
-.check-contact{
+.check-contact {
     border: 0;
-    border-radius:0;
+    border-radius: 0;
     padding-left: 0;
     height: auto;
     font-size: 0;
     width: 16px;
     height: 16px;
 }
-.contact-label{
+
+.contact-label {
     border-radius: 10px;
 }
 
@@ -483,17 +489,62 @@ svg:hover {
     background: rgba(12, 46, 98, 0.12);
 }
 
-#selected-contacts{
+#selected-contacts {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 8px;
 }
+
 .error-message {
     color: red;
     font-size: 12px;
     margin-top: 4px;
-  }
+}
 
-  .required-star{
+.required-star {
     color: red;
-  }
+}
+
+.left-right-container {
+    display: flex;
+}
+
+
+
+@media(max-width: 1250px) {
+    .align-content {
+        padding-right: 0;
+    }
+}
+
+@media(max-width: 1200px) {
+    .left-right-container {
+        flex-direction: column;
+    }
+
+    .right-side {
+        padding-left: 0;
+    }
+
+    .left-side{
+        border-right: 0;
+    }
+
+    .assigned {
+        position: relative;
+    }
+
+    #contact-overlay {
+        position: absolute;
+        z-index: 999;
+        top: 85px;
+        left: 0;
+        right: 0;
+    }
+
+    .create-buttons {
+        margin-top: 40px;
+        padding-bottom: 8px;
+    }
+}
