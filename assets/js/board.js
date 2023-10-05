@@ -8,6 +8,8 @@ async function getTaskStorageForBoard() {
         addedTasks.push(tasks);
         loadTasksForBoard(i);
     }
+
+     
 }
 
 
@@ -41,6 +43,7 @@ function loadTasksForBoard(i) {
     categoryClassPicker(category);
     document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, prio, subtaskCounter);
     findTasks();
+    
 }
 
 
@@ -65,6 +68,78 @@ function categoryClassPicker(category) {
     }
 }
 
+
+function loadTask(i) {
+    let category = addedTasks[i]['category'];
+    let title = addedTasks[i]['title'];
+    let description = addedTasks[i]['description'];
+    let duedate = addedTasks[i]['duedate'];
+    let prio = addedTasks[i]['prio'];
+    let assigned = addedTasks[i]['assigned'];
+    let subtasks = loadSubtasks(i);
+
+    categoryClassPicker(category);
+    document.getElementById('slider-container').innerHTML = '';
+    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
+    openSlider();
+    
+}
+
+
+function loadSubtasks(i) {
+    let subtaskCounter = addedTasks[i]['subtask'].length;
+    let subtaskDoneCounter = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
+
+    if (addedTasks[i]['subtask'].length > 0) {
+        return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
+    } else {
+        return '';
+    }
+}
+
+
+function startDragging(i) {
+    currentDraggedElement = i;
+}
+
+
+/*function dragLeave(event) {
+    event.target.classList.remove('dropzone-hover');
+}*/
+
+
+function allowDrop(event) {
+    event.preventDefault();
+    //event.target.classList.add('dropzone-hover');
+}
+
+
+function moveTo(bucket) {
+    addedTasks[currentDraggedElement]['bucket'] = bucket;
+    getTaskFromArray();
+    addTaskToStorage();
+    //document.getElementById(bucket).classList.remove('dropzone-hover');
+}
+
+
+function clearBuckets() {
+    let todoTasks = document.getElementById('todo');
+    todoTasks.innerHTML = '';
+    let inProgressTasks = document.getElementById('in-progress');
+    inProgressTasks.innerHTML = '';
+    let awaitFeedbackTasks = document.getElementById('await-feedback');
+    awaitFeedbackTasks.innerHTML = '';
+    let doneTasks = document.getElementById('done');
+    doneTasks.innerHTML = '';
+}
+
+
+function addTaskSlider() {
+    document.getElementById('slider-container').innerHTML = '';
+    document.getElementById('slider-container').innerHTML = addTaskHtml();
+    openSlider();
+    loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+}
 
 // 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
 
@@ -257,90 +332,114 @@ function renderEditTask(i, id, title, description, duedate, prio, assigned, subt
             </form>
         </div>
     `
+    
 }
 
 
 function addTaskHtml() {
     return `
-        <div id="slider">
+   
+    
+
+    <div class="main-content">
+        
+
+        <div class="align-content">
             <div>
-                <h1>Add Task</h1>
-            </div>
-            <form onsubmit="getValues(); ">
-                <div style="display: flex;">
-                    <div class="left-side">
-
-                        <div class="title-content">
-
-                            <span class="span-style">Title</span>
-                            <input required placeholder="Enter a title" id="title-input" type="text">
-                        </div>
-                        <div class="description">
-                            <span class="span-style">Description</span>
-                            <textarea placeholder="Enter a Description" name="" id="description-textarea" cols="20"
-                                rows="10"></textarea>
-                        </div>
-                        <div class="assigned">
-                            <span class="span-style">Assigned to</span>
-                            <select name="Select contacts to assign" id="assignedTo">
-                                <option value="1">Hello World</option>
-                                <option value="2">Test</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="right-side">
-                        <div class="date-container">
-                            <span class="span-style">Due date</span>
-                            <input onfocus="(this. type='date')" id="date-input"  required placeholder="dd/mm/yyyy">
-                        </div>
-                        <div class="prio">
-                            <span class="span-style">Prio</span>
-                            <div class="prio-buttons">
-                                <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
-                                    type="button" id="urgent-btn">Urgent
-                                    <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
-                                </button>
-                                <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
-                                    type="button" id="medium-btn">Medium
-                                    <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
-                                </button>
-                                <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
-                                    id="low-btn">Low
-                                    <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="category-container">
-                            <span class="span-style">Category</span>
-                            <select name="Select contacts to assign" id="select-category">
-                                <option value="" disabled selected hidden>Select task category</option>
-                                <option value="1">Technical Task</option>
-                                <option value="2">User Story</option>
-                            </select>
-                        </div>
-                        <div id="subtask-container" class="subtask-container">
-                            <span class="span-style">Subtasks</span>
-                            <div class="subtask-input-btn">
-                                <input onkeydown="handleEnterKeyPress(event , 'subtask-input')"  id="subtask-input" placeholder="Add new subtask" type="text">
-                                <button onclick="addSubTask()" type="button" class="subtask-button"><img
-                                        src="./assets/img/addSub.svg" alt=""></button>
-                            </div>
-                            <div id="subtask-lists"></div>
-                            <div class="create-buttons">
-                                <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    
-                                </button>
-                                <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
-                                        src="./assets/img/check.svg" alt=""></button>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <h1>Add Task</h1>
                 </div>
-            </form>
+                <form novalidate onsubmit="return submitForm();">
+                    <div class="left-right-container">
+                        <div class="left-side">
+
+                            <div class="title-content">
+                                <span class="span-style">Title <span class="required-star">*</span></span>
+                                <input required placeholder="Enter a title" id="title-input" type="text">
+                                <div class="error-message" id="title-error"></div>
+                            </div>
+                            <div class="description">
+                                <span class="span-style">Description</span>
+                                <textarea required placeholder="Enter a Description" name="" id="description-textarea"
+                                    cols="20" rows="10"></textarea>
+                                <div class="error-message" id="description-error"></div>
+                            </div>
+                            <div class="assigned">
+                                <span class="span-style">Assigned to</span>
+                                <input onclick="openContactOverlay()" id="assignedTo" type="text"
+                                    placeholder="Select contacts to assign">
+                                <div class="d-none" id="contact-overlay"></div>
+                                <div id="selected-contacts">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-side">
+                            <div class="date-container">
+                                <span class="span-style">Due date <span class="required-star">*</span></span>
+                                <input onfocus="(this. type='date')" id="date-input" required placeholder="dd/mm/yyyy">
+                                <div class="error-message" id="date-error"></div>
+                            </div>
+                            <div class="prio">
+                                <span class="span-style">Prio</span>
+                                <div class="prio-buttons">
+                                    <button value="Urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
+                                        type="button" id="urgent-btn">Urgent
+                                        <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
+                                    </button>
+                                    <button value="Medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
+                                        type="button" id="medium-btn">Medium
+                                        <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
+                                    </button>
+                                    <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
+                                        id="low-btn">Low
+                                        <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="category-container">
+                                <span class="span-style">Category <span class="required-star">*</span></span>
+                                <select name="Select contacts to assign" id="select-category">
+                                    <option value="" disabled selected hidden>Select task category</option>
+                                    <option value="1">Technical Task</option>
+                                    <option value="2">User Story</option>
+                                </select>
+                            </div>
+                            <div id="subtask-container" class="subtask-container">
+                                <span class="span-style">Subtasks</span>
+                                <div class="subtask-input-btn">
+                                    <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
+                                        placeholder="Add new subtask" type="text">
+                                    <button onclick="addSubTask()" type="button" class="subtask-button"><img
+                                            src="./assets/img/addSub.svg" alt=""></button>
+                                </div>
+                                <div id="subtask-lists"></div>
+                                <div class="create-buttons">
+                                    <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25"
+                                            height="24" viewBox="0 0 25 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z"
+                                                stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </button>
+                                    <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
+                                            src="./assets/img/check.svg" alt=""></button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
         </div>
+    </div>
+
     `
 }
 

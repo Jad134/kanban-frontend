@@ -69,7 +69,7 @@ function getValues() {
 
 function submitForm() {
     if (validateForm()) {
-      getValues(); // Rufen Sie getValues() auf, wenn die Validierung erfolgreich ist
+      getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
       return true; // Das Formular wird abgesendet
     } else {
       return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
@@ -337,7 +337,9 @@ function clearTasks() {
     let date = document.getElementById('date-input');
     let sublist = document.querySelectorAll('.sublist-container');
     let newTasks = document.getElementById('subtask-input');
+    let contactImg = document.getElementById('selected-contacts')
 
+    contactImg.innerHTML = "";
     newTasks.value = "";
     date.value = "";
     description.value = "";
