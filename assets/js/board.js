@@ -1,8 +1,17 @@
-async function getTaskStorageForBoard() {
-    addedTasks = [];
+addedTasks = [];
+addedUsers = [];
+
+
+async function initBoard() {
+    let userData = await getItem('users');
+    userData = JSON.parse(userData['data']['value']);
+    for (let i = 0; i < userData.length; i++) {
+        let users = userData[i];
+        addedUsers.push(users);
+    }
+
     let currentTasks = await getItem('tasks');
     currentTasks = JSON.parse(currentTasks['data']['value']);
-
     for (let i = 0; i < currentTasks.length; i++) {
         let tasks = currentTasks[i];
         addedTasks.push(tasks);
@@ -11,37 +20,30 @@ async function getTaskStorageForBoard() {
 }
 
 
-function getTaskFromArray() {
-    clearBuckets();
-
-    for (let i = 0; i < addedTasks.length; i++) {
-        loadTasksForBoard(i);
-    }
-}
-
-
-function clearBuckets() {
-    document.getElementById('todo').innerHTML = '';
-    document.getElementById('in-progress').innerHTML = '';
-    document.getElementById('await-feedback').innerHTML = '';
-    document.getElementById('done').innerHTML = '';
-}
-
-
 function loadTasksForBoard(i) {
     let id = addedTasks[i]['id'];
     let bucket = addedTasks[i]['bucket'];
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
-    let assigned = addedTasks[i]['assigned'];
     let category = addedTasks[i]['category'];
     let categoryCssClass = categoryClassPicker(category);
     let prio = addedTasks[i]['prio'];
 
-    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, categoryCssClass, prio);
+    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, category, categoryCssClass);
 
     countSubtasks(id);
+    loadAssignedUsers(id);
+    loadPrio(id, prio);
     findTasks();
+}
+
+
+function categoryClassPicker(category) {
+    if (category === 'Technical Task') {
+        return 'category-technical-task';
+    } else {
+        return 'category-user-story';
+    }
 }
 
 
@@ -56,11 +58,28 @@ function countSubtasks(id) {
 }
 
 
-function categoryClassPicker(category) {
-    if (category === 'Technical Task') {
-        return 'category-technical-task';
-    } else {
-        return 'category-user-story';
+function loadAssignedUsers(id) {
+    let i = idToIndex(id);
+    for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
+        let assignedUser = addedTasks[i]['assigned'][u];
+        let x = compareUser(assignedUser);
+        let initials = addedUsers[x]['initials'];
+        let color = addedUsers[x]['color'];
+
+        document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+    }
+}
+
+
+function compareUser(assignedContact) {
+    let x = addedUsers.findIndex(user => user.name === assignedContact);
+    return x;
+}
+
+
+function loadPrio(id, prio) {
+    if (prio !== '') {
+        document.getElementById(`task-prio-img-${id}`).innerHTML = renderPrio(prio);
     }
 }
 
@@ -79,6 +98,23 @@ function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
     getTaskFromArray();
     addTaskToStorage();
+}
+
+
+function getTaskFromArray() {
+    clearBuckets();
+
+    for (let i = 0; i < addedTasks.length; i++) {
+        loadTasksForBoard(i);
+    }
+}
+
+
+function clearBuckets() {
+    document.getElementById('todo').innerHTML = '';
+    document.getElementById('in-progress').innerHTML = '';
+    document.getElementById('await-feedback').innerHTML = '';
+    document.getElementById('done').innerHTML = '';
 }
 
 
@@ -131,7 +167,7 @@ function loadSubtasks(id) {
 
     if (addedTasks[i]['subtask'].length > 0) {
         document.getElementById('open-task-subtasks').innerHTML = '<div>Subtasks</div>';
-        
+
         for (let s = 0; s < addedTasks[i]['subtask'].length; s++) {
             let subtaskDone = addedTasks[i]['subtask'][s]['subdone'];
             let subtask = addedTasks[i]['subtask'][s]['subtitle'];
@@ -199,7 +235,7 @@ function checkboxSubtask(s, id) {
     let i = idToIndex(id);
     let subtaskStatus = addedTasks[i]['subtask'][s]['subdone'];
 
-    if ( subtaskStatus === true ) {
+    if (subtaskStatus === true) {
         subtaskStatus = false;
     } else {
         subtaskStatus = true;
@@ -212,24 +248,29 @@ function checkboxSubtask(s, id) {
     reloadSubtaskCounter(id);
 }
 
-
+http://127.0.0.1:5500/add-task.html
 function reloadSubtaskCounter(id) {
     let i = idToIndex(id);
     let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
     let numberOfSubtasks = addedTasks[i]['subtask'].length;
 
-    document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);   
+    document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
 }
 
 
-function renderBuckets(id, title, description, assigned, category, categoryCssClass, prio) {
+function renderBuckets(id, title, description, category, categoryCssClass) {
     return `
         <div class="task-container" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
-            <h4 class="task-title-container">${title}</h4>
-            <div class="task-description-container">${description}</div>
+            <div class="task-title-and-description">
+                <h4 class="task-title-container">${title}</h4>
+                <div class="task-description-container">${description}</div>
+            </div>
             <div id="subtasks-container-${id}" class="task-subtasks-container"></div>
-            <div class="task-assignment-container">${assigned} ${prio}</div>
+            <div class="task-bottom-container">
+                <div id="task-assignment-container-${id}" class="task-assignments"></div>
+                <div id="task-prio-img-${id}"></div>
+            </div>
         </div>
     `
 }
@@ -242,6 +283,18 @@ function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
         </div>
         <div class="nowrap">${numberOfSubtasksDone}/${numberOfSubtasks} Subtasks</div>
     `
+}
+
+
+function renderAssignedUsers(initials, color) {
+    return `
+        <div style="background-color: ${color};" class="assignment-circle">${initials}</div>
+    `
+}
+
+
+function renderPrio(prio) {
+    return `<img src="./assets/img/subtask-prio-${prio}.svg" alt="">`
 }
 
 
@@ -284,7 +337,7 @@ function renderSubtasks(s, id, subtaskDone, subtask) {
 }
 
 
-function renderEditTask(i, id, title, description, duedate, prio, assigned, subtasks) {
+function renderEditTask(id, title, description, duedate, prio, assigned, subtasks) {
     return `
         <div id="slider" class="edit-task-container">
             <form>
@@ -435,18 +488,18 @@ addedTasks = [{
     "bucket": "in-progress",
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
-    "assigned": ["Emanuel Mauer", "Marcel Bauer", "Anton Mayer"],
+    "assigned": ["Alexander Riedel", "Jad", "Steffen Hans"],
     "duedate": "20230510",
     "prio": "Medium",
     "category": "User Story",
     "subtask": [
         {
-            "subtitle": "Implement Recipe Recommendation",
-            "subdone": true
+            "subdone": true,
+            "subtitle": "Implement Recipe Recommendation"
         },
         {
-            "subtitle": "Start Page Layout",
-            "subdone": false
+            "subdone": false,
+            "subtitle": "Start Page Layout"
         }
     ]
 },
@@ -455,22 +508,23 @@ addedTasks = [{
     "bucket": "done",
     "title": "CSS Architecture Planning",
     "description": "Define CSS naming conventions and structure.",
-    "assigned": ["Sofia Müller (You)", "Benedikt Ziegler"],
+    "assigned": ["Steffen Hans", "Jad"],
     "duedate": "20230902",
     "prio": "Urgent",
     "category": "Technical Task",
     "subtask": [
         {
-            "subtitle": "Establish CSS Methodology",
-            "subdone": true
+            "subdone": true,
+            "subtitle": "Establish CSS Methodology"
         },
         {
-            "subtitle": "Setup Base Styles",
-            "subdone": true
+            "subdone": true,
+            "subtitle": "Setup Base Styles"
+
         },
         {
-            "subtitle": "Subtaks 3",
-            "subdone": false
+            "subdone": false,
+            "subtitle": "Subtaks 3"
         }
     ]
 },
@@ -479,7 +533,7 @@ addedTasks = [{
     "bucket": "done",
     "title": "Add hover function to tasks at board",
     "description": "add cursor: pointer to board.css",
-    "assigned": ["Alexander Riedel (You)"],
+    "assigned": ["Sinan Malaga"],
     "duedate": "20231003",
     "prio": "Medium",
     "category": "Technical Task",
