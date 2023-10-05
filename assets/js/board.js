@@ -37,23 +37,21 @@ function loadTasksForBoard(i) {
     let category = addedTasks[i]['category'];
     let categoryCssClass = categoryClassPicker(category);
     let prio = addedTasks[i]['prio'];
-    let subtaskCounter = countSubtasks(id);
 
-    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, categoryCssClass, prio, subtaskCounter);
-    
+    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, categoryCssClass, prio);
+
+    countSubtasks(id);
     findTasks();
 }
 
 
 function countSubtasks(id) {
     let i = idToIndex(id);
-    let subtaskCounter = addedTasks[i]['subtask'].length;
-    let subtaskDoneCounter = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
+    let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
+    let numberOfSubtasks = addedTasks[i]['subtask'].length;
 
     if (addedTasks[i]['subtask'].length > 0) {
-        return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
-    } else {
-        return '';
+        document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
     }
 }
 
@@ -209,26 +207,40 @@ function checkboxSubtask(s, id) {
 
     document.getElementById(`checkbox-${id}-${s}`).src = `./assets/img/subtask-${subtaskStatus}.svg`;
     addedTasks[i].subtask[s].subdone = subtaskStatus;
-    countSubtasks(id);
     setItem('tasks', addedTasks);
+
     reloadSubtaskCounter(id);
 }
 
 
 function reloadSubtaskCounter(id) {
-    document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter();
+    let i = idToIndex(id);
+    let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
+    let numberOfSubtasks = addedTasks[i]['subtask'].length;
+
+    document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);   
 }
 
 
-function renderBuckets(id, title, description, assigned, category, categoryCssClass, prio, subtaskCounter) {
+function renderBuckets(id, title, description, assigned, category, categoryCssClass, prio) {
     return `
         <div class="task-container" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <h4 class="task-title-container">${title}</h4>
             <div class="task-description-container">${description}</div>
-            <div id="subtasks-container-${id}" class="task-subtasks-container">${subtaskCounter}</div>
+            <div id="subtasks-container-${id}" class="task-subtasks-container"></div>
             <div class="task-assignment-container">${assigned} ${prio}</div>
         </div>
+    `
+}
+
+
+function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
+    return `
+        <div class="progress-bar">
+            <div class="progress" style="width: ${numberOfSubtasksDone / numberOfSubtasks * 100}%;"></div>
+        </div>
+        <div class="nowrap">${numberOfSubtasksDone}/${numberOfSubtasks} Subtasks</div>
     `
 }
 
