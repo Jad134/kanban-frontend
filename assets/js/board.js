@@ -8,8 +8,6 @@ async function getTaskStorageForBoard() {
         addedTasks.push(tasks);
         loadTasksForBoard(i);
     }
-
-     
 }
 
 
@@ -37,13 +35,13 @@ function loadTasksForBoard(i) {
     let description = addedTasks[i]['description'];
     let assigned = addedTasks[i]['assigned'];
     let category = addedTasks[i]['category'];
+    let categoryCssClass = categoryClassPicker(category);
     let prio = addedTasks[i]['prio'];
     let subtaskCounter = countSubtasks(id);
 
-    categoryClassPicker(category);
-    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, prio, subtaskCounter);
-    findTasks();
+    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, categoryCssClass, prio, subtaskCounter);
     
+    findTasks();
 }
 
 
@@ -62,38 +60,9 @@ function countSubtasks(id) {
 
 function categoryClassPicker(category) {
     if (category === 'Technical Task') {
-        categoryCssClass = 'category-technical-task';
+        return 'category-technical-task';
     } else {
-        categoryCssClass = 'category-user-story';
-    }
-}
-
-
-function loadTask(i) {
-    let category = addedTasks[i]['category'];
-    let title = addedTasks[i]['title'];
-    let description = addedTasks[i]['description'];
-    let duedate = addedTasks[i]['duedate'];
-    let prio = addedTasks[i]['prio'];
-    let assigned = addedTasks[i]['assigned'];
-    let subtasks = loadSubtasks(i);
-
-    categoryClassPicker(category);
-    document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
-    openSlider();
-    
-}
-
-
-function loadSubtasks(i) {
-    let subtaskCounter = addedTasks[i]['subtask'].length;
-    let subtaskDoneCounter = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
-
-    if (addedTasks[i]['subtask'].length > 0) {
-        return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
-    } else {
-        return '';
+        return 'category-user-story';
     }
 }
 
@@ -103,14 +72,8 @@ function startDragging(i) {
 }
 
 
-/*function dragLeave(event) {
-    event.target.classList.remove('dropzone-hover');
-}*/
-
-
 function allowDrop(event) {
     event.preventDefault();
-    //event.target.classList.add('dropzone-hover');
 }
 
 
@@ -118,19 +81,6 @@ function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
     getTaskFromArray();
     addTaskToStorage();
-    //document.getElementById(bucket).classList.remove('dropzone-hover');
-}
-
-
-function clearBuckets() {
-    let todoTasks = document.getElementById('todo');
-    todoTasks.innerHTML = '';
-    let inProgressTasks = document.getElementById('in-progress');
-    inProgressTasks.innerHTML = '';
-    let awaitFeedbackTasks = document.getElementById('await-feedback');
-    awaitFeedbackTasks.innerHTML = '';
-    let doneTasks = document.getElementById('done');
-    doneTasks.innerHTML = '';
 }
 
 
@@ -163,13 +113,12 @@ function findTasks() {
 function loadTask(id) {
     let i = idToIndex(id);
     let category = addedTasks[i]['category'];
+    let categoryCssClass = categoryClassPicker(category);
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
     let duedate = addedTasks[i]['duedate'];
     let prio = addedTasks[i]['prio'];
     let assigned = addedTasks[i]['assigned'];
-
-    categoryClassPicker(category);
 
     document.getElementById('slider-container').innerHTML = '';
     document.getElementById('slider-container').innerHTML = renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned);
@@ -189,7 +138,7 @@ function loadSubtasks(id) {
             let subtaskDone = addedTasks[i]['subtask'][s]['subdone'];
             let subtask = addedTasks[i]['subtask'][s]['subtitle'];
 
-            document.getElementById('open-task-subtasks').innerHTML += renderSubtasks(i, id, subtaskDone, subtask);
+            document.getElementById('open-task-subtasks').innerHTML += renderSubtasks(s, id, subtaskDone, subtask);
         }
     }
 }
@@ -242,19 +191,42 @@ function editTask(id) {
     let duedate = addedTasks[i]['duedate'];
     let prio = addedTasks[i]['prio'];
     let assigned = addedTasks[i]['assigned'];
-    let subtasks = addedTasks[i]['subtasks'];
+    let subtasks = addedTasks[i]['subtask'];
 
     document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate, prio, assigned, subtasks);
 }
 
 
-function renderBuckets(id, title, description, assigned, category, prio, subtaskCounter) {
+function checkboxSubtask(s, id) {
+    let i = idToIndex(id);
+    let subtaskStatus = addedTasks[i]['subtask'][s]['subdone'];
+
+    if ( subtaskStatus === true ) {
+        subtaskStatus = false;
+    } else {
+        subtaskStatus = true;
+    }
+
+    document.getElementById(`checkbox-${id}-${s}`).src = `./assets/img/subtask-${subtaskStatus}.svg`;
+    addedTasks[i].subtask[s].subdone = subtaskStatus;
+    countSubtasks(id);
+    setItem('tasks', addedTasks);
+    reloadSubtaskCounter(id);
+}
+
+
+function reloadSubtaskCounter(id) {
+    document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter();
+}
+
+
+function renderBuckets(id, title, description, assigned, category, categoryCssClass, prio, subtaskCounter) {
     return `
         <div class="task-container" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <h4 class="task-title-container">${title}</h4>
             <div class="task-description-container">${description}</div>
-            <div id="subtasks-container" class="task-subtasks-container">${subtaskCounter}</div>
+            <div id="subtasks-container-${id}" class="task-subtasks-container">${subtaskCounter}</div>
             <div class="task-assignment-container">${assigned} ${prio}</div>
         </div>
     `
@@ -291,10 +263,10 @@ function renderOpenTask(id, category, categoryCssClass, title, description, dued
 }
 
 
-function renderSubtasks(i, id, subtaskDone, subtask) {
+function renderSubtasks(s, id, subtaskDone, subtask) {
     return `
-        <div class="open-task-subtask-list">
-            <div>${subtaskDone}:</div><div>${subtask}</div>
+        <div id="subtask-${id}-${s}" class="open-task-subtask-list" onclick="checkboxSubtask(${s}, ${id})">
+            <img src="./assets/img/subtask-${subtaskDone}.svg" id="checkbox-${id}-${s}" class="subtask-checkbox" alt=""><div>${subtask}</div>
         </div>
     `;
 }
@@ -331,7 +303,6 @@ function renderEditTask(i, id, title, description, duedate, prio, assigned, subt
             </form>
         </div>
     `
-    
 }
 
 
