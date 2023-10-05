@@ -135,7 +135,7 @@ function addTaskSlider() {
     document.getElementById('slider-container').innerHTML = '';
     document.getElementById('slider-container').innerHTML = addTaskHtml();
     openSlider();
-    loadUserDataFromRemote(); // Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+    loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
 }
 
 // 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
@@ -263,6 +263,7 @@ function renderEditTask(i, title, description, duedate, prio, assigned, subtasks
             </form>
         </div>
     `
+    
 }
 
 

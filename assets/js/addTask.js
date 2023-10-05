@@ -337,7 +337,9 @@ function clearTasks() {
     let date = document.getElementById('date-input');
     let sublist = document.querySelectorAll('.sublist-container');
     let newTasks = document.getElementById('subtask-input');
+    let contactImg = document.getElementById('selected-contacts')
 
+    contactImg.innerHTML = "";
     newTasks.value = "";
     date.value = "";
     description.value = "";
