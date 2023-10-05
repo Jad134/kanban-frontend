@@ -1,5 +1,4 @@
-// Zum Testen hier eingefügt, das Script ist aus der addTask.js
-async function getTaskStorage() {
+async function getTaskStorageForBoard() {
     addedTasks = [];
     let currentTasks = await getItem('tasks');
     currentTasks = JSON.parse(currentTasks['data']['value']);
@@ -21,26 +20,32 @@ function getTaskFromArray() {
 }
 
 
+function clearBuckets() {
+    document.getElementById('todo').innerHTML = '';
+    document.getElementById('in-progress').innerHTML = '';
+    document.getElementById('await-feedback').innerHTML = '';
+    document.getElementById('done').innerHTML = '';
+}
+
+
 function loadTasksForBoard(i) {
+    let id = addedTasks[i]['id'];
     let bucket = addedTasks[i]['bucket'];
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
     let assigned = addedTasks[i]['assigned'];
     let category = addedTasks[i]['category'];
     let prio = addedTasks[i]['prio'];
-    let subtaskCounter = countSubtasks(i);
-
-    if (bucket === undefined) {         // Kann nicht mehr vorkommen wenn der Code final ist. Gesamte Funktion dann ausbauen
-        bucket = 'todo';
-    }
+    let subtaskCounter = countSubtasks(id);
 
     categoryClassPicker(category);
-    document.getElementById(bucket).innerHTML += renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter);
+    document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, assigned, category, prio, subtaskCounter);
     findTasks();
 }
 
 
-function countSubtasks(i) {
+function countSubtasks(id) {
+    let i = idToIndex(id);
     let subtaskCounter = addedTasks[i]['subtask'].length;
     let subtaskDoneCounter = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
 
@@ -61,76 +66,6 @@ function categoryClassPicker(category) {
 }
 
 
-function loadTask(i) {
-    let category = addedTasks[i]['category'];
-    let title = addedTasks[i]['title'];
-    let description = addedTasks[i]['description'];
-    let duedate = addedTasks[i]['duedate'];
-    let prio = addedTasks[i]['prio'];
-    let assigned = addedTasks[i]['assigned'];
-    let subtasks = loadSubtasks(i);
-
-    categoryClassPicker(category);
-    document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtasks);
-    openSlider();
-}
-
-
-function loadSubtasks(i) {
-    let subtaskCounter = addedTasks[i]['subtask'].length;
-    let subtaskDoneCounter = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
-
-    if (addedTasks[i]['subtask'].length > 0) {
-        return subtaskDoneCounter + '/' + subtaskCounter + ' Subtasks';
-    } else {
-        return '';
-    }
-}
-
-
-function startDragging(i) {
-    currentDraggedElement = i;
-}
-
-
-/*function dragLeave(event) {
-    event.target.classList.remove('dropzone-hover');
-}*/
-
-
-function allowDrop(event) {
-    event.preventDefault();
-    //event.target.classList.add('dropzone-hover');
-}
-
-
-function moveTo(bucket) {
-    addedTasks[currentDraggedElement]['bucket'] = bucket;
-    getTaskFromArray();
-    addTaskToStorage();
-    //document.getElementById(bucket).classList.remove('dropzone-hover');
-}
-
-
-function clearBuckets() {
-    let todoTasks = document.getElementById('todo');
-    todoTasks.innerHTML = '';
-    let inProgressTasks = document.getElementById('in-progress');
-    inProgressTasks.innerHTML = '';
-    let awaitFeedbackTasks = document.getElementById('await-feedback');
-    awaitFeedbackTasks.innerHTML = '';
-    let doneTasks = document.getElementById('done');
-    doneTasks.innerHTML = '';
-}
-
-
-function addTaskSlider() {
-    document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml();
-    openSlider();
-}
-
 // 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
 
 function findTasks() {
@@ -150,15 +85,85 @@ function findTasks() {
 }
 
 
-function deleteTask(i) {
-    addedTasks.splice(i,1);
+function loadTask(id) {
+    let i = idToIndex(id);
+    let category = addedTasks[i]['category'];
+    let title = addedTasks[i]['title'];
+    let description = addedTasks[i]['description'];
+    let duedate = addedTasks[i]['duedate'];
+    let prio = addedTasks[i]['prio'];
+    let assigned = addedTasks[i]['assigned'];
+
+    categoryClassPicker(category);
+
+    document.getElementById('slider-container').innerHTML = '';
+    document.getElementById('slider-container').innerHTML = renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned);
+
+    loadSubtasks(id);
+    openSlider();
+}
+
+
+function loadSubtasks(id) {
+    let i = idToIndex(id);
+
+    if (addedTasks[i]['subtask'].length > 0) {
+        document.getElementById('open-task-subtasks').innerHTML = '<div>Subtasks</div>';
+        for (let s = 0; s < addedTasks[i]['subtask'].length; s++) {
+            let subtask = addedTasks[i]['subtask'][s]['subtitle'];
+            let subtaskDone = addedTasks[i]['subtask'][s]['subdone'];
+            document.getElementById('open-task-subtasks').innerHTML += `
+                <div class="open-task-subtask-list">
+                    <div>${subtaskDone}:</div><div>${subtask}</div>
+                </div>
+            `;
+        }
+    }
+}
+
+
+function idToIndex(id) {
+    let i = addedTasks.findIndex(task => task.id === id);
+    return i;
+}
+
+
+function startDragging(id) {
+    let i = idToIndex(id);
+    currentDraggedElement = i;
+}
+
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+
+function moveTo(bucket) {
+    addedTasks[currentDraggedElement]['bucket'] = bucket;
+    getTaskFromArray();
+    addTaskToStorage();
+}
+
+
+function addTaskSlider() {
+    document.getElementById('slider-container').innerHTML = '';
+    document.getElementById('slider-container').innerHTML = addTaskHtml();
+    openSlider();
+}
+
+
+function deleteTask(id) {
+    let i = idToIndex(id);
+    addedTasks.splice(i, 1);
     getTaskFromArray();
     closeSlider();
     addTaskToStorage();
 }
 
 
-function editTask(i) {
+function editTask(id) {
+    let i = idToIndex(id);
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
     let duedate = addedTasks[i]['duedate'];
@@ -166,22 +171,13 @@ function editTask(i) {
     let assigned = addedTasks[i]['assigned'];
     let subtasks = addedTasks[i]['subtasks'];
 
-    document.getElementById('slider-container').innerHTML = renderEditTask(i, title, description, duedate, prio, assigned, subtasks);
+    document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate, prio, assigned, subtasks);
 }
 
 
-async function taskIdCounter() {
-    let taskId = await getItem('taskid');
-    taskId = JSON.parse(taskId['data']['value']);
-    taskId++;
-    setItem('taskid', taskId);
-    console.log(taskId);
-}
-
-
-function renderBuckets(i, bucket, title, description, assigned, category, prio, subtaskCounter) {
+function renderBuckets(id, title, description, assigned, category, prio, subtaskCounter) {
     return `
-        <div class="task-container" onclick="loadTask(${i})" ondragstart="startDragging(${i})" draggable="true">
+        <div class="task-container" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <h4 class="task-title-container">${title}</h4>
             <div class="task-description-container">${description}</div>
@@ -192,7 +188,7 @@ function renderBuckets(i, bucket, title, description, assigned, category, prio, 
 }
 
 
-function renderOpenTask(i, category, categoryCssClass, title, description, duedate, prio, assigned, subtask) {
+function renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned) {
     return `
         <div id="slider" class="open-task-container">
             <div class="${categoryCssClass}">${category}</div>
@@ -201,19 +197,16 @@ function renderOpenTask(i, category, categoryCssClass, title, description, dueda
             <div class="open-task-duedate">Due date: ${duedate}</div>
             <div class="open-task-prio">Priority: ${prio}</div>
             <div class="open-task-assigned">Assigned To:<br />${assigned}</div>
-            <div class="open-task-subtask">
-                <span>Subtasks</span>
-                <div class="open-task-subtask-list">${subtask}</div>
-            </div>
+            <div id="open-task-subtasks" class="open-task-subtask"></div>
             <div class="open-task-buttons">
-                <button onclick="deleteTask(${i})">
+                <button onclick="deleteTask(${id})">
                     <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.68213 18.3967C3.13213 18.3967 2.6613 18.2009 2.26963 17.8092C1.87796 17.4176 1.68213 16.9467 1.68213 16.3967V3.39673C1.3988 3.39673 1.1613 3.3009 0.969629 3.10923C0.777962 2.91756 0.682129 2.68006 0.682129 2.39673C0.682129 2.1134 0.777962 1.8759 0.969629 1.68423C1.1613 1.49256 1.3988 1.39673 1.68213 1.39673H5.68213C5.68213 1.1134 5.77796 0.875895 5.96963 0.684229C6.1613 0.492562 6.3988 0.396729 6.68213 0.396729H10.6821C10.9655 0.396729 11.203 0.492562 11.3946 0.684229C11.5863 0.875895 11.6821 1.1134 11.6821 1.39673H15.6821C15.9655 1.39673 16.203 1.49256 16.3946 1.68423C16.5863 1.8759 16.6821 2.1134 16.6821 2.39673C16.6821 2.68006 16.5863 2.91756 16.3946 3.10923C16.203 3.3009 15.9655 3.39673 15.6821 3.39673V16.3967C15.6821 16.9467 15.4863 17.4176 15.0946 17.8092C14.703 18.2009 14.2321 18.3967 13.6821 18.3967H3.68213ZM3.68213 3.39673V16.3967H13.6821V3.39673H3.68213ZM5.68213 13.3967C5.68213 13.6801 5.77796 13.9176 5.96963 14.1092C6.1613 14.3009 6.3988 14.3967 6.68213 14.3967C6.96546 14.3967 7.20296 14.3009 7.39463 14.1092C7.5863 13.9176 7.68213 13.6801 7.68213 13.3967V6.39673C7.68213 6.1134 7.5863 5.8759 7.39463 5.68423C7.20296 5.49256 6.96546 5.39673 6.68213 5.39673C6.3988 5.39673 6.1613 5.49256 5.96963 5.68423C5.77796 5.8759 5.68213 6.1134 5.68213 6.39673V13.3967ZM9.68213 13.3967C9.68213 13.6801 9.77796 13.9176 9.96963 14.1092C10.1613 14.3009 10.3988 14.3967 10.6821 14.3967C10.9655 14.3967 11.203 14.3009 11.3946 14.1092C11.5863 13.9176 11.6821 13.6801 11.6821 13.3967V6.39673C11.6821 6.1134 11.5863 5.8759 11.3946 5.68423C11.203 5.49256 10.9655 5.39673 10.6821 5.39673C10.3988 5.39673 10.1613 5.49256 9.96963 5.68423C9.77796 5.8759 9.68213 6.1134 9.68213 6.39673V13.3967Z" fill="#2A3647"/>
                     </svg>
                     <span>Delete</span>
                 </button>
                 <div class="button-seperator"></div>
-                <button onclick="editTask(${i})">
+                <button onclick="editTask(${id})">
                     <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.68213 16.3967H4.08213L12.7071 7.77173L11.3071 6.37173L2.68213 14.9967V16.3967ZM16.9821 6.32173L12.7321 2.12173L14.1321 0.721729C14.5155 0.338395 14.9863 0.146729 15.5446 0.146729C16.103 0.146729 16.5738 0.338395 16.9571 0.721729L18.3571 2.12173C18.7405 2.50506 18.9405 2.96756 18.9571 3.50923C18.9738 4.0509 18.7905 4.5134 18.4071 4.89673L16.9821 6.32173ZM15.5321 7.79673L4.93213 18.3967H0.682129V14.1467L11.2821 3.54673L15.5321 7.79673Z" fill="#2A3647"/>
                     </svg>
@@ -225,7 +218,15 @@ function renderOpenTask(i, category, categoryCssClass, title, description, dueda
 }
 
 
-function renderEditTask(i, title, description, duedate, prio, assigned, subtasks) {
+function renderSubtasks(i, id) {
+    return `
+        <div id="${id}, ${i}" class="open-task-container">
+        </div>
+    `;
+}
+
+
+function renderEditTask(i, id, title, description, duedate, prio, assigned, subtasks) {
     return `
         <div id="slider" class="edit-task-container">
             <form>
