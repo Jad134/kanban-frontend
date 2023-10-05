@@ -130,13 +130,20 @@ async function addTaskToStorage() {
 function addSubTask() {
     let subtaskContent = document.getElementById('subtask-lists');
     let newTasksText = document.getElementById('subtask-input').value;
-    if (newTasksText !== '') {
-        newSubTasks.push(newTasksText);
+
+    let newSubtask = {
+        "subtitle": newTasksText,
+        "subdone": false
     }
+
+    if (newTasksText !== '') {
+        newSubTasks.push(newSubtask);
+    }
+
     subtaskContent.innerHTML = '';
 
     for (let i = 0; i < newSubTasks.length; i++) {
-        const newTasks = newSubTasks[i];
+        const newTasks = newSubTasks[i]['subtitle'];
 
         subtaskContent.innerHTML += renderSubTask(newTasks, i)
     }
