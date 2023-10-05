@@ -69,7 +69,7 @@ function getValues() {
 
 function submitForm() {
     if (validateForm()) {
-      getValues(); // Rufen Sie getValues() auf, wenn die Validierung erfolgreich ist
+      getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
       return true; // Das Formular wird abgesendet
     } else {
       return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
