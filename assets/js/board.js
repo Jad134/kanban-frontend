@@ -184,14 +184,12 @@ function loadSubtasks(id) {
 
     if (addedTasks[i]['subtask'].length > 0) {
         document.getElementById('open-task-subtasks').innerHTML = '<div>Subtasks</div>';
+        
         for (let s = 0; s < addedTasks[i]['subtask'].length; s++) {
-            let subtask = addedTasks[i]['subtask'][s]['subtitle'];
             let subtaskDone = addedTasks[i]['subtask'][s]['subdone'];
-            document.getElementById('open-task-subtasks').innerHTML += `
-                <div class="open-task-subtask-list">
-                    <div>${subtaskDone}:</div><div>${subtask}</div>
-                </div>
-            `;
+            let subtask = addedTasks[i]['subtask'][s]['subtitle'];
+
+            document.getElementById('open-task-subtasks').innerHTML += renderSubtasks(i, id, subtaskDone, subtask);
         }
     }
 }
@@ -293,9 +291,10 @@ function renderOpenTask(id, category, categoryCssClass, title, description, dued
 }
 
 
-function renderSubtasks(i, id) {
+function renderSubtasks(i, id, subtaskDone, subtask) {
     return `
-        <div id="${id}, ${i}" class="open-task-container">
+        <div class="open-task-subtask-list">
+            <div>${subtaskDone}:</div><div>${subtask}</div>
         </div>
     `;
 }
@@ -479,11 +478,11 @@ addedTasks = [{
     "category": "Technical Task",
     "subtask": [
         {
-            "title": "Establish CSS Methodology",
+            "subtitle": "Establish CSS Methodology",
             "subdone": true
         },
         {
-            "title": "Setup Base Styles",
+            "subtitle": "Setup Base Styles",
             "subdone": true
         },
         {

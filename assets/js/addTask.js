@@ -58,7 +58,7 @@ function getValues() {
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
-        "date": date.value,
+        "duedate": date.value,
         "prio": prioValue,
         "category": categoryText,
         "subtask": newSubTasks,
