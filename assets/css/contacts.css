@@ -200,7 +200,7 @@ body {
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
 }
-#move-img{
+.move-img{
     display: flex;
     justify-content: flex-end;
     margin-right: 24px;
@@ -399,6 +399,75 @@ body {
     width: 64px;
     padding: 20px;
     margin-right: 60px;
+    background-color: lightgrey;
+    border-radius: 50%;
+    border: 2px solid white;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 0 12px -5px rgba(0, 0, 0, 0.3);
+}
+.edit-card-main{
+
+}
+.seperator {
+    width: 59px;
+    height: 1px;
+    background-color: #29ABE2;
+    border: 1px solid #29ABE2;
+    border-radius: 3px;
+}
+.edit-card{
+    position: absolute;
+    display: flex;
+    top: 16%;
+    left: 100%;
+    width: 1000px;
+    height: 592px;
+    background-color: #ffffff;
+    animation: slideIn 500ms forwards;
+}
+@keyframes slideIn {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: 14%;
+    }
+}
+.left-side-edit-card{
+    display: flex;
+    flex-direction: column;
+    padding-top: 150px;
+    padding-left: 64px;
+    background-color: #2A3647;
+    color: white;
+    width: 220px;    
+}
+.right-side-edit-card{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.first-letters-and-inputs{
+    display: flex;
+    margin-top: 120px;
+}
+.edit-informations{
+    width: 200px;
+}
+.information-inputs{
+    display: flex;
+    flex-direction: column;
+}
+.first-letters-in-edit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    width: 64px;
+    padding: 20px;
+    margin-right: 60px;
+    margin-left: 60px;
     background-color: lightgrey;
     border-radius: 50%;
     border: 2px solid white;
