@@ -270,6 +270,7 @@ function renderBuckets(id, title, description, category, categoryCssClass) {
             <div class="task-bottom-container">
                 <div id="task-assignment-container-${id}" class="task-assignments"></div>
                 <div id="task-prio-img-${id}"></div>
+                <div>${id}</div>
             </div>
         </div>
     `

@@ -10,6 +10,7 @@ function init() {
     loadUserDataFromRemote();
     getTaskStorage();
     countTaskId();
+    taskId = 0;
 }
 
 function ChangeButtonColor(buttonId, imgId) {
@@ -77,20 +78,24 @@ function submitForm() {
   }
 
 function sendFormular(tasks){
+    taskId++;
     addedTasks.push(tasks);
     addTaskToStorage();
     addTaskIdToStorage();
     clearTasks();
     newSubTasks = [];
     location.href = "board.html"; // Geht noch nicht !!!!!!!!!!!
+    
+    
 }
 
 
 async function countTaskId() {
     taskId = await getItem('taskid');
     taskId = JSON.parse(taskId['data']['value']);
-    taskId++;
+    
     setItem('taskid', taskId);
+    console.log(taskId)
 }
 
 
