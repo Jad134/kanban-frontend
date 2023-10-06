@@ -120,7 +120,7 @@ function clearBuckets() {
 
 function addTaskSlider() {
     document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml();
+    document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
     openSlider();
     loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
 }
@@ -199,13 +199,6 @@ function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
     getTaskFromArray();
     addTaskToStorage();
-}
-
-
-function addTaskSlider() {
-    document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml();
-    openSlider();
 }
 
 
@@ -375,8 +368,6 @@ function renderEditTask(id, title, description, duedate, prio, assigned, subtask
 function addTaskHtml() {
     return `
    
-    
-
     <div class="main-content">
         
 
