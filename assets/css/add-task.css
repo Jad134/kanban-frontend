@@ -548,3 +548,33 @@ svg:hover {
         padding-bottom: 8px;
     }
 }
+
+@media(max-width: 500px) {
+    .left-side{
+        padding: 0;
+    }
+
+    .prio-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .prio-buttons button{
+        width: 120px;
+    }
+}
+
+@media(max-width: 465px) {
+
+    .left-side{
+        width: 80%;
+    }
+    .left-right-container {
+        align-items: center;
+    }
+
+    .right-side{
+        width: 80%;
+    }
+}
