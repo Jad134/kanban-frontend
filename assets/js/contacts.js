@@ -144,8 +144,6 @@ function editContact(i) {
   let editPhone = editContact['phone-number'];
   let editEmail = editContact['email'];
 
-  console.log(editName, editPhone, editEmail);
-
   deactivateOverflow.classList.add("hide-my-scrolls");
 
   editCard.innerHTML += /*html*/ `
@@ -172,12 +170,12 @@ function editContact(i) {
         <div class="first-letters-and-inputs">
           <div class="first-letters-in-edit">${setLetters}</div>
           <div class="edit-informations">
-            <form class="information-inputs" action="">
+            <form class="information-inputs" action="#">
               <input id="name${i}" type="text" placeholder="Name" value='${editName}'>
               <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}'>
               <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}'>
               <div class="dele-and-save-buttons">
-                <button>delete</button>
+                <button onclick="deleteContact(${i})">delete</button>
                 <button onclick="saveEditContact(${i})">save</button>
               </div>
             </form>
@@ -189,17 +187,16 @@ function editContact(i) {
 }
 function saveEditContact(i){
   let editContact = contacts[i];
-  let editName = editContact['name'];
-  let editPhone = editContact['phone-number'];
-  let editEmail = editContact['email'];
 
   let editedName = document.getElementById(`name${i}`).value;
   let editedPhone = document.getElementById(`phone${i}`).value;
   let editedEmail = document.getElementById(`email${i}`).value;
 
-  editName = editedName;
-  editPhone = editedPhone;
-  editEmail = editedEmail;
+  editContact.name = editedName;
+  editContact.email = editedEmail;
+  editContact["phone-number"] = editedPhone;
+  openContacts();
+  openContactDetails(i);
 }
 function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
