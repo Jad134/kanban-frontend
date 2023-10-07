@@ -17,6 +17,7 @@ async function initBoard() {
         addedTasks.push(tasks);
         loadTasksForBoard(i);
     }
+    countTaskId(); // Muss hier ausgeführt werden, sonst funtkioniert die id im Board nicht (Jad)
 }
 
 
@@ -122,8 +123,11 @@ function addTaskSlider() {
     document.getElementById('slider-container').innerHTML = '';
     document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
     openSlider();
-    loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+     loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+     
 }
+
+
 
 // 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
 

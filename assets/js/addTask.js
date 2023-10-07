@@ -41,8 +41,6 @@ function ChangeButtonColor(buttonId, imgId) {
     }
 }
 
-
-
 function getValues() {
     let bucket = "todo";
     let title = document.getElementById('title-input');
@@ -89,7 +87,6 @@ function sendFormular(tasks){
     
 }
 
-
 async function countTaskId() {
     taskId = await getItem('taskid');
     taskId = JSON.parse(taskId['data']['value']);
@@ -103,7 +100,6 @@ async function addTaskIdToStorage() {
     setItem('taskid', taskId);
 }
 
-
 async function loadUserDataFromRemote() {
     let newUserDataString = await getItem('users');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
@@ -115,7 +111,6 @@ async function loadUserDataFromRemote() {
     findContact()
 }
 
-
 async function getTaskStorage() {
     addedTasks = [];
     let currentTasks = await getItem('tasks');
@@ -126,7 +121,6 @@ async function getTaskStorage() {
         addedTasks.push(tasks);
     }
 }
-
 
 async function addTaskToStorage() {
     await setItem('tasks', JSON.stringify(addedTasks))
@@ -178,7 +172,6 @@ function renderSubTask(newTasks, i) {
 
 }
 
-
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo')
     let overlayContainer = document.getElementById('contact-overlay');
@@ -212,8 +205,9 @@ function loadContacts() {
         let name = currentContact['name'];
         let userInitial = userData[i]['initials'];
         let nameColor = userData[i]['color'];
-
+        
         overlayContainer.innerHTML += renderContacts(name, i, userInitial)
+
         let initialDiv = document.getElementById(`list-circle${i}`)
         initialDiv.style.backgroundColor = nameColor;
     }
