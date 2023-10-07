@@ -1,28 +1,28 @@
 let contacts = [
   {
-    name: "Tobi Mayer",
-    email: "tobimayer@test.de",
-    "phone-number": 111111111111,
+    "name": "Tobi Mayer",
+    "email": "tobimayer@test.de",
+    "phone-number": 111111111111
   },
   {
-    name: "Clara Müller",
-    email: "claramüller@test.de",
-    "phone-number": 2222222222222,
+    "name": "Clara Müller",
+    "email": "claramüller@test.de",
+    "phone-number": 2222222222222
   },
   {
-    name: "Hans Peter",
-    email: "hanspeter@test.de",
-    "phone-number": 3333333333333,
+    "name": "Hans Peter",
+    "email": "hanspeter@test.de",
+    "phone-number": 3333333333333
   },
   {
-    name: "Sabine Berg",
-    email: "sabineberg@test.de",
-    "phone-number": 4444444444,
+    "name": "Sabine Berg",
+    "email": "sabineberg@test.de",
+    "phone-number": 4444444444
   },
   {
-    name: "Charly Fiedler",
-    email: "charlyfiedler@test.de",
-    "phone-number": 55555555555,
+    "name": "Charly Fiedler",
+    "email": "charlyfiedler@test.de",
+    "phone-number": 55555555555
   },
 ];
 
@@ -122,13 +122,34 @@ function deMarkMyContact() {
     element.classList.add("sub-contact-block");
   });
 }
+function hideEditCard(){
+  let hideEditCard = document.getElementById('edit-card');
+  let overview = document.getElementById('detail-view-of-contacts');
+
+  hideEditCard.classList.add('hide-edit-card');
+  
+  hideEditCard.addEventListener('animationend', () => {
+    let deactivateOverflow = document.body;
+    overview.removeChild(hideEditCard);
+    deactivateOverflow.classList.remove("hide-my-scrolls"); 
+  }, { once: true })
+  
+}
 function editContact(i) {
   let editCard = document.getElementById('detail-view-of-contacts');
   let setLetters = getFirstLettersForOverview(i, contacts);
-  let editContact = contacts[i]
+  let editContact = contacts[i];
+  let deactivateOverflow = document.body;
+  let editName = editContact['name'];
+  let editPhone = editContact['phone-number'];
+  let editEmail = editContact['email'];
+
+  console.log(editName, editPhone, editEmail);
+
+  deactivateOverflow.classList.add("hide-my-scrolls");
 
   editCard.innerHTML += /*html*/ `
-    <div class="edit-card">
+    <div id="edit-card" class="edit-card">
       <div class="left-side-edit-card">
         <svg style="background-color: #2A3647; margin-bottom: 24px;" width="102" height="122" viewBox="0 0 102 122" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M72.655 0H50.4972V25.4923H72.655V0Z" fill="white"/>
@@ -143,7 +164,7 @@ function editContact(i) {
       </div>
       <div class="right-side-edit-card">
         <div class="move-img">
-          <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg onclick="hideEditCard()" class="cancel-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="change-cancel-svg-color-head" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
                 11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -152,12 +173,12 @@ function editContact(i) {
           <div class="first-letters-in-edit">${setLetters}</div>
           <div class="edit-informations">
             <form class="information-inputs" action="">
-              <input type="text" placeholder="Name">
-              <input type="email" placeholder="E-Mail">
-              <input type="tel" placeholder="Phone">
+              <input id="name${i}" type="text" placeholder="Name" value='${editName}'>
+              <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}'>
+              <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}'>
               <div class="dele-and-save-buttons">
                 <button>delete</button>
-                <button>save</button>
+                <button onclick="saveEditContact(${i})">save</button>
               </div>
             </form>
           </div>
@@ -165,6 +186,20 @@ function editContact(i) {
       </div>
     </div>
   `;
+}
+function saveEditContact(i){
+  let editContact = contacts[i];
+  let editName = editContact['name'];
+  let editPhone = editContact['phone-number'];
+  let editEmail = editContact['email'];
+
+  let editedName = document.getElementById(`name${i}`).value;
+  let editedPhone = document.getElementById(`phone${i}`).value;
+  let editedEmail = document.getElementById(`email${i}`).value;
+
+  editName = editedName;
+  editPhone = editedPhone;
+  editEmail = editedEmail;
 }
 function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");

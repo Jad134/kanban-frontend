@@ -423,7 +423,7 @@ body {
     left: 100%;
     width: 1000px;
     height: 592px;
-    background-color: #ffffff;
+    background-color: transparent;
     animation: slideIn 500ms forwards;
 }
 @keyframes slideIn {
@@ -434,6 +434,17 @@ body {
         left: 14%;
     }
 }
+.hide-edit-card{
+    animation: slideOut 500ms forwards;
+}
+@keyframes slideOut {
+    0% {
+        left: 14%;
+    }
+    100% {
+        left: 100%;
+    }
+}
 .left-side-edit-card{
     display: flex;
     flex-direction: column;
@@ -441,12 +452,17 @@ body {
     padding-left: 64px;
     background-color: #2A3647;
     color: white;
-    width: 220px;    
+    width: 220px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
 }
 .right-side-edit-card{
     display: flex;
     flex-direction: column;
     width: 100%;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    background-color: white;
 }
 .first-letters-and-inputs{
     display: flex;
