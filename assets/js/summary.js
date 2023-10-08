@@ -27,11 +27,8 @@ function renderGreetingName() {
     document.getElementById('greeting-name').innerHTML = greetingName;
 }
 
+
 // ----------------- Summary Calculation ---------------
-
-/* let taskContainer = 0; */        // kann nicht global definiert werden, weil die Zahlen in d. Funktionen sonst nicht mehr stimmen
-
-
 function totalTasks() {                                                       
     let total = addedTasks.length;
     let totalInBoard = document.getElementById('total-tasks');
@@ -40,10 +37,8 @@ function totalTasks() {
     getTaskStorage().then(() => {                                   // Bei Auslagerung in eigene Funktion -> Fehlermeldung
     totalTasks();
     urgentTasks();
-    tasksInProgress();
-    toDos();
-    completedTasks();
-    awaitFeedback();
+    updateSummary()
+
 });
 
 
@@ -59,76 +54,23 @@ function urgentTasks() {
 }
 
 
-function tasksInProgress() {  
-    let taskContainer = 0;                
+//Version 4:
+function updateSummary() {
+    let taskCounts = {
+        'in-progress': 0,
+        'todo': 0,
+        'done': 0,
+        'await-feedback': 0
+    };
     for (let i = 0; i < addedTasks.length; i++) {
-        if (addedTasks[i].bucket === 'in-progress') {
-            taskContainer++;
-        }
-    }
-    let tasksInProgress = document.getElementById('tasks-in-progress');
-    tasksInProgress.textContent = taskContainer;
+        let bucket = addedTasks[i].bucket;
+        if (taskCounts[bucket] !== undefined) {
+            taskCounts[bucket]++;
+        }}
+    document.getElementById('tasks-in-progress').textContent = taskCounts['in-progress'];
+    document.getElementById('todos').textContent = taskCounts['todo'];
+    document.getElementById('completed-tasks').textContent = taskCounts['done'];
+    document.getElementById('await-feedback').textContent = taskCounts['await-feedback'];
 }
-
-
-function toDos() {     
-    let taskContainer = 0;                                                      
-    for (let i = 0; i < addedTasks.length; i++) {
-        if (addedTasks[i].bucket === 'todo') {
-            taskContainer++;
-        }
-    }
-    let todos = document.getElementById('todos');                   
-    todos.textContent = taskContainer;
-}
-
-
-function completedTasks() {   
-    let taskContainer = 0;                                                       
-    for (let i = 0; i < addedTasks.length; i++) {
-        if (addedTasks[i].bucket === 'done') {
-            taskContainer++;
-        }
-    }
-    let done = document.getElementById('completed-tasks');                   
-    done.textContent = taskContainer;
-}
-
-
-function awaitFeedback() {    
-    let taskContainer = 0;                                                     
-    for (let i = 0; i < addedTasks.length; i++) {
-        if (addedTasks[i].bucket === 'await-feedback') {
-            taskContainer++;
-        }
-    }
-    let feedback = document.getElementById('await-feedback');                   
-    feedback.textContent = taskContainer;
-}
-  
-
-  
-// -------------     ChatGPT würde für eine Zusammenfassung der 4 Funktionen Folgendes vorschlagen,        -----------------------                               
-// -------------     es funktioniert aber wg verschiedener IDs bei "let element" nicht, Fehlermeldung -----------
-
-/* function bucketTaskCounts() {
-    const buckets = ['todo', 'done', 'await-feedback', 'tasks-in-progress']; 
-    buckets.forEach(category => {
-        let taskContainer = 0;
-        for (let i = 0; i < addedTasks.length; i++) {
-            if (addedTasks[i].bucket === category) {
-                taskContainer++;
-            }
-        }
-        let element = document.getElementById(category);
-        element.textContent = taskContainer;
-    });}
-
-    bucketTaskCounts('todo', 'todos');
-    bucketTaskCounts('done', 'completed-tasks');
-    bucketTaskCounts('in-progress', 'tasks-in-progress');
-    bucketTaskCounts('await-feedback', 'await-feedback');
- */
-
 
 
