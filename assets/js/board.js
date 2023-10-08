@@ -181,8 +181,22 @@ function allowDrop(event) {
 }
 
 
+function hoverDrag(bucket) {
+    let element = document.getElementById(bucket);
+    element.classList.add('task-hover');
+}
+
+
+function stopDrag(bucket) {
+    let element = document.getElementById(bucket);
+    element.classList.remove('task-hover');
+}
+
+
 function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
+    let element = document.getElementById(bucket);
+    element.classList.remove('task-hover');
     getTaskFromArray();
     addTaskToStorage();
 }
@@ -239,7 +253,7 @@ function reloadSubtaskCounter(id) {
 
 function renderBuckets(id, title, description, category, categoryCssClass) {
     return `
-        <div class="task-container" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
+        <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <div class="task-title-and-description">
                 <h4 class="task-title-container">${title}</h4>

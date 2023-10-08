@@ -207,6 +207,7 @@ h4 {
 }
 
 .task-container {
+    margin: 5px;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -225,6 +226,12 @@ h4 {
 .task-container:active {
     transform: rotate(3deg);
     /*opacity: 0.2;*/
+}
+
+.task-hover {
+    border: 1px dashed #A8A8A8;
+    border-radius: 30px;
+    background-color: #A8A8A815;
 }
 
 .category-technical-task {
