@@ -126,3 +126,19 @@
         justify-content: center;
     }
 }
+
+@media(max-width: 450px){
+
+    .sidebar-menu img{
+        width: 24px;
+        height: 24px;
+    }
+
+    .sidebar-menu span{
+        font-size: 14px;
+    }
+
+    .sidebar-top{
+        padding-inline: 16px;
+    }
+}
