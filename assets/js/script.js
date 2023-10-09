@@ -20,6 +20,7 @@ async function loadUserDataFromRemote() {
   }
 }
 
+
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById('logo');
   const main = document.querySelector('.main-container')
@@ -132,21 +133,6 @@ function passwordCheck() {
   }
 }
 
-
-// ------------------ password-toggling ... TRIAL ----------
-
-
-
-
-
-
-
-
-
-
-
-
-// ------------------ password-toggling end ----------------------------
 
 function checkCheckbox() {
   let checkBox = document.getElementById('checkbox');
@@ -326,81 +312,6 @@ function signUpHtmlTemplate() {
          </div>
    `;
 }
-
-
-/* window.onload = function () {
-const passwordInput = document.getElementById("user-password");
-const togglePassword = document.getElementById("toggle-password");
-
-togglePassword.addEventListener("click", function() {
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        togglePassword.src = "../img/visibility.svg";
-    } else {
-        passwordInput.type = "password";
-        togglePassword.src = "../img/visibility_off.svg";
-    }
-});}
- */
-
-/* 
-                   
-window.onload = function() {
-  const passwordField = document.getElementById('password-input');
-
-  passwordField.addEventListener("focus", () => {
-      passwordField.style.backgroundImage = 'url(../img/visibility_off.svg)';
-  });
-} */
-
-
-
-/* document.addEventListener("DOMContentLoaded", function() {
-  const passwordInput = document.getElementById("user-password");
-  const togglePassword = document.getElementById("toggle-password");
-
-  togglePassword.addEventListener("click", function() {
-      if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          togglePassword.classList.add("show-password");
-      } else {
-          passwordInput.type = "password";
-          togglePassword.classList.remove("show-password");
-      }
-  });
-}); */
-
-
-async function hashPasswordWithSalt(password, salt) {
-  // Konvertiere das Passwort und den Salt in Byte-Arrays
-  const passwordData = new TextEncoder().encode(password);
-  const saltData = new TextEncoder().encode(salt);
-
-  // Kombiniere das Passwort mit dem Salt
-  const combinedData = new Uint8Array(passwordData.length + saltData.length);
-  combinedData.set(passwordData);
-  combinedData.set(saltData, passwordData.length);
-
-  // Berechne den Hash des kombinierten Daten (Passwort + Salt)
-  const hashBuffer = await crypto.subtle.digest('SHA-256', combinedData);
-
-  // Konvertiere den Hash in einen Hexadezimal-String
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-
-  return hashHex;
-}
-
-// Beispielaufruf mit Salt
-const password = 'meinPasswort123';
-const salt = 'eineZufälligeZeichenfolge'; // Hier sollte ein zufälliger Salt verwendet werden
-hashPasswordWithSalt(password, salt)
-  .then(hash => {
-    console.log('Hash des Passworts mit Salt:', hash);
-  })
-  .catch(error => console.error('Fehler beim Hashen des Passworts:', error));
-
-
 // -------------------- HTML-Templates Ende --------------------------
 
 
