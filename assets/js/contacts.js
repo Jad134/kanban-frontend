@@ -122,21 +122,20 @@ function deMarkMyContact() {
     element.classList.add("sub-contact-block");
   });
 }
-function hideEditCard(){
+async function hideEditCard(){
   let hideEditCard = document.getElementById('edit-card');
-  let overview = document.getElementById('detail-view-of-contacts');
+  let overview = document.getElementById('render-my-edit-card');
 
   hideEditCard.classList.add('hide-edit-card');
   
   hideEditCard.addEventListener('animationend', () => {
     let deactivateOverflow = document.body;
     overview.removeChild(hideEditCard);
-    deactivateOverflow.classList.remove("hide-my-scrolls"); 
+    deactivateOverflow.classList.remove("hide-my-scrolls");
   }, { once: true })
-  
 }
 function editContact(i) {
-  let editCard = document.getElementById('detail-view-of-contacts');
+  let editCard = document.getElementById('render-my-edit-card');
   let setLetters = getFirstLettersForOverview(i, contacts);
   let editContact = contacts[i];
   let deactivateOverflow = document.body;
@@ -170,13 +169,13 @@ function editContact(i) {
         <div class="first-letters-and-inputs">
           <div class="first-letters-in-edit">${setLetters}</div>
           <div class="edit-informations">
-            <form class="information-inputs" action="#">
-              <input id="name${i}" type="text" placeholder="Name" value='${editName}'>
+            <form onsubmit="return submitForm(i)" class="information-inputs">
+              <input id="name${i}" type="text" placeholder="Name" value='${editName}' required>
               <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}'>
               <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}'>
               <div class="dele-and-save-buttons">
-                <button onclick="deleteContact(${i})">delete</button>
-                <button onclick="saveEditContact(${i})">save</button>
+                <button onclick="deleteContact(${i})" type="button">delete</button>
+                <button onsubmit="saveEditContact(${i})" type="submit">save</button>
               </div>
             </form>
           </div>
@@ -185,7 +184,26 @@ function editContact(i) {
     </div>
   `;
 }
-function saveEditContact(i){
+function submitForm(i){
+  if (validateForm(i)) {
+    saveEditContact(i); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
+    return true; // Das Formular wird abgesendet
+  } else {
+    return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
+  }
+}
+function validateForm(){
+  let nameInput = document.getElementById(`name${i}`);
+  let emailInput = document.getElementById(`email${i}`);
+  let phoneInput = document.getElementById(`phone${i}`);
+
+    
+    if (nameInput.type !== 'text' || emailInput.type !== 'email' || phoneInput.type !== 'tel') {
+        alert('Die Felder haben nicht den richtigen Typ!');
+      return false;
+    } return true ;
+}
+async function saveEditContact(i){
   let editContact = contacts[i];
 
   let editedName = document.getElementById(`name${i}`).value;
@@ -195,6 +213,7 @@ function saveEditContact(i){
   editContact.name = editedName;
   editContact.email = editedEmail;
   editContact["phone-number"] = editedPhone;
+  await hideEditCard(i);
   openContacts();
   openContactDetails(i);
 }
@@ -202,7 +221,11 @@ function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
   contacts.splice([i], 1);
   contactDetails.innerHTML = "";
+  if (document.getElementById('edit-card')) {
+    hideEditCard(i);    
+  }
   openContacts();
+  openContactDetails(i);
 }
 function openContactDetails(i) {
   markMyContact(i);
