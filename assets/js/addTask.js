@@ -53,7 +53,7 @@ function getValues() {
     let taskIdCounter = taskId;
 
     let tasks = {
-        "id": taskIdCounter,
+        "id": taskId,
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
@@ -63,19 +63,19 @@ function getValues() {
         "subtask": newSubTasks,
         "bucket": bucket,
     };
-    sendFormular(tasks);  
+    sendFormular(tasks);
 }
 
 function submitForm() {
     if (validateForm()) {
-      getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
-      return true; // Das Formular wird abgesendet
+        getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
+        return true; // Das Formular wird abgesendet
     } else {
-      return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
+        return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
     }
-  }
+}
 
-function sendFormular(tasks){
+function sendFormular(tasks) {
     taskId++;
     addedTasks.push(tasks);
     addTaskToStorage();
@@ -88,7 +88,7 @@ function sendFormular(tasks){
 async function countTaskId() {
     taskId = await getItem('taskid');
     taskId = JSON.parse(taskId['data']['value']);
-    
+
     setItem('taskid', taskId);
     console.log(taskId)
 }
@@ -173,7 +173,7 @@ function openContactOverlay() {
 
     overlayContainer.classList.remove('d-none');
     overlayContainer.classList.add('d-flex');
-    onclick.style.backgroundImage="url(./assets/img/arrow-up.svg)"; 
+    onclick.style.backgroundImage = "url(./assets/img/arrow-up.svg)";
 
     onclick.removeAttribute('onClick')
 
@@ -186,7 +186,7 @@ function closeContactOverlay() {
     let onclick = document.getElementById('assignedTo')
     overlayContainer.classList.remove('d-flex');
     overlayContainer.classList.add('d-none');
-    onclick.style.backgroundImage="url(./assets/img/arrow-assign-down.svg)";
+    onclick.style.backgroundImage = "url(./assets/img/arrow-assign-down.svg)";
 
     document.removeEventListener('click', closeOnClickOutside);
     onclick.onclick = openContactOverlay;
@@ -200,7 +200,7 @@ function loadContacts() {
         let name = currentContact['name'];
         let userInitial = userData[i]['initials'];
         let nameColor = userData[i]['color'];
-        
+
         overlayContainer.innerHTML += renderContacts(name, i, userInitial)
 
         let initialDiv = document.getElementById(`list-circle${i}`)
@@ -368,31 +368,31 @@ function removeButtonColor() {
 
 function validateForm() {
     let isValid = true;
-  
-    const fieldsToValidate = [
-      { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
-      { id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
-      { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
-    ];
-  
-    fieldsToValidate.forEach((field) => {
-      const inputElement = document.getElementById(field.id);
-      const errorElement = document.getElementById(field.errorId);
-  
-      if (inputElement.value.trim() === '') {
-        errorElement.textContent = field.errorMessage;
-        inputElement.style.border = '1px solid red';
-        isValid = false;
-      } else {
-        errorElement.textContent = '';
-        inputElement.style.border = '';
-      }
-    });
-  
-    return isValid;
-  }
 
-  function findContact() {
+    const fieldsToValidate = [
+        { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
+        { id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
+        { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
+    ];
+
+    fieldsToValidate.forEach((field) => {
+        const inputElement = document.getElementById(field.id);
+        const errorElement = document.getElementById(field.errorId);
+
+        if (inputElement.value.trim() === '') {
+            errorElement.textContent = field.errorMessage;
+            inputElement.style.border = '1px solid red';
+            isValid = false;
+        } else {
+            errorElement.textContent = '';
+            inputElement.style.border = '';
+        }
+    });
+
+    return isValid;
+}
+
+function findContact() {
     const searchInput = document.getElementById('assignedTo');
     const contactCards = document.querySelectorAll('.add-task-contacts');
     searchInput.addEventListener('input', () => {
