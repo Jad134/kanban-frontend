@@ -95,3 +95,40 @@
     display: none;
 }
 
+.logo-responsive{
+    width: 32px;
+    height: 40px;
+    display: none;
+    padding-left: 40px;
+}
+
+@media(max-width: 835px){
+    .headline{
+        padding-left: 90px;
+    }
+}
+
+@media(max-width: 575px){
+    .headline{
+        padding-left: 8px;
+    }
+}
+
+@media(max-width: 500px){
+    .headline{
+        display: none;
+    }
+
+    .logo-responsive{
+        display: flex;
+    }
+
+    .profile-circle{
+        width: 40px;
+        height: 40px;
+    }
+
+    .header{
+        height: 80px;
+    }
+}

@@ -348,6 +348,7 @@ h1 {
     justify-content: end;
     gap: 8px;
     margin-top: 80px;
+    padding-bottom: 8px;
 }
 
 #clear-btn {
@@ -612,6 +613,10 @@ svg:hover {
 
     .right-side {
         width: 80%;
+    }
+
+    h1{
+        padding-left: 40px;
     }
 }
 
