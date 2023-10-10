@@ -17,6 +17,8 @@ async function initBoard() {
         addedTasks.push(tasks);
         loadTasksForBoard(i);
     }
+
+    countTaskId(); // Muss hier ausgeführt werden, sonst funtkioniert die id im Board nicht (Jad)
 }
 
 
@@ -84,23 +86,6 @@ function loadPrio(id, prio) {
 }
 
 
-function startDragging(i) {
-    currentDraggedElement = i;
-}
-
-
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-
-function moveTo(bucket) {
-    addedTasks[currentDraggedElement]['bucket'] = bucket;
-    getTaskFromArray();
-    addTaskToStorage();
-}
-
-
 function getTaskFromArray() {
     clearBuckets();
 
@@ -120,13 +105,14 @@ function clearBuckets() {
 
 function addTaskSlider() {
     document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml();
+    document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
     openSlider();
     loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+
 }
 
-// 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
 
+// 26.09.2023 - Heike Lüdemann: Suchfunktion für Tasks
 function findTasks() {
     const searchInput = document.getElementById('find-task');
     const taskCards = document.querySelectorAll('.task-container');
@@ -195,17 +181,24 @@ function allowDrop(event) {
 }
 
 
-function moveTo(bucket) {
-    addedTasks[currentDraggedElement]['bucket'] = bucket;
-    getTaskFromArray();
-    addTaskToStorage();
+function hoverDrag(bucket) {
+    let element = document.getElementById(bucket);
+    element.classList.add('task-hover');
 }
 
 
-function addTaskSlider() {
-    document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml();
-    openSlider();
+function stopDrag(bucket) {
+    let element = document.getElementById(bucket);
+    element.classList.remove('task-hover');
+}
+
+
+function moveTo(bucket) {
+    addedTasks[currentDraggedElement]['bucket'] = bucket;
+    let element = document.getElementById(bucket);
+    element.classList.remove('task-hover');
+    getTaskFromArray();
+    addTaskToStorage();
 }
 
 
@@ -248,7 +241,7 @@ function checkboxSubtask(s, id) {
     reloadSubtaskCounter(id);
 }
 
-http://127.0.0.1:5500/add-task.html
+
 function reloadSubtaskCounter(id) {
     let i = idToIndex(id);
     let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
@@ -260,7 +253,7 @@ function reloadSubtaskCounter(id) {
 
 function renderBuckets(id, title, description, category, categoryCssClass) {
     return `
-        <div class="task-container" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
+        <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <div class="task-title-and-description">
                 <h4 class="task-title-container">${title}</h4>
@@ -270,9 +263,10 @@ function renderBuckets(id, title, description, category, categoryCssClass) {
             <div class="task-bottom-container">
                 <div id="task-assignment-container-${id}" class="task-assignments"></div>
                 <div id="task-prio-img-${id}"></div>
+                <div>${id}</div>
             </div>
         </div>
-    `
+    `;
 }
 
 
@@ -282,19 +276,21 @@ function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
             <div class="progress" style="width: ${numberOfSubtasksDone / numberOfSubtasks * 100}%;"></div>
         </div>
         <div class="nowrap">${numberOfSubtasksDone}/${numberOfSubtasks} Subtasks</div>
-    `
+    `;
 }
 
 
 function renderAssignedUsers(initials, color) {
     return `
         <div style="background-color: ${color};" class="assignment-circle">${initials}</div>
-    `
+    `;
 }
 
 
 function renderPrio(prio) {
-    return `<img src="./assets/img/subtask-prio-${prio}.svg" alt="">`
+    return `
+        <img src="./assets/img/subtask-prio-${prio}.svg" alt="">
+    `;
 }
 
 
@@ -367,15 +363,13 @@ function renderEditTask(id, title, description, duedate, prio, assigned, subtask
                 </div>
             </form>
         </div>
-    `
+    `;
 }
 
 
 function addTaskHtml() {
     return `
    
-    
-
     <div class="main-content">
         
 
@@ -474,8 +468,7 @@ function addTaskHtml() {
             </div>
         </div>
     </div>
-
-    `
+    `;
 }
 
 

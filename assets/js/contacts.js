@@ -1,99 +1,100 @@
 let contacts = [
-
-    {
-        'name': 'Tobi Mayer',
-        'email': 'tobimayer@test.de',
-        'phone-number': 111111111111
-    },
-    {
-        'name': 'Clara Müller',
-        'email': 'claramüller@test.de',
-        'phone-number': 2222222222222
-    },
-    {
-        'name': 'Hans Peter',
-        'email': 'hanspeter@test.de',
-        'phone-number': 3333333333333
-    },
-    {
-        'name': 'Sabine Berg',
-        'email': 'sabineberg@test.de',
-        'phone-number': 4444444444
-    },
-    {
-        'name': 'Charly Fiedler',
-        'email': 'charlyfiedler@test.de',
-        'phone-number': 55555555555
-    }
+  {
+    "name": "Tobi Mayer",
+    "email": "tobimayer@test.de",
+    "phone-number": 111111111111
+  },
+  {
+    "name": "Clara Müller",
+    "email": "claramüller@test.de",
+    "phone-number": 2222222222222
+  },
+  {
+    "name": "Hans Peter",
+    "email": "hanspeter@test.de",
+    "phone-number": 3333333333333
+  },
+  {
+    "name": "Sabine Berg",
+    "email": "sabineberg@test.de",
+    "phone-number": 4444444444
+  },
+  {
+    "name": "Charly Fiedler",
+    "email": "charlyfiedler@test.de",
+    "phone-number": 55555555555
+  },
 ];
 
 function openContacts() {
-    sortMyContacts();
+  sortMyContacts();
 }
-function sortMyContacts(){
-    contacts.sort((a, b) => {
-        const nameA = a.name.toLowerCase();
-        const nameB = b.name.toLowerCase();
-        
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-      });
-      getLettersFromNames(contacts);
-}
-function getLettersFromNames(){    
-    let letters = [];
-    
-    for (let i = 0; i < contacts.length; i++) {
-        const firstLetterString = contacts[i]['name'].charAt(0);
-        for (const char of firstLetterString) {            
-            letters.push(char);            
-        }
-    }
-    eliminateDoubles(letters);
-}
-function eliminateDoubles(letters){
-    let cleanLetters = new Set(letters)
-    let letterArray = Array.from(cleanLetters);
-    renderSortContainer(letterArray);
-}
-function getFirstLettersForOverview(i, contacts){
-    let name = contacts[i]['name'];
-    let splitName = name.split(' ');
-    let firstName = splitName[0];
-    let secondName = splitName[1];
-    let thirdName = splitName[2];
-    let firstLetter = firstName.charAt(0);
-    let secondLetter = secondName.charAt(0);
+function sortMyContacts() {
+  contacts.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
 
-    if (thirdName !== undefined) {
-            let secondLetter = thirdName.charAt(0);
-            return  [firstLetter + ' ' + secondLetter];
-    } else return [firstLetter + ' ' + secondLetter];
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+  getLettersFromNames(contacts);
 }
-function renderSortContainer(letterArray){
-    document.getElementById('render-contacts-overview').innerHTML = ``;
-        
-    for (let k = 0; k < letterArray.length; k++) {        
-        const letter = letterArray[k];        
-        
-        document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
+function getLettersFromNames() {
+  let letters = [];
+
+  for (let i = 0; i < contacts.length; i++) {
+    const firstLetterString = contacts[i]["name"].charAt(0);
+    for (const char of firstLetterString) {
+      letters.push(char);
+    }
+  }
+  eliminateDoubles(letters);
+}
+function eliminateDoubles(letters) {
+  let cleanLetters = new Set(letters);
+  let letterArray = Array.from(cleanLetters);
+  renderSortContainer(letterArray);
+}
+function getFirstLettersForOverview(i, contacts) {
+  let name = contacts[i]["name"];
+  let splitName = name.split(" ");
+  let firstName = splitName[0];
+  let secondName = splitName[1];
+  let thirdName = splitName[2];
+  let firstLetter = firstName.charAt(0);
+  let secondLetter = secondName.charAt(0);
+
+  if (thirdName !== undefined) {
+    let secondLetter = thirdName.charAt(0);
+    return [firstLetter + " " + secondLetter];
+  } else return [firstLetter + " " + secondLetter];
+}
+function renderSortContainer(letterArray) {
+  document.getElementById("render-contacts-overview").innerHTML = ``;
+
+  for (let k = 0; k < letterArray.length; k++) {
+    const letter = letterArray[k];
+
+    document.getElementById("render-contacts-overview").innerHTML += /*html*/ `
         <div class="contact-block">
             <p id="" class="alphabet">${letter}</p>
             <div class="contact-seperator-horizontal"></div>            
         </div>
         `;
-        for (let i = 0; i < contacts.length; i++) {
-            let name = contacts[i]['name'];
-            let email = contacts[i]['email'];
-            let setLetters = getFirstLettersForOverview(i, contacts);
-                        
-            if (name.charAt(0) === letter) {                    
-                document.getElementById('render-contacts-overview').innerHTML += /*html*/ `
+    for (let i = 0; i < contacts.length; i++) {
+      let name = contacts[i]["name"];
+      let email = contacts[i]["email"];
+      let setLetters = getFirstLettersForOverview(i, contacts);
+
+      if (name.charAt(0) === letter) {
+        document.getElementById(
+          "render-contacts-overview"
+        ).innerHTML += /*html*/ `
                 <div id="${i}sub-contact-block" class="sub-contact-block" onclick="openContactDetails(${i})">
                     <div id="${i}first-letters" class="first-letters">${setLetters}</div>
                     <div id="name-and-email" class="name-and-email">
@@ -102,45 +103,140 @@ function renderSortContainer(letterArray){
                     </div>
                 </div>
             `;
-            }
-        }
+      }
     }
+  }
 }
-function markMyContact(i){
-    let excludeElement = document.getElementById(`${i}sub-contact-block`);
-    deMarkMyContact();
-    excludeElement.classList.add('sub-contact-block-marked');
-    excludeElement.classList.remove('sub-contact-block');
+function markMyContact(i) {
+  let excludeElement = document.getElementById(`${i}sub-contact-block`);
+  deMarkMyContact();
+  excludeElement.classList.add("sub-contact-block-marked");
+  excludeElement.classList.remove("sub-contact-block");
 }
-function deMarkMyContact(){    
-    let container = document.getElementById('render-contacts-overview');
-    let elements = container.querySelectorAll('.sub-contact-block-marked');
+function deMarkMyContact() {
+  let container = document.getElementById("render-contacts-overview");
+  let elements = container.querySelectorAll(".sub-contact-block-marked");
 
-    elements.forEach((element) => {
-        element.classList.remove('sub-contact-block-marked');
-        element.classList.add('sub-contact-block');
-    })
+  elements.forEach((element) => {
+    element.classList.remove("sub-contact-block-marked");
+    element.classList.add("sub-contact-block");
+  });
 }
-function editContact(i){
-    renderAddContactCard();
-    let editCard = document.getElementById('create-contact');
+async function hideEditCard(){
+  let hideEditCard = document.getElementById('edit-card');
+  let overview = document.getElementById('render-my-edit-card');
+
+  hideEditCard.classList.add('hide-edit-card');
+  
+  hideEditCard.addEventListener('animationend', () => {
+    let deactivateOverflow = document.body;
+    overview.removeChild(hideEditCard);
+    deactivateOverflow.classList.remove("hide-my-scrolls");
+  }, { once: true })
 }
-function deleteContact(i){
-    let contactDetails = document.getElementById('detail-view-of-contacts');
-    contacts.splice([i], 1);
-    contactDetails.innerHTML = '';
-    openContacts();
+function editContact(i) {
+  let editCard = document.getElementById('render-my-edit-card');
+  let setLetters = getFirstLettersForOverview(i, contacts);
+  let editContact = contacts[i];
+  let deactivateOverflow = document.body;
+  let editName = editContact['name'];
+  let editPhone = editContact['phone-number'];
+  let editEmail = editContact['email'];
+
+  deactivateOverflow.classList.add("hide-my-scrolls");
+
+  editCard.innerHTML += /*html*/ `
+    <div id="edit-card" class="edit-card">
+      <div class="left-side-edit-card">
+        <svg style="background-color: #2A3647; margin-bottom: 24px;" width="102" height="122" viewBox="0 0 102 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M72.655 0H50.4972V25.4923H72.655V0Z" fill="white"/>
+          <path d="M50.4971 46.2251H72.655V82.1779C72.7562 90.8292 70.2941 99.3153 65.5815 106.557C60.9284 113.594 51.9459 121.966 35.3275 121.966C17.2263 121.966 6.67577 113.406 0.98291 108.715L14.9594 91.4743C20.5159 96.0112 25.8679 99.7435 35.4128 99.7435C42.6396 99.7435 45.5202 96.7988 47.2076 94.2307C49.5015 90.6637 50.6881 86.4923 50.6165 82.2464L50.4971 46.2251Z" fill="white"/>
+          <path d="M39.1967 30.1318H17.0388V52.3884H39.1967V30.1318Z" fill="#29ABE2"/>
+          <path d="M84.2622 111.522C84.2622 116.265 81.859 118.815 78.5012 118.815C75.1434 118.815 72.9447 115.785 72.9447 111.762C72.9447 107.739 75.2116 104.554 78.6887 104.554C82.1658 104.554 84.2622 107.687 84.2622 111.522ZM75.5184 111.711C75.5184 114.57 76.6604 116.675 78.6205 116.675C80.5806 116.675 81.6885 114.45 81.6885 111.539C81.6885 108.988 80.6659 106.592 78.6205 106.592C76.5752 106.592 75.5184 108.903 75.5184 111.711Z" fill="white"/>
+          <path d="M88.6597 104.76V118.593H86.2053V104.76H88.6597Z" fill="white"/>
+          <path d="M91.3187 118.593V104.76H94.0458L96.9775 110.461C97.7322 111.952 98.4036 113.483 98.9887 115.049C98.8353 113.337 98.7672 111.368 98.7672 109.177V104.76H101.017V118.593H98.4774L95.5117 112.772C94.7265 111.243 94.0266 109.671 93.4152 108.064C93.4152 109.776 93.5345 111.711 93.5345 114.09V118.576L91.3187 118.593Z" fill="white"/>
+        </svg>
+        <h2>Edit contact</h2>
+        <div class="seperator"></div>
+      </div>
+      <div class="right-side-edit-card">
+        <div class="move-img">
+          <svg onclick="hideEditCard()" class="cancel-svg" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="change-cancel-svg-color-head" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
+                11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="first-letters-and-inputs">
+          <div class="first-letters-in-edit">${setLetters}</div>
+          <div class="edit-informations">
+            <form onsubmit="return submitForm(i)" class="information-inputs">
+              <input id="name${i}" type="text" placeholder="Name" value='${editName}' required>
+              <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}'>
+              <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}'>
+              <div class="dele-and-save-buttons">
+                <button onclick="deleteContact(${i})" type="button">delete</button>
+                <button onsubmit="saveEditContact(${i})" type="submit">save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+function submitForm(i){
+  if (validateForm(i)) {
+    saveEditContact(i); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
+    return true; // Das Formular wird abgesendet
+  } else {
+    return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
+  }
+}
+function validateForm(){
+  let nameInput = document.getElementById(`name${i}`);
+  let emailInput = document.getElementById(`email${i}`);
+  let phoneInput = document.getElementById(`phone${i}`);
+
+    
+    if (nameInput.type !== 'text' || emailInput.type !== 'email' || phoneInput.type !== 'tel') {
+        alert('Die Felder haben nicht den richtigen Typ!');
+      return false;
+    } return true ;
+}
+async function saveEditContact(i){
+  let editContact = contacts[i];
+
+  let editedName = document.getElementById(`name${i}`).value;
+  let editedPhone = document.getElementById(`phone${i}`).value;
+  let editedEmail = document.getElementById(`email${i}`).value;
+
+  editContact.name = editedName;
+  editContact.email = editedEmail;
+  editContact["phone-number"] = editedPhone;
+  await hideEditCard(i);
+  openContacts();
+  openContactDetails(i);
+}
+function deleteContact(i) {
+  let contactDetails = document.getElementById("detail-view-of-contacts");
+  contacts.splice([i], 1);
+  contactDetails.innerHTML = "";
+  if (document.getElementById('edit-card')) {
+    hideEditCard(i);    
+  }
+  openContacts();
+  openContactDetails(i);
 }
 function openContactDetails(i) {
-    markMyContact(i);
-    let details = document.getElementById('detail-view-of-contacts');    
-    let lettersOfContact = document.getElementById(`${i}first-letters`).innerHTML;
-    let name = contacts[i]['name'];
-    let email = contacts[i]['email'];
-    let phone = contacts[i]['phone-number'];
-    
-    details.innerHTML = ``;
-    details.innerHTML = /*html*/ `
+  markMyContact(i);
+  let details = document.getElementById("detail-view-of-contacts");
+  let lettersOfContact = document.getElementById(`${i}first-letters`).innerHTML;
+  let name = contacts[i]["name"];
+  let email = contacts[i]["email"];
+  let phone = contacts[i]["phone-number"];
+
+  details.innerHTML = ``;
+  details.innerHTML = /*html*/ `
         <div id="letters-and-name">
             <div class="first-letters-for-details">
                 ${lettersOfContact}
@@ -183,89 +279,89 @@ function openContactDetails(i) {
         </div>
     `;
 }
-async function formatNames(){
-    let formatMyName = document.getElementById('contact-name-input').value;
-    let splitedName = formatMyName.split(' ');
-        
-    for (let k = 0; k < splitedName.length; k++) {
-        const name = splitedName[k];
-        if (name.length > 0) {
-            splitedName[k] = name.charAt(0).toUpperCase() + name.slice(1);
-            newString = splitedName.join(' ');
-        }
-    }
-    return newString;
-}
-async function pushContactInfo(){
-    let name = await formatNames();
-    let email = document.getElementById('contact-email-input');
-    let phoneNumber = document.getElementById('contact-phone-input');
-    let newContact = {
-        "name": `${name}`,
-        "email": `${email.value}`,
-        "phone-number": `${phoneNumber.value}`
-    }
-    contacts.push(newContact);
-    document.getElementById('contact-name-input').value = ``;
-    email.value = ``;
-    phoneNumber.value = ``;
+async function formatNames() {
+  let formatMyName = document.getElementById("contact-name-input").value;
+  let splitedName = formatMyName.split(" ");
 
-    closeContactAddCard();
-    sortMyContacts();
+  for (let k = 0; k < splitedName.length; k++) {
+    const name = splitedName[k];
+    if (name.length > 0) {
+      splitedName[k] = name.charAt(0).toUpperCase() + name.slice(1);
+      newString = splitedName.join(" ");
+    }
+  }
+  return newString;
 }
-async function slideInCard(){
-    await waitForIt();
-    startAnimation();
+async function pushContactInfo() {
+  let name = await formatNames();
+  let email = document.getElementById("contact-email-input");
+  let phoneNumber = document.getElementById("contact-phone-input");
+  let newContact = {
+    name: `${name}`,
+    email: `${email.value}`,
+    "phone-number": `${phoneNumber.value}`,
+  };
+  contacts.push(newContact);
+  document.getElementById("contact-name-input").value = ``;
+  email.value = ``;
+  phoneNumber.value = ``;
+
+  closeContactAddCard();
+  sortMyContacts();
 }
-async function waitForIt(){
-    let slider = document.getElementById('slide-container');       
-    let deactivateOverflow = document.body;
-    
-    slider.style.display = "flex";
-    deactivateOverflow.classList.add('hide-my-scrolls');
+async function slideInCard() {
+  await waitForIt();
+  startAnimation();
 }
-async function startAnimation(){   
-    let animation = document.getElementById('add-contact-card');
-    animation.style.width = "100%";
-    animation.style.right = "0%";
+async function waitForIt() {
+  let slider = document.getElementById("slide-container");
+  let deactivateOverflow = document.body;
+
+  slider.style.display = "flex";
+  deactivateOverflow.classList.add("hide-my-scrolls");
 }
-function closeContactAddCard(){
-    let animation = document.getElementById('add-contact-card');
-    let slider = document.getElementById('slide-container');
-    let back = document.getElementById('color-my-back');
-        
-    animation.style.right = "-200%";
-    slider.style.display = "none";
-    setTimeout(() => {
-        back.style.backgroundColor = 'rgba(0, 0, 0, 0.0)';
-      }, 100);
-    back.style.display = "none"
-        
-    animation.addEventListener('transitionend', function() {
-        if (animation.style.right === "-200%") {
-        let activateOverflow = document.body;
-        let shrikDiv = document.getElementById('create-contact');
-        activateOverflow.classList.remove('hide-my-scrolls');
-        animation.style.width = "0%";
-        shrikDiv.style.width = "0%";
-        shrikDiv.style.display = "none";
-        }
-        })
+async function startAnimation() {
+  let animation = document.getElementById("add-contact-card");
+  animation.style.width = "100%";
+  animation.style.right = "0%";
+}
+function closeContactAddCard() {
+  let animation = document.getElementById("add-contact-card");
+  let slider = document.getElementById("slide-container");
+  let back = document.getElementById("color-my-back");
+
+  animation.style.right = "-200%";
+  slider.style.display = "none";
+  setTimeout(() => {
+    back.style.backgroundColor = "rgba(0, 0, 0, 0.0)";
+  }, 100);
+  back.style.display = "none";
+
+  animation.addEventListener("transitionend", function () {
+    if (animation.style.right === "-200%") {
+      let activateOverflow = document.body;
+      let shrikDiv = document.getElementById("create-contact");
+      activateOverflow.classList.remove("hide-my-scrolls");
+      animation.style.width = "0%";
+      shrikDiv.style.width = "0%";
+      shrikDiv.style.display = "none";
+    }
+  });
 }
 async function renderAddContactCard() {
-    await showMyCard();
-    await colorMyBack();
-    slideInCard();
+  await showMyCard();
+  await colorMyBack();
+  slideInCard();
 }
-async function showMyCard(){
-    document.getElementById('add-contact-card').style.width = "100%";
-    document.getElementById('create-contact').style.width = "100%";
-    document.getElementById('create-contact').style.display = "flex";
+async function showMyCard() {
+  document.getElementById("add-contact-card").style.width = "100%";
+  document.getElementById("create-contact").style.width = "100%";
+  document.getElementById("create-contact").style.display = "flex";
 }
-async function colorMyBack(){
-        const background = document.getElementById('color-my-back');
-        background.style.display = 'block';
-        setTimeout(() => {
-          background.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
-        }, 100);
+async function colorMyBack() {
+  const background = document.getElementById("color-my-back");
+  background.style.display = "block";
+  setTimeout(() => {
+    background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+  }, 100);
 }

@@ -10,6 +10,7 @@ function init() {
     loadUserDataFromRemote();
     getTaskStorage();
     countTaskId();
+    taskId = 0;
 }
 
 function ChangeButtonColor(buttonId, imgId) {
@@ -39,8 +40,6 @@ function ChangeButtonColor(buttonId, imgId) {
         img.classList.add('active');
     }
 }
-
-
 
 function getValues() {
     let bucket = "todo";
@@ -77,27 +76,27 @@ function submitForm() {
   }
 
 function sendFormular(tasks){
+    taskId++;
     addedTasks.push(tasks);
     addTaskToStorage();
     addTaskIdToStorage();
     clearTasks();
     newSubTasks = [];
-    location.href = "board.html"; // Geht noch nicht !!!!!!!!!!!
+    location.href = "board.html"; // Geht noch nicht !!!!!!!!!!! 
 }
-
 
 async function countTaskId() {
     taskId = await getItem('taskid');
     taskId = JSON.parse(taskId['data']['value']);
-    taskId++;
+    
     setItem('taskid', taskId);
+    console.log(taskId)
 }
 
 
 async function addTaskIdToStorage() {
     setItem('taskid', taskId);
 }
-
 
 async function loadUserDataFromRemote() {
     let newUserDataString = await getItem('users');
@@ -110,7 +109,6 @@ async function loadUserDataFromRemote() {
     findContact()
 }
 
-
 async function getTaskStorage() {
     addedTasks = [];
     let currentTasks = await getItem('tasks');
@@ -121,7 +119,6 @@ async function getTaskStorage() {
         addedTasks.push(tasks);
     }
 }
-
 
 async function addTaskToStorage() {
     await setItem('tasks', JSON.stringify(addedTasks))
@@ -149,9 +146,6 @@ function addSubTask() {
     }
     document.getElementById('subtask-input').value = '';
 
-    /*subId++;
-    let subIdString = `${taskId}-${subId}`;
-    console.log(subIdString);*/
 }
 
 function renderSubTask(newTasks, i) {
@@ -172,7 +166,6 @@ function renderSubTask(newTasks, i) {
     </div> `;
 
 }
-
 
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo')
@@ -207,8 +200,9 @@ function loadContacts() {
         let name = currentContact['name'];
         let userInitial = userData[i]['initials'];
         let nameColor = userData[i]['color'];
-
+        
         overlayContainer.innerHTML += renderContacts(name, i, userInitial)
+
         let initialDiv = document.getElementById(`list-circle${i}`)
         initialDiv.style.backgroundColor = nameColor;
     }

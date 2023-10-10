@@ -494,6 +494,7 @@ svg:hover {
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 8px;
+    min-height: 80px;
 }
 
 .error-message {
@@ -509,6 +510,16 @@ svg:hover {
 .left-right-container {
     display: flex;
 }
+
+.bottom {
+    display: none;
+    height: 200px;
+}
+
+.required-info-responsive {
+    display: none;
+}
+
 
 
 
@@ -527,7 +538,7 @@ svg:hover {
         padding-left: 0;
     }
 
-    .left-side{
+    .left-side {
         border-right: 0;
     }
 
@@ -546,5 +557,76 @@ svg:hover {
     .create-buttons {
         margin-top: 40px;
         padding-bottom: 8px;
+    }
+
+    #selected-contacts {
+        min-height: 0px;
+    }
+
+    .required-info {
+        display: none;
+    }
+
+    .required-info-responsive {
+        display: flex;
+    }
+}
+
+@media(max-width: 800px) {
+    .bottom {
+        display: flex;
+    }
+}
+
+@media(max-width: 500px) {
+
+    h1 {
+        font-size: 47px;
+    }
+
+
+    .left-side {
+        padding: 0;
+    }
+
+    .prio-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .prio-buttons button {
+        width: 120px;
+    }
+}
+
+@media(max-width: 465px) {
+
+    .left-side {
+        width: 80%;
+    }
+
+    .left-right-container {
+        align-items: center;
+    }
+
+    .right-side {
+        width: 80%;
+    }
+}
+
+@media(max-width: 400px) {
+
+    .prio-buttons button {
+        font-size: 16px;
+        width: auto;
+    }
+
+    #clear-btn {
+        display: none;
+    }
+
+    .required-info-responsive {
+        flex: 1;
     }
 }
