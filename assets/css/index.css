@@ -232,10 +232,58 @@ input:focus::placeholder {
 
 /* --- password toggle --- */
 
-.input-icons {
+/*.input-icons {
     position: relative;
+}*/
+
+.pw-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 380px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #A8A8A8;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    padding-left: 10px;
+    margin-bottom: 20px;
 }
 
+.pw-input input {
+    width: 100%;
+    height: 38px;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+}
+
+.pw-input input:focus {
+    outline: none;
+}
+
+.pw-input input:focus-within {
+    border: none;
+}
+
+.pw-input:focus-within {
+    border: 2px solid #29ABE2;
+}
+
+.toggle-password {
+    margin-right: 22px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password svg {
+    width: 22px;
+}
+
+.toggle-password-visibility:hover svg path {
+    fill: rgb(41, 171, 226);
+}
 
 /* #login-form input[type="password"],
 #login-form input[type="text"] {
@@ -256,7 +304,7 @@ input:focus::placeholder {
     color: darkgray;
 } */
 
-.password-input {
+/*.password-input {
     background-image: url(../img/lock.svg);
     background-repeat: no-repeat;
     background-position: 340px;
@@ -267,7 +315,7 @@ input:focus::placeholder {
 .password-input:focus {
     background-image: url(../img/visibility_off.svg);
 
-}
+}*/
 
 /* .toggle-password {
     background-image: url(../img/visibility.svg); 
