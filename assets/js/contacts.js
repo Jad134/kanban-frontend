@@ -169,13 +169,13 @@ function editContact(i) {
         <div class="first-letters-and-inputs">
           <div class="first-letters-in-edit">${setLetters}</div>
           <div class="edit-informations">
-            <form onsubmit="return submitForm(i)" class="information-inputs">
+            <form onsubmit="return false" class="information-inputs">
               <input id="name${i}" type="text" placeholder="Name" value='${editName}' required>
               <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}'>
               <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}'>
               <div class="dele-and-save-buttons">
                 <button onclick="deleteContact(${i})" type="button">delete</button>
-                <button onsubmit="saveEditContact(${i})" type="submit">save</button>
+                <button onclick="submitForm(${i})" type="submit">save</button>
               </div>
             </form>
           </div>
@@ -192,7 +192,7 @@ function submitForm(i){
     return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
   }
 }
-function validateForm(){
+function validateForm(i){
   let nameInput = document.getElementById(`name${i}`);
   let emailInput = document.getElementById(`email${i}`);
   let phoneInput = document.getElementById(`phone${i}`);
