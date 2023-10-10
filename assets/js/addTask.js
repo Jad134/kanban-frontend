@@ -90,7 +90,7 @@ async function countTaskId() {
     taskId = JSON.parse(taskId['data']['value']);
 
     setItem('taskid', taskId);
-    console.log(taskId)
+    console.log(taskId);
 }
 
 
@@ -106,7 +106,7 @@ async function loadUserDataFromRemote() {
         userData.push(users);
     }
     loadContacts();
-    findContact()
+    findContact();
 }
 
 async function getTaskStorage() {
@@ -121,7 +121,7 @@ async function getTaskStorage() {
 }
 
 async function addTaskToStorage() {
-    await setItem('tasks', JSON.stringify(addedTasks))
+    await setItem('tasks', JSON.stringify(addedTasks));
 }
 
 function addSubTask() {
@@ -142,7 +142,7 @@ function addSubTask() {
     for (let i = 0; i < newSubTasks.length; i++) {
         const newTasks = newSubTasks[i]['subtitle'];
 
-        subtaskContent.innerHTML += renderSubTask(newTasks, i)
+        subtaskContent.innerHTML += renderSubTask(newTasks, i);
     }
     document.getElementById('subtask-input').value = '';
 
@@ -168,14 +168,14 @@ function renderSubTask(newTasks, i) {
 }
 
 function openContactOverlay() {
-    let onclick = document.getElementById('assignedTo')
+    let onclick = document.getElementById('assignedTo');
     let overlayContainer = document.getElementById('contact-overlay');
 
     overlayContainer.classList.remove('d-none');
     overlayContainer.classList.add('d-flex');
     onclick.style.backgroundImage = "url(./assets/img/arrow-up.svg)";
 
-    onclick.removeAttribute('onClick')
+    onclick.removeAttribute('onClick');
 
     document.addEventListener('click', closeOnClickOutside);
     onclick.onclick = closeContactOverlay;
@@ -183,7 +183,7 @@ function openContactOverlay() {
 
 function closeContactOverlay() {
     let overlayContainer = document.getElementById('contact-overlay');
-    let onclick = document.getElementById('assignedTo')
+    let onclick = document.getElementById('assignedTo');
     overlayContainer.classList.remove('d-flex');
     overlayContainer.classList.add('d-none');
     onclick.style.backgroundImage = "url(./assets/img/arrow-assign-down.svg)";
@@ -203,7 +203,7 @@ function loadContacts() {
 
         overlayContainer.innerHTML += renderContacts(name, i, userInitial)
 
-        let initialDiv = document.getElementById(`list-circle${i}`)
+        let initialDiv = document.getElementById(`list-circle${i}`);
         initialDiv.style.backgroundColor = nameColor;
     }
 }
@@ -260,8 +260,8 @@ function removeInitialsimg(i) {
 
 
 function pushContact(name) {
-    assignedContact.push(name)
-    console.log(assignedContact)
+    assignedContact.push(name);
+    console.log(assignedContact);
 }
 
 function spliceContact(name) {
@@ -277,7 +277,7 @@ function spliceContact(name) {
 function removeCheckboxStyle() {
     let overlayContainer = document.getElementById('contact-overlay');
     overlayContainer.innerHTML = '';
-    loadContacts()
+    loadContacts();
 }
 
 function closeOnClickOutside(event) {
@@ -296,7 +296,7 @@ function handleEnterKeyPress(event, action, i) {
         if (action === 'subtask-input') {
             addSubTask();
         } else if (action === 'edit-Input') {
-            renameSubTask(i)
+            renameSubTask(i);
         }
     }
 }
@@ -306,7 +306,7 @@ function renameSubTask(i) {
     if (editSubTask !== '') {
         newSubTasks.push(editSubTask);
     }
-    deleteSubTask(i)
+    deleteSubTask(i);
     addSubTask();
 }
 
@@ -314,22 +314,22 @@ function editSubTask(i, currenTask) {
     let subtaskList = document.getElementById(`subtask-list${i}`);
     let editSubInput = document.getElementById(`edit-task-input${i}`);
     let taskbtn = document.getElementById(`task-edit-buttons${i}`);
-    let inputContainer = document.getElementById(`subtask-input-container${i}`)
+    let inputContainer = document.getElementById(`subtask-input-container${i}`);
 
     inputContainer.classList.add('d-flex');
     inputContainer.classList.remove('d-none');
     taskbtn.classList.remove('d-flex');
     taskbtn.classList.add('d-none');
-    subtaskList.classList.remove('subtask-list')
-    subtaskList.classList.add('d-none')
+    subtaskList.classList.remove('subtask-list');
+    subtaskList.classList.add('d-none');
     editSubInput.classList.remove('d-none');
     editSubInput.value = `${currenTask}`;
 }
 
 
 function deleteSubTask(i) {
-    newSubTasks.splice(i, 1)
-    addSubTask()
+    newSubTasks.splice(i, 1);
+    addSubTask();
 }
 
 function clearTasks() {
@@ -338,7 +338,7 @@ function clearTasks() {
     let date = document.getElementById('date-input');
     let sublist = document.querySelectorAll('.sublist-container');
     let newTasks = document.getElementById('subtask-input');
-    let contactImg = document.getElementById('selected-contacts')
+    let contactImg = document.getElementById('selected-contacts');
 
     contactImg.innerHTML = "";
     newTasks.value = "";
@@ -350,7 +350,7 @@ function clearTasks() {
     })
     newSubTasks = [];
     assignedContact = [];
-    removeCheckboxStyle()
+    removeCheckboxStyle();
     removeButtonColor();
 
 }
