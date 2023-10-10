@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     logo.style.position = "absolute";
     logo.style.top = "130px";
     logo.style.left = "130px";
-    /*     logo.style.top = "clamp(4.375rem, 2.796rem + 7.89vw, 8.125rem)"; //130px
-        logo.style.left = "clamp(4.375rem, 2.796rem + 7.89vw, 8.125rem)"; //130px */
     logo.style.transform = "translate(-50%, -50%) scale(0.5)";
     logo.style.transition = "0.7s ease-out";
     main.style.transition = "opacity 0.7s ease-in";
@@ -356,7 +354,7 @@ function signUpHtmlTemplate() {
                <a href="index.html">
                    <img src="assets/img/arrow-left.svg" class="arrow-left" alt="left arrow">
                </a>
-             <h1>Sign up</h1>
+             <h1 class="responsive-padding">Sign up</h1>
              <div class="underline border-radius-8"></div>
              <form onsubmit="checkCheckbox(); return false">
 
