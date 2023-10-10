@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
     logo.style.position = "absolute";
     logo.style.top = "130px";
     logo.style.left = "130px";
+    /*     logo.style.top = "clamp(4.375rem, 2.796rem + 7.89vw, 8.125rem)"; //130px
+        logo.style.left = "clamp(4.375rem, 2.796rem + 7.89vw, 8.125rem)"; //130px */
     logo.style.transform = "translate(-50%, -50%) scale(0.5)";
     logo.style.transition = "0.7s ease-out";
     main.style.transition = "opacity 0.7s ease-in";
@@ -39,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += renderHtmlTemplate();
-  /* togglePasswordVisibility(); */
 }
 
 
@@ -51,7 +52,6 @@ function renderSignUp() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
-  /*   togglePasswordVisibility(); */
 }
 
 
@@ -62,7 +62,7 @@ function userDataFromSignUp(a) {
   let email = document.getElementById('email');
   let password = document.getElementById('password');
   let color = a;
-  if (!Array.isArray(userData)) {                       // so wird geprüft, dass es immer ein Array ist
+  if (!Array.isArray(userData)) {
     userData = [];
   }
   let users = {
@@ -269,7 +269,7 @@ function togglePasswordImage() {
 function clickPasswordField() {
   let passwordField = document.getElementById('user-password');
   let toggleImage = document.getElementById('toggle-password');
-  
+
   passwordField.removeAttribute('oninput');
   passwordField.setAttribute('onblur', 'clickOut()')
 
@@ -376,7 +376,7 @@ function signUpHtmlTemplate() {
                  </label>
                </div>
                <div class="login-buttons">
-                 <button type="submit" id="sign-up-button" class="h-button border-radius-8" >Sign up</button>
+                 <button type="submit" id="sign-up-button" class="sign-button border-radius-8" >Sign up</button>
                </div>
              </form>
            </div>
