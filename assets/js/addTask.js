@@ -82,9 +82,7 @@ function sendFormular(tasks){
     addTaskIdToStorage();
     clearTasks();
     newSubTasks = [];
-    location.href = "board.html"; // Geht noch nicht !!!!!!!!!!!
-    
-    
+    location.href = "board.html"; // Geht noch nicht !!!!!!!!!!! 
 }
 
 async function countTaskId() {
@@ -148,9 +146,6 @@ function addSubTask() {
     }
     document.getElementById('subtask-input').value = '';
 
-    /*subId++;
-    let subIdString = `${taskId}-${subId}`;
-    console.log(subIdString);*/
 }
 
 function renderSubTask(newTasks, i) {
