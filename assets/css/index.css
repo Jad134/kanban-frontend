@@ -313,10 +313,10 @@ input:focus::placeholder {
 /*.password-input {
     background-image: url(../img/lock.svg);
     background-repeat: no-repeat;
-    /* background-position: 340px; */
+    background-position: 340px;
     background-position: clamp(11.25rem, -0.179rem + 57.14vw, 21.25rem);
     cursor: pointer;
-   /*  transition: background-position 0.3s ease-in-out; */
+    transition: background-position 0.3s ease-in-out;
 } 
 
 .password-input:focus {
