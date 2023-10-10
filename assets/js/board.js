@@ -482,7 +482,7 @@ addedTasks = [{
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
     "assigned": ["Alexander Riedel", "Jad", "Steffen Hans"],
-    "duedate": "20230510",
+    "duedate": "2023-05-10",
     "prio": "Medium",
     "category": "User Story",
     "subtask": [
@@ -502,7 +502,7 @@ addedTasks = [{
     "title": "CSS Architecture Planning",
     "description": "Define CSS naming conventions and structure.",
     "assigned": ["Steffen Hans", "Jad"],
-    "duedate": "20230902",
+    "duedate": "2023-09-02",
     "prio": "Urgent",
     "category": "Technical Task",
     "subtask": [
@@ -527,7 +527,7 @@ addedTasks = [{
     "title": "Add hover function to tasks at board",
     "description": "add cursor: pointer to board.css",
     "assigned": ["Sinan Malaga"],
-    "duedate": "20231003",
+    "duedate": "2023-10-03",
     "prio": "Medium",
     "category": "Technical Task",
     "subtask": []
