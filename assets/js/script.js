@@ -99,7 +99,7 @@ function signUpUser() {
     emailCheck(registerEmail);
     let color = setColor();
     userDataFromSignUp(color);
-    displayMessage('Registrierung erfolgreich!');
+    displayMessage('You registered successfully!');
     setTimeout(() => {
       window.location.href = 'index.html';
     }, 2500);
@@ -112,7 +112,7 @@ function emailCheck(registerEmail) {
   if (!ifEmailExists) {
     return true;
   } else {
-    displayMessage('Diese E-Mail-Adresse wurde bereits verwendet')
+    displayMessage('This email address has already been used')
     return false;
   }
 }
@@ -126,7 +126,7 @@ function passwordCheck() {
   if (password === confirmPassword) {
     return true;
   } else {
-    displayMessage('Die Passwörter stimmen nicht überein');
+    displayMessage('The passwords do not match');
     return false;
   }
 }
@@ -171,7 +171,7 @@ function login(event) {
   if (dataExists) {
     debugger;
     rememberMe();
-    displayMessage('You signed up successfully!')
+    displayMessage('You logged in successfully!')
     loginToLocalStorage(dataExists);
     setTimeout(() => {
       window.location.href = '/summary.html';
