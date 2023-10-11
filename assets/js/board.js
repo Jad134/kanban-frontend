@@ -371,14 +371,14 @@ function addTaskHtml() {
     return `
    
     <div class="main-content">
-        
+        <div class="preload-header" w3-include-html="assets\html-templates\header.html"></div>
 
         <div class="align-content">
             <div>
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form novalidate onsubmit="return submitForm();">
+                <form novalidate >
                     <div class="left-right-container">
                         <div class="left-side">
 
@@ -401,12 +401,18 @@ function addTaskHtml() {
                                 <div id="selected-contacts">
                                 </div>
                             </div>
+                            <div class="required-info">
+                                <span>
+                                    <span class="required-star">*</span>
+                                    This field is required
+                                </span>
+                            </div>
                         </div>
 
                         <div class="right-side">
                             <div class="date-container">
                                 <span class="span-style">Due date <span class="required-star">*</span></span>
-                                <input onfocus="(this. type='date')" id="date-input" required placeholder="dd/mm/yyyy">
+                                <input  type='date' id="date-input"  placeholder="dd/mm/yyyy">
                                 <div class="error-message" id="date-error"></div>
                             </div>
                             <div class="prio">
@@ -444,6 +450,12 @@ function addTaskHtml() {
                                 </div>
                                 <div id="subtask-lists"></div>
                                 <div class="create-buttons">
+                                    <div class="required-info-responsive">
+                                        <span>
+                                            <span class="required-star">*</span>
+                                            This field is required
+                                        </span>
+                                    </div>
                                     <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25"
                                             height="24" viewBox="0 0 25 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -452,15 +464,15 @@ function addTaskHtml() {
                                                 stroke="#2A3647" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round" />
                                         </svg>
-
                                     </button>
-                                    <button onsubmit="getValues()" type="submit" id="create-btn">Create Task <img
+                                    <button onclick="submitForm()"  type="button" id="create-btn">Create Task<img
                                             src="./assets/img/check.svg" alt=""></button>
                                 </div>
                             </div>
 
 
                         </div>
+                        <div class="bottom"></div>
 
                     </div>
 
