@@ -446,6 +446,15 @@ body {
         left: 100%;
     }
 }
+.color-my-back-edit-card{
+    display: none;
+    position: absolute;
+    width: calc(100% + 232px);
+    height: 100vh;
+    z-index: 2;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
 .left-side-edit-card{
     display: flex;
     flex-direction: column;
