@@ -78,11 +78,12 @@ function submitForm() {
 function sendFormular(tasks) {
     taskId++;
     addedTasks.push(tasks);
-    addTaskToStorage();
-    addTaskIdToStorage();
-    clearTasks();
-    newSubTasks = [];
-    location.href = "board.html"; // Geht noch nicht !!!!!!!!!!! 
+    addTaskToStorage().then(() => {
+        addTaskIdToStorage();
+        clearTasks();
+        newSubTasks = [];
+        location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
+    });
 }
 
 async function countTaskId() {
