@@ -515,6 +515,7 @@ svg:hover {
 .bottom {
     display: none;
     height: 200px;
+    width: 1px;
 }
 
 .required-info-responsive {
