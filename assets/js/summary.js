@@ -1,6 +1,5 @@
 function initSummary() {
     renderGreeting();
-    renderGreetingName();
     totalTasks();
 }
 
@@ -9,24 +8,25 @@ function renderGreeting() {
     let currentTime = new Date();
     let hours = currentTime.getHours();
     let greeting;
+    let greetingName = localStorage.getItem('login-name');
 
     if (hours < 12) {
-        greeting = 'Guten Morgen,';
+        greeting = 'Good Morning';
     } else if (hours < 18) {
-        greeting = 'Guten Tag,';
+        greeting = 'Good afternoon';
     } else {
-        greeting = 'Guten Abend,';
+        greeting = 'Good evening';
     }
-
-    document.getElementById('greeting-daytime').innerHTML = greeting;
+    
+    if (greetingName === 'Guest') {
+        document.getElementById('greeting-daytime').innerHTML = greeting;
+        document.getElementById('greeting-name').innerHTML = '';
+    } 
+    else {
+        document.getElementById('greeting-daytime').innerHTML = greeting + ',';
+        document.getElementById('greeting-name').innerHTML = greetingName;
+    }
 }
-
-
-function renderGreetingName() {
-    let greetingName = localStorage.getItem('login-name');
-    document.getElementById('greeting-name').innerHTML = greetingName;
-}
-
 
 // ----------------- Summary Calculation ---------------
 function totalTasks() {                                                       
@@ -34,7 +34,7 @@ function totalTasks() {
     let totalInBoard = document.getElementById('total-tasks');
     totalInBoard.textContent = total;
 }
-    getTaskStorage().then(() => {                                   // Bei Auslagerung in eigene Funktion -> Fehlermeldung
+    getTaskStorage().then(() => {                                  
     totalTasks();
     urgentTasks();
     updateSummary()
@@ -45,7 +45,7 @@ function totalTasks() {
 function urgentTasks() {    
     let taskContainer = 0;                                                    
     for (let i = 0; i < addedTasks.length; i++) {
-        if (addedTasks[i].prio === 'Urgent') {                      // prio
+        if (addedTasks[i].prio === 'Urgent') {                      
             taskContainer++;
         }
     }
@@ -54,7 +54,6 @@ function urgentTasks() {
 }
 
 
-//Version 4:
 function updateSummary() {
     let taskCounts = {
         'in-progress': 0,

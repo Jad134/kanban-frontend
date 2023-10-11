@@ -75,15 +75,14 @@ function submitForm() {
     }
 }
 
-function sendFormular(tasks) {
-    //taskId++;
+async function sendFormular(tasks) {
+   //taskId++;
     addedTasks.push(tasks);
-    addTaskToStorage().then(() => {
-        addTaskIdToStorage();
-        clearTasks();
-        newSubTasks = [];
-        location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
-    });
+    await addTaskToStorage();
+    await addTaskIdToStorage();
+    clearTasks();
+    newSubTasks = [];
+    location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
 }
 
 //async function countTaskId() {
@@ -96,7 +95,7 @@ function sendFormular(tasks) {
 
 
 async function addTaskIdToStorage() {
-    setItem('taskid', taskId);
+    await setItem('taskid', taskId);
 }
 
 async function loadUserDataFromRemote() {
