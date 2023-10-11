@@ -18,7 +18,7 @@ async function initBoard() {
         loadTasksForBoard(i);
     }
 
-    countTaskId(); // Muss hier ausgeführt werden, sonst funtkioniert die id im Board nicht (Jad)
+    //countTaskId(); // Muss hier ausgeführt werden, sonst funtkioniert die id im Board nicht (Jad)
 }
 
 

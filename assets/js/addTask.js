@@ -3,14 +3,14 @@ let lastClickedPrio = null;
 let newSubTasks = [];
 let assignedContact = [];
 let userData = [];
-let taskId;
+let taskId = Date.now() + Math.random();
 //let subId = 0;
 
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
-    countTaskId();
-    taskId = 0;
+    //countTaskId();
+    //taskId = 0;
 }
 
 function ChangeButtonColor(buttonId, imgId) {
@@ -50,7 +50,7 @@ function getValues() {
     let categoryText = category.options[category.selectedIndex].text;
     //let subtask = document.getElementById('subtask-input');
     let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
-    let taskIdCounter = taskId;
+    //let taskIdCounter = taskId;
 
     let tasks = {
         "id": taskId,
@@ -76,7 +76,7 @@ function submitForm() {
 }
 
 function sendFormular(tasks) {
-    taskId++;
+    //taskId++;
     addedTasks.push(tasks);
     addTaskToStorage().then(() => {
         addTaskIdToStorage();
@@ -86,13 +86,13 @@ function sendFormular(tasks) {
     });
 }
 
-async function countTaskId() {
-    taskId = await getItem('taskid');
-    taskId = JSON.parse(taskId['data']['value']);
+//async function countTaskId() {
+    //taskId = await getItem('taskid');
+  //  taskId = JSON.parse(taskId['data']['value']);
 
-    setItem('taskid', taskId);
-    console.log(taskId);
-}
+  //  setItem('taskid', taskId);
+  //  console.log(taskId);
+//}
 
 
 async function addTaskIdToStorage() {
