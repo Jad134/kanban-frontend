@@ -428,9 +428,9 @@ input:focus::placeholder {
     .padding-top {
         padding-top: 5px;
     }
-    .login {
+    /* .login {
         padding-top: 3vh;
-    }
+    } */
 }
 
 

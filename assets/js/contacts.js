@@ -125,7 +125,10 @@ function deMarkMyContact() {
 async function hideEditCard(){
   let hideEditCard = document.getElementById('edit-card');
   let overview = document.getElementById('render-my-edit-card');
+  let backgroundColor = document.getElementById('color-my-back-edit-card');
 
+  backgroundColor.style.display = 'none';
+  backgroundColor.style.backgroundColor = 'transparent';
   hideEditCard.classList.add('hide-edit-card');
   
   hideEditCard.addEventListener('animationend', () => {
@@ -134,16 +137,24 @@ async function hideEditCard(){
     deactivateOverflow.classList.remove("hide-my-scrolls");
   }, { once: true })
 }
+function styleAboutEditCard(){
+  let deactivateOverflow = document.body;
+  let backgroundColor = document.getElementById('color-my-back-edit-card');
+  deactivateOverflow.classList.add("hide-my-scrolls");
+  backgroundColor.style.display = 'flex';
+  setTimeout(function() {
+    backgroundColor.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+  }, 100);
+}
 function editContact(i) {
+  styleAboutEditCard();
   let editCard = document.getElementById('render-my-edit-card');
   let setLetters = getFirstLettersForOverview(i, contacts);
   let editContact = contacts[i];
-  let deactivateOverflow = document.body;
+
   let editName = editContact['name'];
   let editPhone = editContact['phone-number'];
-  let editEmail = editContact['email'];
-
-  deactivateOverflow.classList.add("hide-my-scrolls");
+  let editEmail = editContact['email'];  
 
   editCard.innerHTML += /*html*/ `
     <div id="edit-card" class="edit-card">
@@ -169,13 +180,13 @@ function editContact(i) {
         <div class="first-letters-and-inputs">
           <div class="first-letters-in-edit">${setLetters}</div>
           <div class="edit-informations">
-            <form onsubmit="return false" class="information-inputs">
+            <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
               <input id="name${i}" type="text" placeholder="Name" value='${editName}' required>
-              <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}'>
-              <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}'>
+              <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}' required>
+              <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}' pattern="[0-9]+" required>
               <div class="dele-and-save-buttons">
                 <button onclick="deleteContact(${i})" type="button">delete</button>
-                <button onclick="submitForm(${i})" type="submit">save</button>
+                <button type="submit">save</button>
               </div>
             </form>
           </div>
@@ -183,25 +194,8 @@ function editContact(i) {
       </div>
     </div>
   `;
-}
-function submitForm(i){
-  if (validateForm(i)) {
-    saveEditContact(i); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
-    return true; // Das Formular wird abgesendet
-  } else {
-    return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
-  }
-}
-function validateForm(i){
-  let nameInput = document.getElementById(`name${i}`);
-  let emailInput = document.getElementById(`email${i}`);
-  let phoneInput = document.getElementById(`phone${i}`);
-
-    
-    if (nameInput.type !== 'text' || emailInput.type !== 'email' || phoneInput.type !== 'tel') {
-        alert('Die Felder haben nicht den richtigen Typ!');
-      return false;
-    } return true ;
+  let zIndexEditCard = document.getElementById('edit-card');
+  zIndexEditCard.style.zIndex = '3';
 }
 async function saveEditContact(i){
   let editContact = contacts[i];

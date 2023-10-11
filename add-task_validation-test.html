@@ -5,7 +5,7 @@
     <script src="./assets/js/contacts.js"></script>
     <script src="./assets/js/login-status.js"></script>
     <script src="/assets/js/storage.js"></script>
-    <script src="./assets/js/addTask.js"></script>
+    <script src="./assets/js/addTask_validation-test.js"></script>
     <link rel="stylesheet" href="assets\css\header.css">
     <link rel="stylesheet" href="assets\css\sidebar.css">
     <script src="assets\js\w3-include.js"></script>
@@ -27,7 +27,7 @@
                 <div>
                     <h1>Add Task</h1>
                 </div>
-                <form novalidate >
+                <form onsubmit="getValues(); return false">
                     <div class="left-right-container">
                         <div class="left-side">
 
@@ -38,7 +38,7 @@
                             </div>
                             <div class="description">
                                 <span class="span-style">Description</span>
-                                <textarea required placeholder="Enter a Description" name="" id="description-textarea"
+                                <textarea placeholder="Enter a Description" name="" id="description-textarea"
                                     cols="20" rows="10"></textarea>
                                 <div class="error-message" id="description-error"></div>
                             </div>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="required-info">
-                                <span>
+                                <span >
                                     <span class="required-star">*</span>
                                     This field is required
                                 </span>
@@ -61,11 +61,7 @@
                         <div class="right-side">
                             <div class="date-container">
                                 <span class="span-style">Due date <span class="required-star">*</span></span>
-<<<<<<< HEAD
-                                <input  type='date' id="date-input"  placeholder="dd/mm/yyyy">
-=======
-                                <input onfocus="(this. type='date')" id="date-input" placeholder="dd/mm/yyyy">
->>>>>>> d510429b2a3e409c5f338dfd7b75d9b4a40a4026
+                                <input onfocus="(this. type='date')" id="date-input"  placeholder="dd/mm/yyyy" required>
                                 <div class="error-message" id="date-error"></div>
                             </div>
                             <div class="prio">
@@ -87,7 +83,7 @@
                             </div>
                             <div class="category-container">
                                 <span class="span-style">Category <span class="required-star">*</span></span>
-                                <select name="Select contacts to assign" id="select-category">
+                                <select name="Select contacts to assign" id="select-category" required>
                                     <option value="" disabled selected hidden>Select task category</option>
                                     <option value="1">Technical Task</option>
                                     <option value="2">User Story</option>
@@ -118,8 +114,10 @@
                                                 stroke-linejoin="round" />
                                         </svg>
                                     </button>
-                                    <button onclick="submitForm()"  type="button" id="create-btn">Create Task<img
-                                            src="./assets/img/check.svg" alt=""></button>
+
+<!--                                     <button onclick="submitForm()" type="button" id="create-btn">Create Task<img src="./assets/img/check.svg" alt=""></button>
+ -->                                    <button type="submit" id="create-btn">Create Task<img src="./assets/img/check.svg" alt=""></button>
+
                                 </div>
                             </div>
 
