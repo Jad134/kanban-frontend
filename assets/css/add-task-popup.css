@@ -22,6 +22,7 @@ body {
     gap: 16px;
     border-right: 1px solid lightgray;
     padding-right: 24px;
+    height: 460px;
 }
 
 .description {
@@ -352,7 +353,6 @@ h1 {
     display: flex;
     justify-content: end;
     gap: 8px;
-    margin-top: 80px;
     padding-bottom: 8px;
 }
 
@@ -499,7 +499,7 @@ svg:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     min-height: 80px;
 }
 
