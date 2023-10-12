@@ -303,8 +303,14 @@ function handleEnterKeyPress(event, action, i) {
 
 function renameSubTask(i) {
     let editSubTask = document.getElementById(`edit-task-input${i}`).value;
+
+    let newSubtask = {
+        "subtitle": editSubTask,
+        "subdone": false
+    }
+
     if (editSubTask !== '') {
-        newSubTasks.push(editSubTask);
+        newSubTasks.push(newSubtask);
     }
     deleteSubTask(i);
     addSubTask();

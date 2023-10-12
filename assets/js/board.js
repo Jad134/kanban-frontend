@@ -396,8 +396,7 @@ function addTaskHtml() {
     return `
    
     <div class="main-content">
-        <div class="preload-header" w3-include-html="assets\html-templates\header.html"></div>
-
+        
         <div class="align-content">
             <div>
                 <div>
