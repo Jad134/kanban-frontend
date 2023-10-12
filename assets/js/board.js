@@ -86,6 +86,13 @@ function loadPrio(id, prio) {
 }
 
 
+function loadPrioForSingleTask(id, prio) {
+    if (prio !== '') {
+        document.getElementById(`open-task-prio-container`).innerHTML += renderPrioForSingleTask(prio);
+    } 
+}
+
+
 function getTaskFromArray() {
     clearBuckets();
 
@@ -136,7 +143,7 @@ function loadTask(id) {
     let categoryCssClass = categoryClassPicker(category);
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
-    let duedate = addedTasks[i]['duedate'];
+    let duedate = convertDate(i);
     let prio = addedTasks[i]['prio'];
     let assigned = addedTasks[i]['assigned'];
 
@@ -144,7 +151,16 @@ function loadTask(id) {
     document.getElementById('slider-container').innerHTML = renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned);
 
     loadSubtasks(id);
+    loadPrioForSingleTask(id, prio);
     openSlider();
+}
+
+
+function convertDate(i) {
+    let originalDate = addedTasks[i]['duedate'];
+    let parts = originalDate.split('-');
+    let formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+    return formattedDate;
 }
 
 
@@ -294,6 +310,13 @@ function renderPrio(prio) {
 }
 
 
+function renderPrioForSingleTask(prio) {
+    return `
+        <img src="./assets/img/subtask-prio-${prio}.svg" alt="">
+    `;
+}
+
+
 function renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned) {
     return `
         <div id="slider" class="open-task-container">
@@ -301,7 +324,9 @@ function renderOpenTask(id, category, categoryCssClass, title, description, dued
             <div class="open-task-title">${title}</div>
             <div class="open-task-description">${description}</div>
             <div class="open-task-duedate">Due date: ${duedate}</div>
-            <div class="open-task-prio">Priority: ${prio}</div>
+            <div id="open-task-prio-container">
+                <div class="open-task-prio">Priority: ${prio}</div>
+            </div>
             <div class="open-task-assigned">Assigned To:<br />${assigned}</div>
             <div id="open-task-subtasks" class="open-task-subtask"></div>
             <div class="open-task-buttons">

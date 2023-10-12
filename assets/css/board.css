@@ -441,3 +441,9 @@ textarea {
     color: #FFFFFF;
     font-size: 12px;
 }
+
+#open-task-prio-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
