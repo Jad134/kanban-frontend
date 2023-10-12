@@ -167,7 +167,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding-left: 32px;
-    width: 350px;
+    width: 20vw;
     background-color: rgb(42, 54, 71);
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
@@ -197,6 +197,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: white;
+    width: 64vw;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
 }
@@ -407,9 +408,6 @@ body {
     font-size: 32px;
     box-shadow: 0 0 12px -5px rgba(0, 0, 0, 0.3);
 }
-.edit-card-main{
-
-}
 .seperator {
     width: 59px;
     height: 1px;
@@ -420,9 +418,9 @@ body {
 .edit-card{
     position: absolute;
     display: flex;
-    top: 16%;
+    top: calc(50% - 300px);
     left: 100%;
-    width: 1000px;
+    max-width: 90vw;
     height: 592px;
     background-color: transparent;
     animation: slideIn 500ms forwards;
@@ -432,7 +430,7 @@ body {
         left: 100%;
     }
     100% {
-        left: 14%;
+        left: 4vw;
     }
 }
 .hide-edit-card{
@@ -440,7 +438,7 @@ body {
 }
 @keyframes slideOut {
     0% {
-        left: 14%;
+        left: 4vw;
     }
     100% {
         left: 100%;
@@ -458,28 +456,29 @@ body {
 .left-side-edit-card{
     display: flex;
     flex-direction: column;
-    padding-top: 150px;
-    padding-left: 64px;
+    justify-content: center;
     background-color: #2A3647;
+    padding-left: 40px;
     color: white;
-    width: 220px;
+    width: 20vw;
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
 }
 .right-side-edit-card{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 64vw;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
     background-color: white;
 }
 .first-letters-and-inputs{
     display: flex;
-    margin-top: 120px;
+    align-items: center;
+    margin-top: 60px;
 }
 .edit-informations{
-    width: 200px;
+    min-width: 200px;
 }
 .information-inputs{
     display: flex;
@@ -489,11 +488,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 64px;
-    width: 64px;
+    min-height: 64px;
+    min-width: 64px;
     padding: 20px;
-    margin-right: 60px;
-    margin-left: 60px;
     background-color: lightgrey;
     border-radius: 50%;
     border: 2px solid white;
@@ -501,11 +498,20 @@ body {
     font-size: 32px;
     box-shadow: 0 0 12px -5px rgba(0, 0, 0, 0.3);
 }
+.container-for-first-letters-in-edit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 16vw;
+}
 .delete-contact-in-edit-card{
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: white;
     color: #000000;
+    width: 120px;
     border-radius: 16px;
     margin-right: 20px;
     border: 2px solid rgb(42, 54, 71);
@@ -530,7 +536,9 @@ body {
 .save-contact-in-edit-card{
     display: flex;
     align-items: center;
+    justify-content: center;
     color: white;
+    width: 120px;
     background-color: rgb(42, 54, 71);
     border-radius: 16px;
     border: 1px solid rgb(42, 54, 71);

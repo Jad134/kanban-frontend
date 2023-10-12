@@ -178,7 +178,9 @@ function editContact(i) {
           </svg>
         </div>
         <div class="first-letters-and-inputs">
-          <div class="first-letters-in-edit">${setLetters}</div>
+          <div class="container-for-first-letters-in-edit">
+            <div class="first-letters-in-edit">${setLetters}</div>
+          </div>
           <div class="edit-informations">
             <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
               <div class="contact-input-area-edit">
