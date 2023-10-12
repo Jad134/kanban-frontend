@@ -143,7 +143,7 @@ function styleAboutEditCard(){
   deactivateOverflow.classList.add("hide-my-scrolls");
   backgroundColor.style.display = 'flex';
   setTimeout(function() {
-    backgroundColor.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+    backgroundColor.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
   }, 100);
 }
 function editContact(i) {
@@ -181,12 +181,32 @@ function editContact(i) {
           <div class="first-letters-in-edit">${setLetters}</div>
           <div class="edit-informations">
             <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
-              <input id="name${i}" type="text" placeholder="Name" value='${editName}' required>
-              <input id="email${i}" type="email" placeholder="E-Mail" value='${editEmail}' required>
-              <input id="phone${i}" type="tel" placeholder="Phone" value='${editPhone}' pattern="[0-9]+" required>
-              <div class="dele-and-save-buttons">
-                <button onclick="deleteContact(${i})" type="button">delete</button>
-                <button type="submit">save</button>
+              <div class="contact-input-area-edit">
+                <input id="name${i}" class="style-of-input-fields" type="text" placeholder="Name" value='${editName}' required>
+                <img src="./assets/img/person.png" alt="Name">
+              </div>
+              <div class="contact-input-area-edit">
+                <input id="email${i}" class="style-of-input-fields" type="email" placeholder="E-Mail" value='${editEmail}' required>
+                <img src="./assets/img/mail.png" alt="E-Mail">
+              </div>
+              <div class="contact-input-area-edit">
+                <input id="phone${i}" class="style-of-input-fields" type="tel" placeholder="Phone" value='${editPhone}' pattern="[0-9]+" required>
+                <img src="./assets/img/call.png" alt="Phone">
+              </div>
+              <div class="cancel-and-edit-contact-btn">
+                <button onclick="deleteContact(${i})" type="button" class="delete-contact-in-edit-card">
+                  <p>delete</p>                  
+                  <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path id="change-color-delete-img" d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 
+                  11.9998L7.00659 6.75684L12.2486 11.9998Z" stroke="#2A3647" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>                  
+                </button>
+                <button class="save-contact-in-edit-card" type="submit">
+                  <p>save</p>
+                  <img src="./assets/img/check.svg" alt="">
+                </button>
               </div>
             </form>
           </div>
