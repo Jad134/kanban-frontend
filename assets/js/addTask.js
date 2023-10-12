@@ -11,7 +11,6 @@ function init() {
     getTaskStorage();
     //countTaskId();
     //taskId = 0;
-    console.log(taskId)
 }
 
 function ChangeButtonColor(buttonId, imgId) {
