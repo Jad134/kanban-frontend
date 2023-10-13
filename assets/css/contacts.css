@@ -104,6 +104,7 @@ body {
     background-color: rgba(255, 255, 255, 0.0);
     color: #000000;
     text-decoration: none;
+    font-size: 18px;
 }
 
 .contact-input-area input:focus {
@@ -575,6 +576,7 @@ body {
     border-style: none;
     flex: 1;
     text-decoration: none;
+    font-size: 18px;
 }
 .style-of-input-fields:focus{
     outline: none;
