@@ -170,7 +170,10 @@ function renderSubTask(newTasks, i) {
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo');
     let overlayContainer = document.getElementById('contact-overlay');
+    let requiredInfo = document.getElementById('required-info');
 
+    requiredInfo.classList.remove('d-flex');
+    requiredInfo.classList.add('d-none');
     overlayContainer.classList.remove('d-none');
     overlayContainer.classList.add('d-flex');
     onclick.style.backgroundImage = "url(./assets/img/arrow-up.svg)";
@@ -184,6 +187,10 @@ function openContactOverlay() {
 function closeContactOverlay() {
     let overlayContainer = document.getElementById('contact-overlay');
     let onclick = document.getElementById('assignedTo');
+    let requiredInfo = document.getElementById('required-info');
+
+    requiredInfo.classList.remove('d-none');
+    requiredInfo.classList.add('d-flex');
     overlayContainer.classList.remove('d-flex');
     overlayContainer.classList.add('d-none');
     onclick.style.backgroundImage = "url(./assets/img/arrow-assign-down.svg)";
