@@ -193,6 +193,12 @@ input:focus::placeholder {
 
 /* ---- end of login-section ---- */
 
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -242,29 +248,23 @@ input:focus::placeholder {
 
 /* --- password toggle --- */
 
-/*.input-icons {
-    position: relative;
-}*/
-
 .pw-input {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    /*  width: 380px; */
-    width: clamp(12.5rem, -0.357rem + 64.29vw, 23.75rem);
+    width: clamp(12.6rem, -0.357rem + 64.29vw, 23.75rem);
     height: 40px;
     border-radius: 8px;
     border: 2px solid #A8A8A8;
     background-color: #FFFFFF;
     cursor: pointer;
-    padding-left: 10px;
+    padding-left: 11px;
+    padding-right: 1px;
     margin-bottom: 20px;
 }
 
 
 .pw-input input {
-    /*   width: 100%;
-    height: 38px; */
+    width: 100%;
     border: none;
     color: #000000;
     cursor: pointer;
@@ -290,7 +290,7 @@ input:focus::placeholder {
 }
 
 .toggle-password svg {
-    width: 22px;
+    width: clamp(1.375rem, 0.978rem + 1.98vw, 2.813rem);
 }
 
 .toggle-password-visibility:hover svg path {
