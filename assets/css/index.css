@@ -384,7 +384,7 @@ input:focus::placeholder {
     padding-right: 52px;
 }
 
-#responsive-overlay {
+/* #responsive-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -397,7 +397,7 @@ input:focus::placeholder {
     opacity: 1;
     transition: opacity 2s ease-in-out;
     z-index: 9999;
-  }
+  } */
 
 /* --------------------- media queries ------------------------------- */
 
