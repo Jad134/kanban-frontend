@@ -250,35 +250,50 @@ function getInitials(loginName) {
 }
 
 
-function clickPasswordField() {   // funktioniert jetzt mit allen 3 Feldern
-  let passwordField = document.activeElement; 
+function clickPasswordField() {                                        // funktioniert jetzt mit allen 3 Feldern
+  let passwordField = document.activeElement;
   let toggleImage = passwordField.closest('.pw-input').querySelector('.toggle-password');
-
   passwordField.removeAttribute('oninput');
   passwordField.setAttribute('onblur', 'clickOut()');
-
   toggleImage.innerHTML = renderVisibilitySvg();
   toggleImage.setAttribute('onclick', 'togglePasswordImage()');
   toggleImage.classList.add('toggle-password-visibility');
 }
-let passwordFields = document.querySelectorAll('.passwords');
-passwordFields.forEach((passwordField) => {
+  let passwordFields = document.querySelectorAll('.passwords');
+  passwordFields.forEach((passwordField) => {
   passwordField.addEventListener('input', clickPasswordField);
-});  
+});
 
 
+function togglePasswordImage() {                                       // aktuell nur für login korrekt, bei signup werden beide Inputfelder aufgerufen
+  togglePasswordField('password-login', 'toggle-password-1');
+  togglePasswordField('password-signup', 'toggle-password-2');
+  togglePasswordField('confirm-password', 'toggle-password-3');
+}
 
-function clickOut() {           // funktioniert noch nicht für alle 3
-  let passwordField = document.activeElement;
-  let toggleImage;
-  if (passwordField.id === 'password-signup') {
-    toggleImage = document.getElementById('toggle-password-1');
-  } else if (passwordField.id === 'password-login') {
-    toggleImage = document.getElementById('toggle-password-2');
-  } else if (passwordField.id === 'confirm-password') {
-    toggleImage = document.getElementById('toggle-password-3');
+
+function togglePasswordField(passwordFieldId, toggleId) {
+  const passwordField = document.getElementById(passwordFieldId);
+  const togglePassword = document.getElementById(toggleId);
+  if (passwordField && togglePassword) {
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      togglePassword.innerHTML = renderVisibilityOffSvg();
+    } else {
+      passwordField.type = 'password';
+      togglePassword.innerHTML = renderVisibilitySvg();
+    }
   }
-  if (passwordField.value === '') {
+}
+
+
+function clickOut() {                                               // geht aktuell nur für login, für signup andere Lösung, da auf anderer "Seite" und dann Fehlermeldungen erscheinen
+  let passwordField = document.getElementById('password-login');
+  let toggleImage = document.getElementById('toggle-password-1');
+
+  if (passwordField.value == '') {
+    passwordField.setAttribute('oninput', 'clickPasswordField()');
+
     toggleImage.innerHTML = renderLockSvg();
     toggleImage.removeAttribute('onclick');
     toggleImage.classList.remove('toggle-password-visibility');
@@ -286,7 +301,7 @@ function clickOut() {           // funktioniert noch nicht für alle 3
 }
 
 
-function togglePasswordImage() {        
+/* function clickOut() {                                      // funktioniert nicht für alle 3, querySelector funktioniert auch nicht, weil nicht direkt im DOM aufgerufen wird
   let passwordField = document.activeElement;
   let toggleImage;
   if (passwordField.id === 'password-login') {
@@ -296,100 +311,13 @@ function togglePasswordImage() {
   } else if (passwordField.id === 'confirm-password') {
     toggleImage = document.getElementById('toggle-password-3');
   }
-    if (passwordField.type === 'password') {
-      passwordField.type = 'text';
-      toggleImage.innerHTML = renderVisibilityOffSvg();
-    } else {
-      passwordField.type = 'password';
-      toggleImage.innerHTML = renderVisibilitySvg();        // <- Fehlermeldung in dieser Zeile
-    }
-  }
-
-/* 
-function togglePasswordImage(passwordField) {
-  const toggleId = passwordField.getAttribute('data-toggle');
-  const togglePassword = document.querySelector(`[data-toggle="${toggleId}"]`);
-
-  if (passwordField.type === 'password') {
-    passwordField.type = 'text';
-    togglePassword.innerHTML = renderVisibilityOffSvg();
-  } else {
-    passwordField.type = 'password';
-    togglePassword.innerHTML = renderVisibilitySvg();
-  }
-}
- */
-
-/* function togglePasswordImage() {
-  let passwordField = document.activeElement;
-  let togglePassword;
-
-  if (passwordField.id === 'password-login') {
-    togglePassword = document.getElementById('toggle-password-1');
-  }
-  if (passwordField.id === 'password-signup') {
-    togglePassword = document.getElementById('toggle-password-2');
-  }
-  if (passwordField.id === 'confirm-password') {
-    togglePassword = document.getElementById('toggle-password-3');
-  }
-  renderType(passwordField, togglePassword);
-}
-function renderType(passwordField, togglePassword) {
-  if (passwordField.type === 'password') {
-    passwordField.type = 'text';
-    togglePassword.innerHTML = renderVisibilityOffSvg();
-  } else {
-    passwordField.type = 'password';
-   togglePassword.innerHTML = renderVisibilitySvg();
-  }
-}
- */
-
-/* function togglePasswordImage() {
-  let passwordFields = document.querySelectorAll('.passwords');
-  let toggleImages = document.querySelectorAll('.toggle-password');
-
-  passwordFields.forEach((passwordField, index) => {
-    let toggleImage = toggleImages[index];
-
-    if (passwordField.type === 'password') {
-      passwordField.type = 'text';
-      toggleImage.innerHTML = renderVisibilityOffSvg();
-    } else {
-      passwordField.type = 'password';
-      toggleImage.innerHTML = renderVisibilitySvg();
-    }
-  });
-}  */
-
-/* function togglePasswordImage() {
-  let passwordInput = document.getElementById('user-password');
-  let togglePassword = document.getElementById('toggle-password');
-
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    togglePassword.innerHTML = renderVisibilityOffSvg();
-  } else {
-    passwordInput.type = 'password';
-    togglePassword.innerHTML = renderVisibilitySvg();
-  }
-} */
-
-
-/* function clickOut() {
-  let passwordField = document.getElementById('user-password');
-  let toggleImage = document.getElementById('toggle-password');
-
-  if (passwordField.value == '') {
-    passwordField.setAttribute('oninput', 'clickPasswordField()');
-
+  if (toggleImage) {
+  if (passwordField.value === '') {
     toggleImage.innerHTML = renderLockSvg();
     toggleImage.removeAttribute('onclick');
     toggleImage.classList.remove('toggle-password-visibility');
   }
-} */
-
+}} */
 
 // -------------------       HTML-Templates       --------------------
 function renderHtmlTemplate() {
