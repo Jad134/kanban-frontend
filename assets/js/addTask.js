@@ -409,7 +409,7 @@ function validateForm() {
 
     const fieldsToValidate = [
         { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
-        { id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
+        //{ id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
         { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
     ];
 
