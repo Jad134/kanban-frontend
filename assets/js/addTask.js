@@ -6,12 +6,14 @@ let userData = [];
 let taskId = Date.now() + Math.random();
 //let subId = 0;
 
+
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
     //countTaskId();
     //taskId = 0;
 }
+
 
 function ChangeButtonColor(buttonId, imgId) {
     let button = document.getElementById(buttonId);
@@ -29,6 +31,7 @@ function ChangeButtonColor(buttonId, imgId) {
     }
 }
 
+
 function resetButtons() {
     let buttons = document.querySelectorAll('.prio-buttons button');
     buttons.forEach(function (btn) {
@@ -40,6 +43,7 @@ function resetButtons() {
         imag.classList.remove('active');
     });
 }
+
 
 function getValues() {
     let bucket = "todo";
@@ -66,6 +70,7 @@ function getValues() {
     sendFormular(tasks);
 }
 
+
 function submitForm() {
     if (validateForm()) {
         getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
@@ -74,6 +79,7 @@ function submitForm() {
         return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
     }
 }
+
 
 async function sendFormular(tasks) {
    //taskId++;
@@ -98,6 +104,7 @@ async function addTaskIdToStorage() {
     await setItem('taskid', taskId);
 }
 
+
 async function loadUserDataFromRemote() {
     let newUserDataString = await getItem('users');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
@@ -120,9 +127,11 @@ async function getTaskStorage() {
     }
 }
 
+
 async function addTaskToStorage() {
     await setItem('tasks', JSON.stringify(addedTasks));
 }
+
 
 function addSubTask() {
     let subtaskContent = document.getElementById('subtask-lists');
@@ -148,6 +157,7 @@ function addSubTask() {
 
 }
 
+
 function renderSubTask(newTasks, i) {
     return /*html*/`
     <div id="sublist-container${i}" class="sublist-container">
@@ -167,6 +177,7 @@ function renderSubTask(newTasks, i) {
 
 }
 
+
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo');
     let overlayContainer = document.getElementById('contact-overlay');
@@ -184,6 +195,7 @@ function openContactOverlay() {
     onclick.onclick = closeContactOverlay;
 }
 
+
 function closeContactOverlay() {
     let overlayContainer = document.getElementById('contact-overlay');
     let onclick = document.getElementById('assignedTo');
@@ -198,6 +210,7 @@ function closeContactOverlay() {
     document.removeEventListener('click', closeOnClickOutside);
     onclick.onclick = openContactOverlay;
 }
+
 
 function loadContacts() {
     let overlayContainer = document.getElementById('contact-overlay');
@@ -215,6 +228,7 @@ function loadContacts() {
     }
 }
 
+
 function renderContacts(name, i, userInitial) {
     return /*html*/`
     <label class="contact-label" for="check-contact${i}">
@@ -228,6 +242,7 @@ function renderContacts(name, i, userInitial) {
     </label>        
     `;
 }
+
 
 function setCheckbox(checkbox, name, i) {
     let container = checkbox.closest('.contact-label');
@@ -245,6 +260,7 @@ function setCheckbox(checkbox, name, i) {
     }
 }
 
+
 function renderInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
     let userInitial = userData[i]['initials'];
@@ -255,6 +271,7 @@ function renderInitialsimg(i) {
     let initialDiv = document.getElementById(`initials${i}`)
     initialDiv.style.backgroundColor = nameColor;
 }
+
 
 function removeInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
@@ -271,6 +288,7 @@ function pushContact(name) {
     console.log(assignedContact);
 }
 
+
 function spliceContact(name) {
     // Suche den Index des Kontakts im assignedContact-Array
     let indexToRemove = assignedContact.indexOf(name);
@@ -280,6 +298,7 @@ function spliceContact(name) {
         console.log(assignedContact);
     }
 }
+
 
 function removeCheckboxStyle() {
     let overlayContainer = document.getElementById('contact-overlay');
@@ -297,6 +316,7 @@ function closeOnClickOutside(event) {
     }
 }
 
+
 function handleEnterKeyPress(event, action, i) {
     if (event.key === 'Enter') {
         event.preventDefault();
@@ -307,6 +327,7 @@ function handleEnterKeyPress(event, action, i) {
         }
     }
 }
+
 
 function renameSubTask(i) {
     let editSubTask = document.getElementById(`edit-task-input${i}`).value;
@@ -322,6 +343,7 @@ function renameSubTask(i) {
     deleteSubTask(i);
     addSubTask();
 }
+
 
 function editSubTask(i, currenTask) {
     let subtaskList = document.getElementById(`subtask-list${i}`);
@@ -344,6 +366,7 @@ function deleteSubTask(i) {
     newSubTasks.splice(i, 1);
     addSubTask();
 }
+
 
 function clearTasks() {
     let title = document.getElementById('title-input');
@@ -368,6 +391,7 @@ function clearTasks() {
 
 }
 
+
 function removeButtonColor() {
     let buttons = document.querySelectorAll('.prio-buttons button');
     buttons.forEach(function (btn,) {
@@ -378,6 +402,7 @@ function removeButtonColor() {
         imag.classList.remove('active');
     });
 }
+
 
 function validateForm() {
     let isValid = true;
@@ -404,6 +429,7 @@ function validateForm() {
 
     return isValid;
 }
+
 
 function findContact() {
     const searchInput = document.getElementById('assignedTo');
