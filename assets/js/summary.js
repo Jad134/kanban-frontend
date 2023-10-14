@@ -19,7 +19,7 @@ function renderGreeting() {
     }
 
     if (greetingName === 'Guest') {
-        document.getElementById('greeting-daytime').innerHTML = greeting;
+        document.getElementById('greeting-daytime').innerHTML = greeting + '!';
         document.getElementById('greeting-name').innerHTML = '';
     }
     else {

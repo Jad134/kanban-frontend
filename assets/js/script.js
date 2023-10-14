@@ -21,6 +21,32 @@ async function loadUserDataFromRemote() {
 }
 
 
+/* document.addEventListener("DOMContentLoaded", function () {
+  const logo = document.getElementById('logo');
+  const main = document.getElementById('main-container');
+  const respLogo = document.getElementById('responsive-logo');
+  const overlay = document.getElementById('responsive-overlay');
+  
+  setTimeout(() => {
+    if (window.innerWidth <= 1000) {
+      overlay.style.display = "block";
+      main.style.display ="none"; 
+     
+    } else {
+      overlay.style.display = "none";
+      logo.style.position = "absolute";
+      logo.style.top = "130px";
+      logo.style.left = "130px";
+      logo.style.transform = "translate(-50%, -50%) scale(0.5)";
+      logo.style.transition = "0.7s ease-out";
+      main.style.transition = "opacity 0.7s ease-in";
+      main.style.opacity = "1";
+      main.style.display ="block"; 
+    }
+  }, 500);
+}); */
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById('logo');
   const main = document.querySelector('.main-container')
@@ -33,8 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     main.style.transition = "opacity 0.7s ease-in";
     main.style.opacity = "1";
   }, 500);
-});
-
+}); 
 
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
@@ -46,7 +71,7 @@ function renderSignUp() {
   let signUpArea = document.getElementById('sign-up-area');
   signUpArea.style.display = 'none';
   let topArea = document.getElementById('top-area');
-  topArea.style.height = '130px';
+  topArea.style.height = '120px';
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML = '';
   middleContent.innerHTML += signUpHtmlTemplate();
@@ -291,6 +316,8 @@ function clickOut() {                                               // geht aktu
   let passwordField = document.getElementById('password-login');
   let toggleImage = document.getElementById('toggle-password-1');
 
+  
+ /*  if (passwordField && toggleImage) { */
   if (passwordField.value == '') {
     passwordField.setAttribute('oninput', 'clickPasswordField()');
 
@@ -381,10 +408,15 @@ function renderLockSvg() {
 function signUpHtmlTemplate() {
   return /*html*/`
            <div class="border-radius-30 login">
-               <a href="index.html">
+            <div class="arrow-position">
+                  <a href="index.html">
                    <img src="assets/img/arrow-left.svg" class="arrow-left" alt="left arrow">
-               </a>
-             <h1 class="responsive-padding">Sign up</h1>
+                  </a>
+                  <h1 class="responsive-padding">Sign up</h1>
+              </div>
+              
+         
+             
              <div class="underline border-radius-8"></div>
              <form class="signup-form" onsubmit="checkCheckbox(); return false">
 
@@ -419,6 +451,7 @@ function signUpHtmlTemplate() {
                </div>
              </form>
            </div>
+       
          </div>
    `;
 }
