@@ -17,28 +17,28 @@ function ChangeButtonColor(buttonId, imgId) {
     let button = document.getElementById(buttonId);
     let img = document.getElementById(imgId);
 
-
     if (button.classList.contains('active')) {
         button.classList.remove('active');
         img.classList.remove('active');
         lastClickedPrio = null;
     } else {
-
-        let buttons = document.querySelectorAll('.prio-buttons button');
-        buttons.forEach(function (btn) {
-            btn.classList.remove('active');
-        });
-
-        let images = document.querySelectorAll('.prio-buttons button img');
-        images.forEach(function (imag) {
-            imag.classList.remove('active');
-        });
-
+        resetButtons();
         lastClickedPrio = button;
-
         button.classList.add('active');
         img.classList.add('active');
     }
+}
+
+function resetButtons() {
+    let buttons = document.querySelectorAll('.prio-buttons button');
+    buttons.forEach(function (btn) {
+        btn.classList.remove('active');
+    });
+
+    let images = document.querySelectorAll('.prio-buttons button img');
+    images.forEach(function (imag) {
+        imag.classList.remove('active');
+    });
 }
 
 function getValues() {
