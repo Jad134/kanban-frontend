@@ -14,7 +14,12 @@ function init() {
     //taskId = 0;
 }
 
-
+/**
+ * Change the Prio Button Color at onClick and activate only one button
+ * 
+ * @param {string} buttonId 
+ * @param {id} imgId 
+ */
 function ChangeButtonColor(buttonId, imgId) {
     let button = document.getElementById(buttonId);
     let img = document.getElementById(imgId);
@@ -31,7 +36,8 @@ function ChangeButtonColor(buttonId, imgId) {
     }
 }
 
-
+/**
+ * Reset the color of the buttons with an extra class names .active */
 function resetButtons() {
     let buttons = document.querySelectorAll('.prio-buttons button');
     buttons.forEach(function (btn) {
@@ -44,7 +50,9 @@ function resetButtons() {
     });
 }
 
-
+/**
+ * Use the values from the page and push them to an JSON array. Then starts a funciton which push the array to an remote storage
+ */
 function getValues() {
     let bucket = "todo";
     let title = document.getElementById('title-input');
@@ -70,7 +78,9 @@ function getValues() {
     sendFormular(tasks);
 }
 
-
+/**
+ * Controls the from validation for true or false to upload content
+ */
 function submitForm() {
     if (validateForm()) {
         getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
@@ -79,10 +89,49 @@ function submitForm() {
         return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
     }
 }
+/**
+ * Validates an input field and displays error messages if the field is empty.
+ * 
+ * @param {object} field  The field to be validated.
+ * @returns True if the field is valid, otherwise False.
+ */
+function validateField(field) {
+    const inputElement = document.getElementById(field.id);
+    const errorElement = document.getElementById(field.errorId);
+
+    if (inputElement.value.trim() === '') {
+        errorElement.textContent = field.errorMessage;
+        inputElement.style.border = '1px solid red';
+        return false;
+    } else {
+        errorElement.textContent = '';
+        inputElement.style.border = '';
+        return true;
+    }
+}
+/**
+ * Validates a form by checking each field in the list of fields to validate.
+ * 
+ * @returns True if all fields are valid, otherwise False. This is important for submitForm().
+ */
+function validateForm() {
+    let isValid = true;
+
+    const fieldsToValidate = [
+        { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
+        //{ id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
+        { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
+    ];
+
+    fieldsToValidate.forEach((field) => {
+        isValid = validateField(field) && isValid;
+    });
+
+    return isValid;
+}
 
 
 async function sendFormular(tasks) {
-   //taskId++;
     addedTasks.push(tasks);
     await addTaskToStorage();
     await addTaskIdToStorage();
@@ -92,11 +141,11 @@ async function sendFormular(tasks) {
 }
 
 //async function countTaskId() {
-    //taskId = await getItem('taskid');
-  //  taskId = JSON.parse(taskId['data']['value']);
+//taskId = await getItem('taskid');
+//  taskId = JSON.parse(taskId['data']['value']);
 
-  //  setItem('taskid', taskId);
-  //  console.log(taskId);
+//  setItem('taskid', taskId);
+//  console.log(taskId);
 //}
 
 
@@ -116,6 +165,9 @@ async function loadUserDataFromRemote() {
     findContact();
 }
 
+/**
+ * Get the existing tasks.
+ */
 async function getTaskStorage() {
     addedTasks = [];
     let currentTasks = await getItem('tasks');
@@ -141,11 +193,9 @@ function addSubTask() {
         "subtitle": newTasksText,
         "subdone": false
     }
-
     if (newTasksText !== '') {
         newSubTasks.push(newSubtask);
     }
-
     subtaskContent.innerHTML = '';
 
     for (let i = 0; i < newSubTasks.length; i++) {
@@ -177,7 +227,9 @@ function renderSubTask(newTasks, i) {
 
 }
 
-
+/**
+ * Open the Contacts to add them to a task. The container is only invisible with display: none;
+ */
 function openContactOverlay() {
     let onclick = document.getElementById('assignedTo');
     let overlayContainer = document.getElementById('contact-overlay');
@@ -243,7 +295,13 @@ function renderContacts(name, i, userInitial) {
     `;
 }
 
-
+/**
+ *Changes the status of a checkbox and updates the appearance of its contact elements.
+ * 
+ * @param {HTMLInputElement} checkbox 
+ * @param {string} name 
+ * @param {number} i 
+ */
 function setCheckbox(checkbox, name, i) {
     let container = checkbox.closest('.contact-label');
     if (checkbox.checked) {
@@ -260,7 +318,11 @@ function setCheckbox(checkbox, name, i) {
     }
 }
 
-
+/**
+ * shows the circle with the initials from the selected contacts.
+ * 
+ * @param {number} i 
+ */
 function renderInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
     let userInitial = userData[i]['initials'];
@@ -288,7 +350,11 @@ function pushContact(name) {
     console.log(assignedContact);
 }
 
-
+/**
+ * delete contact with uncheck checkbox in setCheckbox(). 
+ * 
+ * @param {string} name 
+ */
 function spliceContact(name) {
     // Suche den Index des Kontakts im assignedContact-Array
     let indexToRemove = assignedContact.indexOf(name);
@@ -344,7 +410,11 @@ function renameSubTask(i) {
     addSubTask();
 }
 
-
+/**
+ * only for the style for editing the subtask.
+ * 
+ * @param {number} i 
+ */
 function editSubTask(i, currenTask) {
     let subtaskList = document.getElementById(`subtask-list${i}`);
     let editSubInput = document.getElementById(`edit-task-input${i}`);
@@ -367,7 +437,9 @@ function deleteSubTask(i) {
     addSubTask();
 }
 
-
+/**
+ * removes everything from the page
+ */
 function clearTasks() {
     let title = document.getElementById('title-input');
     let description = document.getElementById('description-textarea');
@@ -403,34 +475,9 @@ function removeButtonColor() {
     });
 }
 
-
-function validateForm() {
-    let isValid = true;
-
-    const fieldsToValidate = [
-        { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
-        //{ id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
-        { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
-    ];
-
-    fieldsToValidate.forEach((field) => {
-        const inputElement = document.getElementById(field.id);
-        const errorElement = document.getElementById(field.errorId);
-
-        if (inputElement.value.trim() === '') {
-            errorElement.textContent = field.errorMessage;
-            inputElement.style.border = '1px solid red';
-            isValid = false;
-        } else {
-            errorElement.textContent = '';
-            inputElement.style.border = '';
-        }
-    });
-
-    return isValid;
-}
-
-
+/**
+ * Search function to find Contacts in the List.
+ */
 function findContact() {
     const searchInput = document.getElementById('assignedTo');
     const contactCards = document.querySelectorAll('.add-task-contacts');
