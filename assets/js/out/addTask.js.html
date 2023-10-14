@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: addTask.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: addTask.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let addedTasks = [{}];
+let lastClickedPrio = null;
+let newSubTasks = [];
+let assignedContact = [];
+let userData = [];
+let taskId = Date.now() + Math.random();
+//let subId = 0;
+
+
+function init() {
+    loadUserDataFromRemote();
+    getTaskStorage();
+    //countTaskId();
+    //taskId = 0;
+}
+
+/**
+ * Change the Prio Button Color at onClick and activate only one button
+ * 
+ * @param {string} buttonId 
+ * @param {id} imgId 
+ */
+function ChangeButtonColor(buttonId, imgId) {
+    let button = document.getElementById(buttonId);
+    let img = document.getElementById(imgId);
+
+    if (button.classList.contains('active')) {
+        button.classList.remove('active');
+        img.classList.remove('active');
+        lastClickedPrio = null;
+    } else {
+        resetButtons();
+        lastClickedPrio = button;
+        button.classList.add('active');
+        img.classList.add('active');
+    }
+}
+
+/**
+ * Reset the color of the buttons with an extra class names .active */
+function resetButtons() {
+    let buttons = document.querySelectorAll('.prio-buttons button');
+    buttons.forEach(function (btn) {
+        btn.classList.remove('active');
+    });
+
+    let images = document.querySelectorAll('.prio-buttons button img');
+    images.forEach(function (imag) {
+        imag.classList.remove('active');
+    });
+}
+
+/**
+ * Use the values from the page and push them to an JSON array. Then starts a funciton which push the array to an remote storage
+ */
+function getValues() {
+    let bucket = "todo";
+    let title = document.getElementById('title-input');
+    let description = document.getElementById('description-textarea');
+    let date = document.getElementById('date-input');
+    let category = document.getElementById('select-category');
+    let categoryText = category.options[category.selectedIndex].text;
+    //let subtask = document.getElementById('subtask-input');
+    let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
+    //let taskIdCounter = taskId;
+
+    let tasks = {
+        "id": taskId,
+        "title": title.value,
+        "description": description.value,
+        "assigned": assignedContact,
+        "duedate": date.value,
+        "prio": prioValue,
+        "category": categoryText,
+        "subtask": newSubTasks,
+        "bucket": bucket,
+    };
+    sendFormular(tasks);
+}
+
+/**
+ * Controls the from validation for true or false to upload content
+ */
+function submitForm() {
+    if (validateForm()) {
+        getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
+        return true; // Das Formular wird abgesendet
+    } else {
+        return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
+    }
+}
+/**
+ * Validates an input field and displays error messages if the field is empty.
+ * 
+ * @param {object} field  The field to be validated.
+ * @returns True if the field is valid, otherwise False.
+ */
+function validateField(field) {
+    const inputElement = document.getElementById(field.id);
+    const errorElement = document.getElementById(field.errorId);
+
+    if (inputElement.value.trim() === '') {
+        errorElement.textContent = field.errorMessage;
+        inputElement.style.border = '1px solid red';
+        return false;
+    } else {
+        errorElement.textContent = '';
+        inputElement.style.border = '';
+        return true;
+    }
+}
+/**
+ * Validates a form by checking each field in the list of fields to validate.
+ * 
+ * @returns True if all fields are valid, otherwise False. This is important for submitForm().
+ */
+function validateForm() {
+    let isValid = true;
+
+    const fieldsToValidate = [
+        { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
+        //{ id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
+        { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
+    ];
+
+    fieldsToValidate.forEach((field) => {
+        isValid = validateField(field) &amp;&amp; isValid;
+    });
+
+    return isValid;
+}
+
+
+async function sendFormular(tasks) {
+    addedTasks.push(tasks);
+    await addTaskToStorage();
+    await addTaskIdToStorage();
+    clearTasks();
+    newSubTasks = [];
+    location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
+}
+
+//async function countTaskId() {
+//taskId = await getItem('taskid');
+//  taskId = JSON.parse(taskId['data']['value']);
+
+//  setItem('taskid', taskId);
+//  console.log(taskId);
+//}
+
+
+async function addTaskIdToStorage() {
+    await setItem('taskid', taskId);
+}
+
+
+async function loadUserDataFromRemote() {
+    let newUserDataString = await getItem('users');
+    newUserDataString = JSON.parse(newUserDataString['data']['value']);
+    for (let i = 0; i &lt; newUserDataString.length; i++) {
+        let users = newUserDataString[i];
+        userData.push(users);
+    }
+    loadContacts();
+    findContact();
+}
+
+/**
+ * Get the existing tasks.
+ */
+async function getTaskStorage() {
+    addedTasks = [];
+    let currentTasks = await getItem('tasks');
+    currentTasks = JSON.parse(currentTasks['data']['value']);
+
+    for (let i = 0; i &lt; currentTasks.length; i++) {
+        let tasks = currentTasks[i];
+        addedTasks.push(tasks);
+    }
+}
+
+
+async function addTaskToStorage() {
+    await setItem('tasks', JSON.stringify(addedTasks));
+}
+
+
+function addSubTask() {
+    let subtaskContent = document.getElementById('subtask-lists');
+    let newTasksText = document.getElementById('subtask-input').value;
+
+    let newSubtask = {
+        "subtitle": newTasksText,
+        "subdone": false
+    }
+    if (newTasksText !== '') {
+        newSubTasks.push(newSubtask);
+    }
+    subtaskContent.innerHTML = '';
+
+    for (let i = 0; i &lt; newSubTasks.length; i++) {
+        const newTasks = newSubTasks[i]['subtitle'];
+
+        subtaskContent.innerHTML += renderSubTask(newTasks, i);
+    }
+    document.getElementById('subtask-input').value = '';
+
+}
+
+
+function renderSubTask(newTasks, i) {
+    return /*html*/`
+    &lt;div id="sublist-container${i}" class="sublist-container">
+      &lt;ul id="subtask-list${i}" class="subtask-list">
+            &lt;li> &lt;span  id="show-current-subtask${i}">${newTasks}&lt;/span>&lt;/li>
+      &lt;/ul>
+        &lt;div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
+           &lt;input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${i})"  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
+           &lt;img onclick="renameSubTask(${i})" class="edit-done"  src="/assets/img/done.svg" alt="">
+           &lt;img onclick="deleteSubTask(${i})"  src="/assets/img/addtasktrash.svg" alt="">
+        &lt;/div>
+        &lt;div id="task-edit-buttons${i}" class="d-flex subtask-edit-buttons">
+          &lt;img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
+          &lt;img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
+        &lt;/div>
+    &lt;/div> `;
+
+}
+
+/**
+ * Open the Contacts to add them to a task. The container is only invisible with display: none;
+ */
+function openContactOverlay() {
+    let onclick = document.getElementById('assignedTo');
+    let overlayContainer = document.getElementById('contact-overlay');
+    let requiredInfo = document.getElementById('required-info');
+
+    requiredInfo.classList.remove('d-flex');
+    requiredInfo.classList.add('d-none');
+    overlayContainer.classList.remove('d-none');
+    overlayContainer.classList.add('d-flex');
+    onclick.style.backgroundImage = "url(./assets/img/arrow-up.svg)";
+
+    onclick.removeAttribute('onClick');
+
+    document.addEventListener('click', closeOnClickOutside);
+    onclick.onclick = closeContactOverlay;
+}
+
+
+function closeContactOverlay() {
+    let overlayContainer = document.getElementById('contact-overlay');
+    let onclick = document.getElementById('assignedTo');
+    let requiredInfo = document.getElementById('required-info');
+
+    requiredInfo.classList.remove('d-none');
+    requiredInfo.classList.add('d-flex');
+    overlayContainer.classList.remove('d-flex');
+    overlayContainer.classList.add('d-none');
+    onclick.style.backgroundImage = "url(./assets/img/arrow-assign-down.svg)";
+
+    document.removeEventListener('click', closeOnClickOutside);
+    onclick.onclick = openContactOverlay;
+}
+
+
+function loadContacts() {
+    let overlayContainer = document.getElementById('contact-overlay');
+
+    for (let i = 0; i &lt; userData.length; i++) {
+        let currentContact = userData[i];
+        let name = currentContact['name'];
+        let userInitial = userData[i]['initials'];
+        let nameColor = userData[i]['color'];
+
+        overlayContainer.innerHTML += renderContacts(name, i, userInitial)
+
+        let initialDiv = document.getElementById(`list-circle${i}`);
+        initialDiv.style.backgroundColor = nameColor;
+    }
+}
+
+
+function renderContacts(name, i, userInitial) {
+    return /*html*/`
+    &lt;label class="contact-label" for="check-contact${i}">
+        &lt;div class="current-contacts">
+            &lt;div class="add-task-contacts"> 
+               &lt;div id="list-circle${i}" class="contact-circle"> &lt;span>${userInitial}&lt;/span>&lt;/div>
+               &lt;span class="current-name">${name}&lt;/span>
+               &lt;input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
+            &lt;/div>
+        &lt;/div>
+    &lt;/label>        
+    `;
+}
+
+/**
+ *Changes the status of a checkbox and updates the appearance of its contact elements.
+ * 
+ * @param {HTMLInputElement} checkbox 
+ * @param {string} name 
+ * @param {number} i 
+ */
+function setCheckbox(checkbox, name, i) {
+    let container = checkbox.closest('.contact-label');
+    if (checkbox.checked) {
+        container.style.backgroundColor = 'rgb(9, 25, 49)';
+        container.style.color = 'white';
+        pushContact(name);
+        renderInitialsimg(i);
+
+    } else {
+        container.style.backgroundColor = '';
+        container.style.color = '';
+        spliceContact(name);
+        removeInitialsimg(i);
+    }
+}
+
+/**
+ * shows the circle with the initials from the selected contacts.
+ * 
+ * @param {number} i 
+ */
+function renderInitialsimg(i) {
+    let content = document.getElementById('selected-contacts');
+    let userInitial = userData[i]['initials'];
+    let nameColor = userData[i]['color'];
+
+    content.innerHTML += /*html*/`
+         &lt;div id="initials${i}" class="contact-circle"> &lt;span>${userInitial}&lt;/span>&lt;/div>`;
+    let initialDiv = document.getElementById(`initials${i}`)
+    initialDiv.style.backgroundColor = nameColor;
+}
+
+
+function removeInitialsimg(i) {
+    let content = document.getElementById('selected-contacts');
+    let divToRemove = document.getElementById(`initials${i}`);
+
+    if (divToRemove) {
+        content.removeChild(divToRemove);
+    }
+}
+
+
+function pushContact(name) {
+    assignedContact.push(name);
+    console.log(assignedContact);
+}
+
+/**
+ * delete contact with uncheck checkbox in setCheckbox(). 
+ * 
+ * @param {string} name 
+ */
+function spliceContact(name) {
+    // Suche den Index des Kontakts im assignedContact-Array
+    let indexToRemove = assignedContact.indexOf(name);
+
+    if (indexToRemove !== -1) {
+        assignedContact.splice(indexToRemove, 1);
+        console.log(assignedContact);
+    }
+}
+
+
+function removeCheckboxStyle() {
+    let overlayContainer = document.getElementById('contact-overlay');
+    overlayContainer.innerHTML = '';
+    loadContacts();
+}
+
+function closeOnClickOutside(event) {
+    let overlayContainer = document.getElementById('contact-overlay');
+    let assignedTo = document.getElementById('assignedTo');
+
+    // Überprüfung ob der Klick außerhalb des Popups liegt
+    if (!overlayContainer.contains(event.target) &amp;&amp; event.target !== assignedTo) {
+        closeContactOverlay();
+    }
+}
+
+
+function handleEnterKeyPress(event, action, i) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        if (action === 'subtask-input') {
+            addSubTask();
+        } else if (action === 'edit-Input') {
+            renameSubTask(i);
+        }
+    }
+}
+
+
+function renameSubTask(i) {
+    let editSubTask = document.getElementById(`edit-task-input${i}`).value;
+
+    let newSubtask = {
+        "subtitle": editSubTask,
+        "subdone": false
+    }
+
+    if (editSubTask !== '') {
+        newSubTasks.push(newSubtask);
+    }
+    deleteSubTask(i);
+    addSubTask();
+}
+
+/**
+ * only for the style for editing the subtask.
+ * 
+ * @param {number} i 
+ */
+function editSubTask(i, currenTask) {
+    let subtaskList = document.getElementById(`subtask-list${i}`);
+    let editSubInput = document.getElementById(`edit-task-input${i}`);
+    let taskbtn = document.getElementById(`task-edit-buttons${i}`);
+    let inputContainer = document.getElementById(`subtask-input-container${i}`);
+
+    inputContainer.classList.add('d-flex');
+    inputContainer.classList.remove('d-none');
+    taskbtn.classList.remove('d-flex');
+    taskbtn.classList.add('d-none');
+    subtaskList.classList.remove('subtask-list');
+    subtaskList.classList.add('d-none');
+    editSubInput.classList.remove('d-none');
+    editSubInput.value = `${currenTask}`;
+}
+
+
+function deleteSubTask(i) {
+    newSubTasks.splice(i, 1);
+    addSubTask();
+}
+
+/**
+ * removes everything from the page
+ */
+function clearTasks() {
+    let title = document.getElementById('title-input');
+    let description = document.getElementById('description-textarea');
+    let date = document.getElementById('date-input');
+    let sublist = document.querySelectorAll('.sublist-container');
+    let newTasks = document.getElementById('subtask-input');
+    let contactImg = document.getElementById('selected-contacts');
+
+    contactImg.innerHTML = "";
+    newTasks.value = "";
+    date.value = "";
+    description.value = "";
+    title.value = "";
+    sublist.forEach(function (element) {
+        element.innerHTML = '';
+    })
+    newSubTasks = [];
+    assignedContact = [];
+    removeCheckboxStyle();
+    removeButtonColor();
+
+}
+
+
+function removeButtonColor() {
+    let buttons = document.querySelectorAll('.prio-buttons button');
+    buttons.forEach(function (btn,) {
+        btn.classList.remove('active');
+    });
+    let images = document.querySelectorAll('.prio-buttons button img');
+    images.forEach(function (imag,) {
+        imag.classList.remove('active');
+    });
+}
+
+/**
+ * Search function to find Contacts in the List.
+ */
+function findContact() {
+    const searchInput = document.getElementById('assignedTo');
+    const contactCards = document.querySelectorAll('.add-task-contacts');
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value.toLowerCase();
+        contactCards.forEach((card) => {
+            const cardText = card.innerText.toLowerCase();
+            if (cardText.includes(searchText)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ChangeButtonColor">ChangeButtonColor</a></li><li><a href="global.html#clearTasks">clearTasks</a></li><li><a href="global.html#editSubTask">editSubTask</a></li><li><a href="global.html#findContact">findContact</a></li><li><a href="global.html#getTaskStorage">getTaskStorage</a></li><li><a href="global.html#getValues">getValues</a></li><li><a href="global.html#openContactOverlay">openContactOverlay</a></li><li><a href="global.html#renderInitialsimg">renderInitialsimg</a></li><li><a href="global.html#resetButtons">resetButtons</a></li><li><a href="global.html#setCheckbox">setCheckbox</a></li><li><a href="global.html#spliceContact">spliceContact</a></li><li><a href="global.html#submitForm">submitForm</a></li><li><a href="global.html#validateField">validateField</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 14 2023 20:59:33 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
