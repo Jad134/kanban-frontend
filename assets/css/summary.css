@@ -244,16 +244,57 @@
     display: block;
 }
 
+.responsive-greeting {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 100px;
+    left: 233px;
+    width: 100%;
+    height: 100%;
+    background-color: #F6F7F8;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+    justify-content: flex-start;
+}
 
+#responsive-greeting-daytime {
+    font-size: 47px;
+    font-weight: 500;
+    display: block;
+    height: 100px;
+    width: 300px;
+    color: #2A3647;
+    margin-top: 20vh;
+
+}
+
+#responsive-greeting-name {
+    font-size: 64px;
+    font-weight: 700;
+    color: #29ABE2;
+    display: block;
+    height: 100px;
+    width: 300px;
+    margin-top: 25px;
+}
 
 /* ------------ media queries ------------ */
 
 
-/*  @media (max-width: 1180px) {
-      .responsive-greeting {
-        display: block;
+@media (min-width: 1150px) and (max-width: 4000px) {
+    .responsive-greeting {
+        display: none;
     }
- } */
+}
+
+@media (max-width: 1150px) {
+    .greeting {
+        display: none;
+    }
+}
+
 
 @media (max-width: 950px) {
     .title {
@@ -273,10 +314,13 @@
         padding: 24px 0 24px 0px;
     }
 
-    .greeting,
-    #greeting-daytime,
-    #greeting-name {
-        display: none;
+    .responsive-greeting {
+        left: 0px;
+    }
+
+    #responsive-greeting-daytime,
+    #responsive-greeting-name {
+        margin-left: 30vw;
     }
 
     .disp-flex-column-start {
@@ -290,16 +334,16 @@
 
 
 @media (max-width: 650px) {
-
     .summary-container {
         width: clamp(18.75rem, 2.992rem + 78.79vw, 35rem);
         padding: 0;
     }
 
- .summary-task-box {
+    .summary-task-box {
         width: clamp(6.25rem, 2.129rem + 20.61vw, 10.5rem);
         height: clamp(6.25rem, 2.129rem + 20.61vw, 10.5rem);
-} 
+    }
+
     .summary-todo-box svg {
         width: clamp(3.125rem, 1.973rem + 5.76vw, 4.313rem);
     }
@@ -329,17 +373,20 @@
         font-size: clamp(1.25rem, -1.083rem + 11.67vw, 1.688rem);
     }
 
-    .summary-todos, .summary-tasks {
+    .summary-todos,
+    .summary-tasks {
         gap: clamp(0.625rem, -0.708rem + 6.67vw, 2rem);
         margin: 0;
     }
 
-    .summary-tasks, .summary-todos {
+    .summary-tasks,
+    .summary-todos {
         width: 103%;
     }
 }
 
 @media (max-width: 500px) {
-.title {
-    padding: 8px 0 24px 0px;
-}}
+    .title {
+        padding: 8px 0 24px 0px;
+    }
+}

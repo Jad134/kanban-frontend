@@ -3,7 +3,7 @@ function initSummary() {
     totalTasks();
 }
 
-
+/* 
 function renderGreeting() {
     let currentTime = new Date();
     let hours = currentTime.getHours();
@@ -26,6 +26,43 @@ function renderGreeting() {
         document.getElementById('greeting-daytime').innerHTML = greeting + ',';
         document.getElementById('greeting-name').innerHTML = greetingName;
     }
+} */
+
+function renderGreeting() {
+    let greetingName = localStorage.getItem('login-name');
+    let greetingDaytime = document.getElementById('greeting-daytime');
+    let greetingNameElement = document.getElementById('greeting-name');
+    let responsiveGreetingDaytime = document.getElementById('responsive-greeting-daytime');
+    let responsiveGreetingName = document.getElementById('responsive-greeting-name');
+    let greeting = getGreeting();
+
+    if (greetingName === 'Guest') {
+        greetingDaytime.textContent = greeting + '!';
+        greetingNameElement.textContent = '';
+        responsiveGreetingDaytime.textContent = greeting + '!';
+        responsiveGreetingName.textContent = '';
+    } else {
+        greetingDaytime.textContent = greeting + ',';
+        greetingNameElement.textContent = greetingName;
+        responsiveGreetingDaytime.textContent = greeting + ',';
+        responsiveGreetingName.textContent = greetingName;
+    }
+}
+
+
+function getGreeting() {
+    let currentTime = new Date();
+    let hours = currentTime.getHours();
+    let greeting;
+
+    if (hours < 12) {
+        greeting = 'Good Morning';
+    } else if (hours < 18) {
+        greeting = 'Good afternoon';
+    } else {
+        greeting = 'Good evening';
+    }
+    return greeting;
 }
 
 // ----------------- Summary Calculation ---------------
@@ -74,8 +111,8 @@ function calculateClosestDueDate(closestDueDate) {
 
 function nextDueDate() {
     let closestDueDate = null;
-   
     let today = new Date();
+
     if (!addedTasks) {                                      // Fehler abfangen
         return;
     } else if (addedTasks.length === 0) {                   
@@ -112,4 +149,42 @@ function updateSummary() {
     document.getElementById('await-feedback').textContent = taskCounts['await-feedback'];
 }
 
+
+function responsiveGreeting() {
+    let responsiveGreeting = document.querySelector('.responsive-greeting');
+    let greetingTime = document.getElementById('responsive-greeting-daytime');
+    let greetingName = document.getElementById('responsive-greeting-name');
+    
+    if (window.innerWidth < 1150) {
+        responsiveGreeting.style.opacity = 1;
+        greetingTime.style.opacity = 1;
+        greetingName.style.opacity = 1;
+        setTimeout(() => {
+            greetingTime.style.opacity = 0;
+            greetingName.style.opacity = 0;
+        }, 1000); 
+        setTimeout(() => {
+            responsiveGreeting.style.opacity = 0;
+        }, 1000); 
+    }
+}
+
+window.addEventListener('load', responsiveGreeting);
+
+/* function responsiveGreeting() {
+    let responsiveGreeting = document.querySelector('.responsive-greeting');
+    let greetingTime= document.getElementById('responsive-greeting-daytime');
+    let greetingName = document.getElementById('responsive-greeting-name');
+  
+    responsiveGreeting.style.opacity = 1;
+    greetingTime.style.opacity = 1;
+    greetingName.style.opacity = 1;
+    setTimeout(() => {
+        greetingTime.style.opacity = 0;
+        greetingName.style.opacity = 0;
+    }, 1500); 
+    setTimeout(() => {
+        responsiveGreeting.style.opacity = 0;
+    }, 1500); 
+} */
 

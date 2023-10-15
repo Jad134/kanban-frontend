@@ -16,9 +16,9 @@
     <script src="./assets/js/addTask.js"></script>
     <script src="./assets/js/summary.js"></script>
     <script src="./assets/js/board.js"></script>
-   
+
     <title>Join - Summary</title>
-    
+
 </head>
 
 <body onload="includeHTML(), initSummary()">
@@ -29,8 +29,14 @@
     <!-- right container -->
     <div class="main-cont">
 
-        <!-- template header -->    
+        <!-- template header -->
         <div class="preload-header" w3-include-html="./assets/html-templates/header.html"></div>
+
+        <!-- responsive greeting-->
+        <div class="responsive-greeting">
+                <span id="responsive-greeting-daytime"></span>
+                <span id="responsive-greeting-name"></span>
+        </div>
 
         <!-- title -->
         <div class="title">
@@ -145,10 +151,6 @@
                         <span id="greeting-daytime"></span>
                         <span id="greeting-name"></span>
                     </div>
-                 <!--    <div class="responsive-greeting" style="display:none">
-                        <span id="responsive-greeting-daytime"></span>
-                        <span id="responsive-greeting-name"></span>
-                    </div> -->
                 </div>
             </div>
         </div>
