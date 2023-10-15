@@ -260,6 +260,7 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
     .title-seperator {
         height: 1px;
         width: 59px;
@@ -267,6 +268,10 @@
 }
 
 @media (max-width: 800px) {
+    .title {
+        align-items: center;
+        padding: 24px 0 24px 0px;
+    }
 
     .greeting,
     #greeting-daytime,
@@ -280,26 +285,61 @@
 
     .summary-todo-box {
         height: clamp(7.5rem, 5.5rem + 10vw, 10.5rem);
-    
     }
 }
+
 
 @media (max-width: 650px) {
+
     .summary-container {
-        width: clamp(13.75rem, -6.856rem + 103.03vw, 35rem);
+        width: clamp(18.75rem, 2.992rem + 78.79vw, 35rem);
+        padding: 0;
     }
 
-    .disp-flex-column-start {
-        align-items: flex-start;
+ .summary-task-box {
+        width: clamp(6.25rem, 2.129rem + 20.61vw, 10.5rem);
+        height: clamp(6.25rem, 2.129rem + 20.61vw, 10.5rem);
+} 
+    .summary-todo-box svg {
+        width: clamp(3.125rem, 1.973rem + 5.76vw, 4.313rem);
     }
 
-    .summary-tasks {
-        gap: 10px;
+    .summary-number {
+        font-size: clamp(1.875rem, -0.186rem + 10.3vw, 4rem);
     }
 
-    .summary-task-box {
-        width: 120px;
-        height: 120px;
+    .summary-text {
+        font-size: 14px;
+    }
+
+    .urgent-task-box {
+        gap: clamp(0.75rem, -1.432rem + 10.91vw, 3rem);
+        padding-left: 8px;
+    }
+
+    h1 {
+        font-size: clamp(3.125rem, 2.458rem + 3.33vw, 3.813rem);
+    }
+
+    .main-cont {
+        align-items: center;
+    }
+
+    .slogan {
+        font-size: clamp(1.25rem, -1.083rem + 11.67vw, 1.688rem);
+    }
+
+    .summary-todos, .summary-tasks {
+        gap: clamp(0.625rem, -0.708rem + 6.67vw, 2rem);
+        margin: 0;
+    }
+
+    .summary-tasks, .summary-todos {
+        width: 103%;
+    }
 }
 
-}
+@media (max-width: 500px) {
+.title {
+    padding: 8px 0 24px 0px;
+}}
