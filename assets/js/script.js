@@ -20,6 +20,30 @@ async function loadUserDataFromRemote() {
   }
 }
 
+/* document.addEventListener("DOMContentLoaded", function () {
+  const logo = document.getElementById('logo');
+  const main = document.getElementById('main-container');
+  const respLogo = document.getElementById('responsive-logo');
+  const overlay = document.getElementById('responsive-overlay');
+  
+  setTimeout(() => {
+    if (window.innerWidth <= 1000) {
+      overlay.style.display = "block";
+      main.style.display ="none"; 
+     
+    } else {
+      overlay.style.display = "none";
+      logo.style.position = "absolute";
+      logo.style.top = "130px";
+      logo.style.left = "130px";
+      logo.style.transform = "translate(-50%, -50%) scale(0.5)";
+      logo.style.transition = "0.7s ease-out";
+      main.style.transition = "opacity 0.7s ease-in";
+      main.style.opacity = "1";
+      main.style.display ="block"; 
+    }
+  }, 500);
+}); */
 
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById('logo');

@@ -227,16 +227,79 @@
 .greeting {
     display: flex;
     flex-direction: column;
+    display: block;
 }
 
 #greeting-daytime {
     font-size: 47px;
     font-weight: 500;
     color: #2A3647;
+    display: block;
 }
 
 #greeting-name {
     font-size: 64px;
     font-weight: 700;
     color: #29ABE2;
+    display: block;
+}
+
+
+
+/* ------------ media queries ------------ */
+
+
+/*  @media (max-width: 1180px) {
+      .responsive-greeting {
+        display: block;
+    }
+ } */
+
+@media (max-width: 950px) {
+    .title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .title-seperator {
+        height: 1px;
+        width: 59px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .greeting,
+    #greeting-daytime,
+    #greeting-name {
+        display: none;
+    }
+
+    .disp-flex-column-start {
+        align-items: center;
+    }
+
+    .summary-todo-box {
+        height: clamp(7.5rem, 5.5rem + 10vw, 10.5rem);
+    
+    }
+}
+
+@media (max-width: 650px) {
+    .summary-container {
+        width: clamp(13.75rem, -6.856rem + 103.03vw, 35rem);
+    }
+
+    .disp-flex-column-start {
+        align-items: flex-start;
+    }
+
+    .summary-tasks {
+        gap: 10px;
+    }
+
+    .summary-task-box {
+        width: 120px;
+        height: 120px;
+}
+
 }
