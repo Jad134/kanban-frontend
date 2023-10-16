@@ -3,8 +3,9 @@ let userData = [];
 
 async function init() {
   renderContent();
-  const main = document.querySelector('.main-container');
+  let main = document.querySelector('.main-container');
   main.style.opacity = "0";
+ 
   await loadUserDataFromRemote();
   console.log(userData);                  // console.log
   getLoginFromLocal();
@@ -20,44 +21,22 @@ async function loadUserDataFromRemote() {
   }
 }
 
-/* document.addEventListener("DOMContentLoaded", function () {
-  const logo = document.getElementById('logo');
-  const main = document.getElementById('main-container');
-  const respLogo = document.getElementById('responsive-logo');
-  const overlay = document.getElementById('responsive-overlay');
-  
-  setTimeout(() => {
-    if (window.innerWidth <= 1000) {
-      overlay.style.display = "block";
-      main.style.display ="none"; 
-     
-    } else {
-      overlay.style.display = "none";
-      logo.style.position = "absolute";
-      logo.style.top = "130px";
-      logo.style.left = "130px";
-      logo.style.transform = "translate(-50%, -50%) scale(0.5)";
-      logo.style.transition = "0.7s ease-out";
-      main.style.transition = "opacity 0.7s ease-in";
-      main.style.opacity = "1";
-      main.style.display ="block"; 
-    }
-  }, 500);
-}); */
-
-document.addEventListener("DOMContentLoaded", function () {
-  const logo = document.getElementById('logo');
-  const main = document.querySelector('.main-container')
+/* document.addEventListener("DOMContentLoaded", function () { */
+window.addEventListener("load", function() {
+  let logo = document.getElementById('logo');
+  let main = document.querySelector('.main-container')
   setTimeout(() => {
     logo.style.position = "absolute";
     logo.style.top = "130px";
     logo.style.left = "130px";
     logo.style.transform = "translate(-50%, -50%) scale(0.5)";
     logo.style.transition = "0.7s ease-out";
-    main.style.transition = "opacity 0.7s ease-in";
+    main.style.transition = "opacity 1s ease-in";
     main.style.opacity = "1";
   }, 500);
-}); 
+});
+
+/* window.addEventListener("load", logoAnimation); */
 
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
@@ -282,8 +261,8 @@ function clickPasswordField() {                                        // funkti
   toggleImage.setAttribute('onclick', 'togglePasswordImage()');
   toggleImage.classList.add('toggle-password-visibility');
 }
-  let passwordFields = document.querySelectorAll('.passwords');
-  passwordFields.forEach((passwordField) => {
+let passwordFields = document.querySelectorAll('.passwords');
+passwordFields.forEach((passwordField) => {
   passwordField.addEventListener('input', clickPasswordField);
 });
 
@@ -313,9 +292,7 @@ function togglePasswordField(passwordFieldId, toggleId) {
 function clickOut() {                                               // geht aktuell nur für login, für signup andere Lösung, da auf anderer "Seite" und dann Fehlermeldungen erscheinen
   let passwordField = document.getElementById('password-login');
   let toggleImage = document.getElementById('toggle-password-1');
-
-  
- /*  if (passwordField && toggleImage) { */
+  /*  if (passwordField && toggleImage) { */
   if (passwordField.value == '') {
     passwordField.setAttribute('oninput', 'clickPasswordField()');
 
@@ -343,6 +320,32 @@ function clickOut() {                                               // geht aktu
     toggleImage.classList.remove('toggle-password-visibility');
   }
 }} */
+
+
+function responsiveLogoOverlay() {
+  let overlay = document.getElementById('responsive-overlay');
+  let logo = document.getElementById('responsive-logo');
+  if (window.innerWidth < 1080) {
+    overlay.style.opacity = 1;
+    overlay.style.transition = "opacity 1s ease-in-out";
+    logo.style.position = "fixed";
+    logo.style.top = "calc(50vh - 100px)";
+    logo.style.left = "calc(50vw - 84px)";
+    setTimeout(() => {
+      logo.style.top = "60px";
+      logo.style.left = "64px";
+      logo.style.transform = "translate(-50%, -50%) scale(0.3)";
+      logo.style.transition = "0.7s ease-out";
+      overlay.style.opacity = 0;
+      overlay.style.zIndex = -1;
+    }, 500);
+} else {
+  overlay.style.display = "none"; 
+}}
+
+window.addEventListener("load", responsiveLogoOverlay);
+
+
 
 // -------------------       HTML-Templates       --------------------
 function renderHtmlTemplate() {
@@ -412,9 +415,6 @@ function signUpHtmlTemplate() {
                   </a>
                   <h1 class="responsive-padding">Sign up</h1>
               </div>
-              
-         
-             
              <div class="underline border-radius-8"></div>
              <form class="signup-form" onsubmit="checkCheckbox(); return false">
 

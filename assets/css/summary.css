@@ -255,7 +255,6 @@
     background-color: #F6F7F8;
     align-items: center;
     opacity: 1;
-    transition: opacity 2s ease-in-out;
     justify-content: flex-start;
 }
 
@@ -267,7 +266,6 @@
     width: 300px;
     color: #2A3647;
     margin-top: 20vh;
-
 }
 
 #responsive-greeting-name {
