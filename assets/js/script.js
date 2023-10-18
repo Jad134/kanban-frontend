@@ -5,13 +5,17 @@ async function init() {
   renderContent();
   let main = document.querySelector('.main-container');
   main.style.opacity = "0";
- 
   await loadUserDataFromRemote();
   console.log(userData);                  // console.log
   getLoginFromLocal();
 }
 
 
+/**
+ * This function loads the user data from remote storage
+ * 
+ * @param {string} newUserDataString - This is the parsed user data from remote
+ */
 async function loadUserDataFromRemote() {
   let newUserDataString = await getItem('users');
   newUserDataString = JSON.parse(newUserDataString['data']['value']);
@@ -21,8 +25,12 @@ async function loadUserDataFromRemote() {
   }
 }
 
+/**
+ * This function reacts on loading the page and animates the join-logo 
+ */
+
 /* document.addEventListener("DOMContentLoaded", function () { */
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   let logo = document.getElementById('logo');
   let main = document.querySelector('.main-container')
   setTimeout(() => {
@@ -36,14 +44,17 @@ window.addEventListener("load", function() {
   }, 500);
 });
 
-/* window.addEventListener("load", logoAnimation); */
-
+/**
+ * This function renders dynamically the content of the html-template on index.html for the user login form
+ */
 function renderContent() {
   const middleContent = document.getElementById('middle-area');
   middleContent.innerHTML += renderHtmlTemplate();
 }
 
-
+/**
+ * This function renders dynamically the content of the html-template on index.html for the sign-up form
+ */
 function renderSignUp() {
   let signUpArea = document.getElementById('sign-up-area');
   signUpArea.style.display = 'none';
@@ -55,6 +66,11 @@ function renderSignUp() {
 }
 
 
+/**
+ * This function collects the new user data from the sign-up form
+ * 
+ * @param {string} a - This is the color of which each user gets assigned one
+ */
 function userDataFromSignUp(a) {
   let name = document.getElementById('name');
   name = name.value;
@@ -76,7 +92,9 @@ function userDataFromSignUp(a) {
   saveUserDataInRemote();
 }
 
-
+/**
+ * This function stores the user data in remote storage
+ */
 async function saveUserDataInRemote() {
   try {
     const userDataString = JSON.stringify(userData);
@@ -87,13 +105,19 @@ async function saveUserDataInRemote() {
   }
 }
 
-
+/**
+ * This function sets a random color for a new user
+ * 
+ * @returns {string} The hexcode of the generated random color
+ */
 function setColor() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   return "#" + randomColor;
 }
 
-
+/**
+ * This function sums up the functions for the registration process for a new user
+ */
 function signUpUser() {
   let registerEmail = document.getElementById('email').value;
   let passwordsMatch = passwordCheck();
@@ -108,7 +132,12 @@ function signUpUser() {
   }
 }
 
-
+/**
+ * This function checks the userData whether a user already has been signed up before with the same email-address
+ * 
+ * @param {string} registerEmail - This correspondends to the email-address entered by the user 
+ * @returns {boolean} - Returns true if the email doesn't exist, otherwise it returns false
+ */
 function emailCheck(registerEmail) {
   const ifEmailExists = userData.some((user) => user.email === registerEmail);
   if (!ifEmailExists) {
@@ -119,7 +148,11 @@ function emailCheck(registerEmail) {
   }
 }
 
-
+/**
+ * This function checks whether the entered password and its confirmation match
+ *
+ * @returns {boolean} - Returns true if the passwords match, otherwise it returns false
+ */
 function passwordCheck() {
   let passwordInput = document.getElementById('password');
   let confirmPasswordInput = document.getElementById('password-confirm');
@@ -133,7 +166,11 @@ function passwordCheck() {
   }
 }
 
-
+/**
+ * This function checks whether the user has ticked the privacy policy box and displays a message
+ * 
+ * @returns {boolean} - Returns true if the box has been ticked, otherwise it returns false
+ */
 function checkCheckbox() {
   let checkBox = document.getElementById('checkbox');
   if (!checkBox.checked) {
@@ -144,7 +181,11 @@ function checkCheckbox() {
   }
 }
 
-
+/**
+ * This is a general function for displaying messages in an overlay
+ * 
+ * @param {string} messageText - This is the message text that will be shown in the overlay
+ */
 function displayMessage(messageText) {
   const overlay = document.getElementById('overlay');
   const message = document.getElementById('animated-message');
@@ -158,13 +199,20 @@ function displayMessage(messageText) {
   }, 1500);
 }
 
-
+/**
+ * This function hides the message overlay
+ */
 function hideMessage() {
   const overlay = document.getElementById('overlay');
   overlay.style.display = 'none';
 }
 
-
+/**
+ * This function does the login for a user based on the provided email and password.
+ * If successful, the user is redirected to the summary page
+ * 
+ * @param {Event} event - The event object from the form submission
+ */
 function login(event) {
   event.preventDefault();
   let email = document.getElementById('user-email');
@@ -184,7 +232,10 @@ function login(event) {
   }
 }
 
-
+/**
+ * This function saves or removes the user's email and password to/from local storage
+ * based on the user's decision whether to be remembered as a user or not
+ */
 function rememberMe() {
   let checkBox = document.getElementById('remember-me');
   const userEmailInput = document.getElementById('user-email');
@@ -198,7 +249,9 @@ function rememberMe() {
   }
 }
 
-
+/**
+ * This function retrieves the user's login data from local storage and fills in the data if available
+ */
 function getLoginFromLocal() {
   const savedEmail = localStorage.getItem('userEmail');
   const savedPassword = localStorage.getItem('userPassword');
@@ -212,7 +265,11 @@ function getLoginFromLocal() {
   }
 }
 
-
+/**
+ * This function saves user login information to local storage
+ *
+ * @param {Object} dataExists - This is the user data to be saved
+ */
 function loginToLocalStorage(dataExists) {
   let loginName = dataExists['name'];
   let loginInitials = dataExists['initials'];
@@ -226,7 +283,9 @@ function loginToLocalStorage(dataExists) {
   localStorage.setItem('user-color', userColor);
 }
 
-
+/**
+ * This function is for logging in a guest user 
+ */
 function loginAsGuest() {
   let loginName = 'Guest';
   let loginInitials = 'G';
@@ -240,7 +299,12 @@ function loginAsGuest() {
   localStorage.setItem('user-color', userColor);
 }
 
-
+/**
+ * This function creates the initials using the first and last name of each user
+ * 
+ * @param {string} loginName - The first and last name 
+ * @returns {string} - The initials extracted from the provided full name
+ */
 function getInitials(loginName) {
   let nameInput = loginName.split(' ');
   let initials = nameInput[0].charAt(0);
@@ -250,6 +314,11 @@ function getInitials(loginName) {
   }
   return initials;
 }
+
+
+
+
+/* -------------------- Password-Toggle der Input-Felder --> Noch in Bearbeitung! ---------------------- */
 
 
 function clickPasswordField() {                                        // funktioniert jetzt mit allen 3 Feldern
@@ -265,6 +334,18 @@ let passwordFields = document.querySelectorAll('.passwords');
 passwordFields.forEach((passwordField) => {
   passwordField.addEventListener('input', clickPasswordField);
 });
+/* let passwordFields = document.querySelectorAll('.passwords');
+passwordFields.forEach((passwordField, index) => {
+  passwordField.addEventListener('input', () => {
+    if (index === 0) {
+      clickPasswordField('password-login', 'toggle-password-1');
+    } else if (index === 1) {
+      clickPasswordField('password-signup', 'toggle-password-2');
+    } else if (index === 2) {
+      clickPasswordField('confirm-password', 'toggle-password-3');
+    }
+  })
+ */
 
 
 function togglePasswordImage() {                                       // aktuell nur für login korrekt, bei signup werden beide Inputfelder aufgerufen
@@ -289,13 +370,12 @@ function togglePasswordField(passwordFieldId, toggleId) {
 }
 
 
-function clickOut() {                                               // geht aktuell nur für login, für signup andere Lösung, da auf anderer "Seite" und dann Fehlermeldungen erscheinen
-  let passwordField = document.getElementById('password-login');
-  let toggleImage = document.getElementById('toggle-password-1');
+function clickOut() {                                               // angepasst aktuell für login, für signup braucht es andere Lösung, 
+  let passwordField = document.getElementById('password-login');    // auch mit eigenen Elementen für alle 3 nicht möglich, da auf anderer "Seite" und dann Fehlermeldungen erscheinen.
+  let toggleImage = document.getElementById('toggle-password-1');   // lässt sich nicht in 1 Funktion für alle kombinieren?
   /*  if (passwordField && toggleImage) { */
   if (passwordField.value == '') {
     passwordField.setAttribute('oninput', 'clickPasswordField()');
-
     toggleImage.innerHTML = renderLockSvg();
     toggleImage.removeAttribute('onclick');
     toggleImage.classList.remove('toggle-password-visibility');
@@ -303,9 +383,9 @@ function clickOut() {                                               // geht aktu
 }
 
 
-/* function clickOut() {                                      // funktioniert nicht für alle 3, querySelector funktioniert auch nicht, weil nicht direkt im DOM aufgerufen wird
-  let passwordField = document.activeElement;
-  let toggleImage;
+/* function clickOut() {                                      // funktioniert nicht für alle 3 (nur login), querySelector funktioniert auch nicht, 
+  let passwordField = document.activeElement;                 // weil nicht direkt im DOM aufgerufen wird wie clickPasswortField()
+  let toggleImage; 
   if (passwordField.id === 'password-login') {
     toggleImage = document.getElementById('toggle-password-1');
   } else if (passwordField.id === 'password-signup') {
@@ -321,7 +401,11 @@ function clickOut() {                                               // geht aktu
   }
 }} */
 
+/* ------------------------------------------------------------------------------------------------- */
 
+/**
+ * This function displays the logo overlay in responsive mode
+ */
 function responsiveLogoOverlay() {
   let overlay = document.getElementById('responsive-overlay');
   let logo = document.getElementById('responsive-logo');
@@ -339,15 +423,21 @@ function responsiveLogoOverlay() {
       overlay.style.opacity = 0;
       overlay.style.zIndex = -1;
     }, 500);
-} else {
-  overlay.style.display = "none"; 
-}}
+  } else {
+    overlay.style.display = "none";
+  }
+}
 
 window.addEventListener("load", responsiveLogoOverlay);
 
 
-
 // -------------------       HTML-Templates       --------------------
+
+/**
+ * This function returns the HTML template for the login form
+ * 
+ * @returns {string} The HTML template
+ */
 function renderHtmlTemplate() {
   return /*html*/`
   <div class="border-radius-30 login">
@@ -378,7 +468,11 @@ function renderHtmlTemplate() {
   `;
 }
 
-
+/**
+ * This function returns the visibility eye icon for the password input forms
+ * 
+ * @returns {string} The svg-icon
+ */
 function renderVisibilitySvg() {
   return /*html*/ `
     <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -387,7 +481,11 @@ function renderVisibilitySvg() {
   `
 }
 
-
+/**
+ * This function returns the visibility-off icon for the password input forms
+ * 
+ * @returns {string} The svg-icon
+ */
 function renderVisibilityOffSvg() {
   return /*html*/ `
     <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -396,7 +494,11 @@ function renderVisibilityOffSvg() {
   `
 }
 
-
+/**
+ * This function returns the lock icon for the password input forms
+ * 
+ * @returns {string} The svg-icon
+ */
 function renderLockSvg() {
   return /*html*/ `
     <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -405,7 +507,11 @@ function renderLockSvg() {
   `
 }
 
-
+/**
+ * This function returns the HTML template for the sign-up form
+ * 
+ * @returns {string} The HTML template
+ */
 function signUpHtmlTemplate() {
   return /*html*/`
            <div class="border-radius-30 login">
