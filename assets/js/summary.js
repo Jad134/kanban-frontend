@@ -3,13 +3,15 @@ function initSummary() {
     totalTasks();
 }
 
-/* 
-function renderGreeting() {
+/**
+ * This function relates to the current time frame of the user logging in and returns the according greeting
+ * 
+ * @returns {string} - This welcomes the user with a greeting phrase
+ */
+function getGreeting() {
     let currentTime = new Date();
     let hours = currentTime.getHours();
     let greeting;
-    let greetingName = localStorage.getItem('login-name');
-
     if (hours < 12) {
         greeting = 'Good Morning';
     } else if (hours < 18) {
@@ -17,17 +19,12 @@ function renderGreeting() {
     } else {
         greeting = 'Good evening';
     }
+    return greeting;
+}
 
-    if (greetingName === 'Guest') {
-        document.getElementById('greeting-daytime').innerHTML = greeting + '!';
-        document.getElementById('greeting-name').innerHTML = '';
-    }
-    else {
-        document.getElementById('greeting-daytime').innerHTML = greeting + ',';
-        document.getElementById('greeting-name').innerHTML = greetingName;
-    }
-} */
-
+/**
+ * This function renders the greeting for guest users and known users
+ */
 function renderGreeting() {
     let greetingName = localStorage.getItem('login-name');
     let greetingDaytime = document.getElementById('greeting-daytime');
@@ -35,7 +32,6 @@ function renderGreeting() {
     let responsiveGreetingDaytime = document.getElementById('responsive-greeting-daytime');
     let responsiveGreetingName = document.getElementById('responsive-greeting-name');
     let greeting = getGreeting();
-
     if (greetingName === 'Guest') {
         greetingDaytime.textContent = greeting + '!';
         greetingNameElement.textContent = '';
@@ -50,22 +46,9 @@ function renderGreeting() {
 }
 
 
-function getGreeting() {
-    let currentTime = new Date();
-    let hours = currentTime.getHours();
-    let greeting;
-
-    if (hours < 12) {
-        greeting = 'Good Morning';
-    } else if (hours < 18) {
-        greeting = 'Good afternoon';
-    } else {
-        greeting = 'Good evening';
-    }
-    return greeting;
-}
-
-// ----------------- Summary Calculation ---------------
+/**
+ * This function calculates the total task number on the board and starts all task calculations
+ */
 function totalTasks() {
     let total = addedTasks.length;
     let totalInBoard = document.getElementById('total-tasks');
@@ -79,6 +62,9 @@ getTaskStorage().then(() => {
 });
 
 
+/**
+ * This function calculates and displays the tasks that are marked "urgent"
+ */
 function urgentTasks() {
     let taskContainer = 0;
     for (let i = 0; i < addedTasks.length; i++) {
@@ -90,15 +76,11 @@ function urgentTasks() {
     feedback.textContent = taskContainer;
 }
 
-
-/* function formatDate(date) {
-    let day = date.getDate();
-    let month = date.toLocaleString('default', { month: 'long' });
-    let year = date.getFullYear();
-    return `${month} ${day}, ${year}`;
-} */
-
-
+/**
+ * This function calculates and displays the task with the closest due date
+ * 
+ *  @param {Date | null} closestDueDate - This is the date to calculate 
+ */
 function calculateClosestDueDate(closestDueDate) {
     let nextDate = document.getElementById('next-urgent-date');
     if (closestDueDate !== null) {
@@ -108,14 +90,17 @@ function calculateClosestDueDate(closestDueDate) {
     }
 }
 
-
+/**
+ * This function calculates and displays the next closest due date among the added tasks
+ * 
+ *@returns {void} This function does not return a value when 'addedTasks' is not true
+ */
 function nextDueDate() {
     let closestDueDate = null;
     let today = new Date();
-
-    if (!addedTasks) {                                      // Fehler abfangen
+    if (!addedTasks) {
         return;
-    } else if (addedTasks.length === 0) {                   
+    } else if (addedTasks.length === 0) {
         let message = document.getElementById('next-urgent-tasks');
         message.innerHTML = 'No urgent tasks scheduled';
     }
@@ -124,12 +109,16 @@ function nextDueDate() {
         if (taskDueDate > today) {
             if (closestDueDate === null || taskDueDate < closestDueDate) {
                 closestDueDate = taskDueDate;
-            }}
-            calculateClosestDueDate(closestDueDate);
+            }
         }
-        }
-        
+        calculateClosestDueDate(closestDueDate);
+    }
+}
 
+
+/**
+ * This function updates each task category that is displayed in summary section
+ */
 function updateSummary() {
     let taskCounts = {
         'in-progress': 0,
@@ -150,6 +139,9 @@ function updateSummary() {
 }
 
 
+/**
+ * This function displays the responsive greeting and hides it after a short time
+ */
 function responsiveGreeting() {
     let responsiveGreeting = document.querySelector('.responsive-greeting');
     let greetingTime = document.getElementById('responsive-greeting-daytime');
@@ -162,26 +154,8 @@ function responsiveGreeting() {
             greetingTime.style.opacity = 0;
             greetingName.style.opacity = 0;
             responsiveGreeting.style.opacity = 0;
-        }, 1000); 
+        }, 1000);
     }
 }
 
 window.addEventListener('load', responsiveGreeting);
-
-/* function responsiveGreeting() {
-    let responsiveGreeting = document.querySelector('.responsive-greeting');
-    let greetingTime= document.getElementById('responsive-greeting-daytime');
-    let greetingName = document.getElementById('responsive-greeting-name');
-  
-    responsiveGreeting.style.opacity = 1;
-    greetingTime.style.opacity = 1;
-    greetingName.style.opacity = 1;
-    setTimeout(() => {
-        greetingTime.style.opacity = 0;
-        greetingName.style.opacity = 0;
-    }, 1500); 
-    setTimeout(() => {
-        responsiveGreeting.style.opacity = 0;
-    }, 1500); 
-} */
-
