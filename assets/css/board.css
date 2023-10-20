@@ -156,7 +156,7 @@ h4 {
     display: flex;
     max-width: 1440px;
     background-color: #F6F7F8;
-    gap: 48px;
+    gap: 40px;
 }
 
 #board-content h3 {
@@ -170,9 +170,11 @@ h4 {
     display: flex;
     flex-direction: column;
     width: 25%;
+    overflow: hidden;
 }
 
 .divers-head-sections {
+    margin: 0 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -202,20 +204,20 @@ h4 {
     display: flex;
     flex-direction: column;
     margin-top: 24px;
-    gap: 24px;
+    gap: 20px;
     min-height: 50vh;
     border: 1px solid #F6F7F800;
 }
 
 .task-container {
-    margin: 5px;
+    margin: 10px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: #FFFFFF;
     border-radius: 24px;
-    box-shadow: 0px 0px 10px 3px #00000014;
+    box-shadow: 0px 0px 5px 3px #00000010;
     transition: all 0.1s linear;
     gap: 24px;
 }
