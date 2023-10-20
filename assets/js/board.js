@@ -204,6 +204,8 @@ function idToIndex(id) {
 function startDragging(id) {
     let i = idToIndex(id);
     currentDraggedElement = i;
+    let dragField = document.querySelectorAll('.specific-content');
+    dragField.forEach(el => el.style.height = "100%");
 }
 
 
@@ -213,14 +215,14 @@ function allowDrop(event) {
 
 
 function hoverDrag(bucket) {
-    let element = document.getElementById(bucket);
-    element.classList.add('task-hover');
+    let hoverElement = document.getElementById(bucket);
+    hoverElement.classList.add('task-hover');
 }
 
 
 function stopDrag(bucket) {
-    let element = document.getElementById(bucket);
-    element.classList.remove('task-hover');
+    let hoverElement = document.getElementById(bucket);
+    hoverElement.classList.remove('task-hover');
 }
 
 

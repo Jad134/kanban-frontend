@@ -204,6 +204,7 @@ h4 {
     margin-top: 24px;
     gap: 24px;
     min-height: 50vh;
+    border: 1px solid #F6F7F800;
 }
 
 .task-container {
@@ -232,6 +233,7 @@ h4 {
     border: 1px dashed #A8A8A8;
     border-radius: 30px;
     background-color: #A8A8A815;
+    height: 100%;
 }
 
 .category-technical-task {
