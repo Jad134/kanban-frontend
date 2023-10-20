@@ -408,9 +408,9 @@ select {
     transition: 125ms all ease-in-out
 }
 
-svg:hover {
+/*svg:hover {
     fill: rgb(41, 171, 226);
-}
+} 20.10.2023 - Alexander Riedel: Funtkioniert nicht, überschreibt den Hover-Effekt im Board */
 
 .svg-icon {
     fill: black;
