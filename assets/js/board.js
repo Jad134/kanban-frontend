@@ -245,6 +245,7 @@ function deleteTask(id) {
 
 
 function editTask(id) {
+    loadUserDataFromRemote();
     let i = idToIndex(id);
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
@@ -254,6 +255,8 @@ function editTask(id) {
 
     document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate, assigned, subtasks);
     getPrio(id);
+    getAssignedUser(id);
+    loadEditContacts();
 }
 
 
@@ -269,6 +272,36 @@ function getPrio(id) {
         ChangeButtonColor('urgent-btn', 'urgent-img');
     } else {
         console.log('Prio ist unbekannt.');
+    }
+}
+
+
+function getAssignedUser(id) {
+    let i = idToIndex(id);
+    for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
+        let assignedUser = addedTasks[i]['assigned'][u];
+        let x = compareUser(assignedUser);
+        let initials = addedUsers[x]['initials'];
+        let color = addedUsers[x]['color'];
+
+        document.getElementById('edit-selected-contacts').innerHTML += renderAssignedUsers(initials, color);
+    }
+}
+
+
+function loadEditContacts() {
+    let overlayContainer = document.getElementById('contact-overlay');
+
+    for (let i = 0; i < userData.length; i++) {
+        let currentContact = userData[i];
+        let name = currentContact['name'];
+        let userInitial = userData[i]['initials'];
+        let nameColor = userData[i]['color'];
+
+        overlayContainer.innerHTML += renderEditContacts(name, i, userInitial);
+
+        let initialDiv = document.getElementById(`list-circle${i}`);
+        initialDiv.style.backgroundColor = nameColor;
     }
 }
 
@@ -297,6 +330,34 @@ function reloadSubtaskCounter(id) {
     let numberOfSubtasks = addedTasks[i]['subtask'].length;
 
     document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
+}
+
+
+function openEditContactOverlay(id) {
+    let i = idToIndex(id);
+
+    let onclick = document.getElementById('assignedTo');
+    let overlayContainer = document.getElementById('contact-overlay');
+
+    overlayContainer.classList.remove('d-none');
+    overlayContainer.classList.add('d-flex');
+    onclick.style.backgroundImage = "url(./assets/img/arrow-up.svg)";
+
+    onclick.removeAttribute('onClick');
+
+    onclick.onclick = closeEditContactOverlay;
+}
+
+
+function closeEditContactOverlay() {
+    let overlayContainer = document.getElementById('contact-overlay');
+    let onclick = document.getElementById('assignedTo');
+
+    overlayContainer.classList.remove('d-flex');
+    overlayContainer.classList.add('d-none');
+    onclick.style.backgroundImage = "url(./assets/img/arrow-assign-down.svg)";
+
+    onclick.onclick = openEditContactOverlay;
 }
 
 
@@ -400,45 +461,99 @@ function renderEditTask(id, title, description, duedate, assigned, subtasks) {
     return `
         <div id="slider" class="edit-task-container">
             <form>
-                <div class="edit-task disp-flex-column-start">
-                    <span>Title</span>
-                    <input required id="edit-title" type="text" value="${title}">
-                </div>
-                <div class="edit-task disp-flex-column-start">
-                    <span>Description</span>
-                    <textarea required id="edit-description" row="3">${description}</textarea>
-                </div>
-                <div class="edit-task disp-flex-column-start">
-                    <span>Due Date</span>
-                    <input required id="edit-duedate" type="text" value="${duedate}">
-                </div>
-                <div class="edit-task disp-flex-column-start">
-                    <span>Priority</span>
-                    <div class="prio-buttons">
-                        <button value="Urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
-                            type="button" id="urgent-btn">Urgent
-                            <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
+                <div>
+                    <div class="edit-task disp-flex-column">
+                        <span>Title</span>
+                        <input required id="edit-title" type="text" value="${title}">
+                    </div>
+                    <div class="edit-task disp-flex-column">
+                        <span>Description</span>
+                        <textarea required id="edit-description" row="3">${description}</textarea>
+                    </div>
+                    <div class="edit-task disp-flex-column">
+                        <span>Due Date</span>
+                        <input type='date' id="date-input" value="${duedate}">
+                        <!-- <div class="error-message" id="date-error"></div> -->
+                    </div>
+                    <div class="edit-task disp-flex-column">
+                        <span>Priority</span>
+                        <div class="prio-buttons">
+                            <button value="Urgent" onclick="ChangeButtonColor('urgent-btn', 'urgent-img')"
+                                type="button" id="urgent-btn">Urgent
+                                <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
+                            </button>
+                            <button value="Medium" onclick="ChangeButtonColor('medium-btn', 'medium-img')"
+                                type="button" id="medium-btn">Medium
+                                <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
+                            </button>
+                            <button value="Low" onclick="ChangeButtonColor('low-btn', 'low-img')" type="button"
+                                id="low-btn">Low
+                                <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="edit-assigned-user disp-flex-column">
+                        <span>Assigned to</span>
+
+                        <!-- <input required id="edit-assigned" type="text" value="${assigned}"> -->
+
+                        <input onclick="openEditContactOverlay(${id})" id="assignedTo" type="text" placeholder="Select contacts to assign">
+                        <div class="d-none" id="contact-overlay"></div>
+                        <div id="edit-selected-contacts"></div>
+
+                    </div>
+                    <div class="edit-task disp-flex-column">
+                        <span>Subtasks</span>
+
+                        <!-- <input required id="edit-subtasks" type="text" value="${subtasks}">
+
+                        <div class="subtask-input-btn">
+                            <input onkeydown="handleEnterKeyPress(event, 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text">
+                            <button onclick="addSubTask()" type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+                        </div>
+
+                    </div>
+
+                    <div class="create-buttons">
+                        <div class="required-info-responsive">
+                            <span>
+                                <span class="required-star">*</span>
+                                This field is required
+                            </span>
+                        </div>
+                        <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25"
+                                height="24" viewBox="0 0 25 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z"
+                                    stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
                         </button>
-                        <button value="Medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
-                            type="button" id="medium-btn">Medium
-                            <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
-                        </button>
-                        <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
-                            id="low-btn">Low
-                            <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                        <button onclick="submitForm()" type="button" id="create-btn">
+                            <span>Create Task</span><img src="./assets/img/check.svg" alt="">
                         </button>
                     </div>
                 </div>
-                <div class="edit-task disp-flex-column-start">
-                    <span>Assigned to</span>
-                    <input required id="edit-assigned" type="text" value="${assigned}">
-                </div>
-                <div class="edit-task disp-flex-column-start">
-                    <span>Subtasks</span>
-                    <input required id="edit-subtasks" type="text" value="${subtasks}">
-                </div>
             </form>
         </div>
+    `;
+}
+
+
+function renderEditContacts(name, i, userInitial) {
+    return /*html*/ `
+        <label class="contact-label" for="check-contact${i}">
+            <div class="current-contacts">
+                <div class="add-task-contacts"> 
+                    <div id="list-circle${i}" class="contact-circle">
+                        <span>${userInitial}</span>
+                    </div>
+                    <span class="current-name">${name}</span>
+                <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
+                </div>
+            </div>
+        </label>        
     `;
 }
 
@@ -472,11 +587,8 @@ function addTaskHtml() {
                                     <div id="selected-contacts">
                                     </div>
                                 </div>
-                                <div class="required-info">
-                                    <span>
-                                        <span class="required-star">*</span>
-                                        This field is required
-                                    </span>
+                                <div id="required-info" class="required-info">
+                                    <span><span class="required-star">*</span>This field is required</span>
                                 </div>
                             </div>
 

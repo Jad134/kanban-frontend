@@ -119,13 +119,14 @@ textarea::placeholder {
 }
 
 #assignedTo {
+    position: relative;
     background-image: url(/assets/img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 95%;
     cursor: pointer;
+    /*width: 100%;*/
 }
-
 
 select {
     border: 1px solid lightgray;
@@ -166,7 +167,7 @@ select {
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-left: 16px;
-    height: 48px;
+    height: 24px;
 }
 
 .date-container {
@@ -437,6 +438,17 @@ select {
     filter: grayscale(100%) brightness(200%);
 }
 
+/*#contact-overlay {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    gap: 3px;
+    background-color: white;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 10px;
+}*/
+
 #contact-overlay {
     flex-direction: column;
     gap: 3px;
@@ -450,6 +462,10 @@ select {
     font-size: 20px;
 }
 
+.current-contacts {
+    width: 100%;
+}
+
 .add-task-contacts {
     display: flex;
     align-items: center;
@@ -458,7 +474,8 @@ select {
     font-size: 20px;
     font-family: 'inter';
     border-radius: 10px;
-    padding-inline: 8px;
+    /*padding-inline: 8px;
+    width: 100%;*/
 }
 
 .add-task-contacts:hover {
@@ -504,6 +521,12 @@ select {
     gap: 8px;
     margin-bottom: 16px;
     min-height: 80px;
+}
+
+#edit-selected-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .error-message {

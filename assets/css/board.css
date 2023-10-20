@@ -2,6 +2,11 @@ h4 {
     margin: 0;
 }
 
+.disp-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .disp-flex-column-start {
     display: flex;
     flex-direction: column;
@@ -396,15 +401,38 @@ h4 {
 }
 
 .edit-task-container {
-    width: 525px;
+    /*width: 525px;*/
 }
 
-.edit-task-container input {
+.edit-task {
+    width:525px;
+}
+
+.edit-task input {
     padding: 12px 21px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    width: 483px;
     font-size: 20px;
+}
+
+.edit-assigned-user {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-assigned-user input {
+    /*padding: 12px 0;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;*/
+
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding-left: 16px;
+    height: 48px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .edit-task {
