@@ -183,23 +183,31 @@ select {
 
 .prio-buttons {
     display: flex;
+    justify-content: center;
+    width: 100%;
     gap: 16px;
 }
 
 .prio-buttons button {
-    font-family: 'inter';
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    flex: 1;
+    gap: 8px;
     border: none;
-    width: 136px;
     height: 56px;
     background: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     font-weight: 400;
     font-size: 20px;
+}
+
+.prio-buttons button:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0px 3px 6px rgb(190, 190, 190);
+    transition: ease-in-out 125ms;
 }
 
 #urgent-btn.active {
@@ -221,14 +229,6 @@ select {
     color: white;
     font-weight: 700;
     font-size: 21px;
-}
-
-
-.prio-buttons button:hover {
-    cursor: pointer;
-    transform: scale(1.02);
-    box-shadow: 0px 3px 6px rgb(190, 190, 190);
-    transition: ease-in-out 125ms;
 }
 
 .category-container {

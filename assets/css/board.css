@@ -24,7 +24,7 @@ h4 {
 
 #board {
     padding: 0 64px 0 64px;
-    max-width: 1440px;
+    /*max-width: 1440px; 20.10.2023 - Alexander Riedel: Keine Funktion, daher entfernt*/ 
 }
 
 #board-head {

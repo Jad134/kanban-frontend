@@ -249,11 +249,27 @@ function editTask(id) {
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
     let duedate = addedTasks[i]['duedate'];
-    let prio = addedTasks[i]['prio'];
     let assigned = addedTasks[i]['assigned'];
     let subtasks = addedTasks[i]['subtask'];
 
-    document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate, prio, assigned, subtasks);
+    document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate, assigned, subtasks);
+    getPrio(id);
+}
+
+
+function getPrio(id) {
+    let i = idToIndex(id);
+    let prio = addedTasks[i]['prio'];
+
+    if (prio === 'Low') {
+        ChangeButtonColor('low-btn', 'low-img');
+    } else if (prio === 'Medium') {
+        ChangeButtonColor('medium-btn', 'medium-img');
+    } else if (prio === 'Urgent') {
+        ChangeButtonColor('urgent-btn', 'urgent-img');
+    } else {
+        console.log('Prio ist unbekannt.');
+    }
 }
 
 
@@ -380,7 +396,7 @@ function renderSubtasks(s, id, subtaskDone, subtask) {
 }
 
 
-function renderEditTask(id, title, description, duedate, prio, assigned, subtasks) {
+function renderEditTask(id, title, description, duedate, assigned, subtasks) {
     return `
         <div id="slider" class="edit-task-container">
             <form>
@@ -398,7 +414,20 @@ function renderEditTask(id, title, description, duedate, prio, assigned, subtask
                 </div>
                 <div class="edit-task disp-flex-column-start">
                     <span>Priority</span>
-                    <input required id="edit-prio" type="text" value="${prio}">
+                    <div class="prio-buttons">
+                        <button value="Urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
+                            type="button" id="urgent-btn">Urgent
+                            <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
+                        </button>
+                        <button value="Medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
+                            type="button" id="medium-btn">Medium
+                            <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
+                        </button>
+                        <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
+                            id="low-btn">Low
+                            <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                        </button>
+                    </div>
                 </div>
                 <div class="edit-task disp-flex-column-start">
                     <span>Assigned to</span>
