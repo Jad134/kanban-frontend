@@ -71,6 +71,19 @@ function loadAssignedUsers(id) {
 }
 
 
+function loadAssignedUsersForOpenTask(id) {
+    let i = idToIndex(id);
+    for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
+        let assignedUser = addedTasks[i]['assigned'][u];
+        let x = compareUser(assignedUser);
+        let initials = addedUsers[x]['initials'];
+        let color = addedUsers[x]['color'];
+
+        document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, assignedUser);
+    }
+}
+
+
 function compareUser(assignedContact) {
     let x = addedUsers.findIndex(user => user.name === assignedContact);
     return x;
@@ -84,9 +97,9 @@ function loadPrio(id, prio) {
 }
 
 
-function loadPrioForSingleTask(id, prio) {
+function loadPrioForOpenTask(prio) {
     if (prio !== '') {
-        document.getElementById(`open-task-prio-container`).innerHTML += renderPrioForSingleTask(prio);
+        document.getElementById(`open-task-prio-container`).innerHTML += renderPrio(prio);
     } 
 }
 
@@ -149,7 +162,8 @@ function loadTask(id) {
     document.getElementById('slider-container').innerHTML = renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned);
 
     loadSubtasks(id);
-    loadPrioForSingleTask(id, prio);
+    loadPrioForOpenTask(prio);
+    loadAssignedUsersForOpenTask(id);
     openSlider();
 }
 
@@ -166,13 +180,16 @@ function loadSubtasks(id) {
     let i = idToIndex(id);
 
     if (addedTasks[i]['subtask'].length > 0) {
-        document.getElementById('open-task-subtasks').innerHTML = '<div>Subtasks</div>';
+        document.getElementById('open-task-subtasks').innerHTML = `
+            <span>Subtasks</span>
+            <div id="open-task-subtask"></div>
+        `;
 
         for (let s = 0; s < addedTasks[i]['subtask'].length; s++) {
             let subtaskDone = addedTasks[i]['subtask'][s]['subdone'];
             let subtask = addedTasks[i]['subtask'][s]['subtitle'];
 
-            document.getElementById('open-task-subtasks').innerHTML += renderSubtasks(s, id, subtaskDone, subtask);
+            document.getElementById('open-task-subtask').innerHTML += renderSubtasks(s, id, subtaskDone, subtask);
         }
     }
 }
@@ -295,19 +312,22 @@ function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
 
 function renderAssignedUsers(initials, color) {
     return `
-        <div style="background-color: ${color};" class="assignment-circle">${initials}</div>
+        <div style="background-color: ${color};" class="assignment-circle margin--4px">${initials}</div>
+    `;
+}
+
+
+function renderAssignedUsersForOpenTask(initials, color, assignedUser) {
+    return `
+        <div class="assigned-to-contact">
+            <div style="background-color: ${color};" class="assignment-circle">${initials}</div>
+            <span class="assigned-to-name">${assignedUser}</span>
+        </div>
     `;
 }
 
 
 function renderPrio(prio) {
-    return `
-        <img src="./assets/img/subtask-prio-${prio}.svg" alt="">
-    `;
-}
-
-
-function renderPrioForSingleTask(prio) {
     return `
         <img src="./assets/img/subtask-prio-${prio}.svg" alt="">
     `;
@@ -320,11 +340,14 @@ function renderOpenTask(id, category, categoryCssClass, title, description, dued
             <div class="${categoryCssClass}">${category}</div>
             <div class="open-task-title">${title}</div>
             <div class="open-task-description">${description}</div>
-            <div class="open-task-duedate">Due date: ${duedate}</div>
+            <div class="open-task-duedate"><span>Due date:</span>${duedate}</div>
             <div id="open-task-prio-container">
-                <div class="open-task-prio">Priority: ${prio}</div>
+                <div class="open-task-prio"><span>Priority:</span>${prio}</div>
             </div>
-            <div class="open-task-assigned">Assigned To:<br />${assigned}</div>
+            <div class="open-task-assigned">
+                <span>Assigned To:</span>
+                <div id="open-task-contacts"></div>
+            </div>
             <div id="open-task-subtasks" class="open-task-subtask"></div>
             <div class="open-task-buttons">
                 <button onclick="deleteTask(${id})">

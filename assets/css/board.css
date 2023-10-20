@@ -337,7 +337,20 @@ h4 {
 .open-task-prio,
 .open-task-assigned,
 .open-task-subtask {
+    display: flex;
+    flex-direction: row;
     font-size: 20px;
+}
+
+.open-task-duedate span,
+.open-task-prio span {
+    width: 120px;
+}
+
+.open-task-assigned {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .open-task-subtask-list {
@@ -429,8 +442,11 @@ textarea {
     display: flex;
 }
 
-.assignment-circle {
+.margin--4px {
     margin: -4px;
+}
+
+.assignment-circle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -442,8 +458,21 @@ textarea {
     font-size: 12px;
 }
 
+.assigned-to-contact {
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 #open-task-prio-container {
     display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+#open-task-subtasks {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
 }
