@@ -391,85 +391,82 @@ function renderEditTask(id, title, description, duedate, prio, assigned, subtask
 
 function addTaskHtml() {
     return `
-   <div id="slider">
-    <div class="main-content">
-        
-        <div class="align-content">
-            <div>
-                <div>
+        <div id="slider">
+            <div class="main-content">
+                <div class="align-content">
                     <h1>Add Task</h1>
-                </div>
-                <form novalidate >
-                    <div class="left-right-container">
-                        <div class="left-side">
+                    <form novalidate >
+                        <div class="left-right-container">
+                            <div class="left-side">
 
-                            <div class="title-content">
-                                <span class="span-style">Title <span class="required-star">*</span></span>
-                                <input required placeholder="Enter a title" id="title-input" type="text">
-                                <div class="error-message" id="title-error"></div>
-                            </div>
-                            <div class="description">
-                                <span class="span-style">Description</span>
-                                <textarea required placeholder="Enter a Description" name="" id="description-textarea"
-                                    cols="20" rows="10"></textarea>
-                                <div class="error-message" id="description-error"></div>
-                            </div>
-                            <div class="assigned">
-                                <span class="span-style">Assigned to</span>
-                                <input onclick="openContactOverlay()" id="assignedTo" type="text"
-                                    placeholder="Select contacts to assign">
-                                <div class="d-none" id="contact-overlay"></div>
-                                <div id="selected-contacts">
+                                <div class="title-content">
+                                    <span class="span-style">Title <span class="required-star">*</span></span>
+                                    <input required placeholder="Enter a title" id="title-input" type="text">
+                                    <div class="error-message" id="title-error"></div>
+                                </div>
+                                <div class="description">
+                                    <span class="span-style">Description</span>
+                                    <textarea required placeholder="Enter a Description" name="" id="description-textarea"
+                                        cols="20" rows="10"></textarea>
+                                    <div class="error-message" id="description-error"></div>
+                                </div>
+                                <div class="assigned">
+                                    <span class="span-style">Assigned to</span>
+                                    <input onclick="openContactOverlay()" id="assignedTo" type="text"
+                                        placeholder="Select contacts to assign">
+                                    <div class="d-none" id="contact-overlay"></div>
+                                    <div id="selected-contacts">
+                                    </div>
+                                </div>
+                                <div class="required-info">
+                                    <span>
+                                        <span class="required-star">*</span>
+                                        This field is required
+                                    </span>
                                 </div>
                             </div>
-                            <div class="required-info">
-                                <span>
-                                    <span class="required-star">*</span>
-                                    This field is required
-                                </span>
-                            </div>
-                        </div>
 
-                        <div class="right-side">
-                            <div class="date-container">
-                                <span class="span-style">Due date <span class="required-star">*</span></span>
-                                <input  type='date' id="date-input"  placeholder="dd/mm/yyyy">
-                                <div class="error-message" id="date-error"></div>
-                            </div>
-                            <div class="prio">
-                                <span class="span-style">Prio</span>
-                                <div class="prio-buttons">
-                                    <button value="Urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
-                                        type="button" id="urgent-btn">Urgent
-                                        <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
-                                    </button>
-                                    <button value="Medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
-                                        type="button" id="medium-btn">Medium
-                                        <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
-                                    </button>
-                                    <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
-                                        id="low-btn">Low
-                                        <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
-                                    </button>
+                            <div class="right-side">
+                                <div class="date-container">
+                                    <span class="span-style">Due date <span class="required-star">*</span></span>
+                                    <input  type='date' id="date-input"  placeholder="dd/mm/yyyy">
+                                    <div class="error-message" id="date-error"></div>
                                 </div>
-                            </div>
-                            <div class="category-container">
-                                <span class="span-style">Category <span class="required-star">*</span></span>
-                                <select name="Select contacts to assign" id="select-category">
-                                    <option value="" disabled selected hidden>Select task category</option>
-                                    <option value="1">Technical Task</option>
-                                    <option value="2">User Story</option>
-                                </select>
-                            </div>
-                            <div id="subtask-container" class="subtask-container">
-                                <span class="span-style">Subtasks</span>
-                                <div class="subtask-input-btn">
-                                    <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
-                                        placeholder="Add new subtask" type="text">
-                                    <button onclick="addSubTask()" type="button" class="subtask-button"><img
-                                            src="./assets/img/addSub.svg" alt=""></button>
+                                <div class="prio">
+                                    <span class="span-style">Prio</span>
+                                    <div class="prio-buttons">
+                                        <button value="Urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
+                                            type="button" id="urgent-btn">Urgent
+                                            <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
+                                        </button>
+                                        <button value="Medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
+                                            type="button" id="medium-btn">Medium
+                                            <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
+                                        </button>
+                                        <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
+                                            id="low-btn">Low
+                                            <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                                        </button>
+                                    </div>
                                 </div>
-                                <div id="subtask-lists"></div>
+                                <div class="category-container">
+                                    <span class="span-style">Category <span class="required-star">*</span></span>
+                                    <select name="Select contacts to assign" id="select-category">
+                                        <option value="" disabled selected hidden>Select task category</option>
+                                        <option value="1">Technical Task</option>
+                                        <option value="2">User Story</option>
+                                    </select>
+                                </div>
+                                <div id="subtask-container" class="subtask-container">
+                                    <span class="span-style">Subtasks</span>
+                                    <div class="subtask-input-btn">
+                                        <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
+                                            placeholder="Add new subtask" type="text">
+                                        <button onclick="addSubTask()" type="button" class="subtask-button"><img
+                                                src="./assets/img/addSub.svg" alt=""></button>
+                                    </div>
+                                    <div id="subtask-lists"></div>
+                                </div>
                                 <div class="create-buttons">
                                     <div class="required-info-responsive">
                                         <span>
@@ -490,18 +487,12 @@ function addTaskHtml() {
                                             src="./assets/img/check.svg" alt=""></button>
                                 </div>
                             </div>
-
-
+                            <div class="bottom"></div>
                         </div>
-                        <div class="bottom"></div>
-
-                    </div>
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
     `;
 }
 
