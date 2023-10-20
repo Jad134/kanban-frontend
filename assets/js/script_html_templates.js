@@ -52,7 +52,7 @@ function renderHtmlTemplate() {
                     <div class="pw-img" onclick="togglePassword(this)"></div>
                   </div>
                   <div class="pw-input">
-                    <input id="confirm-password" class="passwords" minlength="5" type="password" placeholder="Password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
+                    <input id="confirm-password" class="passwords" minlength="5" type="password" placeholder="Confirm password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
                     <div class="pw-img" onclick="togglePassword(this)"></div>
                   </div>
                   <div class="checkbox-container-accept">
