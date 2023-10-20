@@ -17,8 +17,6 @@ async function initBoard() {
         addedTasks.push(tasks);
         loadTasksForBoard(i);
     }
-
-    //countTaskId(); // Muss hier ausgeführt werden, sonst funtkioniert die id im Board nicht (Jad)
 }
 
 
@@ -279,7 +277,6 @@ function renderBuckets(id, title, description, category, categoryCssClass) {
             <div class="task-bottom-container">
                 <div id="task-assignment-container-${id}" class="task-assignments"></div>
                 <div id="task-prio-img-${id}"></div>
-                <div>${id}</div>
             </div>
         </div>
     `;
@@ -394,7 +391,7 @@ function renderEditTask(id, title, description, duedate, prio, assigned, subtask
 
 function addTaskHtml() {
     return `
-   
+   <div id="slider">
     <div class="main-content">
         
         <div class="align-content">
@@ -503,6 +500,7 @@ function addTaskHtml() {
                 </form>
             </div>
         </div>
+    </div>
     </div>
     `;
 }
