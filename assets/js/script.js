@@ -325,7 +325,7 @@ function changePasswordIcon(click) {
   passwordInput.type = "password";
   if (passwordInput.value != "") {
     passwordInput.nextElementSibling.style.backgroundImage =
-      "url(/assets/img/visibility_off.svg)";
+      "url(/assets/img/visibility.svg)";
   } else {
     passwordInput.nextElementSibling.style.backgroundImage =
       "url(/assets/img/lock.svg)";
@@ -344,10 +344,10 @@ function togglePassword(click) {
     return;
   }
   if (passwordInput.type === "password") {
-    click.style.backgroundImage = "url(/assets/img/visibility.svg)";
+    click.style.backgroundImage = "url(/assets/img/visibility_off.svg)";
     passwordInput.type = "text";
   } else {
-    click.style.backgroundImage = "url(/assets/img/visibility_off.svg)";
+    click.style.backgroundImage = "url(/assets/img/visibility.svg)";
     passwordInput.type = "password";
   }
 }
