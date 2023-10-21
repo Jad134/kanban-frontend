@@ -474,8 +474,8 @@ select {
     font-size: 20px;
     font-family: 'inter';
     border-radius: 10px;
-    /*padding-inline: 8px;
-    width: 100%;*/
+    padding: 0 12px;
+    /*width: 100%;*/
 }
 
 .add-task-contacts:hover {

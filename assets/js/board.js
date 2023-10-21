@@ -58,17 +58,47 @@ function countSubtasks(id) {
 }
 
 
+// function loadAssignedUsers(id) {
+//     let i = idToIndex(id);
+
+//     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
+//         let assignedUser = addedTasks[i]['assigned'][u];
+//         let x = compareUser(assignedUser);
+//         let initials = addedUsers[x]['initials'];
+//         let color = addedUsers[x]['color'];
+
+//         document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+//     }
+// }
+
+
 function loadAssignedUsers(id) {
     let i = idToIndex(id);
-    for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
-        let assignedUser = addedTasks[i]['assigned'][u];
-        let x = compareUser(assignedUser);
-        let initials = addedUsers[x]['initials'];
-        let color = addedUsers[x]['color'];
+    let assignedUsers = addedTasks[i]['assigned'];
 
-        document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+    if (assignedUsers.length <= 4) {
+        for (let u = 0; u < assignedUsers.length; u++) {
+            let assignedUser = assignedUsers[u];
+            let x = compareUser(assignedUser);
+            let initials = addedUsers[x]['initials'];
+            let color = addedUsers[x]['color'];
+
+            document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+        }
+    } else {
+        for (let u = 0; u < 3; u++) {
+            let assignedUser = assignedUsers[u];
+            let x = compareUser(assignedUser);
+            let initials = addedUsers[x]['initials'];
+            let color = addedUsers[x]['color'];
+
+            document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+        }
+        let remainingUsers = `+${assignedUsers.length - 3}`;
+        document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(remainingUsers, '#A8A8A8');
     }
 }
+
 
 
 function loadAssignedUsersForOpenTask(id) {
