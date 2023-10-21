@@ -22,7 +22,6 @@ body {
     gap: 16px;
     border-right: 1px solid lightgray;
     padding-right: 24px;
-    height: 460px;
 }
 
 .description {
@@ -37,12 +36,13 @@ body {
     gap: 8px;
 }
 
+
 .custom-select select:focus {
     outline: none;
     /* Entfernt den Standard-Fokusrahmen */
 }
 
-.left-right-container input { /* 20.10.2023 - Alexander Riedel: verursachte Anzeigeprobleme im Board da input global gesetzt wurde */
+input {
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-left: 16px;
@@ -52,11 +52,11 @@ body {
 }
 
 input:focus {
-    /*border: 1px solid rgb(41, 171, 226);
+    border: 1px solid rgb(41, 171, 226);
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;     20.10.2023 - Alexander Riedel: nicht benötigt, verursacht optische Probleme bei der Suche im Board*/
-    outline: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    outline: none
 }
 
 
@@ -119,14 +119,13 @@ textarea::placeholder {
 }
 
 #assignedTo {
-    position: relative;
     background-image: url(/assets/img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 95%;
     cursor: pointer;
-    /*width: 100%;*/
 }
+
 
 select {
     border: 1px solid lightgray;
@@ -167,7 +166,7 @@ select {
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-left: 16px;
-    height: 24px;
+    height: 48px;
 }
 
 .date-container {
@@ -184,31 +183,23 @@ select {
 
 .prio-buttons {
     display: flex;
-    justify-content: center;
-    width: 100%;
     gap: 16px;
 }
 
 .prio-buttons button {
+    font-family: 'inter';
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
-    gap: 8px;
+    gap: 10px;
     border: none;
+    width: 136px;
     height: 56px;
     background: white;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     font-weight: 400;
     font-size: 20px;
-}
-
-.prio-buttons button:hover {
-    cursor: pointer;
-    transform: scale(1.02);
-    box-shadow: 0px 3px 6px rgb(190, 190, 190);
-    transition: ease-in-out 125ms;
 }
 
 #urgent-btn.active {
@@ -230,6 +221,14 @@ select {
     color: white;
     font-weight: 700;
     font-size: 21px;
+}
+
+
+.prio-buttons button:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0px 3px 6px rgb(190, 190, 190);
+    transition: ease-in-out 125ms;
 }
 
 .category-container {
@@ -303,11 +302,6 @@ select {
     gap: 4px;
 }
 
-#subtask-lists{
-    min-height: 60px;
-    overflow-y: auto;
-}
-
 .subtask-input-container img {
     cursor: pointer;
     height: 24px;
@@ -343,20 +337,17 @@ select {
     width: 24px;
 }
 
-/*h1 {
+h1 {
     font-size: 61px;
     margin-block-start: 0.67em;
     margin-block-end: 0.67em;
-}       20.10.2023 - Alexander Riedel: h1 wird global übergeben*/
-
-.align-content h1 {
-    margin-bottom: 32px;
 }
 
 .create-buttons {
     display: flex;
     justify-content: end;
     gap: 8px;
+    margin-top: 80px;
     padding-bottom: 8px;
 }
 
@@ -408,9 +399,9 @@ select {
     transition: 125ms all ease-in-out
 }
 
-/*svg:hover {
+svg:hover {
     fill: rgb(41, 171, 226);
-} 20.10.2023 - Alexander Riedel: Funtkioniert nicht, überschreibt den Hover-Effekt im Board */
+}
 
 .svg-icon {
     fill: black;
@@ -423,13 +414,13 @@ select {
 }
 
 .align-content {
-    padding: 16px 34px;
     display: flex;
     flex-direction: column;
-    /*align-items: center; 20.10.2023 - Alexander Riedel: wird nicht benötigt, zentriert sonst auch die Überschrift*/
+    align-items: center;
     /* margin-left: 200px; */
     height: 100%;
-    /*padding-right: 71px; 20.10.2023 - Alexander Riedel: wird hier nicht benötigt, verfälscht den Abstand auf dem Board*/
+    padding-right: 71px;
+    margin-top: 56px;
 }
 
 #urgent-img.active,
@@ -437,17 +428,6 @@ select {
 #low-img.active {
     filter: grayscale(100%) brightness(200%);
 }
-
-/*#contact-overlay {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    gap: 3px;
-    background-color: white;
-    max-height: 200px;
-    overflow-y: auto;
-    border-radius: 10px;
-}*/
 
 #contact-overlay {
     flex-direction: column;
@@ -462,10 +442,6 @@ select {
     font-size: 20px;
 }
 
-.current-contacts {
-    width: 100%;
-}
-
 .add-task-contacts {
     display: flex;
     align-items: center;
@@ -474,8 +450,7 @@ select {
     font-size: 20px;
     font-family: 'inter';
     border-radius: 10px;
-    padding: 0 12px;
-    /*width: 100%;*/
+    padding-inline: 8px;
 }
 
 .add-task-contacts:hover {
@@ -519,14 +494,8 @@ select {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     min-height: 80px;
-}
-
-#edit-selected-contacts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
 }
 
 .error-message {

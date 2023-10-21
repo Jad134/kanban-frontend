@@ -159,7 +159,6 @@ h4 {
 
 #board-content {
     display: flex;
-    max-width: 1440px;
     background-color: #F6F7F8;
     gap: 40px;
 }
@@ -408,8 +407,8 @@ h4 {
     background-color: #D1D1D1;
 }
 
-.edit-task-container {
-    /*width: 525px;*/
+/*.edit-task-container {
+    width: 525px;
 }
 
 .edit-task {
@@ -441,10 +440,6 @@ h4 {
 }
 
 .edit-assigned-user input {
-    /*padding: 12px 0;
-    border: 1px solid #D1D1D1;
-    border-radius: 10px;
-    font-size: 20px;*/
 
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -467,7 +462,7 @@ textarea {
 
 .edit-task-container input:focus {
     border: 1px solid #29ABE2;
-}
+}*/
 
 #slider form {
     display: flex;
@@ -494,6 +489,18 @@ textarea {
     color: #FFFFFF;
     font-size: 12px;
 }
+
+/*.assignment-circle-big {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 12px;
+}*/
 
 .assigned-to-contact {
     padding: 7px 16px;
