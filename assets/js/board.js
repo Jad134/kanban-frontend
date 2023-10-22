@@ -610,7 +610,8 @@ function addTaskHtml() {
             <div class="main-content">
                 <div class="align-content">
                     <h1>Add Task</h1>
-                    <form novalidate >
+
+                    <form novalidate>
                         <div class="left-right-container">
                             <div class="left-side">
 
@@ -619,31 +620,37 @@ function addTaskHtml() {
                                     <input required placeholder="Enter a title" id="title-input" type="text">
                                     <div class="error-message" id="title-error"></div>
                                 </div>
+
                                 <div class="description">
                                     <span class="span-style">Description</span>
-                                    <textarea required placeholder="Enter a Description" name="" id="description-textarea"
-                                        cols="20" rows="10"></textarea>
-                                    <div class="error-message" id="description-error"></div>
+                                    <textarea required placeholder="Enter a Description" name="" id="description-textarea" cols="20" rows="10"></textarea>
+                                    <div></div>
                                 </div>
+
                                 <div class="assigned">
                                     <span class="span-style">Assigned to</span>
-                                    <input onclick="openContactOverlay()" id="assignedTo" type="text"
-                                        placeholder="Select contacts to assign">
-                                    <div class="d-none" id="contact-overlay"></div>
-                                    <div id="selected-contacts">
+                                    <input onclick="openContactOverlay()" id="assignedTo" type="text" placeholder="Select contacts to assign">
+                                    <div class="p-relative">
+                                        <div class="d-none" id="contact-overlay"></div>
+                                        <div id="selected-contacts"></div>
                                     </div>
+                                    <div></div>
                                 </div>
+
                                 <div id="required-info" class="required-info">
                                     <span><span class="required-star">*</span>This field is required</span>
                                 </div>
+
                             </div>
 
                             <div class="right-side">
+
                                 <div class="date-container">
                                     <span class="span-style">Due date <span class="required-star">*</span></span>
                                     <input  type='date' id="date-input"  placeholder="dd/mm/yyyy">
                                     <div class="error-message" id="date-error"></div>
                                 </div>
+
                                 <div class="prio">
                                     <span class="span-style">Prio</span>
                                     <div class="prio-buttons">
@@ -660,7 +667,9 @@ function addTaskHtml() {
                                             <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
                                         </button>
                                     </div>
+                                    <div></div>
                                 </div>
+
                                 <div class="category-container">
                                     <span class="span-style">Category <span class="required-star">*</span></span>
                                     <select name="Select contacts to assign" id="select-category">
@@ -668,38 +677,39 @@ function addTaskHtml() {
                                         <option value="1">Technical Task</option>
                                         <option value="2">User Story</option>
                                     </select>
+                                    <div class="error-message" id="category-error"></div>
                                 </div>
+
                                 <div id="subtask-container" class="subtask-container">
                                     <span class="span-style">Subtasks</span>
                                     <div class="subtask-input-btn">
-                                        <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
-                                            placeholder="Add new subtask" type="text">
-                                        <button onclick="addSubTask()" type="button" class="subtask-button"><img
-                                                src="./assets/img/addSub.svg" alt=""></button>
+                                        <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text">
+                                        <button onclick="addSubTask()" type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
                                     </div>
                                     <div id="subtask-lists"></div>
                                 </div>
+
                                 <div class="create-buttons">
                                     <div class="required-info-responsive">
-                                        <span>
-                                            <span class="required-star">*</span>
-                                            This field is required
-                                        </span>
+                                        <span><span class="required-star">*</span>This field is required</span>
                                     </div>
-                                    <button onclick="clearTasks()" type="button" id="clear-btn"> Clear <svg width="25"
-                                            height="24" viewBox="0 0 25 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                    <button onclick="clearTasks()" type="button" id="clear-btn">
+                                        Clear 
+                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M12.2496 11.9998L17.4926 17.2428M7.00659 17.2428L12.2496 11.9998L7.00659 17.2428ZM17.4926 6.75684L12.2486 11.9998L17.4926 6.75684ZM12.2486 11.9998L7.00659 6.75684L12.2486 11.9998Z"
-                                                stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" />
+                                                stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </button>
-                                    <button onclick="submitForm()"  type="button" id="create-btn">Create Task<img
-                                            src="./assets/img/check.svg" alt=""></button>
+                                    <button onclick="submitForm()" type="button" id="create-btn">
+                                        Create Task<img src="./assets/img/check.svg" alt="">
+                                    </button>
                                 </div>
+
                             </div>
+
                             <div class="bottom"></div>
+
                         </div>
                     </form>
                 </div>

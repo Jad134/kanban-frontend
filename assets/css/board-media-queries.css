@@ -1,0 +1,115 @@
+@media (max-width: 1400px) {
+
+    #board {
+        padding: 0 30px 0 30px;
+    }
+
+    #board-content {
+        gap: 15px;
+    }
+
+}
+
+@media (max-width: 1200px) {
+
+    #board {
+        padding: 0 16px 0 16px;
+    }
+
+    #board-head {
+        padding: 32px 0 32px 0;
+    }
+
+    #input-area {
+        height: 42px;
+        width: 280px;
+    }
+
+    #input-area input {
+        padding: 0 4px 0 8px;
+        font-size: 18px;
+    }
+
+    #input-area input::placeholder {
+        font-size: 16px;
+    }
+
+    .search-button {
+        margin: 0 8px 0 8px;
+        height: 24px;
+        width: 24px;
+    }
+
+    #add-task-button {
+        font-size: 18px;
+        height: 42px;
+        width: 140px;
+    }
+
+    #board-content h3 {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .divers-head-sections {
+        margin: 0 12px;
+        height: 40px;
+    }
+
+    .specific-content {
+        margin-top: 4px;
+        gap: 4px;
+    }
+
+    #board-content {
+        gap: 4px;
+    }
+
+    .task-container {
+        margin: 8px;
+        padding: 14px;
+        border-radius: 20px;
+        gap: 16px;
+    }
+
+    .category-technical-task {
+        padding: 4px 12px 4px 12px;
+        font-size: 14px;
+    }
+
+    .category-user-story {
+        padding: 4px 12px 4px 12px;
+        font-size: 14px;
+    }
+
+    .task-subtasks-container {
+        align-items: flex-start;
+        flex-direction: column;
+        font-size: 12px;
+        gap: 4px;
+    }
+
+    .assignment-circle {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    #board-content {
+        flex-direction: column;
+    }
+
+    .divers-sections {
+        width: 100%;
+    }
+
+    .specific-content {
+        flex-direction: row;
+        min-height: unset;
+    }
+
+}

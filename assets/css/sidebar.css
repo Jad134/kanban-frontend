@@ -61,7 +61,37 @@
     font-weight: 700;
 }
 
-@media(max-width: 800px) {
+@media (max-width: 1200px) {
+
+    .sidebar-logo-container {
+        margin: 32px 0 0 0;
+    }
+
+    .sidebar {
+        width: 180px;
+    }
+
+    .sidebar-menu {
+        margin: 80px 0 0 0;
+        gap: 6px;
+    }
+
+    .sidebar-menu-link {
+        padding: 0 0 0 28px;
+        width: calc(100% - 28px);
+        height: 36px;
+        gap: 6px;
+    }
+
+    .judicial-info {
+        margin: 0 0 36px 28px;
+        gap: 8px;
+    }
+
+}
+
+
+@media(max-width: 922px) {
     .sidebar {
         display: flex;
         flex-direction: column;

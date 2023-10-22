@@ -129,11 +129,29 @@ a {
    (HL) */
 }
 
-.d-flex{
+.d-flex {
     display: flex;
 }
-.d-none{
+
+.d-none {
     display: none;
+}
+
+
+@media (max-width: 1200px) {
+
+    body {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 52px;
+    }
+
+    .preload-side-menu {
+        min-width: 180px;
+    }
+
 }
 
 
