@@ -128,7 +128,7 @@ function signUpUser() {
     displayMessage('You registered successfully!');
     setTimeout(() => {
       window.location.href = 'index.html';
-    }, 2500);
+    }, 1500);
   }
 }
 
@@ -219,13 +219,12 @@ function login(event) {
   let password = document.getElementById('password-login');
   let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
   if (dataExists) {
-    debugger;
     rememberMe();
     displayMessage('You logged in successfully!')
     loginToLocalStorage(dataExists);
     setTimeout(() => {
       window.location.href = '/summary.html';
-    }, 3000);
+    }, 1200);
   }
   else {
     displayMessage('Wrong Email or password')
