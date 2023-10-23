@@ -90,8 +90,8 @@
 
 }
 
-
-@media(max-width: 922px) {
+/* @media(max-width: 922px) -- > auf 992px geändert, 23.10., HL */
+@media(max-width: 992px) {
     .sidebar {
         display: flex;
         flex-direction: column;

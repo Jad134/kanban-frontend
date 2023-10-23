@@ -250,12 +250,13 @@
     position: fixed;
     top: 100px;
     left: 233px;
-    width: 100%;
+    max-width: 100%;
     height: 100%;
     background-color: #F6F7F8;
     align-items: center;
     opacity: 1;
     justify-content: flex-start;
+    box-sizing: border-box;
 }
 
 #responsive-greeting-daytime {
@@ -263,7 +264,7 @@
     font-weight: 500;
     display: block;
     height: 100px;
-    width: 300px;
+    max-width: 300px;
     color: #2A3647;
     margin-top: 20vh;
 }
@@ -274,27 +275,34 @@
     color: #29ABE2;
     display: block;
     height: 100px;
-    width: 300px;
+    max-width: 300px;
     margin-top: 25px;
+}
+
+.main-cont {
+    height: calc(100% - 80px);
 }
 
 /* ------------ media queries ------------ */
 
 
-@media (min-width: 1150px) and (max-width: 4000px) {
+@media (min-width: 1200px) {
     .responsive-greeting {
         display: none;
     }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
     .greeting {
         display: none;
     }
+    .responsive-greeting {
+        left: 180px;
+        width: 100vw;
+    }
 }
 
-
-@media (max-width: 950px) {
+@media (max-width: 992px) {
     .title {
         flex-direction: column;
         align-items: flex-start;
@@ -304,21 +312,26 @@
         height: 1px;
         width: 59px;
     }
+
+    .responsive-greeting {
+        left: 0;
+        width: 100vw;
+    }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .title {
         align-items: center;
         padding: 24px 0 24px 0px;
     }
 
     .responsive-greeting {
-        left: 0px;
+        left: 0;
     }
 
     #responsive-greeting-daytime,
     #responsive-greeting-name {
-        margin-left: 30vw;
+        margin-left: 25vw;
     }
 
     .disp-flex-column-start {
