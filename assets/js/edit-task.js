@@ -21,7 +21,7 @@ async function openEditTask(id) {
 
     getPrio(i);
     loadUserCirclesForEdit(i);
-    loadEditContacts();
+    loadEditContacts(i);
 }
 
 
@@ -51,26 +51,16 @@ function loadUserCirclesForEdit(i) {
     }
 }
 
-// Alexander Riedel: Funktioniert noch nicht korrekt !
-function loadEditContacts(id) {
-    let i = idToIndex(id);
+
+function loadEditContacts(i) {
     let overlayContainer = document.getElementById('edit-contact-overlay');
-
-    for (let u = 0; u < userData.length; u++) {
-        let currentContact = userData[u];
-        let name = currentContact['name'];
-        let userInitial = userData[u]['initials'];
-        let color = userData[u]['color'];
-
-        if (1 === 2) { // if-Abfrage bauen um Checked Box oder Unchecked Box zu rendern (Zum testen für true 1===1 oder für false 1===2)
-            overlayContainer.innerHTML += renderUncheckedUsers(name, u, userInitial, color);
+    userData.forEach((user, index) => {
+        if (addedTasks[i].assigned.includes(user.name)) {
+            overlayContainer.innerHTML += renderCheckedUsers(user.name, user.initials, user.color, index);
         } else {
-            overlayContainer.innerHTML += renderCheckedUsers(name, u, userInitial, color);
+            overlayContainer.innerHTML += renderUncheckedUsers(user.name, user.initials, user.color, index);
         }
-
-    }
-
-    findContact();
+    });
 }
 
 
@@ -205,13 +195,13 @@ function renderUserCirclesForEdit(initials, color) {
 }
 
 
-function renderUncheckedUsers(name, i, userInitial, color) {
+function renderUncheckedUsers(name, initials, color, i) {
     return `
         <label class="contact-label" for="check-contact${i}">
             <div class="current-contacts">
                 <div class="add-task-contacts"> 
                     <div id="list-circle${i}" class="assignment-circle-big" style="background-color: ${color};">
-                        <span>${userInitial}</span>
+                        <span>${initials}</span>
                     </div>
                     <span class="current-name">${name}</span>
                     <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
@@ -222,13 +212,13 @@ function renderUncheckedUsers(name, i, userInitial, color) {
 }
 
 
-function renderCheckedUsers(name, i, userInitial, color) {
+function renderCheckedUsers(name, initials, color, i) {
     return `
         <label class="contact-label" for="check-contact${i}" style="background-color: rgb(9, 25, 49); color: white;">
             <div class="current-contacts">
                 <div class="add-task-contacts"> 
                     <div id="list-circle${i}" class="assignment-circle-big" style="background-color: ${color};">
-                        <span>${userInitial}</span>
+                        <span>${initials}</span>
                     </div>
                     <span class="current-name">${name}</span>
                     <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" checked="checked" onchange="setCheckbox(this, '${name}', ${i})">
