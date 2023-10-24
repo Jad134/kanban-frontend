@@ -26,6 +26,7 @@ function closeSlider() {
         document.getElementById('slider-bg').classList.remove('slider-bg');
         document.getElementById('screen-center').classList.add('d-none');
         document.getElementById('screen-center').classList.remove('screen-center');
+        document.getElementById('slider-container').innerHTML = '';
     }, 200);
     userData = []; // Für den AddTask Slider notwendig, da dass Array sonst immer grösser wird (Jad fragen)
 }

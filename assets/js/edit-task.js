@@ -1,4 +1,4 @@
-async function loadUserDataForEdit() {
+async function loadRemoteUserDataForEdit() {
     let newUserDataString = await getItem('users');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
 
@@ -6,35 +6,11 @@ async function loadUserDataForEdit() {
         let users = newUserDataString[i];
         userData.push(users);
     }
-
-    //findContact();
-}
-
-
-function loadEditContacts(id) {
-    let i = idToIndex(id);
-    let overlayContainer = document.getElementById('edit-contact-overlay');
-
-    for (let u = 0; u < userData.length; u++) {
-        let currentContact = userData[u];
-        let name = currentContact['name'];
-        let userInitial = userData[u]['initials'];
-        //let nameColor = userData[u]['color'];
-
-        if (1 === 'a') {
-            overlayContainer.innerHTML += renderUncheckedUsers(name, i, userInitial);
-        } else {
-            overlayContainer.innerHTML += renderCheckedUsers(name, i, userInitial);
-        }
-
-        //let initialDiv = document.getElementById(`list-circle${i}`);
-        //initialDiv.style.backgroundColor = nameColor;
-    }
 }
 
 
 async function openEditTask(id) {
-    await loadUserDataForEdit();
+    await loadRemoteUserDataForEdit();
 
     let i = idToIndex(id);
     let title = addedTasks[i]['title'];
@@ -75,41 +51,80 @@ function loadUserCirclesForEdit(i) {
     }
 }
 
+// Alexander Riedel: Funktioniert noch nicht korrekt !
+function loadEditContacts(id) {
+    let i = idToIndex(id);
+    let overlayContainer = document.getElementById('edit-contact-overlay');
 
-function openContactOverlay() {
-    let assignedTo = document.getElementById('assignedTo');
+    for (let u = 0; u < userData.length; u++) {
+        let currentContact = userData[u];
+        let name = currentContact['name'];
+        let userInitial = userData[u]['initials'];
+        let color = userData[u]['color'];
+
+        if (1 === 2) { // if-Abfrage bauen um Checked Box oder Unchecked Box zu rendern (Zum testen für true 1===1 oder für false 1===2)
+            overlayContainer.innerHTML += renderUncheckedUsers(name, u, userInitial, color);
+        } else {
+            overlayContainer.innerHTML += renderCheckedUsers(name, u, userInitial, color);
+        }
+
+    }
+
+    findContact();
+}
+
+
+function openEditContactOverlay() {
+    let assignedTo = document.getElementById('edit-assigned-to');
     assignedTo.style.backgroundImage = `url('./assets/img/arrow-up.svg')`;
     assignedTo.removeAttribute('onClick');
-    assignedTo.onclick = closeContactOverlay;
+    assignedTo.onclick = closeEditContactOverlay;
 
     let contactOverlay = document.getElementById('edit-contact-overlay');
     contactOverlay.classList.add('d-flex');
     contactOverlay.classList.remove('d-none');
 
-    document.addEventListener('click', closeOnClickOutside);
+    document.addEventListener('click', closeEditOnClickOutside);
 }
 
 
-function closeContactOverlay() {
+function closeEditContactOverlay() {
     let contactOverlay = document.getElementById('edit-contact-overlay');
     contactOverlay.classList.remove('d-flex');
     contactOverlay.classList.add('d-none');
 
-    let assignedTo = document.getElementById('assignedTo');
+    let assignedTo = document.getElementById('edit-assigned-to');
     assignedTo.style.backgroundImage = `url('./assets/img/arrow-assign-down.svg')`;
-    assignedTo.onclick = openContactOverlay;
+    assignedTo.onclick = openEditContactOverlay;
 
-    document.removeEventListener('click', closeOnClickOutside);
+    document.removeEventListener('click', closeEditOnClickOutside);
 }
 
 
-function closeOnClickOutside(event) {
+function closeEditOnClickOutside(event) {
     let contactOverlay = document.getElementById('edit-contact-overlay');
-    let assignedTo = document.getElementById('assignedTo');
+    let assignedTo = document.getElementById('edit-assigned-to');
 
     if (!contactOverlay.contains(event.target) && event.target !== assignedTo) {
-        closeContactOverlay();
+        closeEditContactOverlay();
     }
+}
+
+
+function findContact() {
+    const searchInput = document.getElementById('edit-assigned-to');
+    const contactCards = document.querySelectorAll('.add-task-contacts');
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value.toLowerCase();
+        contactCards.forEach((card) => {
+            const cardText = card.innerText.toLowerCase();
+            if (cardText.includes(searchText)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
 }
 
 
@@ -153,7 +168,7 @@ function renderEditTask(id, title, description, duedate) {
                     <div class="edit-assigned-user edit-task disp-flex-column">
                         <span>Assigned to</span>
 
-                        <input onclick="openContactOverlay(${id})" id="assignedTo" type="text" placeholder="Select contacts to assign">
+                        <input onclick="openEditContactOverlay(${id})" id="edit-assigned-to" type="text" placeholder="Select contacts to assign">
                         <div class="d-none" id="edit-contact-overlay"></div>
                         <div id="selected-contacts"></div>
 
@@ -190,12 +205,12 @@ function renderUserCirclesForEdit(initials, color) {
 }
 
 
-function renderUncheckedUsers(name, i, userInitial) {
+function renderUncheckedUsers(name, i, userInitial, color) {
     return `
         <label class="contact-label" for="check-contact${i}">
             <div class="current-contacts">
                 <div class="add-task-contacts"> 
-                    <div id="list-circle${i}" class="assignment-circle-big">
+                    <div id="list-circle${i}" class="assignment-circle-big" style="background-color: ${color};">
                         <span>${userInitial}</span>
                     </div>
                     <span class="current-name">${name}</span>
@@ -207,16 +222,16 @@ function renderUncheckedUsers(name, i, userInitial) {
 }
 
 
-function renderCheckedUsers(name, i, userInitial) {
+function renderCheckedUsers(name, i, userInitial, color) {
     return `
-        <label class="contact-label" for="check-contact${i}">
+        <label class="contact-label" for="check-contact${i}" style="background-color: rgb(9, 25, 49); color: white;">
             <div class="current-contacts">
                 <div class="add-task-contacts"> 
-                    <div id="list-circle${i}" class="assignment-circle-big">
+                    <div id="list-circle${i}" class="assignment-circle-big" style="background-color: ${color};">
                         <span>${userInitial}</span>
                     </div>
                     <span class="current-name">${name}</span>
-                    <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
+                    <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" checked="checked" onchange="setCheckbox(this, '${name}', ${i})">
                 </div>
             </div>
         </label>        
