@@ -1,0 +1,99 @@
+.edit-task-container {
+    width: 525px;
+}
+
+.edit-task {
+    width:525px;
+    gap: 8px;
+}
+
+.edit-task input {
+    padding: 12px 21px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.edit-task textarea {
+    cursor: pointer;
+}
+
+.edit-task span {
+    font-size: 20px;
+    color: #2A3647;
+}
+
+.edit-assigned-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-assigned-user input {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding-left: 16px;
+    height: 48px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px 21px;
+    box-sizing: border-box;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    font-family: Inter;
+    font-size: 20px;
+}
+
+.edit-task-container input:focus {
+    border: 1px solid #29ABE2;
+}
+
+.assignment-circle-big {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 12px;
+}
+
+#edit-contact-overlay {
+    flex-direction: column;
+    gap: 3px;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+#ok-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#ok-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 57px;
+    width: 89px;
+    background-color: rgb(42, 54, 71);
+    border-radius: 10px;
+    color: white;
+    font-family: 'Inter';
+    font-size: 21px;
+}
+
+#ok-button:hover {
+    cursor: pointer;
+    background-color: rgb(41, 171, 226);
+    border: none;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.5);
+}
