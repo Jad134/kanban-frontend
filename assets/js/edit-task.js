@@ -20,7 +20,7 @@ async function openEditTask(id) {
     document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate);
 
     getPrio(i);
-    loadUserCirclesForEdit(i);
+    loadUserCirclesForEdit(i, id);
     loadEditContacts(i);
     findContactForEdit();
     loadEditSubtasks(i);
@@ -42,14 +42,14 @@ function getPrio(i) {
 }
 
 
-function loadUserCirclesForEdit(i) {
+function loadUserCirclesForEdit(i, id) {
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
         let assignedUser = addedTasks[i]['assigned'][u];
         let x = compareUser(assignedUser);
         let initials = addedUsers[x]['initials'];
         let color = addedUsers[x]['color'];
 
-        document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(initials, color);
+        document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(x, initials, color);
     }
 }
 
@@ -133,6 +133,7 @@ function setEditCheckbox(status, name, userIndex, i) {
         checkedContact.classList.remove('checked-contact-label');
         checkedContact.classList.add('unchecked-contact-label');
         spliceContact(name);
+        removeEditInitialsImg(userIndex);
     } else {
         // uncheck to check:
         checked.setAttribute('checked', 'checked');
@@ -140,7 +141,31 @@ function setEditCheckbox(status, name, userIndex, i) {
         checkedContact.classList.remove('unchecked-contact-label');
         checkedContact.classList.add('checked-contact-label');
         pushContact(name);
+        renderEditInitialsImg(userIndex);
     }
+}
+
+
+function removeEditInitialsImg(i) {
+    let content = document.getElementById('selected-contacts');
+    let divToRemove = document.getElementById(`assigned-initials-${i}`);
+
+    if (divToRemove) {
+        content.removeChild(divToRemove);
+    }
+}
+
+
+function renderEditInitialsImg(i) {
+    let content = document.getElementById('selected-contacts');
+    let userInitial = userData[i]['initials'];
+    let nameColor = userData[i]['color'];
+
+    content.innerHTML += `
+             <div id="assigned-initials-${i}" class="assignment-circle-big"><span>${userInitial}</span></div>`;
+    let initialDiv = document.getElementById(`assigned-initials-${i}`)
+    initialDiv.style.backgroundColor = nameColor;
+
 }
 
 
@@ -152,6 +177,35 @@ function loadEditSubtasks(i) {
         let subtask = addedTasks[i]['subtask'][s]['subtitle'];
         subtaskContainer.innerHTML += renderSubtaskContainer(s, subtask);
     }
+}
+
+
+function submitEditForm(id) {
+    let i = idToIndex(id);
+    let bucket = addedTasks[i]['bucket'];
+    let title = document.getElementById('edit-title');
+    let description = document.getElementById('edit-description');
+    let duedate = document.getElementById('date-input');
+    let category = addedTasks[i]['category'];
+    let prio = lastClickedPrio ? lastClickedPrio.value : '';
+
+    let tasks = {
+        "id": taskId,
+        "title": title.value,
+        "description": description.value,
+        "assigned": assignedContact,
+        "duedate": duedate,
+        "prio": prio,
+        "category": category,
+        "subtask": newSubTasks,
+        "bucket": bucket,
+    };
+
+    sendFormular(tasks);
+
+    // Funktion noch nicht fertig
+    // splice + page reload fehlt noch 
+
 }
 
 
@@ -211,7 +265,7 @@ function renderEditTask(id, title, description, duedate) {
                     </div>
 
                     <div id="ok-button-container">
-                        <button onclick="submitEditForm()" type="button" id="ok-button">
+                        <button onclick="submitEditForm(${id})" type="button" id="ok-button">
                             <span>Ok</span><img src="./assets/img/check.svg" alt="">
                         </button>
                     </div>
@@ -223,9 +277,9 @@ function renderEditTask(id, title, description, duedate) {
 }
 
 
-function renderUserCirclesForEdit(initials, color) {
+function renderUserCirclesForEdit(x, initials, color) {
     return `
-        <div style="background-color: ${color};" class="assignment-circle-big">${initials}</div>
+        <div style="background-color: ${color};" id="assigned-initials-${x}" class="assignment-circle-big">${initials}</div>
     `;
 }
 
@@ -270,8 +324,8 @@ function renderSubtaskContainer(s, subtask) {
             <ul id="subtask-list${s}" class="subtask-list">
                 <li><span id="show-current-subtask${s}">${subtask}</span></li>
             </ul>
-                <div id="subtask-input-container${s}" class="d-none subtask-input-container" style="width: 100%;"> 
-                <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${s})"  id="edit-task-input${s}" class=" edit-subtask-input" type="text" > 
+            <div id="subtask-input-container${s}" class="d-none subtask-input-container" style="width: 100%;"> 
+                <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${s})" id="edit-task-input${s}" class="edit-subtask-input" type="text"> 
                 <img onclick="renameSubTask(${s})" class="edit-done"  src="/assets/img/done.svg" alt="">
                 <img onclick="deleteSubTask(${s})"  src="/assets/img/addtasktrash.svg" alt="">
             </div>
