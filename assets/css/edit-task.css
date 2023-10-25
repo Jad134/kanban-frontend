@@ -1,3 +1,9 @@
+.gap16 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .edit-task-container {
     width: 525px;
 }
@@ -19,7 +25,7 @@
     cursor: pointer;
 }
 
-.edit-task span {
+.edit-task-headline {
     font-size: 20px;
     color: #2A3647;
 }
@@ -27,6 +33,7 @@
 .edit-assigned-user {
     display: flex;
     flex-direction: column;
+    gap: 8px;
 }
 
 .edit-assigned-user input {
@@ -89,12 +96,15 @@ textarea {
 }
 
 #edit-contact-overlay {
+    position: absolute;
     flex-direction: column;
     gap: 3px;
     background-color: white;
-    max-height: 150px;
+    max-height: 200px;
+    width: 100%;
     overflow-y: auto;
     border-radius: 10px;
+    box-shadow: 0px 0px 14px 3px #0000000A;
 }
 
 #ok-button-container {
@@ -120,4 +130,50 @@ textarea {
     background-color: rgb(41, 171, 226);
     border: none;
     box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+.checked-contact-label,
+.unchecked-contact-label {
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    width: calc(100% - 32px);
+    font-size: 20px;
+    font-family: 'inter';
+    border-radius: 10px;
+}
+
+.checked-contact-label {
+    background-color: #2A3647;
+    color: #FFFFFF;
+}
+
+.checked-contact-label:hover {
+    background-color: #091931;
+    cursor: pointer;
+}
+
+.unchecked-contact-label {
+    color: #000000;
+}
+
+.unchecked-contact-label:hover {
+    cursor: pointer;
+    background-color: #EEEEEE;
+}
+
+.edit-task-contacts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    width: 100%;
+}
+
+.left-edit-task-contacts {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }

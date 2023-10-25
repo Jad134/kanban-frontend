@@ -22,6 +22,8 @@ async function openEditTask(id) {
     getPrio(i);
     loadUserCirclesForEdit(i);
     loadEditContacts(i);
+    findContactForEdit();
+    loadEditSubtasks(i);
 }
 
 
@@ -54,11 +56,12 @@ function loadUserCirclesForEdit(i) {
 
 function loadEditContacts(i) {
     let overlayContainer = document.getElementById('edit-contact-overlay');
+
     userData.forEach((user, index) => {
         if (addedTasks[i].assigned.includes(user.name)) {
-            overlayContainer.innerHTML += renderCheckedUsers(user.name, user.initials, user.color, index);
+            overlayContainer.innerHTML += renderCheckedUsers(i, user.name, user.initials, user.color, index);
         } else {
-            overlayContainer.innerHTML += renderUncheckedUsers(user.name, user.initials, user.color, index);
+            overlayContainer.innerHTML += renderUncheckedUsers(i, user.name, user.initials, user.color, index);
         }
     });
 }
@@ -101,7 +104,7 @@ function closeEditOnClickOutside(event) {
 }
 
 
-function findContact() {
+function findContactForEdit() {
     const searchInput = document.getElementById('edit-assigned-to');
     const contactCards = document.querySelectorAll('.add-task-contacts');
     searchInput.addEventListener('input', () => {
@@ -118,30 +121,64 @@ function findContact() {
 }
 
 
+function setEditCheckbox(status, name, userIndex, i) {
+    assignedContact = addedTasks[i]['assigned'];
+    let checked = document.getElementById(`check-contact${userIndex}`);
+    let checkedContact = document.getElementById(`contact-${userIndex}`);
+
+    if (status === 'checked') {
+        // check to uncheck:
+        checked.removeAttribute('checked');
+        checked.setAttribute('onchange', `setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i})`);
+        checkedContact.classList.remove('checked-contact-label');
+        checkedContact.classList.add('unchecked-contact-label');
+        spliceContact(name);
+    } else {
+        // uncheck to check:
+        checked.setAttribute('checked', 'checked');
+        checked.setAttribute('onchange', `setEditCheckbox('checked', '${name}', ${userIndex}, ${i})`);
+        checkedContact.classList.remove('unchecked-contact-label');
+        checkedContact.classList.add('checked-contact-label');
+        pushContact(name);
+    }
+}
+
+
+function loadEditSubtasks(i) {
+    newSubTasks = addedTasks[i]['subtask'];
+    let subtaskContainer = document.getElementById('subtask-lists');
+
+    for (let s = 0; s < newSubTasks.length; s++) {
+        let subtask = addedTasks[i]['subtask'][s]['subtitle'];
+        subtaskContainer.innerHTML += renderSubtaskContainer(s, subtask);
+    }
+}
+
+
 function renderEditTask(id, title, description, duedate) {
     return `
         <div id="slider" class="edit-task-container">
             <form>
-                <div>
+                <div class="gap16">
 
                     <div class="edit-task disp-flex-column">
-                        <span>Title</span>
+                        <span class="edit-task-headline">Title</span>
                         <input required id="edit-title" type="text" value="${title}">
                     </div>
 
                     <div class="edit-task disp-flex-column">
-                        <span>Description</span>
+                        <span class="edit-task-headline">Description</span>
                         <textarea required id="edit-description" row="3">${description}</textarea>
                     </div>
 
                     <div class="edit-task disp-flex-column">
-                        <span>Due Date</span>
+                        <span class="edit-task-headline">Due Date</span>
                         <input type="date" id="date-input" value="${duedate}">
                         <!-- <div class="error-message" id="date-error"></div> -->
                     </div>
 
                     <div class="edit-task disp-flex-column">
-                        <span>Priority</span>
+                        <span class="edit-task-headline">Priority</span>
                         <div class="prio-buttons">
                             <button value="Urgent" onclick="ChangeButtonColor('urgent-btn', 'urgent-img')" type="button" id="urgent-btn">
                                 Urgent <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
@@ -155,24 +192,22 @@ function renderEditTask(id, title, description, duedate) {
                         </div>
                     </div>
 
-                    <div class="edit-assigned-user edit-task disp-flex-column">
-                        <span>Assigned to</span>
-
-                        <input onclick="openEditContactOverlay(${id})" id="edit-assigned-to" type="text" placeholder="Select contacts to assign">
-                        <div class="d-none" id="edit-contact-overlay"></div>
-                        <div id="selected-contacts"></div>
-
+                    <div class="edit-assigned-user disp-flex-column">
+                        <span class="edit-task-headline">Assigned to</span>
+                        <input onclick="openEditContactOverlay(${id})" id="edit-assigned-to" type="text" placeholder="Select contacts to assign" autocomplete="off">
+                        <div class="p-relative">
+                            <div class="d-none" id="edit-contact-overlay"></div>
+                            <div id="selected-contacts"></div>
+                        </div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
-                        <span>Subtasks</span>
-
+                        <span class="edit-task-headline">Subtasks</span>
                         <div class="subtask-input-btn">
-                            <input onkeydown="handleEnterKeyPress(event, 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text">
+                            <input onkeydown="handleEnterKeyPress(event, 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text" autocomplete="off">
                             <button onclick="addSubTask()" type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
                         </div>
                         <div id="subtask-lists"></div>
-
                     </div>
 
                     <div id="ok-button-container">
@@ -195,35 +230,55 @@ function renderUserCirclesForEdit(initials, color) {
 }
 
 
-function renderUncheckedUsers(name, initials, color, i) {
+function renderUncheckedUsers(i, name, initials, color, userIndex) {
     return `
-        <label class="contact-label" for="check-contact${i}">
-            <div class="current-contacts">
-                <div class="add-task-contacts"> 
-                    <div id="list-circle${i}" class="assignment-circle-big" style="background-color: ${color};">
+        <label class="unchecked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
+            <div class="edit-task-contacts"> 
+                <div class="left-edit-task-contacts">
+                    <div id="list-circle${userIndex}" class="assignment-circle-big" style="background-color: ${color};">
                         <span>${initials}</span>
                     </div>
                     <span class="current-name">${name}</span>
-                    <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
                 </div>
+                <input value="${name}" class="check-contact" id="check-contact${userIndex}" type="checkbox" onchange="setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i})">
             </div>
         </label>        
     `;
 }
 
 
-function renderCheckedUsers(name, initials, color, i) {
+function renderCheckedUsers(i, name, initials, color, userIndex) {
     return `
-        <label class="contact-label" for="check-contact${i}" style="background-color: rgb(9, 25, 49); color: white;">
-            <div class="current-contacts">
-                <div class="add-task-contacts"> 
-                    <div id="list-circle${i}" class="assignment-circle-big" style="background-color: ${color};">
+        <label class="checked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
+            <div class="edit-task-contacts"> 
+                <div class="left-edit-task-contacts">
+                    <div id="list-circle${userIndex}" class="assignment-circle-big" style="background-color: ${color};">
                         <span>${initials}</span>
                     </div>
                     <span class="current-name">${name}</span>
-                    <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" checked="checked" onchange="setCheckbox(this, '${name}', ${i})">
                 </div>
+                <input value="${name}" class="check-contact" id="check-contact${userIndex}" type="checkbox" checked="checked" onchange="setEditCheckbox('checked', '${name}', ${userIndex}, ${i})">
             </div>
         </label>        
+    `;
+}
+
+
+function renderSubtaskContainer(s, subtask) {
+    return `
+        <div id="sublist-container${s}" class="sublist-container">
+            <ul id="subtask-list${s}" class="subtask-list">
+                <li><span id="show-current-subtask${s}">${subtask}</span></li>
+            </ul>
+                <div id="subtask-input-container${s}" class="d-none subtask-input-container" style="width: 100%;"> 
+                <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${s})"  id="edit-task-input${s}" class=" edit-subtask-input" type="text" > 
+                <img onclick="renameSubTask(${s})" class="edit-done"  src="/assets/img/done.svg" alt="">
+                <img onclick="deleteSubTask(${s})"  src="/assets/img/addtasktrash.svg" alt="">
+            </div>
+            <div id="task-edit-buttons${s}" class="d-flex subtask-edit-buttons">
+                <img onclick="editSubTask(${s}, '${subtask}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
+                <img onclick="deleteSubTask(${s})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
+            </div>
+        </div> 
     `;
 }
