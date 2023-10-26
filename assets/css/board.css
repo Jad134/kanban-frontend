@@ -168,7 +168,7 @@ h4 {
 #board-content {
     display: flex;
     background-color: #F6F7F8;
-    gap: 40px;
+    gap: 24px;
 }
 
 #board-content h3 {
@@ -216,6 +216,18 @@ h4 {
     gap: 20px;
     min-height: calc(100vh - 400px);
     border: 1px solid #F6F7F800;
+}
+
+.no-tasks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px;
+    border-radius: 10px;
+    height: 48px;
+    background-color: #E7E7E7;
+    border: 1px dotted #A8A8A8;
+    color: #A8A8A8;
 }
 
 .task-container {

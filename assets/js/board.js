@@ -17,6 +17,7 @@ async function initBoard() {
         addedTasks.push(tasks);
         loadTasksForBoard(i);
     }
+    countBucketsWithoutTasks();
 }
 
 
@@ -35,7 +36,6 @@ function loadTasksForBoard(i) {
     loadAssignedUsers(id);
     loadPrio(id, prio);
     findTasks();
-    loadBoxNoTasks(i);
 }
 
 
@@ -163,14 +163,28 @@ function findTasks() {
 }
 
 
-function loadBoxNoTasks(i) {
-    // Überprüfe, ob es Aufgaben in den unerwünschten Buckets gibt
-    const unerwuenschteBuckets = ["todo", "in-progress", "await-feedback", "done"];
-    const keineUnerwuenschtenAufgaben = addedTasks.every(task => !unerwuenschteBuckets.includes(task.bucket));
+function countBucketsWithoutTasks() {
+    let todoTasks = addedTasks.filter(task => task.bucket === 'todo').length;
+    let inProgressTasks = addedTasks.filter(task => task.bucket === 'in-progress').length;
+    let awaitFeedbackTasks = addedTasks.filter(task => task.bucket === 'await-feedback').length;
+    let doneTasks = addedTasks.filter(task => task.bucket === 'done').length;
 
-    // Wenn keine unerwünschten Aufgaben vorhanden sind, führe deine Funktion aus
-    if (keineUnerwuenschtenAufgaben) {
-        deineFunktion();
+    loadBucketsWithoutTasks(todoTasks, inProgressTasks, awaitFeedbackTasks, doneTasks);
+}
+
+
+function loadBucketsWithoutTasks(todoTasks, inProgressTasks, awaitFeedbackTasks, doneTasks) {
+    if (todoTasks < 1) {
+        renderBucketsWithoutTasks('todo', 'to do');
+    }
+    if (inProgressTasks < 1) {
+        renderBucketsWithoutTasks('in-progress', 'in progress');
+    }
+    if (awaitFeedbackTasks < 1) {
+        renderBucketsWithoutTasks('await-feedback', 'await feedback');
+    }
+    if (doneTasks < 1) {
+        renderBucketsWithoutTasks('done', 'done');
     }
 }
 
@@ -267,6 +281,7 @@ function moveTo(bucket) {
     dragField.forEach(el => el.style.padding = "0");
 
     getTaskFromArray();
+    countBucketsWithoutTasks();
     addTaskToStorage();
 }
 
@@ -400,6 +415,11 @@ function renderSubtasks(s, id, subtaskDone, subtask) {
             <img src="./assets/img/subtask-${subtaskDone}.svg" id="checkbox-${id}-${s}" class="subtask-checkbox" alt=""><div>${subtask}</div>
         </div>
     `;
+}
+
+
+function renderBucketsWithoutTasks(bucket, text) {
+    document.getElementById(bucket).innerHTML = `<div class="no-tasks">No tasks ${text}</div>`
 }
 
 

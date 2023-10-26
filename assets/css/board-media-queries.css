@@ -201,4 +201,9 @@
         height: 32px;
         font-size: 12px;
     }
+
+    .no-tasks {
+        min-width: 200px;
+        max-width: 250px;
+    }
 }
