@@ -49,6 +49,7 @@ function loadUserCirclesForEdit(i, id) {
         let initials = addedUsers[x]['initials'];
         let color = addedUsers[x]['color'];
 
+        pushContact(assignedUser);
         document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(x, initials, color);
     }
 }
