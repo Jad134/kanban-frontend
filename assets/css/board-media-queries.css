@@ -1,6 +1,6 @@
 @media (max-width: 1400px) {
     #board {
-        padding: 0 30px 0 30px;
+        padding: 0 32px 0 32px;
     }
 
     #board-content {
@@ -10,11 +10,11 @@
 
 @media (max-width: 1200px) {
     #board {
-        padding: 0 16px 0 16px;
+        padding: 0 24px 0 24px;
     }
 
     #board-head {
-        padding: 32px 0 32px 0;
+        padding: 48px 0 48px 0;
     }
 
     #input-area {
@@ -41,11 +41,6 @@
         font-size: 18px;
         height: 42px;
         width: 140px;
-    }
-
-    #board-content h3 {
-        font-size: 18px;
-        font-weight: 700;
     }
 
     .divers-head-sections {
@@ -104,6 +99,76 @@
         flex-direction: column;
     }
 
+    #board-head {
+        flex-direction: column;
+    }
+
+    .board-div {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    #board-interaction {
+        width: 100%;
+    }
+
+    #input-area {
+        height: 48px;
+        width: 100%;
+    }
+
+    #input-area input {
+        padding: 0 4px 0 16px;
+        font-size: 20px;
+    }
+
+    #input-area input::placeholder {
+        font-size: 20px;
+    }
+
+    #add-task-button {
+        display: none;
+    }
+
+    .add-task-button-small {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        background-color: #2A3647;
+        color: #FFFFFF;
+        border-radius: 10px;
+    }
+
+    .add-task-button-small div {
+        padding: 0 16px 0 16px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+    }
+
+    .add-task-button-small:hover {
+        cursor: pointer;
+        background-color: #29ABE2;
+        box-shadow: 0px 4px 4px 0px #00000040;
+    }
+
+    .add-task-button-small:active {
+        background-color: #091931;
+        box-shadow: unset;
+    }
+
+    .divers-head-sections svg {
+        height: 30px;
+        width: 30px;
+    }
+
     .divers-sections {
         width: 100%;
     }
@@ -116,5 +181,24 @@
     .task-container {
         min-width: 200px;
         max-width: 250px;
+    }
+
+    .category-technical-task,
+    .category-user-story {
+        padding: 6px 12px 6px 12px;
+        font-size: 16px;
+    }
+
+    .task-subtasks-container {
+        flex-direction: row;
+        align-items: center;
+        font-size: 12px;
+        gap: 12px;
+    }
+
+    .assignment-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
     }
 }

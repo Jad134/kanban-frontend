@@ -168,7 +168,6 @@ function renderEditInitialsImg(i) {
              <div id="assigned-initials-${i}" class="assignment-circle-big"><span>${userInitial}</span></div>`;
     let initialDiv = document.getElementById(`assigned-initials-${i}`)
     initialDiv.style.backgroundColor = nameColor;
-
 }
 
 

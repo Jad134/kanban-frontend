@@ -129,25 +129,19 @@
 
 }
 
-@media(max-width: 922px) {
+@media(max-width: 992px) {
     .headline {
-        padding-left: 90px;
-    }
-}
-
-@media(max-width: 575px) {
-    .headline {
-        padding-left: 8px;
-    }
-}
-
-@media(max-width: 500px) {
-    .headline {
-        display: none;
+        padding-left: unset;
     }
 
     .logo-responsive {
         display: flex;
+    }
+}
+
+@media(max-width: 768px) {
+    .headline {
+        display: none;
     }
 
     .profile-circle {

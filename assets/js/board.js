@@ -35,6 +35,7 @@ function loadTasksForBoard(i) {
     loadAssignedUsers(id);
     loadPrio(id, prio);
     findTasks();
+    loadBoxNoTasks(i);
 }
 
 
@@ -141,7 +142,6 @@ function addTaskSlider() {
     document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
     openSlider();
     loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
-
 }
 
 
@@ -160,6 +160,18 @@ function findTasks() {
             }
         });
     });
+}
+
+
+function loadBoxNoTasks(i) {
+    // Überprüfe, ob es Aufgaben in den unerwünschten Buckets gibt
+    const unerwuenschteBuckets = ["todo", "in-progress", "await-feedback", "done"];
+    const keineUnerwuenschtenAufgaben = addedTasks.every(task => !unerwuenschteBuckets.includes(task.bucket));
+
+    // Wenn keine unerwünschten Aufgaben vorhanden sind, führe deine Funktion aus
+    if (keineUnerwuenschtenAufgaben) {
+        deineFunktion();
+    }
 }
 
 
@@ -224,7 +236,9 @@ function startDragging(id) {
     let i = idToIndex(id);
     currentDraggedElement = i;
     let dragField = document.querySelectorAll('.specific-content');
-    dragField.forEach(el => el.style.padding = "0 0 200px 0");
+    if (window.innerWidth > 768) {
+        dragField.forEach(el => el.style.padding = "0 0 200px 0");
+    }
 }
 
 
@@ -249,6 +263,9 @@ function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
     let element = document.getElementById(bucket);
     element.classList.remove('task-hover');
+    let dragField = document.querySelectorAll('.specific-content');
+    dragField.forEach(el => el.style.padding = "0");
+
     getTaskFromArray();
     addTaskToStorage();
 }

@@ -267,7 +267,7 @@ function closeContactOverlay() {
 function loadContacts() {
     let overlayContainer = document.getElementById('contact-overlay');
 
-    let loginUser = localStorage.getItem('login-name');
+    //let loginUser = localStorage.getItem('login-name');
 
     for (let i = 0; i < userData.length; i++) {
         let currentContact = userData[i];
@@ -275,9 +275,9 @@ function loadContacts() {
         let userInitial = userData[i]['initials'];
         let nameColor = userData[i]['color'];
 
-        if (loginUser === name) {
-            name = `${currentContact['name']} (You)`;
-        }
+        //if (loginUser === name) {
+        //    name = `${currentContact['name']} (You)`;
+        //}
 
         overlayContainer.innerHTML += renderContacts(name, i, userInitial)
 
