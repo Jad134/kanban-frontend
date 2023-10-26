@@ -224,7 +224,7 @@ function startDragging(id) {
     let i = idToIndex(id);
     currentDraggedElement = i;
     let dragField = document.querySelectorAll('.specific-content');
-    dragField.forEach(el => el.style.height = "100%");
+    dragField.forEach(el => el.style.padding = "0 0 200px 0");
 }
 
 

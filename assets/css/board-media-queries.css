@@ -1,5 +1,4 @@
 @media (max-width: 1400px) {
-
     #board {
         padding: 0 30px 0 30px;
     }
@@ -7,11 +6,9 @@
     #board-content {
         gap: 15px;
     }
-
 }
 
 @media (max-width: 1200px) {
-
     #board {
         padding: 0 16px 0 16px;
     }
@@ -94,11 +91,15 @@
         height: 26px;
         font-size: 10px;
     }
+}
 
+@media (max-width: 992px) {
+    #board-content {
+        padding: 0 0 100px 0;
+    }
 }
 
 @media (max-width: 768px) {
-
     #board-content {
         flex-direction: column;
     }
@@ -109,7 +110,11 @@
 
     .specific-content {
         flex-direction: row;
-        min-height: unset;
+        min-height: 150px;
     }
 
+    .task-container {
+        min-width: 200px;
+        max-width: 250px;
+    }
 }
