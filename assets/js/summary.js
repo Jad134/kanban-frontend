@@ -147,6 +147,7 @@ function responsiveGreeting() {
     let greetingTime = document.getElementById('responsive-greeting-daytime');
     let greetingName = document.getElementById('responsive-greeting-name');
     if (window.innerWidth < 1200) {
+        responsiveGreeting.style.display = "flex";
         responsiveGreeting.style.opacity = 1;
         greetingTime.style.opacity = 1;
         greetingName.style.opacity = 1;

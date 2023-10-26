@@ -15,9 +15,9 @@ function logOut() {
 
 /* 
 // funktioniert noch nicht. Evtl, weil side_menu.html ebenfalls als template dynamisch geladen wird?! 
-   <div class="sidebar-menu" id="sidebar-menu" style="display: none;">
+   <div class="sidebar-menu" id="sidebar-menu" style="display: none;">*/
    
-function checkLogInStatus() {
+/* function checkLogInStatus() {
     if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
         window.location.href = "/index.html";
     } else {
@@ -30,4 +30,5 @@ function checkLogInStatus() {
 
 window.addEventListener('DOMContentLoaded', () => {
     checkLogInStatus();
-}); */
+}); 
+ */
