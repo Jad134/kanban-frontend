@@ -176,6 +176,12 @@
     .specific-content {
         flex-direction: row;
         min-height: 150px;
+        overflow-x: auto;
+    }
+
+    .specific-content::-webkit-scrollbar {
+        display: none;
+        height: 10px;
     }
 
     .task-container {
