@@ -1,5 +1,6 @@
 const loginStatus = localStorage.getItem('login-status');
 
+checkLogInStatus();
 
 function checkLogInStatus() {
     if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
