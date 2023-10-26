@@ -205,6 +205,8 @@ async function submitEditForm(id) {
     deleteEditTask(i);
     addEditTask(i, tasks);
     await addTaskToStorage();
+    addedTasks = [];
+    addedUsers = [];
     clearBuckets();
     await initBoard();
 }
