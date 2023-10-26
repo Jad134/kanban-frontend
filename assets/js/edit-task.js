@@ -190,7 +190,7 @@ async function submitEditForm(id) {
     let prio = lastClickedPrio ? lastClickedPrio.value : '';
 
     let tasks = {
-        "id": taskId,
+        "id": id,
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
