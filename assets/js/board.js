@@ -377,7 +377,7 @@ function renderPrio(prio) {
 function renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned) {
     return `
         <div id="slider" class="open-task-container">
-            <div class="${categoryCssClass}">${category}</div>
+            <div class="open-${categoryCssClass}">${category}</div>
             <div class="open-task-title">${title}</div>
             <div class="open-task-description">${description}</div>
             <div class="open-task-duedate"><span>Due date:</span>${duedate}</div>

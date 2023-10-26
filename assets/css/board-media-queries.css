@@ -212,4 +212,40 @@
         min-width: 200px;
         max-width: 250px;
     }
+
+    .slider-container {
+        margin: 16px;
+    }
+
+    #slider {
+        padding: 40px 32px 40px 32px;
+        gap: 16px;
+        min-width: unset;
+    }
+
+    .open-task-container {
+        width: unset;
+    }
+
+    .open-task-title {
+        font-size: 36px;
+    }
+
+    .open-task-description,
+    .open-task-duedate,
+    .open-task-prio,
+    .open-task-assigned,
+    .open-task-subtask {
+        font-size: 16px;
+    }
+
+    .open-category-technical-task {
+        padding: 4px 16px 4px 16px;
+        font-size: 16px;
+    }
+
+    .open-category-user-story {
+        padding: 4px 16px 4px 16px;
+        font-size: 16px;
+    }
 }

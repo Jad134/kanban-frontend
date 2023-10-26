@@ -272,6 +272,22 @@ h4 {
     color: #FFFFFF;
 }
 
+.open-category-technical-task {
+    padding: 4px 24px 4px 24px;
+    background-color: #0038FF;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 23px;
+}
+
+.open-category-user-story {
+    padding: 4px 24px 4px 24px;
+    background-color: #1FD7C1;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 23px;
+}
+
 .task-title-and-description {
     display: flex;
     flex-direction: column;
