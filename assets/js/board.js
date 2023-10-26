@@ -183,8 +183,8 @@ function loadTask(id) {
 }
 
 
-function convertDate(i) { // Nur zum Test angepasst
-    if (addedTasks[i]['duedate'] < '0001-01-01') {
+function convertDate(i) {
+    if (addedTasks[i]['duedate'] > '0001-01-01') {
         let originalDate = addedTasks[i]['duedate'];
         let parts = originalDate.split('-');
         let formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;

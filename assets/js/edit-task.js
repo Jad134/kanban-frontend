@@ -180,7 +180,7 @@ function loadEditSubtasks(i) {
 }
 
 
-function submitEditForm(id) {
+async function submitEditForm(id) {
     let i = idToIndex(id);
     let bucket = addedTasks[i]['bucket'];
     let title = document.getElementById('edit-title');
@@ -194,18 +194,29 @@ function submitEditForm(id) {
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
-        "duedate": duedate,
+        "duedate": duedate.value,
         "prio": prio,
         "category": category,
         "subtask": newSubTasks,
         "bucket": bucket,
     };
 
-    sendFormular(tasks);
+    closeSlider();
+    deleteEditTask(i);
+    addEditTask(i, tasks);
+    await addTaskToStorage();
+    clearBuckets();
+    await initBoard();
+}
 
-    // Funktion noch nicht fertig
-    // splice + page reload fehlt noch 
 
+function deleteEditTask(i) {
+    addedTasks.splice(i, 1);
+}
+
+
+function addEditTask(i, tasks) {
+    addedTasks.splice(i, 0, tasks);
 }
 
 
