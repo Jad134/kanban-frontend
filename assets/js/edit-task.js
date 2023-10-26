@@ -43,6 +43,8 @@ function getPrio(i) {
 
 
 function loadUserCirclesForEdit(i, id) {
+    assignedContact = [];
+
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
         let assignedUser = addedTasks[i]['assigned'][u];
         let x = compareUser(assignedUser);
