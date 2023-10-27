@@ -153,14 +153,17 @@ a {
     .preload-side-menu {
         min-width: 180px;
     }
-
 }
 
-@media(max-width: 800px) {
+@media(max-width: 992px) {
     .preload-side-menu {
         background-color: rgb(42, 54, 71);
         min-width: 0;
         min-height: 0;
+    }
+
+    .information-container {
+        padding-bottom: 120px;
     }
 }
 
@@ -171,6 +174,14 @@ a {
 
     h3 {
         font-size: 27px;
+    }
+
+    .title {
+        padding: 48px 24px 32px 24px;
+    }
+
+    .information-container {
+        padding: 0 24px 120px 24px;
     }
 
 }

@@ -525,7 +525,7 @@
     }
 }
 
-@media(max-width: 800px) {
+/*@media(max-width: 800px) {
     .bottom {
         display: flex;
     }
@@ -536,7 +536,6 @@
     h1 {
         font-size: 47px;
     }
-
 
     .left-side {
         padding: 0;
@@ -586,4 +585,4 @@
     .required-info-responsive {
         flex: 1;
     }
-}
+}*/
