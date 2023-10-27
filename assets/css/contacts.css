@@ -421,7 +421,7 @@ body {
     display: flex;
     top: calc(50% - 300px);
     left: 100%;
-    max-width: 90vw;
+    max-width: 1200px;
     height: 592px;
     background-color: transparent;
     animation: slideIn 500ms forwards;
@@ -431,7 +431,8 @@ body {
         left: 100%;
     }
     100% {
-        left: 4vw;
+        left: calc(100% - 90vw);
+        right: calc(100% - 90vw);
     }
 }
 .hide-edit-card{
