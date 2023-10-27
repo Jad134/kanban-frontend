@@ -28,7 +28,7 @@ h4 {
 }
 
 #board {
-    padding: 0 64px 0 64px;
+    padding: 0 64px 32px 64px;
     max-width: 1208px;
 }
 
@@ -214,8 +214,8 @@ h4 {
     flex-direction: column;
     margin-top: 24px;
     gap: 20px;
-    min-height: calc(100vh - 400px);
-    border: 1px solid #F6F7F800;
+    min-height: 100%;
+    border: 1px solid #070e1600;
 }
 
 .no-tasks {

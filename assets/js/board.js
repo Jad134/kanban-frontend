@@ -138,6 +138,7 @@ function clearBuckets() {
 
 
 function addTaskSlider() {
+    newSubTasks = [];
     document.getElementById('slider-container').innerHTML = '';
     document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
     openSlider();
@@ -252,7 +253,13 @@ function startDragging(id) {
     let dragField = document.querySelectorAll('.specific-content');
     if (window.innerWidth > 768) {
         dragField.forEach(el => el.style.padding = "0 0 200px 0");
+        dragField.forEach(el => el.style.height = "100%");
     }
+}
+
+
+function startTouchDragging(id) {
+    console.log(id)
 }
 
 
@@ -324,7 +331,7 @@ function reloadSubtaskCounter(id) {
 
 function renderBuckets(id, title, description, category, categoryCssClass) {
     return `
-        <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
+        <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" ontouchstart="startTouchDragging(${id})" draggable="true">
             <div class="${categoryCssClass}">${category}</div>
             <div class="task-title-and-description">
                 <h4 class="task-title-container">${title}</h4>
@@ -421,40 +428,6 @@ function renderSubtasks(s, id, subtaskDone, subtask) {
 function renderBucketsWithoutTasks(bucket, text) {
     document.getElementById(bucket).innerHTML = `<div class="no-tasks">No tasks ${text}</div>`
 }
-
-
-/*function renderEditContacts(name, i, userInitial) {
-    return `
-        <label class="contact-label" for="check-contact${i}">
-            <div class="current-contacts">
-                <div class="add-task-contacts"> 
-                    <div id="list-circle${i}" class="assignment-circle-big">
-                        <span>${userInitial}</span>
-                    </div>
-                    <span class="current-name">${name}</span>
-                    <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
-                </div>
-            </div>
-        </label>        
-    `;
-}*/
-
-
-/*function renderEditAssignedContacts(name, i, userInitial) {
-    return `
-        <label class="contact-label" for="check-contact${i}" style="background-color: rgb(9, 25, 49); color: white;">
-            <div class="current-contacts">
-                <div class="add-task-contacts"> 
-                    <div id="list-circle${i}" class="assignment-circle-big">
-                        <span>${userInitial}</span>
-                    </div>
-                    <span class="current-name">${name}</span>
-                    <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
-                </div>
-            </div>
-        </label>        
-    `;
-}*/
 
 
 function addTaskHtml() {

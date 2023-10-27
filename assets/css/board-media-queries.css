@@ -49,7 +49,7 @@
     }
 
     .specific-content {
-        margin-top: 4px;
+        margin-top: 12px;
         gap: 4px;
     }
 
@@ -90,7 +90,7 @@
 
 @media (max-width: 992px) {
     #board-content {
-        padding: 0 0 100px 0;
+        padding: 0 0 90px 0;
     }
 
 }
