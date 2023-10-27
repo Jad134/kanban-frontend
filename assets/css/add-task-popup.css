@@ -5,6 +5,17 @@
     font-size: 20px;
 }
 
+.add-task-first-line {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.add-task-first-line svg {
+    padding: 16px;
+    cursor: pointer;
+}
+
 .left-right-container {
     display: flex;
 }

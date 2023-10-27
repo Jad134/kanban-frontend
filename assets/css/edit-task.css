@@ -8,6 +8,18 @@
     width: 525px;
 }
 
+.edit-task-first-line {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin: 0 0 -16px 0;
+}
+
+.edit-task-first-line svg {
+    padding: 16px;
+    cursor: pointer;
+}
+
 .edit-task {
     width: 525px;
     gap: 8px;

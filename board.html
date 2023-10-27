@@ -18,8 +18,10 @@
 
     <script src="./assets/js/login-status.js"></script>
     <script src="./assets/js/addTask.js"></script>
+    <script src="./assets/js/render-edit-task.js"></script>
     <script src="./assets/js/edit-task.js"></script>
     <script src="./assets/js/contacts.js"></script>
+    <script src="./assets/js/render-board.js"></script>
     <script src="./assets/js/board.js"></script>
     <script src="./assets/js/w3-include.js"></script>
     <script src="./assets/js/storage.js"></script>
@@ -95,7 +97,6 @@
                     </div>
                     <div id="todo" class="specific-content" ondrop="moveTo('todo')"
                         ondragover="allowDrop(event), hoverDrag('todo')" ondragleave="stopDrag('todo')">
-                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-in-progress-section" class="divers-sections">
@@ -109,7 +110,6 @@
                     </div>
                     <div id="in-progress" class="specific-content" ondrop="moveTo('in-progress')"
                         ondragover="allowDrop(event), hoverDrag('in-progress')" ondragleave="stopDrag('in-progress')">
-                        <!-- <div class="empty-task">No tasks progress</div> -->
                     </div>
                 </div>
                 <div id="board-await-feedback-section" class="divers-sections">
@@ -124,7 +124,6 @@
                     <div id="await-feedback" class="specific-content" ondrop="moveTo('await-feedback')"
                         ondragover="allowDrop(event), hoverDrag('await-feedback')"
                         ondragleave="stopDrag('await-feedback')">
-                        <!-- <div class="empty-task">No tasks feedback</div> -->
                     </div>
                 </div>
                 <div id="board-done-section" class="divers-sections">
@@ -133,11 +132,9 @@
                     </div>
                     <div id="done" class="specific-content" ondrop="moveTo('done')"
                         ondragover="allowDrop(event), hoverDrag('done')" ondragleave="stopDrag('done')">
-                        <!-- <div class="empty-task">No tasks done</div> -->
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>

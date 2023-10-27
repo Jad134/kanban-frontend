@@ -375,6 +375,18 @@ h4 {
     width: 525px;
 }
 
+.open-task-first-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.open-task-first-line svg {
+    padding: 16px;
+    cursor: pointer;
+}
+
 .open-task-title {
     font-size: 61px;
     font-weight: 700;
