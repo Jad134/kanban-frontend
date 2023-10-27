@@ -238,17 +238,19 @@ function renderEditTask(id, title, description, duedate) {
                     <div class="edit-task disp-flex-column">
                         <span class="edit-task-headline">Title</span>
                         <input required id="edit-title" type="text" value="${title}">
+                        <div></div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
                         <span class="edit-task-headline">Description</span>
                         <textarea required id="edit-description" row="3">${description}</textarea>
+                        <div></div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
                         <span class="edit-task-headline">Due Date</span>
                         <input type="date" id="date-input" value="${duedate}">
-                        <!-- <div class="error-message" id="date-error"></div> -->
+                        <div></div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
@@ -264,6 +266,7 @@ function renderEditTask(id, title, description, duedate) {
                                 Low <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
                             </button>
                         </div>
+                        <div></div>
                     </div>
 
                     <div class="edit-assigned-user disp-flex-column">
@@ -273,6 +276,7 @@ function renderEditTask(id, title, description, duedate) {
                             <div class="d-none" id="edit-contact-overlay"></div>
                             <div id="selected-contacts"></div>
                         </div>
+                        <div></div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
@@ -282,6 +286,7 @@ function renderEditTask(id, title, description, duedate) {
                             <button onclick="addSubTask()" type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
                         </div>
                         <div id="subtask-lists"></div>
+                        <div></div>
                     </div>
 
                     <div id="ok-button-container">
@@ -309,7 +314,7 @@ function renderUncheckedUsers(i, name, initials, color, userIndex) {
         <label class="unchecked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
             <div class="edit-task-contacts"> 
                 <div class="left-edit-task-contacts">
-                    <div id="list-circle${userIndex}" class="assignment-circle-big" style="background-color: ${color};">
+                    <div id="list-circle${userIndex}" class="assignment-circle-big-menu" style="background-color: ${color};">
                         <span>${initials}</span>
                     </div>
                     <span class="current-name">${name}</span>
@@ -326,7 +331,7 @@ function renderCheckedUsers(i, name, initials, color, userIndex) {
         <label class="checked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
             <div class="edit-task-contacts"> 
                 <div class="left-edit-task-contacts">
-                    <div id="list-circle${userIndex}" class="assignment-circle-big" style="background-color: ${color};">
+                    <div id="list-circle${userIndex}" class="assignment-circle-big-menu" style="background-color: ${color};">
                         <span>${initials}</span>
                     </div>
                     <span class="current-name">${name}</span>

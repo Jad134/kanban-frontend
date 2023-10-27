@@ -9,7 +9,7 @@
 }
 
 .edit-task {
-    width:525px;
+    width: 525px;
     gap: 8px;
 }
 
@@ -84,7 +84,8 @@ textarea {
     outline: none;
 }
 
-.assignment-circle-big {
+.assignment-circle-big,
+.assignment-circle-big-menu {
     display: flex;
     justify-content: center;
     align-items: center;
