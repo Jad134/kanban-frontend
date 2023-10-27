@@ -101,7 +101,7 @@
         background-color: rgb(42, 54, 71);
         position: fixed;
         bottom: 0;
-        z-index: 9999;
+        z-index: 990;
     }
 
     .sidebar-menu {
