@@ -5,6 +5,7 @@
  * @returns {string} The HTML template
  */
 function renderHtmlTemplate() {
+  document.title = "Join - Login"; 
     return /*html*/`
     <div class="border-radius-30 login">
     <h1 class="padding-top">Log in</h1>
@@ -35,6 +36,7 @@ function renderHtmlTemplate() {
    * @returns {string} The HTML template
    */
   function signUpHtmlTemplate() {
+    document.title = "Join - Sign Up"; 
     return /*html*/`
              <div class="border-radius-30 login">
               <div class="arrow-position">

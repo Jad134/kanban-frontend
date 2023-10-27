@@ -3,23 +3,6 @@ function initSummary() {
     totalTasks();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    hideAndShowSidebar();
-  });
-
-  /**
- * This function displays the sidebar-menu depending on whether the user is logged in or not
- * 
-*/
-function hideAndShowSidebar() {
-    let sidebar = document.getElementById('sidebar-menu');
-    if (userData.name === '') {
-        sidebar = classList.add('d-none');
-    } else {
-        sidebar = classList.remove('d-none');
-    }
-  }
-
 /**
  * This function relates to the current time frame of the user logging in and returns the according greeting
  * 
