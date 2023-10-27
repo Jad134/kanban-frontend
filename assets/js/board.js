@@ -137,10 +137,10 @@ function clearBuckets() {
 }
 
 
-function addTaskSlider() {
+function addTaskSlider(bucket) {
     newSubTasks = [];
     document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
+    document.getElementById('slider-container').innerHTML = addTaskHtml(bucket); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
     openSlider();
     loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
 }
@@ -430,7 +430,7 @@ function renderBucketsWithoutTasks(bucket, text) {
 }
 
 
-function addTaskHtml() {
+function addTaskHtml(bucket) {
     return `
         <div id="slider">
             <div class="main-content">
@@ -527,7 +527,7 @@ function addTaskHtml() {
                                                 stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </button>
-                                    <button onclick="submitForm()" type="button" id="create-btn">
+                                    <button onclick="submitForm('${bucket}')" type="button" id="create-btn">
                                         Create Task<img src="./assets/img/check.svg" alt="">
                                     </button>
                                 </div>
