@@ -117,6 +117,10 @@
         font-size: 18px;
     }
 
+    #user-menu {
+        top: 81px;
+    }
+
     .profile-circle {
         height: 45px;
         width: 45px;
