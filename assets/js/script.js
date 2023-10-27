@@ -331,7 +331,6 @@ function changePasswordIcon(click) {
   }
 }
 
-
 /**
  * This function toggles the visibility of the password between text and hidden mode
  * 

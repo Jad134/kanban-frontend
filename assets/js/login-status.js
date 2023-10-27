@@ -1,35 +1,35 @@
 const loginStatus = localStorage.getItem('login-status');
 
 checkLogInStatus();
+/* hideAndShowSidebar(); */
 
-function checkLogInStatus() {
+
+// before
+/* function checkLogInStatus() {
     if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
         window.location.href = "/index.html";
     }
+} */
+
+function checkLogInStatus() {
+    const exemptedPages = ["/privacy-policy.html", "/legal-notice.html"];
+    const currentPage = window.location.pathname;
+    if (loginStatus !== 'true' && !exemptedPages.includes(currentPage)) {
+        window.location.href = "/index.html";
+    }
 }
+
+// not working nowhere
+/*  function hideAndShowSidebar() {
+    let sidebar = document.getElementById('sidebar-menu');
+    if (loginStatus !== 'true') {
+        sidebar = classList.add('d-none');
+    } else {
+        sidebar = classList.remove('d-none');
+    }
+  }  */
 
 
 function logOut() {
     localStorage.removeItem("login-status");
 }
-
-
-/* 
-// funktioniert noch nicht. Evtl, weil side_menu.html ebenfalls als template dynamisch geladen wird?! 
-   <div class="sidebar-menu" id="sidebar-menu" style="display: none;">*/
-   
-/* function checkLogInStatus() {
-    if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
-        window.location.href = "/index.html";
-    } else {
-        const sidebarMenu = document.getElementById('sidebar-menu');
-        if (sidebarMenu) {
-            sidebarMenu.style.display = 'block';
-        }
-    }
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    checkLogInStatus();
-}); 
- */
