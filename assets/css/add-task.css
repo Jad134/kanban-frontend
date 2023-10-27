@@ -601,9 +601,7 @@ svg:hover {
         min-width: 0;
         min-height: 0;
     }
-}
 
-@media(max-width: 800px) {
     .bottom {
         display: flex;
     }
