@@ -326,3 +326,45 @@ function reloadSubtaskCounter(id) {
 
     document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
 }
+
+
+function switchToBucket(id, event) {
+    event.stopPropagation();
+    document.getElementById(`task-${id}`).innerHTML = renderMoveTo(id);
+}
+
+
+function closeMoveTo(id, event) {
+    event.stopPropagation();
+    reloadBucket(id);
+}
+
+
+function reloadBucket(taskId) {
+    let i = idToIndex(taskId);
+    let id = addedTasks[i]['id'];
+    let bucket = addedTasks[i]['bucket'];
+    let title = addedTasks[i]['title'];
+    let description = addedTasks[i]['description'];
+    let category = addedTasks[i]['category'];
+    let categoryCssClass = categoryClassPicker(category);
+    let prio = addedTasks[i]['prio'];
+
+    document.getElementById(bucket).innerHTML = renderBuckets(id, title, description, category, categoryCssClass);
+
+    countSubtasks(id);
+    loadAssignedUsers(id);
+    loadPrio(id, prio);
+    findTasks();
+}
+
+
+function moveToBucket(id, bucket, event) {
+    event.stopPropagation();
+    let i = idToIndex(id);
+    addedTasks[i]['bucket'] = bucket;
+
+    getTaskFromArray();
+    countBucketsWithoutTasks();
+    addTaskToStorage();
+}

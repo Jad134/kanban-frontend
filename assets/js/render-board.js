@@ -1,7 +1,12 @@
 function renderBuckets(id, title, description, category, categoryCssClass) {
     return `
-        <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" ontouchstart="startTouchDragging(${id})" draggable="true">
-            <div class="${categoryCssClass}">${category}</div>
+        <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
+            <div class="first-line-bucket">
+                <div class="${categoryCssClass}">${category}</div>
+                <svg fill="#000000" width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="switch-to-bucket" onclick="switchToBucket(${id}, event)">
+                    <path d="M4 14v2l-4-3 4-3v2h12v2H4zm8-12V0l4 3-4 3V4H0V2h12z" fill-rule="evenodd"/>
+                </svg>
+            </div>
             <div class="task-title-and-description">
                 <h4 class="task-title-container" title="${title}">${title}</h4>
                 <div class="task-description-container">${description}</div>
@@ -18,7 +23,7 @@ function renderBuckets(id, title, description, category, categoryCssClass) {
 
 function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
     return `
-        <div class="progress-bar" title="${numberOfSubtasksDone}/${numberOfSubtasks} Subtasks wurden erledigt">
+        <div class="progress-bar" title="${numberOfSubtasksDone}/${numberOfSubtasks} subtasks are done">
             <div class="progress" style="width: ${numberOfSubtasksDone / numberOfSubtasks * 100}%;"></div>
         </div>
         <div class="nowrap">${numberOfSubtasksDone}/${numberOfSubtasks} Subtasks</div>
@@ -216,6 +221,24 @@ function addTaskHtml(bucket) {
             </form>
         </div>
     `;
+}
+
+
+function renderMoveTo(id) {
+    return `
+        <div class="move-to-container">
+            <div class="first-line-move-to">
+                <span>Move to</span>
+                <svg onclick="closeMoveTo(${id}, event)" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.68193 8.79678L1.78193 13.6968C1.5986 13.8801 1.36527 13.9718 1.08193 13.9718C0.7986 13.9718 0.565267 13.8801 0.381934 13.6968C0.1986 13.5134 0.106934 13.2801 0.106934 12.9968C0.106934 12.7134 0.1986 12.4801 0.381934 12.2968L5.28193 7.39678L0.381934 2.49678C0.1986 2.31344 0.106934 2.08011 0.106934 1.79678C0.106934 1.51344 0.1986 1.28011 0.381934 1.09678C0.565267 0.913444 0.7986 0.821777 1.08193 0.821777C1.36527 0.821777 1.5986 0.913444 1.78193 1.09678L6.68193 5.99678L11.5819 1.09678C11.7653 0.913444 11.9986 0.821777 12.2819 0.821777C12.5653 0.821777 12.7986 0.913444 12.9819 1.09678C13.1653 1.28011 13.2569 1.51344 13.2569 1.79678C13.2569 2.08011 13.1653 2.31344 12.9819 2.49678L8.08193 7.39678L12.9819 12.2968C13.1653 12.4801 13.2569 12.7134 13.2569 12.9968C13.2569 13.2801 13.1653 13.5134 12.9819 13.6968C12.7986 13.8801 12.5653 13.9718 12.2819 13.9718C11.9986 13.9718 11.7653 13.8801 11.5819 13.6968L6.68193 8.79678Z" fill="#2A3647"/>
+                </svg>
+            </div>
+            <div class="move-to" onclick="moveToBucket(${id}, 'todo', event)">To Do</div>
+            <div class="move-to" onclick="moveToBucket(${id}, 'in-progress', event)">In progress</div>
+            <div class="move-to" onclick="moveToBucket(${id}, 'await-feedback', event)">Await feedback</div>
+            <div class="move-to" onclick="moveToBucket(${id}, 'done', event)">Done</div>
+        </div>
+    `
 }
 
 
