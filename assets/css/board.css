@@ -28,8 +28,11 @@ h4 {
 }
 
 #board {
+    display: flex;
+    flex-direction: column;
     padding: 0 64px 32px 64px;
     max-width: 1208px;
+    min-height: calc(100vh - 96px);
 }
 
 #board-head {
@@ -167,6 +170,7 @@ h4 {
 
 #board-content {
     display: flex;
+    flex: 1;
     background-color: #F6F7F8;
     gap: 24px;
 }
