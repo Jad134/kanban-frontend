@@ -266,7 +266,7 @@ function closeContactOverlay() {
 function loadContacts() {
     let overlayContainer = document.getElementById('contact-overlay');
 
-    //let loginUser = localStorage.getItem('login-name');
+    let loginUser = localStorage.getItem('login-name');
 
     for (let i = 0; i < userData.length; i++) {
         let currentContact = userData[i];
@@ -274,11 +274,9 @@ function loadContacts() {
         let userInitial = userData[i]['initials'];
         let nameColor = userData[i]['color'];
 
-        //if (loginUser === name) {
-        //    name = `${currentContact['name']} (You)`;
-        //}
+        let youLabel = loginUser === name ? '(You)' : '';
 
-        overlayContainer.innerHTML += renderContacts(name, i, userInitial)
+        overlayContainer.innerHTML += renderContacts(name, i, userInitial, youLabel)
 
         let initialDiv = document.getElementById(`list-circle${i}`);
         initialDiv.style.backgroundColor = nameColor;
@@ -286,13 +284,13 @@ function loadContacts() {
 }
 
 
-function renderContacts(name, i, userInitial) {
+function renderContacts(name, i, userInitial, youLabel) {
     return /*html*/`
     <label class="contact-label" for="check-contact${i}">
         <div class="current-contacts">
             <div class="add-task-contacts"> 
                <div id="list-circle${i}" class="contact-circle"> <span>${userInitial}</span></div>
-               <span class="current-name">${name}</span>
+               <span id="current-name" class="current-name">${name} ${youLabel}</span>
                <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
             </div>
         </div>
