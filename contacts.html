@@ -42,7 +42,7 @@
                     <div id="contact-seperator"></div>
                     <div iod="contact-slogan">Better with a team</div>
                 </div>
-                <div id="detail-view-of-contacts">detailansicht ausgewählter kontakte</div>
+                <div id="detail-view-of-contacts"></div>
                 <div id="render-my-edit-card"></div>
             </div>  
         </div>
@@ -76,18 +76,18 @@
                         <div id="put-the-img">
                             <img id="img-big-person" src="./assets/img/person_new.svg" alt="">
                         </div>
-                        <div>
+                        <div class="input-container">
                             <div id="input-fields">                                
                                 <div id="contact-name" class="contact-input-area">
-                                    <input  type="text" placeholder="Name" id="contact-name-input" required>
+                                    <input autocomplete="off" style="font-family: Inter;" type="text" placeholder="Vorname Nachname" id="contact-name-input" pattern="^[A-Za-z]+\s[A-Za-z]+$" title="Bitte geben Sie zwei Namen (Vorname Nachname) ein, getrennt durch ein Leerzeichen." required>
                                     <img src="./assets/img/person.png" alt="Name">
                                 </div>
                                 <div id="contact-email" class="contact-input-area">
-                                    <input  type="email" placeholder="E-Mail" id="contact-email-input" required>
+                                    <input autocomplete="off" style="font-family: Inter;" type="email" placeholder="E-Mail" id="contact-email-input" required>
                                     <img src="./assets/img/mail.png" alt="E-Mail">
                                 </div>
                                 <div id="contact-phone" class="contact-input-area">
-                                    <input type="tel" placeholder="Phone" id="contact-phone-input" pattern="[0-9]+" required>
+                                    <input autocomplete="off" style="font-family: Inter;" type="tel" placeholder="Phone" id="contact-phone-input" pattern="[0-9]+" required>
                                     <img src="./assets/img/call.png" alt="Phone">
                                 </div>                            
                             </div>

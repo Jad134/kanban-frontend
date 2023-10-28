@@ -69,6 +69,7 @@ function getFirstLettersForOverview(i, contacts) {
   let firstLetter = firstName.charAt(0);
   let secondLetter = secondName.charAt(0);
 
+ 
   if (thirdName !== undefined) {
     let secondLetter = thirdName.charAt(0);
     return [firstLetter + " " + secondLetter];
@@ -99,7 +100,7 @@ function renderSortContainer(letterArray) {
                     <div id="${i}first-letters" class="first-letters">${setLetters}</div>
                     <div id="name-and-email" class="name-and-email">
                         <p id="${k}-contact-name" class="contact-name">${name}</p>
-                        <a id="${k}-contact-email" class="contact-email" href="">${email}</a>
+                        <a id="${k}-contact-email" class="contact-email" href="mailto:${email}">${email}</a>
                     </div>
                 </div>
             `;
@@ -184,15 +185,15 @@ function editContact(i) {
           <div class="edit-informations">
             <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
               <div class="contact-input-area-edit">
-                <input id="name${i}" class="style-of-input-fields" type="text" placeholder="Name" value='${editName}' required>
+                <input autocomplete="off" style="font-family: Inter;" id="name${i}" class="style-of-input-fields" type="text" placeholder="Vorname Nachname" value='${editName}' required>
                 <img src="./assets/img/person.png" alt="Name">
               </div>
               <div class="contact-input-area-edit">
-                <input id="email${i}" class="style-of-input-fields" type="email" placeholder="E-Mail" value='${editEmail}' required>
+                <input autocomplete="off" style="font-family: Inter;" id="email${i}" class="style-of-input-fields" type="email" placeholder="E-Mail" value='${editEmail}' required>
                 <img src="./assets/img/mail.png" alt="E-Mail">
               </div>
               <div class="contact-input-area-edit">
-                <input id="phone${i}" class="style-of-input-fields" type="tel" placeholder="Phone" value='${editPhone}' pattern="[0-9]+" required>
+                <input autocomplete="off" style="font-family: Inter;" id="phone${i}" class="style-of-input-fields" type="tel" placeholder="Phone" value='${editPhone}' pattern="[0-9]+" required>
                 <img src="./assets/img/call.png" alt="Phone">
               </div>
               <div class="cancel-and-edit-contact-btn">
@@ -217,7 +218,7 @@ function editContact(i) {
     </div>
   `;
   let zIndexEditCard = document.getElementById('edit-card');
-  zIndexEditCard.style.zIndex = '3';
+  zIndexEditCard.style.zIndex = '999';
 }
 async function saveEditContact(i){
   let editContact = contacts[i];

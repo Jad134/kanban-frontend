@@ -98,6 +98,9 @@ body {
     display: flex;
     flex-direction: column;
 }
+.input-container{
+    
+}
 .contact-input-area input {
     max-width: 280px;
     border: none;
@@ -147,7 +150,7 @@ body {
 #slide-container{
     display: none;
     position: absolute;
-    z-index: 2;
+    z-index: 998;
     top: 0;
     left: -232px;
     width: calc(100% + 232px);
@@ -157,8 +160,8 @@ body {
     display: none;
     position: static;
     justify-content: center;
-    z-index: 3;
-    max-width: 1200px;
+    z-index: 999;
+    max-width: 1000px;
     width: 0%;
     height: 500px;
 }
@@ -211,12 +214,14 @@ body {
 #img-and-inputs{
     display: flex;
     align-items: center;
+    margin-top: 34px;
     flex: 1;
 }
 #put-the-img{
     display: flex;
     justify-content: center;
     width: 200px;
+    margin: 0 5% 0 5%;
 }
 #img-big-person{
     display: flex;
@@ -421,7 +426,7 @@ body {
     display: flex;
     top: calc(50% - 300px);
     left: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     height: 592px;
     background-color: transparent;
     animation: slideIn 500ms forwards;
@@ -451,7 +456,7 @@ body {
     position: absolute;
     width: calc(100% + 232px);
     height: 100vh;
-    z-index: 2;
+    z-index: 998;
     background-color: transparent;
     transition: background-color 1s ease;
 }
@@ -477,7 +482,7 @@ body {
 .first-letters-and-inputs{
     display: flex;
     align-items: center;
-    margin-top: 60px;
+    margin-top: 94px;
 }
 .edit-informations{
     min-width: 200px;
@@ -506,6 +511,7 @@ body {
     justify-content: center;
     height: 100%;
     width: 16vw;
+    margin: 0 5% 0 5%;
 }
 .delete-contact-in-edit-card{
     display: flex;
