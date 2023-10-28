@@ -6,7 +6,6 @@ let userData = [];
 let taskId = Date.now() + Math.random();
 
 
-
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
