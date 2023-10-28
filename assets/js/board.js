@@ -350,7 +350,7 @@ function reloadBucket(taskId) {
     let categoryCssClass = categoryClassPicker(category);
     let prio = addedTasks[i]['prio'];
 
-    document.getElementById(bucket).innerHTML = renderBuckets(id, title, description, category, categoryCssClass);
+    document.getElementById(`task-${id}`).innerHTML = renderBucketAfterClose(id, title, description, category, categoryCssClass);
 
     countSubtasks(id);
     loadAssignedUsers(id);

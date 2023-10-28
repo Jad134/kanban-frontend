@@ -242,6 +242,27 @@ function renderMoveTo(id) {
 }
 
 
+function renderBucketAfterClose(id, title, description, category, categoryCssClass) {
+    return `
+        <div class="first-line-bucket">
+            <div class="${categoryCssClass}">${category}</div>
+            <svg fill="#000000" width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="switch-to-bucket" onclick="switchToBucket(${id}, event)">
+                <path d="M4 14v2l-4-3 4-3v2h12v2H4zm8-12V0l4 3-4 3V4H0V2h12z" fill-rule="evenodd"/>
+            </svg>
+        </div>
+        <div class="task-title-and-description">
+            <h4 class="task-title-container" title="${title}">${title}</h4>
+            <div class="task-description-container">${description}</div>
+        </div>
+        <div id="subtasks-container-${id}" class="task-subtasks-container"></div>
+        <div class="task-bottom-container">
+            <div id="task-assignment-container-${id}" class="task-assignments"></div>
+            <div id="task-prio-img-${id}"></div>
+        </div>
+    `;
+}
+
+
 // test data
 /**
 
