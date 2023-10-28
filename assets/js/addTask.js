@@ -97,8 +97,10 @@ function submitForm(bucket) {
 function validateField(field) {
     const inputElement = document.getElementById(field.id);
     const errorElement = document.getElementById(field.errorId);
+    let category = document.getElementById('select-category');
+    let categoryText = category.options[category.selectedIndex].text;
 
-    if (inputElement.value.trim() === '') {
+    if (inputElement.value.trim() === '' ) {
         errorElement.textContent = field.errorMessage;
         inputElement.style.border = '1px solid red';
         return false;
@@ -118,7 +120,7 @@ function validateForm() {
 
     const fieldsToValidate = [
         { id: 'title-input', errorId: 'title-error', errorMessage: 'This field is required' },
-        //{ id: 'description-textarea', errorId: 'description-error', errorMessage: 'This field is required' },
+        { id: 'select-category', errorId: 'category-error', errorMessage: 'This field is required' },
         { id: 'date-input', errorId: 'date-error', errorMessage: 'This field is required' },
     ];
 
