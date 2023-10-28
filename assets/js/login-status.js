@@ -1,33 +1,20 @@
-const loginStatus = localStorage.getItem('login-status');
+let loginStatus = localStorage.getItem('login-status');
 
-checkLogInStatus();
-/* hideAndShowSidebar(); */
-
-
-// before
-/* function checkLogInStatus() {
-    if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
-        window.location.href = "/index.html";
-    }
-} */
 
 function checkLogInStatus() {
-    const exemptedPages = ["/privacy-policy.html", "/legal-notice.html"];
-    const currentPage = window.location.pathname;
-    if (loginStatus !== 'true' && !exemptedPages.includes(currentPage)) {
+    if (loginStatus !== 'true' && (window.location.pathname == "/privacy-policy.html" || window.location.pathname === "/legal-notice.html")) {
+        let sidebarMenu = document.querySelector('.sidebar-menu');
+        let rightSideHeader = document.querySelector('.rightside-header');
+        if (sidebarMenu) {
+            sidebarMenu.style.display = 'none';
+        }
+        if (rightSideHeader) {
+            rightSideHeader.style.display = 'none';
+        }
+    } else if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
         window.location.href = "/index.html";
     }
 }
-
-// not working nowhere
-/*  function hideAndShowSidebar() {
-    let sidebar = document.getElementById('sidebar-menu');
-    if (loginStatus !== 'true') {
-        sidebar = classList.add('d-none');
-    } else {
-        sidebar = classList.remove('d-none');
-    }
-  }  */
 
 
 function logOut() {
