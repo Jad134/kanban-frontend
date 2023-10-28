@@ -4,14 +4,12 @@ let newSubTasks = [];
 let assignedContact = [];
 let userData = [];
 let taskId = Date.now() + Math.random();
-//let subId = 0;
+
 
 
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
-    //countTaskId();
-    //taskId = 0;
 }
 
 /**
@@ -59,9 +57,7 @@ function getValues(bucket) {
     let date = document.getElementById('date-input');
     let category = document.getElementById('select-category');
     let categoryText = category.options[category.selectedIndex].text;
-    //let subtask = document.getElementById('subtask-input');
     let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
-    //let taskIdCounter = taskId;
 
     let tasks = {
         "id": taskId,
@@ -100,7 +96,7 @@ function validateField(field) {
     let category = document.getElementById('select-category');
     let categoryText = category.options[category.selectedIndex].text;
 
-    if (inputElement.value.trim() === '' ) {
+    if (inputElement.value.trim() === '') {
         errorElement.textContent = field.errorMessage;
         inputElement.style.border = '1px solid red';
         return false;
@@ -127,7 +123,6 @@ function validateForm() {
     fieldsToValidate.forEach((field) => {
         isValid = validateField(field) && isValid;
     });
-
     return isValid;
 }
 
@@ -140,14 +135,6 @@ async function sendFormular(tasks) {
     newSubTasks = [];
     location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
 }
-
-//async function countTaskId() {
-//taskId = await getItem('taskid');
-//  taskId = JSON.parse(taskId['data']['value']);
-
-//  setItem('taskid', taskId);
-//  console.log(taskId);
-//}
 
 
 async function addTaskIdToStorage() {
@@ -201,7 +188,6 @@ function addSubTask() {
 
     for (let i = 0; i < newSubTasks.length; i++) {
         const newTasks = newSubTasks[i]['subtitle'];
-
         subtaskContent.innerHTML += renderSubTask(newTasks, i);
     }
     document.getElementById('subtask-input').value = '';
@@ -267,7 +253,6 @@ function closeContactOverlay() {
 
 function loadContacts() {
     let overlayContainer = document.getElementById('contact-overlay');
-
     let loginUser = localStorage.getItem('login-name');
 
     for (let i = 0; i < userData.length; i++) {
@@ -402,7 +387,6 @@ function handleEnterKeyPress(event, action, i) {
 
 function renameSubTask(i) {
     let editSubTask = document.getElementById(`edit-task-input${i}`).value;
-
     let newSubtask = {
         "subtitle": editSubTask,
         "subdone": false
@@ -426,6 +410,10 @@ function editSubTask(i, currenTask) {
     let taskbtn = document.getElementById(`task-edit-buttons${i}`);
     let inputContainer = document.getElementById(`subtask-input-container${i}`);
 
+    styleEditSubTask(i, currenTask, subtaskList, editSubInput, taskbtn, inputContainer)
+}
+
+function styleEditSubTask(i, currenTask, subtaskList, editSubInput, taskbtn, inputContainer) {
     inputContainer.classList.add('d-flex');
     inputContainer.classList.remove('d-none');
     taskbtn.classList.remove('d-flex');
@@ -453,6 +441,14 @@ function clearTasks() {
     let newTasks = document.getElementById('subtask-input');
     let contactImg = document.getElementById('selected-contacts');
 
+    removeValues(title, description, date, sublist, newTasks, contactImg)
+    newSubTasks = [];
+    assignedContact = [];
+    removeCheckboxStyle();
+    removeButtonColor();
+}
+
+function removeValues(title, description, date, sublist, newTasks, contactImg) {
     contactImg.innerHTML = "";
     newTasks.value = "";
     date.value = "";
@@ -461,11 +457,6 @@ function clearTasks() {
     sublist.forEach(function (element) {
         element.innerHTML = '';
     })
-    newSubTasks = [];
-    assignedContact = [];
-    removeCheckboxStyle();
-    removeButtonColor();
-
 }
 
 
