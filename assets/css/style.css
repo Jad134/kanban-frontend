@@ -176,6 +176,10 @@ a {
         font-size: 27px;
     }
 
+    .main-cont {
+        overflow: hidden;
+    }
+
     .title {
         padding: 48px 24px 32px 24px;
     }
