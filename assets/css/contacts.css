@@ -77,6 +77,9 @@ body {
     margin-left: 20px;
     padding-left: 32px;
 }
+#contact-info-head {
+    margin-bottom: 40px;
+}
 #details-of-contacts{
     height: calc(100vh - 100px);
 }
@@ -338,7 +341,6 @@ body {
     height: 48px;
     width: 48px;
     color: white;
-    background-color: orange;
     margin: 20px;
     border-radius: 50%;
     border: 2px solid white;
@@ -357,6 +359,12 @@ body {
 }
 .contact-email:hover{
     color: rgb(56, 199, 151);
+}
+.email-and-phone-head{
+    margin-bottom: 16px;
+}
+.space-between{
+    margin-bottom: 24px;
 }
 #letters-and-name{
     display: flex;
@@ -407,7 +415,6 @@ body {
     width: 64px;
     padding: 20px;
     margin-right: 60px;
-    background-color: lightgrey;
     border-radius: 50%;
     border: 2px solid white;
     color: white;
@@ -498,7 +505,6 @@ body {
     min-height: 64px;
     min-width: 64px;
     padding: 20px;
-    background-color: lightgrey;
     border-radius: 50%;
     border: 2px solid white;
     color: white;

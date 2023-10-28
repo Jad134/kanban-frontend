@@ -75,7 +75,7 @@ function getFirstLettersForOverview(i, contacts) {
     return [firstLetter + " " + secondLetter];
   } else return [firstLetter + " " + secondLetter];
 }
-function renderSortContainer(letterArray) {
+async function renderSortContainer(letterArray) {
   document.getElementById("render-contacts-overview").innerHTML = ``;
 
   for (let k = 0; k < letterArray.length; k++) {
@@ -104,6 +104,7 @@ function renderSortContainer(letterArray) {
                     </div>
                 </div>
             `;
+      setColorForLetters(i);
       }
     }
   }
@@ -152,6 +153,9 @@ function editContact(i) {
   let editCard = document.getElementById('render-my-edit-card');
   let setLetters = getFirstLettersForOverview(i, contacts);
   let editContact = contacts[i];
+  let colorOfLetters = document.getElementById(`${i}first-letters`);
+  const styles = window.getComputedStyle(colorOfLetters);
+  const backgroundColor = styles.backgroundColor;
 
   let editName = editContact['name'];
   let editPhone = editContact['phone-number'];
@@ -180,7 +184,7 @@ function editContact(i) {
         </div>
         <div class="first-letters-and-inputs">
           <div class="container-for-first-letters-in-edit">
-            <div class="first-letters-in-edit">${setLetters}</div>
+            <div class="first-letters-in-edit" style="background-color: ${backgroundColor};">${setLetters}</div>
           </div>
           <div class="edit-informations">
             <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
@@ -248,6 +252,11 @@ function openContactDetails(i) {
   markMyContact(i);
   let details = document.getElementById("detail-view-of-contacts");
   let lettersOfContact = document.getElementById(`${i}first-letters`).innerHTML;
+  let colorOfLetters = document.getElementById(`${i}first-letters`);
+
+  const styles = window.getComputedStyle(colorOfLetters);
+  const backgroundColor = styles.backgroundColor;
+
   let name = contacts[i]["name"];
   let email = contacts[i]["email"];
   let phone = contacts[i]["phone-number"];
@@ -255,7 +264,7 @@ function openContactDetails(i) {
   details.innerHTML = ``;
   details.innerHTML = /*html*/ `
         <div id="letters-and-name">
-            <div class="first-letters-for-details">
+            <div class="first-letters-for-details" style="background-color: ${backgroundColor};">
                 ${lettersOfContact}
             </div>
             <div id="main-name">
@@ -282,16 +291,16 @@ function openContactDetails(i) {
             </div>
         </div>
         <div id="contact-information">
-            <p>Contact Information</p>
-            <div>
-                <h3>Email</h3>
+            <p id="contact-info-head">Contact Information</p>
+            <div class="space-between">
+                <h3 class="email-and-phone-head">Email</h3>
                 <div>
-                    <a class="contact-email" href="">${email}</a>
+                    <a class="contact-email" href="mailto:${email}">${email}</a>
                 </div>
             </div>
             <div>
-                <h3>Phone</h3>
-                <div>${phone}</div>
+                <h3 class="email-and-phone-head">Phone</h3>
+                <a href="tel:${phone}">${phone}</a>
             </div>
         </div>
     `;
@@ -381,4 +390,16 @@ async function colorMyBack() {
   setTimeout(() => {
     background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
   }, 100);
+}
+async function setColorForLetters(i) {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  let colorMyLetters = document.getElementById(`${i}first-letters`);
+  colorMyLetters.style.backgroundColor = `#${randomColor}`;
+}
+function successfullyMove(){
+  return /*html*/`
+    <div>
+      <p>Successfully edit/delete/add</p>
+    </div>
+  `;
 }
