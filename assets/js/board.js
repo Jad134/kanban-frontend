@@ -155,16 +155,33 @@ function addTaskSlider(bucket) {
 function findTasks() {
     const searchInput = document.getElementById('find-task');
     const taskCards = document.querySelectorAll('.task-container');
+    const noTaskFound = document.getElementById('no-task-found');
+
     searchInput.addEventListener('input', () => {
         const searchText = searchInput.value.toLowerCase();
+        let matchFound = false;
+
         taskCards.forEach((card) => {
             const cardText = card.innerText.toLowerCase();
             if (cardText.includes(searchText)) {
                 card.style.display = 'flex';
+                matchFound = true;
             } else {
                 card.style.display = 'none';
             }
         });
+
+        if (!matchFound) {
+            noTaskFound.style.display = 'block';
+        } else {
+            noTaskFound.style.display = 'none';
+        }
+    });
+
+    searchInput.addEventListener('change', () => {
+        if (searchInput.value.trim() === '') {
+            noTaskFound.style.display = 'none';
+        }
     });
 }
 

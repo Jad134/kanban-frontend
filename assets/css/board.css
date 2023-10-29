@@ -52,6 +52,11 @@ h4 {
     gap: 24px;
 }
 
+#input-interaction {
+    display: flex;
+    flex-direction: column;
+}
+
 #input-area {
     display: flex;
     align-items: center;
@@ -73,6 +78,14 @@ h4 {
 
 #input-area:focus-within {
     border: 1px solid #29ABE2;
+}
+
+#no-task-found {
+    display: none;
+    position: absolute;
+    margin: 48px 0 0 6px;
+    color: #FF0000;
+    font-size: 14px;
 }
 
 #seperator {
