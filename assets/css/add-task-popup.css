@@ -511,14 +511,6 @@
         position: relative;
     }
 
-    #contact-overlay {
-        position: absolute;
-        z-index: 999;
-        top: 85px;
-        left: 0;
-        right: 0;
-    }
-
     .create-buttons {
         margin-top: 40px;
         padding-bottom: 8px;

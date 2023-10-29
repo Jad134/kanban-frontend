@@ -125,7 +125,7 @@ function addTaskHtml() {
 
                         <div class="title-content">
                             <span class="span-style">Title <span class="required-star">*</span></span>
-                            <input required placeholder="Enter a title" id="title-input" type="text">
+                            <input required placeholder="Enter a title" id="title-input" type="text" autocomplete="off">
                             <div class="error-message" id="title-error"></div>
                         </div>
 
@@ -137,7 +137,7 @@ function addTaskHtml() {
 
                         <div class="assigned">
                             <span class="span-style">Assigned to</span>
-                            <input onclick="openContactOverlay()" id="assignedTo" type="text" placeholder="Select contacts to assign">
+                            <input onclick="openContactOverlay()" id="assignedTo" type="text" placeholder="Select contacts to assign" autocomplete="off">
                             <div class="p-relative">
                                 <div class="d-none" id="contact-overlay"></div>
                                 <div id="selected-contacts"></div>
@@ -191,7 +191,7 @@ function addTaskHtml() {
                         <div id="subtask-container" class="subtask-container">
                             <span class="span-style">Subtasks</span>
                             <div class="subtask-input-btn">
-                                <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text">
+                                <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text" autocomplete="off">
                                 <button onclick="addSubTask()" type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
                             </div>
                             <div id="subtask-lists"></div>
