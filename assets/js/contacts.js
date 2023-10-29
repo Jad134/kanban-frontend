@@ -26,7 +26,8 @@ let contacts = [
   },
 ];
 
-function openContacts() {
+async function openContacts() {
+  contacts = await getItemsInRemoteStorage();
   sortMyContacts();
 }
 function sortMyContacts() {
@@ -235,18 +236,19 @@ async function saveEditContact(i){
   editContact.email = editedEmail;
   editContact["phone-number"] = editedPhone;
   await hideEditCard(i);
+  await setItemsInRemoteStorage();
   openContacts();
   openContactDetails(i);
 }
-function deleteContact(i) {
+async function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
   contacts.splice([i], 1);
   contactDetails.innerHTML = "";
   if (document.getElementById('edit-card')) {
     hideEditCard(i);    
   }
+  await setItemsInRemoteStorage()
   openContacts();
-  openContactDetails(i);
 }
 function openContactDetails(i) {
   markMyContact(i);
@@ -332,6 +334,7 @@ async function pushContactInfo() {
   email.value = ``;
   phoneNumber.value = ``;
 
+  await setItemsInRemoteStorage();
   closeContactAddCard();
   sortMyContacts();
 }
@@ -402,4 +405,13 @@ function successfullyMove(){
       <p>Successfully edit/delete/add</p>
     </div>
   `;
+}
+async function setItemsInRemoteStorage(){
+  await setItem('contacts', contacts);
+}
+async function getItemsInRemoteStorage(){
+  let contactsFromStorage = await getItem('contacts');
+  let contactsFromStorageAsString = JSON.parse(contactsFromStorage['data']['value']);
+
+  return contactsFromStorageAsString;
 }
