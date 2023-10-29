@@ -143,19 +143,22 @@ function updateSummary() {
  * This function displays the responsive greeting and hides it after a short time
  */
 function responsiveGreeting() {
+    let welcomeDone = localStorage.getItem('welcome-done');
     let responsiveGreeting = document.querySelector('.responsive-greeting');
     let greetingTime = document.getElementById('responsive-greeting-daytime');
     let greetingName = document.getElementById('responsive-greeting-name');
-    if (window.innerWidth < 1200) {
+    if (window.innerWidth < 1200 && welcomeDone == 'false') {
         responsiveGreeting.style.display = "flex";
         responsiveGreeting.style.opacity = 1;
         greetingTime.style.opacity = 1;
         greetingName.style.opacity = 1;
         setTimeout(() => {
+            responsiveGreeting.style.display = "none";
             greetingTime.style.opacity = 0;
             greetingName.style.opacity = 0;
             responsiveGreeting.style.opacity = 0;
         }, 1000);
+        localStorage.setItem('welcome-done', true);
     }
 }
 

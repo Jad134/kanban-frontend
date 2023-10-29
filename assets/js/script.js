@@ -275,11 +275,13 @@ function loginToLocalStorage(dataExists) {
   let loginStatus = true;
   let loginTime = new Date();
   let userColor = dataExists['color'];
+  let welcomeDone = false;
   localStorage.setItem('login-name', loginName);
   localStorage.setItem('login-initials', loginInitials);
   localStorage.setItem('login-status', loginStatus);
   localStorage.setItem('login-time', loginTime);
   localStorage.setItem('user-color', userColor);
+  localStorage.setItem('welcome-done', welcomeDone);
 }
 
 /**
@@ -291,11 +293,13 @@ function loginAsGuest() {
   let loginStatus = true;
   let loginTime = new Date();
   let userColor = '#FFFFFF';
+  let welcomeDone = false;
   localStorage.setItem('login-name', loginName);
   localStorage.setItem('login-initials', loginInitials);
   localStorage.setItem('login-status', loginStatus);
   localStorage.setItem('login-time', loginTime);
   localStorage.setItem('user-color', userColor);
+  localStorage.setItem('welcome-done', welcomeDone);
 }
 
 /**
