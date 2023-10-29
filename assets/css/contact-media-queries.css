@@ -1,0 +1,173 @@
+@media (max-width: 1400px) {
+
+   
+}
+
+@media (max-width: 1200px) {
+/*--------------------------contacts detail view-------------------------*/
+    #contact-seperator {
+        display: none;
+    }
+    #contact-slogan{
+        display: none;
+    }
+    .first-letters-for-details{
+        margin-right: 30px;
+    }
+/*--------------------------contacts add new contact-------------------------*/
+}
+
+@media (max-width: 992px) {
+/*--------------------------contacts detail view-------------------------*/
+    #contact-overview{
+        width: 380px;
+    }
+    #add-new-contact{
+        width: 340px;
+    }
+/*--------------------------contacts add new contact-------------------------*/
+    #put-the-img{
+        margin: 0;
+        width: 140px;
+    }
+    #design-sector{
+        width: 22vw;
+    }
+/*--------------------------contacts edit card-------------------------*/
+    .contact-input-area-edit img{
+        display: none;
+    }
+    .contact-input-area-edit{
+        width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+/*--------------------------contacts detail view-------------------------*/
+    .email-and-phone-head{
+        font-size: 18px;
+    }
+    .first-letters-for-details{
+        display: none;
+    }
+    #welcome-to-contacts h1{
+        font-size: 40px;
+    }
+    #contact-overview{
+        width: 340px;
+    }
+    #add-new-contact{
+        width: 280px;
+    }
+    .contact-block{
+        width: 280px;
+        margin-right: 0;
+    }
+    .sub-contact-block{
+        width: 320px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .contact-seperator-horizontal{
+        width: 280px;
+    }
+    .sub-contact-block-marked{
+        margin-left: 0;
+        margin-right: 0;
+    }
+/*--------------------------contacts add new contact-------------------------*/
+    #put-the-img{
+        display: none;
+    }
+    #img-and-inputs{
+        margin-left: 38px;
+    }
+    #design-sector h2{
+        font-size: 28px;
+    }
+/*--------------------------contacts edit card-------------------------*/
+    .container-for-first-letters-in-edit{
+        display: none;
+    }
+    .first-letters-and-inputs{
+        margin-left: 48px;
+    }
+    .left-side-edit-card{
+        padding-left: 18px;
+        width: 160px;
+    }
+    .left-side-edit-card h2{
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+/*--------------------------contacts detail view-------------------------*/
+    .first-letters{
+        display: none;
+    }
+    .name-and-email{
+        margin-left: 24px;
+    }
+    #contact-overview{
+        width: 240px;
+    }
+    .contact-seperator-horizontal{
+        width: 200px;
+    }
+    .contact-block{
+        width: 180px;
+    }
+    .sub-contact-block{
+        width: 220px;
+    }
+    .sub-contact-block-marked{
+        width: 220px;
+    }
+    #add-new-contact{
+        width: 220px;
+    }
+    #render-contacts-overview{
+        margin-left: 20px;
+        width: 240px;
+    }
+/*--------------------------contacts add new contact-------------------------*/
+    .contact-input-area{
+        width: 280px;
+    }
+    .contact-input-area{
+        margin-right: 0;
+        width: 240px;
+    }
+    .contact-input-area img{
+        display: none;
+    }
+    .cancel-and-create-contact-btns{
+        width: 240px;
+    }
+    #design-sector h2{
+        font-size: 20px;
+    }
+    #design-sector p{
+        font-size: 14px;
+    }
+    #design-sector{
+        padding-left: 14px;
+    }
+    #img-and-inputs{
+        margin-left: 18px;
+    }
+/*--------------------------contacts edit card-------------------------*/
+    .left-side-edit-card h2{
+        font-size: 24px;
+    }
+    .first-letters-and-inputs{
+        margin-left: 14px;
+    }
+    .cancel-and-edit-contact-btn{
+        width: 260px;
+    }
+    .contact-input-area-edit{
+        margin-right: 12px;
+    }
+}

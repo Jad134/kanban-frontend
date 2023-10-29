@@ -101,9 +101,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-.input-container{
-    
-}
 .contact-input-area input {
     max-width: 280px;
     border: none;
@@ -517,6 +514,7 @@ body {
     justify-content: center;
     height: 100%;
     width: 16vw;
+    max-width: 240px;
     margin: 0 5% 0 5%;
 }
 .delete-contact-in-edit-card{
