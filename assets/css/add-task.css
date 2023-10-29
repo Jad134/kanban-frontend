@@ -280,6 +280,8 @@ select {
     padding: 0 16px;
     border: none;
     cursor: pointer;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .sublist-container {
