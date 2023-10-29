@@ -417,7 +417,8 @@ input:focus::placeholder {
     }
 
     .footer {
-        height: 16vh;
+        height: 10vh;
+        padding: 0;
     }
 
     .responsive-sign-up {

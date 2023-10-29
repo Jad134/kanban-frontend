@@ -120,11 +120,12 @@ function setColor() {
  */
 function signUpUser() {
   let registerEmail = document.getElementById('email').value;
-  let passwordsMatch = passwordCheck();
+ let passwordsMatch = passwordCheck();
+ debugger;
   if (passwordsMatch) {
     emailCheck(registerEmail);
     let color = setColor();
-    userDataFromSignUp(color);
+    userDataFromSignUp(color); 
     displayMessage('You registered successfully!');
     setTimeout(() => {
       window.location.href = 'index.html';
@@ -143,7 +144,7 @@ function emailCheck(registerEmail) {
   if (!ifEmailExists) {
     return true;
   } else {
-    displayMessage('This email address has already been used')
+    displayMessage('This email address has already been used');
     return false;
   }
 }
@@ -177,6 +178,7 @@ function checkCheckbox() {
     displayMessage('Please accept the privacy policy');
     return false;
   } else {
+    debugger;
     signUpUser();
   }
 }
