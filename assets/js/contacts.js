@@ -68,13 +68,12 @@ function getFirstLettersForOverview(i, contacts) {
   let secondName = splitName[1];
   let thirdName = splitName[2];
   let firstLetter = firstName.charAt(0);
-  let secondLetter = secondName.charAt(0);
+  
 
- 
-  if (thirdName !== undefined) {
-    let secondLetter = thirdName.charAt(0);
+  if (secondName !== undefined) {
+    let secondLetter = secondName.charAt(0);
     return [firstLetter + " " + secondLetter];
-  } else return [firstLetter + " " + secondLetter];
+  } else return [firstLetter];
 }
 async function renderSortContainer(letterArray) {
   document.getElementById("render-contacts-overview").innerHTML = ``;
@@ -190,7 +189,7 @@ function editContact(i) {
           <div class="edit-informations">
             <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
               <div class="contact-input-area-edit">
-                <input autocomplete="off" style="font-family: Inter;" id="name${i}" class="style-of-input-fields" type="text" placeholder="Vorname Nachname" value='${editName}' required>
+                <input autocomplete="off" style="font-family: Inter;" id="name${i}" class="style-of-input-fields" pattern="^[A-Za-z]+\s[A-Za-z]+$" title="Bitte geben Sie zwei Namen (Vorname Nachname) ein, getrennt durch ein Leerzeichen." type="text" placeholder="Vorname Nachname" value='${editName}' required>
                 <img src="./assets/img/person.png" alt="Name">
               </div>
               <div class="contact-input-area-edit">
