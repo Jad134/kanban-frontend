@@ -76,7 +76,7 @@ function userDataFromSignUp(a) {
   name = name.value;
   let initials = getInitials(name);
   let email = document.getElementById('email');
-  let password = document.getElementById('password');
+  let password = document.getElementById('password-signup');
   let color = a;
   if (!Array.isArray(userData)) {
     userData = [];
@@ -155,8 +155,8 @@ function emailCheck(registerEmail) {
  * @returns {boolean} - Returns true if the passwords match, otherwise it returns false
  */
 function passwordCheck() {
-  let passwordInput = document.getElementById('password');
-  let confirmPasswordInput = document.getElementById('password-confirm');
+  let passwordInput = document.getElementById('password-signup');
+  let confirmPasswordInput = document.getElementById('confirm-password');
   let password = passwordInput.value;
   let confirmPassword = confirmPasswordInput.value;
   if (password === confirmPassword) {
@@ -180,6 +180,7 @@ function checkCheckbox() {
   } else {
     debugger;
     signUpUser();
+    return true;
   }
 }
 
