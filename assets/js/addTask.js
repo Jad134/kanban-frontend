@@ -50,7 +50,7 @@ function resetButtons() {
 /**
  * Use the values from the page and push them to an JSON array. Then starts a funciton which push the array to an remote storage
  */
-function getValues(bucket) {
+function getValues() {
     let title = document.getElementById('title-input');
     let description = document.getElementById('description-textarea');
     let date = document.getElementById('date-input');
@@ -67,7 +67,7 @@ function getValues(bucket) {
         "prio": prioValue,
         "category": categoryText,
         "subtask": newSubTasks,
-        "bucket": bucket,
+        "bucket": getBucketFromSession()
     };
     sendFormular(tasks);
 }
@@ -75,9 +75,9 @@ function getValues(bucket) {
 /**
  * Controls the from validation for true or false to upload content
  */
-function submitForm(bucket) {
+function submitForm() {
     if (validateForm()) {
-        getValues(bucket); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
+        getValues(); // Rufe getValues() auf, wenn die Validierung erfolgreich ist
         return true; // Das Formular wird abgesendet
     } else {
         return false; // Das Formular wird nicht abgesendet, wenn die Validierung fehlschlägt
@@ -133,6 +133,16 @@ async function sendFormular(tasks) {
     clearTasks();
     newSubTasks = [];
     location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
+}
+
+
+function getBucketFromSession() {
+    bucket = sessionStorage.getItem('bucket');
+    if (bucket === undefined) {
+        return 'todo';
+    } else {
+        return bucket;
+    }
 }
 
 

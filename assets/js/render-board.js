@@ -109,7 +109,7 @@ function renderBucketsWithoutTasks(bucket, text) {
 }
 
 
-function addTaskHtml(bucket) {
+function addTaskHtml() {
     return `
         <div id="slider">
             <div class="add-task-first-line">
@@ -208,7 +208,7 @@ function addTaskHtml(bucket) {
                                         stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </button>
-                            <button onclick="submitForm('${bucket}')" type="button" id="create-btn">
+                            <button onclick="submitForm()" type="button" id="create-btn">
                                 Create Task <img src="./assets/img/check.svg" alt="">
                             </button>
                         </div>

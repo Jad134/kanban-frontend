@@ -138,11 +138,17 @@ function clearBuckets() {
 
 
 function addTaskSlider(bucket) {
-    newSubTasks = [];
-    document.getElementById('slider-container').innerHTML = '';
-    document.getElementById('slider-container').innerHTML = addTaskHtml(bucket); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
-    openSlider();
-    loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+    sessionStorage.setItem('bucket', bucket);
+
+    if (window.innerWidth > 768) {
+        newSubTasks = [];
+        document.getElementById('slider-container').innerHTML = '';
+        document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
+        openSlider();
+        loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+    } else {
+        location.href = "/add-task.html";
+    }
 }
 
 
@@ -343,7 +349,6 @@ function closeMoveTo(id, event) {
 function reloadBucket(taskId) {
     let i = idToIndex(taskId);
     let id = addedTasks[i]['id'];
-    let bucket = addedTasks[i]['bucket'];
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
     let category = addedTasks[i]['category'];
