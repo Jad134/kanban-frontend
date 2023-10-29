@@ -138,7 +138,7 @@ async function sendFormular(tasks) {
 
 function getBucketFromSession() {
     bucket = sessionStorage.getItem('bucket');
-    if (bucket === undefined) {
+    if (bucket === null || bucket === undefined) {
         return 'todo';
     } else {
         return bucket;
