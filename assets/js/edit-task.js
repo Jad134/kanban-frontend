@@ -203,7 +203,7 @@ async function submitEditForm(id) {
         "bucket": bucket,
     };
 
-    closeSlider();
+    sliderTaskEdited();
     deleteEditTask(i);
     addEditTask(i, tasks);
     await addTaskToStorage();
@@ -226,4 +226,15 @@ function deleteEditTask(i) {
 
 function addEditTask(i, tasks) {
     addedTasks.splice(i, 0, tasks);
+}
+
+
+function sliderTaskEdited() {
+    document.getElementById('slider-container').innerHTML = renderTaskEdited();
+
+    openSlider();
+    setTimeout(function () {
+        closeSlider();
+        document.getElementById('slider-container').innerHTML = '';
+    }, 1300);
 }
