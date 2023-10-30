@@ -101,8 +101,8 @@ function nextDueDate() {
     if (!addedTasks) {
         return;
     } else if (addedTasks.length === 0) {
-        let message = document.getElementById('next-urgent-tasks');
-        message.innerHTML = 'No urgent tasks scheduled';
+        let message = document.getElementById('next-urgent-date');
+        message.innerHTML = 'No tasks scheduled';
     }
     for (let i = 0; i < addedTasks.length; i++) {
         let taskDueDate = new Date(addedTasks[i]['duedate']);
@@ -157,7 +157,7 @@ function responsiveGreeting() {
             greetingTime.style.opacity = 0;
             greetingName.style.opacity = 0;
             responsiveGreeting.style.opacity = 0;
-        }, 1000);
+        }, 1500);
         localStorage.setItem('welcome-done', true);
     }
 }

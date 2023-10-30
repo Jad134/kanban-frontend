@@ -135,7 +135,7 @@ async function sendFormular(tasks) {
     sliderTaskAdded();
     setTimeout(function () {
         location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
-    }, 1000);
+    }, 1500);
 }
 
 
@@ -146,7 +146,7 @@ function sliderTaskAdded() {
     setTimeout(function () {
         closeSlider();
         document.getElementById('slider-container').innerHTML = '';
-    }, 800);
+    }, 1300);
 }
 
 

@@ -104,14 +104,14 @@
 
 @media (max-width: 992px) {
     #board-content {
-        padding: 0 0 64px 0;
+        padding: 0 0 81px 0;
     }
 
 }
 
 @media (max-width: 768px) {
     #board {
-        padding: 0 12px 36px 12px;
+        padding: 0 12px 12px 12px;
     }
 
     #board-content {
@@ -240,7 +240,7 @@
     #slider {
         padding: 40px 32px 40px 32px;
         gap: 16px;
-        min-width: unset;
+        min-width: 60vw;
     }
 
     .open-task-container {
