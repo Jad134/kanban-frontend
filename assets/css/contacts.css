@@ -592,3 +592,12 @@ body {
 .style-of-input-fields:focus{
     outline: none;
 }
+#open-edit-function-mobile{
+    display: none;
+}
+#open-edit-function-mobile:hover{
+    cursor: pointer;
+}
+#arrow-back-mobile{
+    display: none;
+}

@@ -252,8 +252,12 @@ async function deleteContact(i) {
 function openContactDetails(i) {
   markMyContact(i);
   let details = document.getElementById("detail-view-of-contacts");
+  let switchZindexOverview = document.getElementById('contact-overview');
   let lettersOfContact = document.getElementById(`${i}first-letters`).innerHTML;
   let colorOfLetters = document.getElementById(`${i}first-letters`);
+  
+  switchZindexOverview.style.zIndex = "1";
+  details.style.zIndex = "400";
 
   const styles = window.getComputedStyle(colorOfLetters);
   const backgroundColor = styles.backgroundColor;
@@ -270,7 +274,7 @@ function openContactDetails(i) {
             </div>
             <div id="main-name">
                 <h2>${name}</h2>
-                <div class="edit-and-delete">
+                <div id="edit-and-delete" class="edit-and-delete">
                     <div id="edit-contact" onclick="editContact(${i})">
                     <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path id="change-edit-btn" d="M3.0612 22.1418H4.92787L16.4279 10.6418L14.5612 8.7751L3.0612 20.2751V22.1418ZM22.1279 8.70843L16.4612 3.10843L18.3279 1.24176C18.839 0.730653 19.4668 0.475098 20.2112 0.475098C20.9556 0.475098 21.5834 0.730653 22.0945 1.24176L23.9612 3.10843C24.4723 3.61954 24.739 4.23621 24.7612 4.95843C24.7834 5.68065 24.539 6.29732 24.0279 6.80843L22.1279 8.70843ZM20.1945 10.6751L6.0612 24.8084H0.394531V19.1418L14.5279 5.00843L20.1945 10.6751Z" fill="black"/>
@@ -302,6 +306,11 @@ function openContactDetails(i) {
             <div>
                 <h3 class="email-and-phone-head">Phone</h3>
                 <a href="tel:${phone}">${phone}</a>
+            </div>
+            <div id="open-edit-function-mobile" onclick="openEditDeleteMobile()">
+              <svg width="6" height="22" viewBox="0 0 6 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.99967 21.6666C2.26634 21.6666 1.63856 21.4055 1.11634 20.8833C0.594119 20.361 0.333008 19.7333 0.333008 18.9999C0.333008 18.2666 0.594119 17.6388 1.11634 17.1166C1.63856 16.5944 2.26634 16.3333 2.99967 16.3333C3.73301 16.3333 4.36079 16.5944 4.88301 17.1166C5.40523 17.6388 5.66634 18.2666 5.66634 18.9999C5.66634 19.7333 5.40523 20.361 4.88301 20.8833C4.36079 21.4055 3.73301 21.6666 2.99967 21.6666ZM2.99967 13.6666C2.26634 13.6666 1.63856 13.4055 1.11634 12.8833C0.594119 12.361 0.333008 11.7333 0.333008 10.9999C0.333008 10.2666 0.594119 9.63881 1.11634 9.11659C1.63856 8.59436 2.26634 8.33325 2.99967 8.33325C3.73301 8.33325 4.36079 8.59436 4.88301 9.11659C5.40523 9.63881 5.66634 10.2666 5.66634 10.9999C5.66634 11.7333 5.40523 12.361 4.88301 12.8833C4.36079 13.4055 3.73301 13.6666 2.99967 13.6666ZM2.99967 5.66659C2.26634 5.66659 1.63856 5.40547 1.11634 4.88325C0.594119 4.36103 0.333008 3.73325 0.333008 2.99992C0.333008 2.26659 0.594119 1.63881 1.11634 1.11659C1.63856 0.594363 2.26634 0.333252 2.99967 0.333252C3.73301 0.333252 4.36079 0.594363 4.88301 1.11659C5.40523 1.63881 5.66634 2.26659 5.66634 2.99992C5.66634 3.73325 5.40523 4.36103 4.88301 4.88325C4.36079 5.40547 3.73301 5.66659 2.99967 5.66659Z" fill="white"/>
+              </svg>
             </div>
         </div>
     `;
@@ -413,4 +422,22 @@ async function getItemsInRemoteStorage(){
   let contactsFromStorageAsString = JSON.parse(contactsFromStorage['data']['value']);
 
   return contactsFromStorageAsString;
+}
+function openEditDeleteMobile(){
+  let changeStyle = document.getElementById('edit-and-delete');
+  let hideMyButton = document.getElementById('open-edit-function-mobile');
+  changeStyle.style.display = "flex";
+  hideMyButton.style.display = "none";
+}
+function closeEditDeleteMobile(){
+  let changeStyle = document.getElementById('edit-and-delete');
+  let showMyButton = document.getElementById('open-edit-function-mobile');
+  showMyButton.style.display = "flex";
+  changeStyle.classList.add('close-edit-delete-mobile');
+}
+function backToContactListMobile(){
+  let switchZindexDetails = document.getElementById('details-of-contacts');
+  let switchZindexOverview = document.getElementById('contact-overview');
+  switchZindexDetails.style.zIndex = "1";
+  switchZindexOverview.style.zIndex = "400";
 }
