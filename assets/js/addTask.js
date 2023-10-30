@@ -9,6 +9,7 @@ let taskId = Date.now() + Math.random();
 function init() {
     loadUserDataFromRemote();
     getTaskStorage();
+    handleInputFocus();
 }
 
 /**
@@ -526,5 +527,25 @@ function findContact() {
     });
 }
 
+function handleInputFocus() {
+    const inputField = document.getElementById('subtask-input');
+    const svgContainer = document.querySelector('.subtask-svg');
+    const subtaskbtn = document.getElementById('subtask-button');
 
+    inputField.addEventListener('focus', () => {
+        svgContainer.style.display = 'flex';
+        subtaskbtn.style.display = 'none';
+    });
+
+    inputField.addEventListener('blur', () => {
+        svgContainer.style.display = 'none';
+        subtaskbtn.style.display = 'flex';
+    });
+}
+
+function clearSubtaskInput(){
+    let newTasks = document.getElementById('subtask-input');
+    newTasks.value = "";
+
+}
 

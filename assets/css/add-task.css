@@ -37,7 +37,7 @@ body {
 }
 
 
- select:focus {
+select:focus {
     outline: none;
     border: 1px solid rgb(41, 171, 226);
     /* Entfernt den Standard-Fokusrahmen */
@@ -55,7 +55,7 @@ input {
 
 input:focus {
     border: 1px solid rgb(41, 171, 226);
-   /* -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    /* -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;*/
     outline: none
@@ -276,7 +276,7 @@ select {
 }
 
 #subtask-input:focus {
-    outline: none !important; 
+    outline: none !important;
 }
 
 .subtask-button {
@@ -289,6 +289,7 @@ select {
     cursor: pointer;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    background-color: white;
 }
 
 #subtask-input input:hover {
@@ -298,6 +299,22 @@ select {
 .subtask-input-btn:focus-within {
     border: 1px solid rgb(41, 171, 226);
 }
+
+.subtask-svg {
+    display: none;
+    gap: 8px;
+    padding-right: 16px;
+    background-color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+}
+
+
+#subtask-input:focus+.subtask-svg {
+    display: block;
+}
+
 .sublist-container {
     display: flex;
     justify-content: space-between;
@@ -347,6 +364,13 @@ select {
     font-size: 16px;
     font-family: Inter;
 
+}
+
+.subtask-seperator {
+    width: 1px;
+    background-color: lightgray;
+    height: 70%;
+    margin-top: 6px;
 }
 
 .edit-done {
