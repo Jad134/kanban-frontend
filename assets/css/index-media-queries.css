@@ -1,0 +1,61 @@
+@media (min-width: 1080px) and (max-width: 4000px) {
+    #responsive-overlay {
+        display: none;
+    }
+}
+
+@media (max-width: 1080px) {
+    #logo {
+        transform: scale(0.2) !important;
+        position: fixed !important;
+        top: -88px !important;
+        left: -64px !important;
+        transition: 0.7s ease-out;
+    }
+}
+
+@media (max-width: 500px) {
+.pw-img {
+       right: clamp(0.438rem, -0.867rem + 6.52vw, 1.375rem); 
+}
+}
+
+@media (max-width: 500px) {
+    .sign-up-area {
+        display: none;
+    }
+
+    .footer {
+        height: 10vh;
+        padding: 0;
+    }
+
+    .responsive-sign-up {
+        display: flex;
+        margin-right: 0;
+        margin-top: 24px;
+        margin-bottom: -34px;
+    }
+
+    .login-buttons {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .link-button-white,
+    .h-button {
+        width: 215px;
+    }
+
+    .message {
+        width: 50vw;
+    }
+
+    .top-area {
+        height: 100px;
+    }
+
+    .middle-area {
+        flex-direction: column-reverse;
+    }
+}
