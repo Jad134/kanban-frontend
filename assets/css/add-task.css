@@ -54,9 +54,9 @@ input {
 
 input:focus {
     border: 1px solid rgb(41, 171, 226);
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+   /* -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;*/
     outline: none
 }
 
@@ -270,6 +270,12 @@ select {
 #subtask-input {
     border: none;
     width: 100%;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#subtask-input:focus {
+    outline: none !important; 
 }
 
 .subtask-button {
@@ -280,10 +286,17 @@ select {
     padding: 0 16px;
     border: none;
     cursor: pointer;
-    background-color: white;
-    border-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
+#subtask-input input:hover {
+    border: 1px solid rgb(41, 171, 226);
+}
+
+.subtask-input-btn:focus-within {
+    border: 1px solid rgb(41, 171, 226);
+}
 .sublist-container {
     display: flex;
     justify-content: space-between;
