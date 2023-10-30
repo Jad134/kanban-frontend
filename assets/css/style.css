@@ -203,7 +203,7 @@ a {
     }
 
     .title {
-        padding: 48px 24px 32px 24px;
+        padding: 48px 48px 32px 48px;
     }
 
     .information-container {
@@ -219,6 +219,10 @@ a {
 
     h3 {
         font-size: 20px;
+    }
+
+    .title {
+        padding: 48px 24px 32px 24px;
     }
 
 }
