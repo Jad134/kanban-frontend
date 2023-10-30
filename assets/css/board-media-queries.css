@@ -135,6 +135,10 @@
         width: 100%;
     }
 
+    #input-interaction {
+        width: 100%;
+    }
+
     #input-area {
         height: 48px;
         width: 100%;
@@ -321,6 +325,12 @@
         width: unset;
     }
 
+    .task-edited-button {
+        font-size: 18px;
+        padding: 0 32px;
+        width: 260px;
+        height: 71px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -362,6 +372,13 @@
 
     .assignment-circle-big-menu {
         display: none;
+    }
+
+    .task-edited-button {
+        font-size: 16px;
+        padding: 0 24px;
+        width: 240px;
+        height: 61px;
     }
 
 }
