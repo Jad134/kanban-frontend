@@ -141,6 +141,27 @@ a {
     display: none;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+/*::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(203, 71, 71); 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(168, 168, 168, 1);
+    border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 168, 168, 1);
+}
 
 @media (max-width: 1200px) {
     h1 {
@@ -182,7 +203,7 @@ a {
     }
 
     .title {
-        padding: 48px 24px 32px 24px;
+        padding: 48px 48px 32px 48px;
     }
 
     .information-container {
@@ -198,6 +219,10 @@ a {
 
     h3 {
         font-size: 20px;
+    }
+
+    .title {
+        padding: 48px 24px 32px 24px;
     }
 
 }

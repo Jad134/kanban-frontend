@@ -25,7 +25,8 @@
     gap: 8px;
 }
 
-.edit-task input {
+#edit-title,
+#date-input input {
     padding: 12px 21px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
@@ -35,6 +36,11 @@
 
 .edit-task textarea {
     cursor: pointer;
+}
+
+.edit-task input:focus,
+.edit-task textarea:focus {
+    outline: none;
 }
 
 .edit-task-headline {
@@ -68,7 +74,8 @@ textarea {
     font-size: 20px;
 }
 
-.edit-task-container input:focus {
+#date-input input:focus,
+.edit-task-container textarea:focus {
     border: 1px solid #29ABE2;
 }
 
@@ -133,6 +140,7 @@ textarea {
     width: 89px;
     background-color: rgb(42, 54, 71);
     border-radius: 10px;
+    border-style: none;
     color: white;
     font-family: 'Inter';
     font-size: 21px;
@@ -142,7 +150,7 @@ textarea {
     cursor: pointer;
     background-color: rgb(41, 171, 226);
     border: none;
-    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .checked-contact-label,
