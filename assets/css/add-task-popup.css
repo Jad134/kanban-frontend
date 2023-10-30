@@ -33,6 +33,7 @@
     cursor: pointer;
 }
 
+#edit-title:focus,
 #title-input:focus,
 #assignedTo:focus,
 #date-input:focus {
@@ -271,7 +272,7 @@
 
 .prio-buttons button:hover {
     cursor: pointer;
-    box-shadow: 0px 3px 6px rgb(190, 190, 190);
+    box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .category-container {
@@ -385,6 +386,7 @@
 
 .subtask-edit-buttons {
     gap: 4px;
+    cursor: pointer;
 }
 
 .subtask-input-container img {
