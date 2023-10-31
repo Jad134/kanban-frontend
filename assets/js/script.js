@@ -6,7 +6,6 @@ async function init() {
   let main = document.querySelector('.main-container');
   main.style.opacity = "0";
   await loadUserDataFromRemote();
-  console.log(userData);                  // console.log
   getLoginFromLocal();
 }
 
@@ -98,7 +97,6 @@ async function saveUserDataInRemote() {
   try {
     const userDataString = JSON.stringify(userData);
     await setItem('users', userDataString);
-    console.log('Daten remote gespeichert');                        // console.log
   } catch (e) {
     console.error('Fehler bei der Remote-Datenspeicherung', e);
   }
