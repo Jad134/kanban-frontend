@@ -192,7 +192,7 @@ function addTaskHtml() {
                             <span class="span-style">Subtasks</span>
                             <div class="subtask-input-btn">
                                 <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
-                                    placeholder="Add new subtask" type="text">
+                                    placeholder="Add new subtask" type="text" autocomplete="off">
                                 <div class="subtask-svg">
                                     <img onmousedown="clearSubtaskInput()" src="./assets/img/close.svg" alt="" >
                                     <div class="subtask-seperator"></div>
