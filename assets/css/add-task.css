@@ -40,7 +40,6 @@ body {
 select:focus {
     outline: none;
     border: 1px solid rgb(41, 171, 226);
-    /* Entfernt den Standard-Fokusrahmen */
 }
 
 input {
@@ -242,7 +241,6 @@ select {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    /*height: 100px;*/
 }
 
 .subtask-list {
@@ -445,7 +443,6 @@ svg:hover {
 
 .svg-icon {
     fill: black;
-    /* Standardfarbe des SVG */
 }
 
 #clear-btn:hover .svg-icon {

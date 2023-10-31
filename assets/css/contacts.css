@@ -14,7 +14,6 @@ body {
 
 #contacts {
     display: flex;
-    background-color: #F6F7F8;
     height: calc(100vh - 100px);
     margin-top: 4px;
 }
@@ -321,6 +320,7 @@ body {
     border: 1px solid rgb(42, 54, 71);
     font-weight: 700;
     font-size: 16px; /* font-size hinzugefügt 10.10., HL */
+    padding: 12px;
 }
 
 #create-contact-btn:hover{
@@ -688,7 +688,7 @@ body {
 }
 
 #open-edit-function-mobile{
-    display: flex;
+    display: none;
 }
 
 #open-edit-function-mobile:hover{

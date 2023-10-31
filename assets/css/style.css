@@ -1,54 +1,37 @@
-/* inter-regular - latin */
 @font-face {
     font-display: swap;
-    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     src: url('../fonts/inter-v13-latin-regular.woff2') format('woff2'),
-        /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
         url('../fonts/inter-v13-latin-regular.ttf') format('truetype');
-    /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
 }
 
-
-/* inter-500 - latin */
 @font-face {
     font-display: swap;
-    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     src: url('../fonts/inter-v13-latin-500.woff2') format('woff2'),
-        /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
         url('../fonts/inter-v13-latin-500.ttf') format('truetype');
-    /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
 }
 
-/* inter-600 - latin */
 @font-face {
     font-display: swap;
-    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
     src: url('../fonts/inter-v13-latin-600.woff2') format('woff2'),
-        /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
         url('../fonts/inter-v13-latin-600.ttf') format('truetype');
-    /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
 }
 
-/* inter-700 - latin */
 @font-face {
     font-display: swap;
-    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
     src: url('../fonts/inter-v13-latin-700.woff2') format('woff2'),
-        /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
         url('../fonts/inter-v13-latin-700.ttf') format('truetype');
-    /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
 }
 
 body {
@@ -91,11 +74,8 @@ a {
 }
 
 .main-cont {
-    /*display: flex;
-    flex-direction: column;*/
     flex: 1;
     padding: 0;
-    /*overflow: hidden;*/
 }
 
 .slogan {
@@ -141,28 +121,21 @@ a {
     display: none;
 }
 
-/* width */
+/* scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-/* Track */
-/*::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgb(203, 71, 71); 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgba(168, 168, 168, 1);
     border-radius: 8px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(168, 168, 168, 1);
 }
 
+/* media queries */
 @media (max-width: 1200px) {
     h1 {
         font-size: 52px;
