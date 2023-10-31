@@ -71,7 +71,7 @@ function renderSignUp() {
  * 
  * @param {string} a - This is the color of which each user gets assigned one
  */
-function userDataFromSignUp(a) {
+async function userDataFromSignUp(a) {
   let name = document.getElementById('name');
   name = name.value;
   let initials = getInitials(name);
@@ -88,6 +88,8 @@ function userDataFromSignUp(a) {
     'color': color,
     'initials': initials
   };
+  let userData = [];
+  await loadUserDataFromRemote();
   userData.push(users);
   saveUserDataInRemote();
 }
