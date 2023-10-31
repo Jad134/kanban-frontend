@@ -284,12 +284,6 @@ h4 {
     display: none;
 }
 
-@media (pointer: coarse) {
-    .first-line-bucket svg {
-        display: unset;
-    }
-}
-
 .switch-to-bucket {
     padding: 8px;
     margin: 4px;

@@ -382,3 +382,13 @@
     }
 
 }
+
+@media (pointer: coarse) {
+    .first-line-bucket svg {
+        display: unset;
+    }
+
+    .specific-content {
+        overflow-x: hidden;
+    }
+}
