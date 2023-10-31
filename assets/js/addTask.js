@@ -382,7 +382,6 @@ function removeInitialsimg(i) {
 
 function pushContact(name) {
     assignedContact.push(name);
-    //console.log(assignedContact);
 }
 
 /**
@@ -396,7 +395,6 @@ function spliceContact(name) {
 
     if (indexToRemove !== -1) {
         assignedContact.splice(indexToRemove, 1);
-        //console.log(assignedContact);
     }
 }
 
@@ -406,6 +404,7 @@ function removeCheckboxStyle() {
     overlayContainer.innerHTML = '';
     loadContacts();
 }
+
 
 function closeOnClickOutside(event) {
     let overlayContainer = document.getElementById('contact-overlay');
@@ -458,6 +457,7 @@ function editSubTask(i, currenTask) {
     styleEditSubTask(i, currenTask, subtaskList, editSubInput, taskbtn, inputContainer)
 }
 
+
 function styleEditSubTask(i, currenTask, subtaskList, editSubInput, taskbtn, inputContainer) {
     inputContainer.classList.add('d-flex');
     inputContainer.classList.remove('d-none');
@@ -492,6 +492,7 @@ function clearTasks() {
     removeCheckboxStyle();
     removeButtonColor();
 }
+
 
 function removeValues(title, description, date, sublist, newTasks, contactImg) {
     contactImg.innerHTML = "";
@@ -535,6 +536,7 @@ function findContact() {
     });
 }
 
+
 function handleInputFocus() {
     const inputField = document.getElementById('subtask-input');
     const svgContainer = document.querySelector('.subtask-svg');
@@ -550,6 +552,7 @@ function handleInputFocus() {
         subtaskbtn.style.display = 'flex';
     });
 }
+
 
 function clearSubtaskInput() {
     let newTasks = document.getElementById('subtask-input');
