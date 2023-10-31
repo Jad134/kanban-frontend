@@ -199,8 +199,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 8px;
-    min-height: 80px;
+    /*margin-bottom: 8px;*/
+    /*min-height: 80px;*/
 }
 
 .date-container {
