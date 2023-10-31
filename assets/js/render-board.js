@@ -272,16 +272,15 @@ function renderBucketAfterClose(id, title, description, category, categoryCssCla
 }
 
 
-// test data
-/**
+/** test data
 
 addedTasks = [{
     "id": 1,
     "bucket": "in-progress",
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
-    "assigned": ["Alexander Riedel", "Jad", "Steffen Hans"],
-    "duedate": "2023-12-31",
+    "assigned": ["Jad El Nader", "Jonas Lambelet", "Heike Lüdemann"],
+    "duedate": "2024-05-10",
     "prio": "Medium",
     "category": "User Story",
     "subtask": [
@@ -300,7 +299,7 @@ addedTasks = [{
     "bucket": "done",
     "title": "CSS Architecture Planning",
     "description": "Define CSS naming conventions and structure.",
-    "assigned": ["Steffen Hans", "Jad"],
+    "assigned": ["Alexander Riedel"],
     "duedate": "2023-09-02",
     "prio": "Urgent",
     "category": "Technical Task",
@@ -313,23 +312,41 @@ addedTasks = [{
             "subdone": true,
             "subtitle": "Setup Base Styles"
 
-        },
-        {
-            "subdone": false,
-            "subtitle": "Subtaks 3"
         }
     ]
 },
 {
     "id": 3,
-    "bucket": "done",
-    "title": "Add hover function to tasks at board",
-    "description": "add cursor: pointer to board.css",
-    "assigned": ["Sinan Malaga"],
-    "duedate": "2023-10-03",
-    "prio": "Medium",
+    "bucket": "await-feedback",
+    "title": "HTML Base Template Creation",
+    "description": "Create reusable HTML base templates",
+    "assigned": ["Alexander Riedel", "Heike Lüdemann"],
+    "duedate": "2024-10-03",
+    "prio": "Low",
     "category": "Technical Task",
     "subtask": []
-}];
+},
+{
+    "id": 4,
+    "bucket": "await-feedback",
+    "title": "Daily Kochwelt Receipe",
+    "description": "Implement daily receipe and portion calculator in JavaScript and HTML",
+    "assigned": ["Alexander Riedel", "Jad El Nader", "Jonas Lambelet", "Heike Lüdemann"],
+    "duedate": "2023-09-02",
+    "prio": "Urgent",
+    "category": "Technical Task",
+    "subtask": [
+        {
+            "subdone": true,
+            "subtitle": "Establish CSS Methodology"
+        },
+        {
+            "subdone": true,
+            "subtitle": "Setup Base Styles"
+
+        }
+    ]
+},
+];
 
 */
