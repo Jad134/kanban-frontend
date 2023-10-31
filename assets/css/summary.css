@@ -1,7 +1,3 @@
-/* body {                   // was getestet, HL
-    height: 100vh;
-} */
-
 .disp-flex-column-start {
     display: flex;
     flex-direction: column;
@@ -32,7 +28,6 @@
 
 .summary-container {
     padding: 0 64px 32px 64px;
-    /*width: 560px;*/
 }
 
 .summary-tasks {
@@ -260,25 +255,18 @@
     bottom: 0;
     background-color: #F6F7F8;
     opacity: 1;
-    /*box-sizing: border-box;*/
 }
 
 #responsive-greeting-daytime {
     font-size: 47px;
     font-weight: 500;
     color: #2A3647;
-    /*height: 100px;
-    max-width: 300px;*/
-    /*margin-top: 20vh;*/
 }
 
 #responsive-greeting-name {
     font-size: 64px;
     font-weight: 700;
     color: #29ABE2;
-    /*height: 100px;
-    max-width: 300px;
-    margin-top: 25px;*/
 }
 
 /* ------------ media queries ------------ */
@@ -329,16 +317,10 @@
 
     .responsive-greeting {
         left: 0;
-        /*width: 100vw;*/
     }
 }
 
 @media (max-width: 768px) {
-    /*.title {
-        align-items: center;
-        padding: 24px 0 24px 0px;
-    }*/
-
     .responsive-greeting {
         left: 0;
     }
@@ -350,11 +332,6 @@
     #responsive-greeting-name {
         font-size: 47px;
     }
-
-    /*#responsive-greeting-daytime,
-    #responsive-greeting-name {
-        margin-left: 25vw;
-    }*/
 
     .disp-flex-column-start {
         align-items: center;
@@ -393,10 +370,6 @@
         padding-left: 8px;
     }
 
-    /*h1 {
-        font-size: clamp(3.125rem, 2.458rem + 3.33vw, 3.813rem);
-    }*/
-
     .main-cont {
         align-items: center;
     }
@@ -429,8 +402,4 @@
     #responsive-greeting-name {
         font-size: 36px;
     }
-
-    /*.title {
-        padding: 8px 0 24px 0px;
-    }*/
 }
