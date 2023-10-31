@@ -394,6 +394,7 @@ async function showMyCard() {
   document.getElementById("add-contact-card").style.width = "100%";
   document.getElementById("create-contact").style.width = "100%";
   document.getElementById("create-contact").style.display = "flex";
+  document.getElementById('contact-overview').style.zIndex = "2";
 }
 async function colorMyBack() {
   const background = document.getElementById("color-my-back");
