@@ -26,10 +26,13 @@ let contacts = [
   },
 ];
 
+
 async function openContacts() {
   contacts = await getItemsInRemoteStorage();
   sortMyContacts();
 }
+
+
 function sortMyContacts() {
   contacts.sort((a, b) => {
     const nameA = a.name.toLowerCase();
@@ -45,6 +48,8 @@ function sortMyContacts() {
   });
   getLettersFromNames(contacts);
 }
+
+
 function getLettersFromNames() {
   let letters = [];
 
@@ -56,11 +61,15 @@ function getLettersFromNames() {
   }
   eliminateDoubles(letters);
 }
+
+
 function eliminateDoubles(letters) {
   let cleanLetters = new Set(letters);
   let letterArray = Array.from(cleanLetters);
   renderSortContainer(letterArray);
 }
+
+
 function getFirstLettersForOverview(i, contacts) {
   let name = contacts[i]["name"];
   let splitName = name.split(" ");
@@ -75,6 +84,8 @@ function getFirstLettersForOverview(i, contacts) {
     return [firstLetter + " " + secondLetter];
   } else return [firstLetter];
 }
+
+
 async function renderSortContainer(letterArray) {
   document.getElementById("render-contacts-overview").innerHTML = ``;
 
@@ -109,12 +120,16 @@ async function renderSortContainer(letterArray) {
     }
   }
 }
+
+
 function markMyContact(i) {
   let excludeElement = document.getElementById(`${i}sub-contact-block`);
   deMarkMyContact();
   excludeElement.classList.add("sub-contact-block-marked");
   excludeElement.classList.remove("sub-contact-block");
 }
+
+
 function deMarkMyContact() {
   let container = document.getElementById("render-contacts-overview");
   let elements = container.querySelectorAll(".sub-contact-block-marked");
@@ -124,6 +139,8 @@ function deMarkMyContact() {
     element.classList.add("sub-contact-block");
   });
 }
+
+
 async function hideEditCard(){
   let hideEditCard = document.getElementById('edit-card');
   let overview = document.getElementById('render-my-edit-card');
@@ -139,6 +156,8 @@ async function hideEditCard(){
     deactivateOverflow.classList.remove("hide-my-scrolls");
   }, { once: true })
 }
+
+
 function styleAboutEditCard(){
   let deactivateOverflow = document.body;
   let backgroundColor = document.getElementById('color-my-back-edit-card');
@@ -148,6 +167,8 @@ function styleAboutEditCard(){
     backgroundColor.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
   }, 100);
 }
+
+
 function editContact(i) {
   styleAboutEditCard();
   let editCard = document.getElementById('render-my-edit-card');
@@ -224,6 +245,8 @@ function editContact(i) {
   let zIndexEditCard = document.getElementById('edit-card');
   zIndexEditCard.style.zIndex = '999';
 }
+
+
 async function saveEditContact(i){
   let editContact = contacts[i];
 
@@ -239,6 +262,8 @@ async function saveEditContact(i){
   await openContacts();
   await openContactDetails(i);
 }
+
+
 async function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
   let switchZindexOverview = document.getElementById('contact-overview');
@@ -251,6 +276,8 @@ async function deleteContact(i) {
   await setItemsInRemoteStorage()
   openContacts();
 }
+
+
 async function openContactDetails(i) {
   markMyContact(i);
   let details = document.getElementById("detail-view-of-contacts");
@@ -317,6 +344,8 @@ async function openContactDetails(i) {
         </div>
     `;
 }
+
+
 async function formatNames() {
   let formatMyName = document.getElementById("contact-name-input").value;
   let splitedName = formatMyName.split(" ");
@@ -330,6 +359,8 @@ async function formatNames() {
   }
   return newString;
 }
+
+
 async function pushContactInfo() {
   let name = await formatNames();
   let email = document.getElementById("contact-email-input");
@@ -348,10 +379,14 @@ async function pushContactInfo() {
   closeContactAddCard();
   sortMyContacts();
 }
+
+
 async function slideInCard() {
   await waitForIt();
   startAnimation();
 }
+
+
 async function waitForIt() {
   let slider = document.getElementById("slide-container");
   let deactivateOverflow = document.body;
@@ -359,11 +394,15 @@ async function waitForIt() {
   slider.style.display = "flex";
   deactivateOverflow.classList.add("hide-my-scrolls");
 }
+
+
 async function startAnimation() {
   let animation = document.getElementById("add-contact-card");
   animation.style.width = "100%";
   animation.style.right = "0%";
 }
+
+
 function closeContactAddCard() {
   let animation = document.getElementById("add-contact-card");
   let slider = document.getElementById("slide-container");
@@ -387,17 +426,23 @@ function closeContactAddCard() {
     }
   });
 }
+
+
 async function renderAddContactCard() {
   await showMyCard();
   await colorMyBack();
   slideInCard();
 }
+
+
 async function showMyCard() {
   document.getElementById("add-contact-card").style.width = "100%";
   document.getElementById("create-contact").style.width = "100%";
   document.getElementById("create-contact").style.display = "flex";
   document.getElementById('contact-overview').style.zIndex = "2";
 }
+
+
 async function colorMyBack() {
   const background = document.getElementById("color-my-back");
   background.style.display = "block";
@@ -405,11 +450,15 @@ async function colorMyBack() {
     background.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
   }, 100);
 }
+
+
 async function setColorForLetters(i) {
   const randomColor = (Math.floor(Math.random() * 16777215)).toString(16).padStart(6, '0');
   let colorMyLetters = document.getElementById(`${i}first-letters`);
   colorMyLetters.style.backgroundColor = `#${randomColor}`;
 }
+
+
 function successfullyMove(){
   return /*html*/`
     <div>
@@ -417,6 +466,8 @@ function successfullyMove(){
     </div>
   `;
 }
+
+
 async function setItemsInRemoteStorage(){
   await setItem('contacts', contacts);
 }
@@ -426,18 +477,24 @@ async function getItemsInRemoteStorage(){
 
   return contactsFromStorageAsString;
 }
+
+
 function openEditDeleteMobile(){
   let changeStyle = document.getElementById('edit-and-delete');
   let hideMyButton = document.getElementById('open-edit-function-mobile');
   changeStyle.style.display = "flex";
   hideMyButton.style.display = "none";
 }
+
+
 function closeEditDeleteMobile(){
   let changeStyle = document.getElementById('edit-and-delete');
   let showMyButton = document.getElementById('open-edit-function-mobile');
   showMyButton.style.display = "flex";
   changeStyle.classList.add('close-edit-delete-mobile');
 }
+
+
 function backToContactListMobile(){
   let switchZindexDetails = document.getElementById('details-of-contacts');
   let switchZindexOverview = document.getElementById('contact-overview');
