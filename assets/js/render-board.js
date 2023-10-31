@@ -155,7 +155,7 @@ function addTaskHtml() {
 
                         <div class="date-container">
                             <span class="span-style">Due date <span class="required-star">*</span></span>
-                            <input  type='date' id="date-input"  placeholder="dd/mm/yyyy">
+                            <input  type='date' id="date-input"  >
                             <div class="error-message" id="date-error"></div>
                         </div>
 
