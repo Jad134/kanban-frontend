@@ -245,7 +245,7 @@ select {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    height: 100px;
+    /*height: 100px;*/
 }
 
 .subtask-list {
@@ -662,6 +662,7 @@ svg:hover {
 
     .bottom {
         display: flex;
+        height: 112px;
     }
 }
 
