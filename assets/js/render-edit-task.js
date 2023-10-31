@@ -6,24 +6,24 @@ function renderEditTask(id, title, description, duedate) {
                     <path d="M6.68193 8.79678L1.78193 13.6968C1.5986 13.8801 1.36527 13.9718 1.08193 13.9718C0.7986 13.9718 0.565267 13.8801 0.381934 13.6968C0.1986 13.5134 0.106934 13.2801 0.106934 12.9968C0.106934 12.7134 0.1986 12.4801 0.381934 12.2968L5.28193 7.39678L0.381934 2.49678C0.1986 2.31344 0.106934 2.08011 0.106934 1.79678C0.106934 1.51344 0.1986 1.28011 0.381934 1.09678C0.565267 0.913444 0.7986 0.821777 1.08193 0.821777C1.36527 0.821777 1.5986 0.913444 1.78193 1.09678L6.68193 5.99678L11.5819 1.09678C11.7653 0.913444 11.9986 0.821777 12.2819 0.821777C12.5653 0.821777 12.7986 0.913444 12.9819 1.09678C13.1653 1.28011 13.2569 1.51344 13.2569 1.79678C13.2569 2.08011 13.1653 2.31344 12.9819 2.49678L8.08193 7.39678L12.9819 12.2968C13.1653 12.4801 13.2569 12.7134 13.2569 12.9968C13.2569 13.2801 13.1653 13.5134 12.9819 13.6968C12.7986 13.8801 12.5653 13.9718 12.2819 13.9718C11.9986 13.9718 11.7653 13.8801 11.5819 13.6968L6.68193 8.79678Z" fill="#2A3647"/>
                 </svg>
             </div>
-            <form>
+            <form onsubmit="submitEditForm(${id})">
                 <div class="gap16">
 
                     <div class="edit-task disp-flex-column">
-                        <span class="edit-task-headline">Title</span>
-                        <input required id="edit-title" type="text" value="${title}">
+                        <span for="edit-title" class="edit-task-headline">Title</span>
+                        <input id="edit-title" value="${title}" autocomplete="off" required>
                         <div></div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
-                        <span class="edit-task-headline">Description</span>
-                        <textarea required id="edit-description" row="3">${description}</textarea>
+                        <span for="edit-description" class="edit-task-headline">Description</span>
+                        <textarea id="edit-description">${description}</textarea>
                         <div></div>
                     </div>
 
                     <div class="edit-task disp-flex-column">
                         <span class="edit-task-headline">Due Date</span>
-                        <input type="date" id="date-input" value="${duedate}">
+                        <input type="date" id="date-input" value="${duedate}" required>
                         <div></div>
                     </div>
 
@@ -64,7 +64,7 @@ function renderEditTask(id, title, description, duedate) {
                     </div>
 
                     <div id="ok-button-container">
-                        <button onclick="submitEditForm(${id})" type="button" id="ok-button">
+                        <button type="submit" id="ok-button">
                             <span>Ok</span><img src="./assets/img/check.svg" alt="">
                         </button>
                     </div>
