@@ -31,7 +31,7 @@
 
 </head>
 
-<body onload="includeHTML(), initBoard()">
+<body onload="includeHTML(); initBoard();">
 
     <!-- template left menu -->
     <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
@@ -73,7 +73,7 @@
                         </div>
                         <div id="no-task-found">No tasks found!</div>
                     </div>
-                    <div id="add-task-button" onclick="addTaskSlider('todo')">
+                    <div id="add-task-button" onclick="addTaskSlider('todo'); handleInputFocus();">
                         <div>
                             <span>Add task</span>
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -92,7 +92,7 @@
                 <div id="board-todo-section" class="divers-sections">
                     <div id="board-todo-section-head" class="divers-head-sections">
                         <h3>To Do</h3>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="addTaskSlider('todo')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="addTaskSlider('todo'); handleInputFocus();">
                             <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -105,7 +105,7 @@
                 <div id="board-in-progress-section" class="divers-sections">
                     <div id="board-in-progress-section-head" class="divers-head-sections">
                         <h3>In progress</h3>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="addTaskSlider('in-progress')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="addTaskSlider('in-progress'); handleInputFocus();">
                             <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -118,7 +118,7 @@
                 <div id="board-await-feedback-section" class="divers-sections">
                     <div id="board-await-feedback-section-head" class="divers-head-sections">
                         <h3>Await feedback</h3>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="addTaskSlider('await-feedback')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="addTaskSlider('await-feedback'); handleInputFocus();">
                             <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />

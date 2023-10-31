@@ -83,7 +83,7 @@ async function renderSortContainer(letterArray) {
 
     document.getElementById("render-contacts-overview").innerHTML += /*html*/ `
         <div class="contact-block">
-            <p id="" class="alphabet">${letter}</p>
+            <p class="alphabet">${letter}</p>
             <div class="contact-seperator-horizontal"></div>            
         </div>
         `;
@@ -98,7 +98,7 @@ async function renderSortContainer(letterArray) {
         ).innerHTML += /*html*/ `
                 <div id="${i}sub-contact-block" class="sub-contact-block" onclick="openContactDetails(${i})">
                     <div id="${i}first-letters" class="first-letters">${setLetters}</div>
-                    <div id="name-and-email" class="name-and-email">
+                    <div class="name-and-email">
                         <p id="${k}-contact-name" class="contact-name">${name}</p>
                         <a id="${k}-contact-email" class="contact-email" href="mailto:${email}">${email}</a>
                     </div>

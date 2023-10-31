@@ -11,9 +11,9 @@ function renderHtmlTemplate() {
     <h1 class="padding-top">Log in</h1>
     <div class="underline border-radius-8"></div>
       <form onsubmit="login(event)">
-        <input id="user-email" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
+        <input id="user-email" autocomplete="off" class="login-input bg-email-icon icon" type="email" placeholder="Email" name="userEmail" required/>
         <div class="pw-input">
-          <input id="password-login" class="passwords" minlength="5" type="password" placeholder="Password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
+          <input id="password-login" autocomplete="off" class="passwords" minlength="5" type="password" placeholder="Password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
           <div class="pw-img" onclick="togglePassword(this)"></div>
         </div>
         <div class="checkbox-container">
@@ -47,14 +47,14 @@ function renderHtmlTemplate() {
                 </div>
                 <div class="underline border-radius-8"></div>
                 <form class="signup-form" onsubmit="checkCheckbox(); return false">
-                  <input id="name" minlength="2" class="login-input bg-person-icon" type="text" placeholder="Name" name="userName"required/>
-                  <input id="email" class="login-input bg-email-icon" type="email" placeholder="Email" name="userEmail" required/>
+                  <input id="name" minlength="2" autocomplete="off" class="login-input bg-person-icon" type="text" placeholder="Name" name="userName"required/>
+                  <input id="email" autocomplete="off" class="login-input bg-email-icon" type="email" placeholder="Email" name="userEmail" required/>
                   <div class="pw-input">
-                    <input id="password-signup" class="passwords" minlength="5" type="password" placeholder="Password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
+                    <input id="password-signup" autocomplete="off" class="passwords" minlength="5" type="password" placeholder="Password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
                     <div class="pw-img" onclick="togglePassword(this)"></div>
                   </div>
                   <div class="pw-input">
-                    <input id="confirm-password" class="passwords" minlength="5" type="password" placeholder="Confirm password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
+                    <input id="confirm-password" autocomplete="off" class="passwords" minlength="5" type="password" placeholder="Confirm password" name="userPassword" onkeyup="changePasswordIcon(this)" required/>
                     <div class="pw-img" onclick="togglePassword(this)"></div>
                   </div>
                   <div class="checkbox-container-accept">

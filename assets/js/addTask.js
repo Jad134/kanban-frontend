@@ -322,7 +322,7 @@ function renderContacts(name, i, userInitial, youLabel) {
         <div class="current-contacts">
             <div class="add-task-contacts"> 
                <div id="list-circle${i}" class="contact-circle"> <span>${userInitial}</span></div>
-               <span id="current-name" class="current-name">${name} ${youLabel}</span>
+               <span class="current-name">${name} ${youLabel}</span>
                <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
             </div>
         </div>

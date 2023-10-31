@@ -290,7 +290,7 @@ body {
     border-color: #29ABE2;
 
 }
-#create-contact-btn p{
+#create-contact-btn span{
     margin-left: 12px;
 }
 #render-contacts-overview{

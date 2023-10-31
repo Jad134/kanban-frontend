@@ -6,12 +6,12 @@
     <script src="./assets/js/login-status.js"></script>
     <script src="/assets/js/storage.js"></script>
     <script src="./assets/js/addTask.js"></script>
-    <script src="assets\js\w3-include.js"></script>
+    <script src="assets/js/w3-include.js"></script>
     <script src="./assets/js/slider.js"></script>
-    <link rel="stylesheet" href="assets\css\header.css">
-    <link rel="stylesheet" href="assets\css\sidebar.css">
-    <link rel="stylesheet" href="assets\css\style.css">
-    <link rel="stylesheet" href="assets\css\add-task.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/add-task.css">
     <link rel="stylesheet" href="./assets/css/slider.css">
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
@@ -21,10 +21,10 @@
 </head>
 
 <body onload="includeHTML(), init()">
-    <div class="preload-side-menu" w3-include-html="assets\html-templates\side_menu.html"></div>
+    <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
 
     <div class="main-content">
-        <div class="preload-header" w3-include-html="assets\html-templates\header.html"></div>
+        <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div class="align-content">
             <div>
@@ -37,19 +37,19 @@
 
                             <div class="title-content">
                                 <span class="span-style">Title <span class="required-star">*</span></span>
-                                <input required placeholder="Enter a title" id="title-input" type="text">
+                                <input required placeholder="Enter a title" id="title-input" type="text" autocomplete="off">
                                 <div class="error-message" id="title-error"></div>
                             </div>
                             <div class="description">
                                 <span class="span-style">Description</span>
-                                <textarea required placeholder="Enter a Description" name="" id="description-textarea"
+                                <textarea required placeholder="Enter a Description"  id="description-textarea"
                                     cols="20" rows="10"></textarea>
                                 <div class="error-message" id="description-error"></div>
                             </div>
                             <div class="assigned">
                                 <span class="span-style">Assigned to</span>
                                 <input onclick="openContactOverlay()" id="assignedTo" type="text"
-                                    placeholder="Select contacts to assign">
+                                    placeholder="Select contacts to assign" autocomplete="off">
                                 <div class="d-none" id="contact-overlay"></div>
                                 <div id="selected-contacts">
                                 </div>
@@ -65,7 +65,7 @@
                         <div class="right-side">
                             <div class="date-container">
                                 <span class="span-style">Due date <span class="required-star">*</span></span>
-                                <input type='date' id="date-input" placeholder="dd/mm/yyyy">
+                                <input type='date' id="date-input" >
                                 <div class="error-message" id="date-error"></div>
                             </div>
                             <div class="prio">
@@ -81,7 +81,7 @@
                                     </button>
                                     <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
                                         id="low-btn">Low
-                                        <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                                        <img id="low-img" src="./assets/img/prio-baja.svg" alt="">
                                     </button>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <span class="span-style">Subtasks</span>
                                 <div class="subtask-input-btn">
                                     <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
-                                        placeholder="Add new subtask" type="text">
+                                        placeholder="Add new subtask" type="text" autocomplete="off">
                                     <div class="subtask-svg">
                                         <img onmousedown="clearSubtaskInput()" src="./assets/img/close.svg" alt="" >
                                         <div class="subtask-seperator"></div>

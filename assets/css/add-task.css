@@ -55,9 +55,6 @@ input {
 
 input:focus {
     border: 1px solid rgb(41, 171, 226);
-    /* -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;*/
     outline: none
 }
 
@@ -460,7 +457,6 @@ svg:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-left: 200px; */
     height: 100%;
     padding-right: 71px;
     margin-top: 56px;
@@ -580,24 +576,15 @@ svg:hover {
     box-shadow: 0px 0px 4px 0px #0000001A;
 }
 
-/* width */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-/* Track */
-/*::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgb(203, 71, 71); 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgba(168, 168, 168, 1);
     border-radius: 8px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(168, 168, 168, 1);
 }
@@ -605,120 +592,3 @@ svg:hover {
 
 
 
-@media(max-width: 1250px) {
-    .align-content {
-        padding-right: 0;
-    }
-}
-
-@media(max-width: 1200px) {
-    .left-right-container {
-        flex-direction: column;
-    }
-
-    .right-side {
-        padding-left: 0;
-    }
-
-    .left-side {
-        border-right: 0;
-    }
-
-    .assigned {
-        position: relative;
-    }
-
-    #contact-overlay {
-        position: absolute;
-        z-index: 999;
-        top: 85px;
-        left: 0;
-        right: 0;
-    }
-
-    .create-buttons {
-        margin-top: 40px;
-        padding-bottom: 8px;
-    }
-
-    #selected-contacts {
-        min-height: 0px;
-    }
-
-    .required-info {
-        display: none;
-    }
-
-    .required-info-responsive {
-        display: flex;
-    }
-}
-
-@media(max-width: 992px) {
-    .preload-side-menu {
-        min-width: 0;
-        min-height: 0;
-    }
-
-    .bottom {
-        display: flex;
-        height: 112px;
-    }
-}
-
-@media(max-width: 500px) {
-
-    h1 {
-        font-size: 47px;
-    }
-
-
-    .left-side {
-        padding: 0;
-    }
-
-    .prio-buttons {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-    }
-
-    .prio-buttons button {
-        width: 120px;
-    }
-}
-
-@media(max-width: 465px) {
-
-    .left-side {
-        width: 80%;
-    }
-
-    .left-right-container {
-        align-items: center;
-    }
-
-    .right-side {
-        width: 80%;
-    }
-
-    h1 {
-        padding-left: 40px;
-    }
-}
-
-@media(max-width: 400px) {
-
-    .prio-buttons button {
-        font-size: 16px;
-        width: auto;
-    }
-
-    #clear-btn {
-        display: none;
-    }
-
-    .required-info-responsive {
-        flex: 1;
-    }
-}
