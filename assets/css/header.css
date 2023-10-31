@@ -9,12 +9,12 @@
 }
 
 .headline {
-    padding-left: 120px;
+    margin-left: 120px;
     font-size: 20px;
 }
 
 .rightside-header {
-    padding-right: 40px;
+    margin-right: 40px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -99,7 +99,7 @@
     width: 32px;
     height: 40px;
     display: none;
-    padding-left: 40px;
+    margin-left: 40px;
 }
 
 @media (max-width: 1200px) {
@@ -113,7 +113,7 @@
     }
 
     .headline {
-        padding-left: 100px;
+        margin-left: 100px;
         font-size: 18px;
     }
 
@@ -135,7 +135,7 @@
 
 @media(max-width: 992px) {
     .headline {
-        padding-left: unset;
+        margin-left: unset;
     }
 
     .logo-responsive {
@@ -155,5 +155,15 @@
 
     .header {
         height: 80px;
+    }
+}
+
+@media(max-width: 576px) {
+    .logo-responsive {
+        margin-left: 24px;
+    }
+
+    .rightside-header {
+        margin-right: 24px; 
     }
 }
