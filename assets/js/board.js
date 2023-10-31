@@ -319,6 +319,7 @@ function deleteTask(id) {
     let i = idToIndex(id);
     addedTasks.splice(i, 1);
     getTaskFromArray();
+    countBucketsWithoutTasks();
     closeSlider();
     addTaskToStorage();
 }
