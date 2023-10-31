@@ -189,7 +189,7 @@ function editContact(i) {
           <div class="edit-informations">
             <form onsubmit="saveEditContact(${i}); return false" class="information-inputs">
               <div class="contact-input-area-edit">
-                <input autocomplete="off" style="font-family: Inter;" id="name${i}" class="style-of-input-fields" pattern="^[A-Za-z]+\s[A-Za-z]+$" title="Bitte geben Sie zwei Namen (Vorname Nachname) ein, getrennt durch ein Leerzeichen." type="text" placeholder="Vorname Nachname" value='${editName}' required>
+                <input autocomplete="off" style="font-family: Inter;" id="name${i}" class="style-of-input-fields" title="Bitte geben Sie zwei Namen (Vorname Nachname) ein, getrennt durch ein Leerzeichen." type="text" placeholder="Vorname Nachname" value='${editName}'  required>
                 <img src="./assets/img/person.png" alt="Name">
               </div>
               <div class="contact-input-area-edit">
@@ -236,11 +236,13 @@ async function saveEditContact(i){
   editContact["phone-number"] = editedPhone;
   await hideEditCard(i);
   await setItemsInRemoteStorage();
-  openContacts();
-  openContactDetails(i);
+  await openContacts();
+  await openContactDetails(i);
 }
 async function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
+  let switchZindexOverview = document.getElementById('contact-overview');
+  switchZindexOverview.style.zIndex = "400";
   contacts.splice([i], 1);
   contactDetails.innerHTML = "";
   if (document.getElementById('edit-card')) {
@@ -249,7 +251,7 @@ async function deleteContact(i) {
   await setItemsInRemoteStorage()
   openContacts();
 }
-function openContactDetails(i) {
+async function openContactDetails(i) {
   markMyContact(i);
   let details = document.getElementById("detail-view-of-contacts");
   let switchZindexOverview = document.getElementById('contact-overview');
