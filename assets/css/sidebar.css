@@ -62,7 +62,6 @@
 }
 
 @media (max-width: 1200px) {
-
     .sidebar-logo-container {
         margin: 32px 0 0 0;
     }
@@ -87,10 +86,8 @@
         margin: 0 0 36px 28px;
         gap: 8px;
     }
-
 }
 
-/* @media(max-width: 922px) -- > auf 992px geändert, 23.10., HL */
 @media(max-width: 992px) {
     .sidebar {
         display: flex;
@@ -111,11 +108,11 @@
         align-items: center;
     }
 
-    .sidebar-menu-link{
+    .sidebar-menu-link {
         padding: 0;
     }
 
-    .sidebar-top{
+    .sidebar-top {
         height: 100%;
     }
 
@@ -133,43 +130,42 @@
         min-height: 0;
     }
 
-    #summary-link{
+    #summary-link {
         flex-direction: column;
         height: 100%;
         justify-content: center;
     }
 
-    #add-task-link{
+    #add-task-link {
         flex-direction: column;
         height: 100%;
         justify-content: center;
     }
 
-    #board-link{
+    #board-link {
         flex-direction: column;
         height: 100%;
         justify-content: center;
     }
 
-    #contacts-link{
+    #contacts-link {
         flex-direction: column;
         height: 100%;
         justify-content: center;
     }
 }
 
-@media(max-width: 450px){
-
-    .sidebar-menu img{
+@media(max-width: 450px) {
+    .sidebar-menu img {
         width: 24px;
         height: 24px;
     }
 
-    .sidebar-menu span{
+    .sidebar-menu span {
         font-size: 14px;
     }
 
-    .sidebar-top{
+    .sidebar-top {
         padding-inline: 16px;
     }
 }

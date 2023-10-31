@@ -270,7 +270,6 @@ h4 {
 
 .task-container:active {
     transform: rotate(3deg);
-    /*opacity: 0.2;*/
 }
 
 .first-line-bucket {
