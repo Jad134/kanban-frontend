@@ -121,7 +121,6 @@ function setColor() {
 function signUpUser() {
   let registerEmail = document.getElementById('email').value;
  let passwordsMatch = passwordCheck();
- debugger;
   if (passwordsMatch) {
     emailCheck(registerEmail);
     let color = setColor();
@@ -178,7 +177,6 @@ function checkCheckbox() {
     displayMessage('Please accept the privacy policy');
     return false;
   } else {
-    debugger;
     signUpUser();
     return true;
   }
