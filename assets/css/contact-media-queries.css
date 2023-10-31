@@ -232,6 +232,7 @@
     }
     #add-contact-card{
         align-items: flex-start;
+        overflow: auto;
     }
 
     #design-sector{
