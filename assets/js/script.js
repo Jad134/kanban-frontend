@@ -78,9 +78,8 @@ async function userDataFromSignUp(a) {
   let email = document.getElementById('email');
   let password = document.getElementById('password-signup');
   let color = a;
-  if (!Array.isArray(userData)) {
-    userData = [];
-  }
+  userData = [];
+  await loadUserDataFromRemote();
   let users = {
     'name': name,
     'email': email.value,
@@ -88,8 +87,6 @@ async function userDataFromSignUp(a) {
     'color': color,
     'initials': initials
   };
-  let userData = [];
-  await loadUserDataFromRemote();
   userData.push(users);
   saveUserDataInRemote();
 }
