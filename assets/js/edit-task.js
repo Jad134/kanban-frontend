@@ -236,5 +236,5 @@ function sliderTaskEdited() {
     setTimeout(function () {
         closeSlider();
         document.getElementById('slider-container').innerHTML = '';
-    }, 1300);
+    }, 1500);
 }
