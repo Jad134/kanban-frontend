@@ -3,7 +3,7 @@ let lastClickedPrio = null;
 let newSubTasks = [];
 let assignedContact = [];
 let userData = [];
-let taskId = Date.now() + Math.random();
+let taskId;
 
 
 function init() {
@@ -60,7 +60,7 @@ function getValues() {
     let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
 
     let tasks = {
-        "id": taskId,
+        "id": taskId = Date.now() + Math.random(),
         "title": title.value,
         "description": description.value,
         "assigned": assignedContact,
@@ -131,12 +131,20 @@ async function sendFormular(tasks) {
     addedTasks.push(tasks);
     await addTaskToStorage();
     await addTaskIdToStorage();
-    clearTasks();
-    newSubTasks = [];
     sliderTaskAdded();
-    setTimeout(function () {
-        location.href = "board.html"; // Weiterleitung nach erfolgreichem Speichern
-    }, 1500);
+    setTimeout(() => {
+        if (window.location.pathname == "/add-task.html") {
+            clearTasks();
+            window.location.href = "/board.html";
+        } else {
+            clearBuckets();
+            addedTasks = [];
+            lastClickedPrio = null;
+            newSubTasks = [];
+            assignedContact = [];
+            initBoard();
+        }
+    }, 1700);
 }
 
 
@@ -144,10 +152,10 @@ function sliderTaskAdded() {
     document.getElementById('slider-container').innerHTML = renderTaskAdded();
 
     openSlider();
-    setTimeout(function () {
+    setTimeout(() => {
         closeSlider();
         document.getElementById('slider-container').innerHTML = '';
-    }, 1300);
+    }, 1500);
 }
 
 
@@ -374,7 +382,7 @@ function removeInitialsimg(i) {
 
 function pushContact(name) {
     assignedContact.push(name);
-    console.log(assignedContact);
+    //console.log(assignedContact);
 }
 
 /**
@@ -388,7 +396,7 @@ function spliceContact(name) {
 
     if (indexToRemove !== -1) {
         assignedContact.splice(indexToRemove, 1);
-        console.log(assignedContact);
+        //console.log(assignedContact);
     }
 }
 
@@ -478,7 +486,7 @@ function clearTasks() {
     let newTasks = document.getElementById('subtask-input');
     let contactImg = document.getElementById('selected-contacts');
 
-    removeValues(title, description, date, sublist, newTasks, contactImg)
+    removeValues(title, description, date, sublist, newTasks, contactImg);
     newSubTasks = [];
     assignedContact = [];
     removeCheckboxStyle();
@@ -543,7 +551,7 @@ function handleInputFocus() {
     });
 }
 
-function clearSubtaskInput(){
+function clearSubtaskInput() {
     let newTasks = document.getElementById('subtask-input');
     newTasks.value = "";
 
