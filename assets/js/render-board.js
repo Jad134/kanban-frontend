@@ -191,9 +191,18 @@ function addTaskHtml() {
                         <div id="subtask-container" class="subtask-container">
                             <span class="span-style">Subtasks</span>
                             <div class="subtask-input-btn">
-                                <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input" placeholder="Add new subtask" type="text" autocomplete="off">
-                                <button onclick="addSubTask()" type="button" class="subtask-button"><img src="./assets/img/addSub.svg" alt=""></button>
+                                <input onkeydown="handleEnterKeyPress(event , 'subtask-input')" id="subtask-input"
+                                    placeholder="Add new subtask" type="text" autocomplete="off">
+                                <div class="subtask-svg">
+                                    <img onmousedown="clearSubtaskInput()" src="./assets/img/close.svg" alt="" >
+                                    <div class="subtask-seperator"></div>
+                                    <img onmousedown="addSubTask()" src="./assets/img/checkblack.svg" alt="" >  
+                                </div>
+                                <button onclick="addSubTask()" type="button" class="subtask-button" id="subtask-button">
+                                    <img src="./assets/img/addSub.svg" alt="">
+                                </button>
                             </div>
+
                             <div id="subtask-lists"></div>
                         </div>
 
@@ -272,7 +281,7 @@ addedTasks = [{
     "title": "Kochwelt Page & Recipe Recommender",
     "description": "Build start page with recipe recommendation.",
     "assigned": ["Alexander Riedel", "Jad", "Steffen Hans"],
-    "duedate": "2023-05-10",
+    "duedate": "2023-12-31",
     "prio": "Medium",
     "category": "User Story",
     "subtask": [
