@@ -142,7 +142,6 @@ function addTaskSlider(bucket) {
 
     if (window.innerWidth > 768) {
         newSubTasks = [];
-        document.getElementById('slider-container').innerHTML = '';
         document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
         openSlider();
         loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
@@ -274,7 +273,7 @@ function startDragging(id) {
     currentDraggedElement = i;
     let dragField = document.querySelectorAll('.specific-content');
     if (window.innerWidth > 768) {
-        dragField.forEach(el => el.style.padding = "0 0 200px 0");
+        dragField.forEach(el => el.style.padding = "0 0 0 0");
         dragField.forEach(el => el.style.height = "100%");
     }
 }
