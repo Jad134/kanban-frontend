@@ -3,6 +3,8 @@ let loginStatus = localStorage.getItem('login-status');
 
 function checkLogInStatus() {
     if (loginStatus !== 'true' && (window.location.pathname == "/privacy-policy.html" || window.location.pathname === "/legal-notice.html")) {
+        let sidebar = document.querySelector('.sidebar');
+        let informationContainer = document.querySelector('.information-container');
         let sidebarMenu = document.querySelector('.sidebar-menu');
         let rightSideHeader = document.querySelector('.rightside-header');
         if (sidebarMenu) {
@@ -10,6 +12,10 @@ function checkLogInStatus() {
         }
         if (rightSideHeader) {
             rightSideHeader.style.display = 'none';
+        }
+        if (window.innerWidth < 992) {
+            sidebar.style.display = 'none';
+            informationContainer.style.padding = '0 24px 24px 24px';
         }
     } else if (loginStatus !== 'true' && window.location.pathname !== "/index.html") {
         window.location.href = "/index.html";
