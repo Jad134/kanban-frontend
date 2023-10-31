@@ -172,7 +172,7 @@ function addTaskHtml() {
                                 </button>
                                 <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
                                     id="low-btn">Low
-                                    <img id="low-img" src="./assets/img/Prio baja.svg" alt="">
+                                    <img id="low-img" src="./assets/img/prio-baja.svg" alt="">
                                 </button>
                             </div>
                             <div></div>
