@@ -243,17 +243,68 @@
         padding-bottom: 14px;
     }
 /*--------------------------contacts edit card-------------------------*/
+    #edit-card{
+        flex-direction: column;
+        align-items: center;
+        width: 80vw;
+    }
+    .left-side-edit-card{
+        justify-content: flex-start;
+        padding: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 24px;
+        border-top-left-radius: 24px;
+        height: 212px;
+        width: 310px;
+    }
+    .left-side-edit-card svg{
+        display: none;
+    }
+    .left-side-edit-card div, h2{
+        margin-left: 24px;
+    }
+    .left-side-edit-card h2{
+        margin-top: 24px;
+    }
     .left-side-edit-card h2{
         font-size: 24px;
     }
-    .first-letters-and-inputs{
-        margin-left: 14px;
+    .right-side-edit-card{
+        width: 310px;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 24px;
     }
-    .cancel-and-edit-contact-btn{
-        width: 260px;
+    .container-for-first-letters-in-edit{
+        display: flex;
+        position: absolute;
+        top: 176px;
+        left: 100px;
+        height: 64px;
+    }
+    .first-letters-and-inputs{
+        justify-content: center;
+        margin-left: 14px;
+        margin-top: 48px;
+        margin-right: 0;
+        margin-left: 0;
     }
     .contact-input-area-edit{
-        margin-right: 12px;
+        margin-top: 14px;
+        margin-bottom: 14px;
+        margin-right: 0;
+        padding-right: 0;
+        width: 260px;
+    }
+    .edit-informations{
+        justify-content: center;
+    }
+    .cancel-and-edit-contact-btn{
+        justify-content: space-between;
+        width: 260px;
+        margin-bottom: 24px;
+    }
+    .delete-contact-in-edit-card{
+        margin-right: 0;
     }
     .edit-and-delete{
         display: none;
