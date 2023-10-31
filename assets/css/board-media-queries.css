@@ -388,7 +388,7 @@
         display: unset;
     }
 
-    .specific-content {
-        overflow-x: hidden;
+    .specific-content::-webkit-scrollbar {
+        display:none;
     }
 }
