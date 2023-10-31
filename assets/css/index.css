@@ -39,7 +39,6 @@
     font-size: 20px;
 }
 
-
 .sign-up-button:active {
     transform: translateY(5px);
     transition: transform 75s ease-in-out;
@@ -369,8 +368,6 @@ input:hover {
     justify-content: center;
     gap: clamp(1.25rem, -0.417rem + 8.33vw, 2.188rem);
     margin-right: 7%;
-    /* margin-top: 48px;
-    margin-bottom: 32px; */
     margin-top: 12px;
     font-size: clamp(1rem, 0.556rem + 2.22vw, 1.25rem);
 }
