@@ -92,7 +92,6 @@ function editContact(i) {
     let email = contacts[i]["email"];
     let phone = contacts[i]["phone-number"];
   
-    details.innerHTML = ``;
     details.innerHTML = /*html*/ `
           <div id="letters-and-name">
               <div class="first-letters-for-details" style="background-color: ${backgroundColor};">

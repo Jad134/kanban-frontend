@@ -23,7 +23,7 @@ body {
     align-items: center;
     flex-direction: column;
     width: 456px;
-    height: calc(100vh - 100px);
+    height: 1024px;
     background-color: white;
 }
 

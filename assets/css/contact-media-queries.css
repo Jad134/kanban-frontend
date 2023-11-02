@@ -18,6 +18,7 @@
 /*--------------------------contacts detail view-------------------------*/
     #contact-overview{
         width: 380px;
+        height: 944px;
     }
 
     #add-new-contact{
@@ -168,6 +169,7 @@
     .first-letters-for-details{
         display: flex;
         padding: 14px;
+        margin-right: 0;
     }
 
     #detail-view-of-contacts{
@@ -182,6 +184,7 @@
 
     #main-name h2{
         font-size: 28px;
+        width: 160px;
     }
     
     #welcome-to-contacts h1{

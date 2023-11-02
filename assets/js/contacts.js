@@ -1,10 +1,4 @@
-let contacts = [
-  {
-    "name": "Tobi Mayer",
-    "email": "tobimayer@test.de",
-    "phone-number": 111111111111
-  },
-];
+let contacts = [];
 
 
 async function openContacts() {
@@ -55,9 +49,7 @@ function getFirstLettersForOverview(i, contacts) {
   let splitName = name.split(" ");
   let firstName = splitName[0];
   let secondName = splitName[1];
-  let thirdName = splitName[2];
-  let firstLetter = firstName.charAt(0);
-  
+  let firstLetter = firstName.charAt(0);  
 
   if (secondName !== undefined) {
     let secondLetter = secondName.charAt(0);
@@ -151,7 +143,6 @@ function styleAboutEditCard(){
 
 async function saveEditContact(i){
   let editContact = contacts[i];
-
   let editedName = document.getElementById(`name${i}`).value;
   let editedPhone = document.getElementById(`phone${i}`).value;
   let editedEmail = document.getElementById(`email${i}`).value;
@@ -224,7 +215,6 @@ async function slideInCard() {
 async function waitForIt() {
   let slider = document.getElementById("slide-container");
   let deactivateOverflow = document.body;
-
   slider.style.display = "flex";
   deactivateOverflow.classList.add("hide-my-scrolls");
 }
