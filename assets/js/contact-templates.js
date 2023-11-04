@@ -1,3 +1,9 @@
+/**
+ * Edits the contact and displays the editing card.
+ *
+ * @param {number} i - The index of the contact to be edited.
+ * @returns {void}
+ */
 function editContact(i) {
     styleAboutEditCard();
     let editCard = document.getElementById('render-my-edit-card');
@@ -74,7 +80,12 @@ function editContact(i) {
     let zIndexEditCard = document.getElementById('edit-card');
     zIndexEditCard.style.zIndex = '999';
   }
-
+/**
+ * Opens the contact details view and displays the details of a specific contact.
+ *
+ * @param {number} i - The index of the contact to be displayed.
+ * @returns {void}
+ */
   async function openContactDetails(i) {
     markMyContact(i);
     let details = document.getElementById("detail-view-of-contacts");
