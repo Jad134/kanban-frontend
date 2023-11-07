@@ -1,3 +1,12 @@
+/**
+ * Renders a task container with specific details.
+ * @param {number} id - The ID of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} category - The category of the task.
+ * @param {string} categoryCssClass - The CSS class for the category.
+ * @returns {string} - HTML string representing the task container.
+ */
 function renderBuckets(id, title, description, category, categoryCssClass) {
     return `
         <div class="task-container" id="task-${id}" onclick="loadTask(${id})" ondragstart="startDragging(${id})" draggable="true">
@@ -21,6 +30,12 @@ function renderBuckets(id, title, description, category, categoryCssClass) {
 }
 
 
+/**
+ * Renders a progress bar representing the completion of subtasks.
+ * @param {number} numberOfSubtasksDone - The number of completed subtasks.
+ * @param {number} numberOfSubtasks - The total number of subtasks.
+ * @returns {string} - HTML string representing the progress bar and subtask count.
+ */
 function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
     return `
         <div class="progress-bar" title="${numberOfSubtasksDone}/${numberOfSubtasks} subtasks are done">
@@ -31,6 +46,12 @@ function renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks) {
 }
 
 
+/**
+ * Renders a visual representation of assigned users.
+ * @param {string} initials - The initials of the assigned user.
+ * @param {string} color - The color associated with the user.
+ * @returns {string} - HTML string displaying the assigned user.
+ */
 function renderAssignedUsers(initials, color) {
     return `
         <div style="background-color: ${color};" class="assignment-circle margin--4px">${initials}</div>
@@ -38,6 +59,14 @@ function renderAssignedUsers(initials, color) {
 }
 
 
+/**
+ * Renders assigned users for an open task.
+ *
+ * @param {string} initials - Initials of the assigned user.
+ * @param {string} color - Background color for the circle.
+ * @param {string} assignedUser - Name of the assigned user.
+ * @returns {string} HTML for displaying assigned users.
+ */
 function renderAssignedUsersForOpenTask(initials, color, assignedUser) {
     return `
         <div class="assigned-to-contact">
@@ -48,6 +77,12 @@ function renderAssignedUsersForOpenTask(initials, color, assignedUser) {
 }
 
 
+/**
+ * Renders priority image for a task based on the priority level.
+ *
+ * @param {string} prio - Priority level of the task.
+ * @returns {string} HTML with an image tag for the priority.
+ */
 function renderPrio(prio) {
     return `
         <img src="./assets/img/subtask-prio-${prio}.svg" alt="">
@@ -55,6 +90,19 @@ function renderPrio(prio) {
 }
 
 
+/**
+ * Renders an open task with details like title, description, due date, priority, and assignment.
+ *
+ * @param {string} id - Task ID.
+ * @param {string} category - Category of the task.
+ * @param {string} categoryCssClass - CSS class for the category.
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} duedate - Due date of the task.
+ * @param {string} prio - Priority of the task.
+ * @param {string} assigned - Assigned users.
+ * @returns {string} HTML for an open task.
+ */
 function renderOpenTask(id, category, categoryCssClass, title, description, duedate, prio, assigned) {
     return `
         <div id="slider" class="open-task-container">
@@ -95,6 +143,15 @@ function renderOpenTask(id, category, categoryCssClass, title, description, dued
 }
 
 
+/**
+ * Renders subtasks for a particular task.
+ *
+ * @param {number} s - Subtask number.
+ * @param {string} id - Task ID.
+ * @param {string} subtaskDone - Subtask completion status.
+ * @param {string} subtask - Subtask description.
+ * @returns {string} HTML for subtasks.
+ */
 function renderSubtasks(s, id, subtaskDone, subtask) {
     return `
         <div id="subtask-${id}-${s}" class="open-task-subtask-list" onclick="checkboxSubtask(${s}, ${id})">
@@ -104,11 +161,22 @@ function renderSubtasks(s, id, subtaskDone, subtask) {
 }
 
 
+/**
+ * Renders a message for buckets without tasks.
+ *
+ * @param {string} bucket - ID of the bucket.
+ * @param {string} text - Text to display.
+ */
 function renderBucketsWithoutTasks(bucket, text) {
     document.getElementById(bucket).innerHTML = `<div class="no-tasks">No tasks ${text}</div>`
 }
 
 
+/**
+ * Generates HTML for adding a new task.
+ *
+ * @returns {string} HTML for adding a task.
+ */
 function addTaskHtml() {
     return `
         <div id="slider">
@@ -233,6 +301,12 @@ function addTaskHtml() {
 }
 
 
+/**
+ * Renders move-to options for a task.
+ *
+ * @param {string} id - Task ID.
+ * @returns {string} HTML for move-to options.
+ */
 function renderMoveTo(id) {
     return `
         <div class="move-to-container">
@@ -251,6 +325,16 @@ function renderMoveTo(id) {
 }
 
 
+/**
+ * Renders the view of a bucket after it's closed.
+ *
+ * @param {string} id - Task ID.
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} category - Category of the task.
+ * @param {string} categoryCssClass - CSS class for the category.
+ * @returns {string} HTML for a bucket after closing.
+ */
 function renderBucketAfterClose(id, title, description, category, categoryCssClass) {
     return `
         <div class="first-line-bucket">
@@ -272,7 +356,7 @@ function renderBucketAfterClose(id, title, description, category, categoryCssCla
 }
 
 
-/** test data
+/* test data
 
 addedTasks = [{
     "id": 1,
