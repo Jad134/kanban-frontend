@@ -1,3 +1,8 @@
+/**
+ * Retrieves remote user data for editing tasks.
+ * Populates the 'userData' array with fetched data.
+ * @returns {Promise<void>} - Promise that indicates the completion of data retrieval.
+ */
 async function loadRemoteUserDataForEdit() {
     let newUserDataString = await getItem('users');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
@@ -9,6 +14,10 @@ async function loadRemoteUserDataForEdit() {
 }
 
 
+/**
+ * Opens the editing interface for a specific task with provided details.
+ * @param {number} id - The ID of the task to be edited.
+ */
 async function openEditTask(id) {
     await loadRemoteUserDataForEdit();
 
@@ -27,6 +36,10 @@ async function openEditTask(id) {
 }
 
 
+/**
+ * Fetches and sets the priority of a specific task.
+ * @param {number} i - Index of the task.
+ */
 function getPrio(i) {
     let prio = addedTasks[i]['prio'];
 
@@ -42,6 +55,11 @@ function getPrio(i) {
 }
 
 
+/**
+ * Loads user circles for edit based on task data.
+ * @param {number} i - Index of the task.
+ * @param {string} id - The task ID.
+ */
 function loadUserCirclesForEdit(i, id) {
     assignedContact = [];
 
@@ -57,6 +75,10 @@ function loadUserCirclesForEdit(i, id) {
 }
 
 
+/**
+ * Loads edit contacts to the overlay for a specific task.
+ * @param {number} i - Index of the task.
+ */
 function loadEditContacts(i) {
     let overlayContainer = document.getElementById('edit-contact-overlay');
 
@@ -70,6 +92,9 @@ function loadEditContacts(i) {
 }
 
 
+/**
+ * Opens the overlay to edit task contacts.
+ */
 function openEditContactOverlay() {
     let assignedTo = document.getElementById('edit-assigned-to');
     assignedTo.style.backgroundImage = `url('./assets/img/arrow-up.svg')`;
@@ -84,6 +109,9 @@ function openEditContactOverlay() {
 }
 
 
+/**
+ * Closes the overlay for editing task contacts.
+ */
 function closeEditContactOverlay() {
     let contactOverlay = document.getElementById('edit-contact-overlay');
     contactOverlay.classList.remove('d-flex');
@@ -97,6 +125,10 @@ function closeEditContactOverlay() {
 }
 
 
+/**
+ * Listens for click events outside the edit contact overlay and closes the overlay.
+ * @param {MouseEvent} event - The mouse click event.
+ */
 function closeEditOnClickOutside(event) {
     let contactOverlay = document.getElementById('edit-contact-overlay');
     let assignedTo = document.getElementById('edit-assigned-to');
@@ -107,6 +139,9 @@ function closeEditOnClickOutside(event) {
 }
 
 
+/**
+ * Filters and displays contacts when searching in the edit assigned-to input field.
+ */
 function findContactForEdit() {
     const searchInput = document.getElementById('edit-assigned-to');
     const contactCards = document.querySelectorAll('.add-task-contacts');
@@ -124,6 +159,13 @@ function findContactForEdit() {
 }
 
 
+/**
+ * Handles checkbox status change for editing contacts.
+ * @param {string} status - The status of the checkbox.
+ * @param {string} name - The contact's name.
+ * @param {number} userIndex - Index of the user.
+ * @param {number} i - Index of the task.
+ */
 function setEditCheckbox(status, name, userIndex, i) {
     assignedContact = addedTasks[i]['assigned'];
     let checked = document.getElementById(`check-contact${userIndex}`);
@@ -149,6 +191,10 @@ function setEditCheckbox(status, name, userIndex, i) {
 }
 
 
+/**
+ * Removes the user's initials image from the contact list for editing.
+ * @param {number} i - Index of the user.
+ */
 function removeEditInitialsImg(i) {
     let content = document.getElementById('selected-contacts');
     let divToRemove = document.getElementById(`assigned-initials-${i}`);
@@ -159,6 +205,10 @@ function removeEditInitialsImg(i) {
 }
 
 
+/**
+ * Renders the user's initials image in the contact list for editing.
+ * @param {number} i - Index of the user.
+ */
 function renderEditInitialsImg(i) {
     let content = document.getElementById('selected-contacts');
     let userInitial = userData[i]['initials'];
@@ -171,6 +221,10 @@ function renderEditInitialsImg(i) {
 }
 
 
+/**
+ * Loads subtasks for editing based on a specific task.
+ * @param {number} i - Index of the task.
+ */
 function loadEditSubtasks(i) {
     newSubTasks = addedTasks[i]['subtask'];
     let subtaskContainer = document.getElementById('subtask-lists');
@@ -182,6 +236,10 @@ function loadEditSubtasks(i) {
 }
 
 
+/**
+ * Submits the edited task details after making changes.
+ * @param {number} id - The ID of the task being edited.
+ */
 async function submitEditForm(id) {
     let i = idToIndex(id);
     let bucket = addedTasks[i]['bucket'];
@@ -219,16 +277,28 @@ async function submitEditForm(id) {
 }
 
 
+/**
+ * Deletes the task to be edited.
+ * @param {number} i - Index of the task.
+ */
 function deleteEditTask(i) {
     addedTasks.splice(i, 1);
 }
 
 
+/**
+ * Adds the edited task to the list at a specific index.
+ * @param {number} i - Index of the task.
+ * @param {Object} tasks - The edited task details.
+ */
 function addEditTask(i, tasks) {
     addedTasks.splice(i, 0, tasks);
 }
 
 
+/**
+ * Triggers the display of a success message when the task is edited.
+ */
 function sliderTaskEdited() {
     document.getElementById('slider-container').innerHTML = renderTaskEdited();
 
