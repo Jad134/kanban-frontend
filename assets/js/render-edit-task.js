@@ -1,3 +1,12 @@
+/**
+ * Renders an edit task container with inputs and buttons to edit the task details.
+ * 
+ * @param {number} id - The ID of the task.
+ * @param {string} title - The title of the task.
+ * @param {string} description - The description of the task.
+ * @param {string} duedate - The due date of the task.
+ * @returns {string} - HTML structure to edit the task.
+ */
 function renderEditTask(id, title, description, duedate) {
     return `
         <div id="slider" class="edit-task-container">
@@ -76,6 +85,14 @@ function renderEditTask(id, title, description, duedate) {
 }
 
 
+/**
+ * Renders user circles with initials to display assigned users.
+ * 
+ * @param {number} x - The identification for the user circle.
+ * @param {string} initials - The initials of the user.
+ * @param {string} color - The color of the user circle.
+ * @returns {string} - HTML structure for the assigned user circle.
+ */
 function renderUserCirclesForEdit(x, initials, color) {
     return `
         <div style="background-color: ${color};" id="assigned-initials-${x}" class="assignment-circle-big">${initials}</div>
@@ -83,6 +100,16 @@ function renderUserCirclesForEdit(x, initials, color) {
 }
 
 
+/**
+ * Renders unchecked users to display for editing a task.
+ * 
+ * @param {number} i - The index of the user.
+ * @param {string} name - The name of the user.
+ * @param {string} initials - The initials of the user.
+ * @param {string} color - The color of the user circle.
+ * @param {number} userIndex - The identification index of the user.
+ * @returns {string} - HTML structure for unchecked user display.
+ */
 function renderUncheckedUsers(i, name, initials, color, userIndex) {
     return `
         <label class="unchecked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
@@ -100,6 +127,16 @@ function renderUncheckedUsers(i, name, initials, color, userIndex) {
 }
 
 
+/**
+ * Renders checked users to display for editing a task.
+ * 
+ * @param {number} i - The index of the user.
+ * @param {string} name - The name of the user.
+ * @param {string} initials - The initials of the user.
+ * @param {string} color - The color of the user circle.
+ * @param {number} userIndex - The identification index of the user.
+ * @returns {string} - HTML structure for checked user display.
+ */
 function renderCheckedUsers(i, name, initials, color, userIndex) {
     return `
         <label class="checked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
@@ -117,6 +154,13 @@ function renderCheckedUsers(i, name, initials, color, userIndex) {
 }
 
 
+/**
+ * Renders the container for displaying subtasks.
+ * 
+ * @param {number} s - The identification for the subtask.
+ * @param {string} subtask - The subtask details.
+ * @returns {string} - HTML structure for subtask display.
+ */
 function renderSubtaskContainer(s, subtask) {
     return `
         <div id="sublist-container${s}" class="sublist-container">
@@ -137,6 +181,11 @@ function renderSubtaskContainer(s, subtask) {
 }
 
 
+/**
+ * Renders a success message after editing a task.
+ * 
+ * @returns {string} - HTML structure for a success message after task editing.
+ */
 function renderTaskEdited() {
     return `
         <div class="task-edited-button">
