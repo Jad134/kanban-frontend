@@ -2,6 +2,10 @@ addedTasks = [];
 addedUsers = [];
 
 
+/**
+ * Initializes the board by loading user data and tasks.
+ * @returns {Promise<void>} - A promise that resolves when the initialization is complete.
+ */
 async function initBoard() {
     let userData = await getItem('users');
     userData = JSON.parse(userData['data']['value']);
@@ -21,6 +25,10 @@ async function initBoard() {
 }
 
 
+/**
+ * Loads tasks on the board.
+ * @param {number} i - Index of the task to load.
+ */
 function loadTasksForBoard(i) {
     let id = addedTasks[i]['id'];
     let bucket = addedTasks[i]['bucket'];
@@ -39,6 +47,11 @@ function loadTasksForBoard(i) {
 }
 
 
+/**
+ * Picks a CSS class based on the category of the task.
+ * @param {string} category - The category of the task.
+ * @returns {string} - The CSS class for the category.
+ */
 function categoryClassPicker(category) {
     if (category === 'Technical Task') {
         return 'category-technical-task';
@@ -48,6 +61,10 @@ function categoryClassPicker(category) {
 }
 
 
+/**
+ * Counts the number of subtasks and subtasks done for a task.
+ * @param {number} id - ID of the task.
+ */
 function countSubtasks(id) {
     let i = idToIndex(id);
     let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
@@ -59,6 +76,10 @@ function countSubtasks(id) {
 }
 
 
+/**
+ * Loads assigned users for a task.
+ * @param {number} id - ID of the task.
+ */
 function loadAssignedUsers(id) {
     let i = idToIndex(id);
     let assignedUsers = addedTasks[i]['assigned'];
@@ -87,6 +108,10 @@ function loadAssignedUsers(id) {
 }
 
 
+/**
+ * Loads assigned users for an open task.
+ * @param {number} id - ID of the open task.
+ */
 function loadAssignedUsersForOpenTask(id) {
     let i = idToIndex(id);
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
@@ -100,12 +125,22 @@ function loadAssignedUsersForOpenTask(id) {
 }
 
 
+/**
+ * Compares the user and finds the index in the user array.
+ * @param {string} assignedContact - The name of the assigned contact.
+ * @returns {number} - The index of the user in the user array.
+ */
 function compareUser(assignedContact) {
     let x = addedUsers.findIndex(user => user.name === assignedContact);
     return x;
 }
 
 
+/**
+ * Loads the priority of a task.
+ * @param {number} id - ID of the task.
+ * @param {string} prio - The priority of the task.
+ */
 function loadPrio(id, prio) {
     if (prio !== '') {
         document.getElementById(`task-prio-img-${id}`).innerHTML = renderPrio(prio);
@@ -113,6 +148,10 @@ function loadPrio(id, prio) {
 }
 
 
+/**
+ * Loads priority for an open task if the priority value is not empty.
+ * @param {string} prio - Priority value.
+ */
 function loadPrioForOpenTask(prio) {
     if (prio !== '') {
         document.getElementById(`open-task-prio-container`).innerHTML += renderPrio(prio);
@@ -120,6 +159,9 @@ function loadPrioForOpenTask(prio) {
 }
 
 
+/**
+ * Retrieves tasks from the 'addedTasks' array and loads them on the board.
+ */
 function getTaskFromArray() {
     clearBuckets();
 
@@ -129,6 +171,9 @@ function getTaskFromArray() {
 }
 
 
+/**
+ * Clears task buckets on the board.
+ */
 function clearBuckets() {
     document.getElementById('todo').innerHTML = '';
     document.getElementById('in-progress').innerHTML = '';
@@ -137,6 +182,10 @@ function clearBuckets() {
 }
 
 
+/**
+ * Adds a task slider for a specific bucket based on the device width.
+ * @param {string} bucket - The target bucket.
+ */
 function addTaskSlider(bucket) {
     sessionStorage.setItem('bucket', bucket);
 
@@ -151,6 +200,9 @@ function addTaskSlider(bucket) {
 }
 
 
+/**
+ * Searches for tasks based on user input in the search bar and handles visibility.
+ */
 function findTasks() {
     const searchInput = document.getElementById('find-task');
     const taskCards = document.querySelectorAll('.task-container');
@@ -185,6 +237,9 @@ function findTasks() {
 }
 
 
+/**
+ * Counts the number of tasks in each bucket and loads buckets without tasks.
+ */
 function countBucketsWithoutTasks() {
     let todoTasks = addedTasks.filter(task => task.bucket === 'todo').length;
     let inProgressTasks = addedTasks.filter(task => task.bucket === 'in-progress').length;
@@ -195,6 +250,13 @@ function countBucketsWithoutTasks() {
 }
 
 
+/**
+ * Loads buckets without tasks if the count of tasks is less than 1 for each bucket.
+ * @param {number} todoTasks - Count of tasks in 'todo' bucket.
+ * @param {number} inProgressTasks - Count of tasks in 'in-progress' bucket.
+ * @param {number} awaitFeedbackTasks - Count of tasks in 'await-feedback' bucket.
+ * @param {number} doneTasks - Count of tasks in 'done' bucket.
+ */
 function loadBucketsWithoutTasks(todoTasks, inProgressTasks, awaitFeedbackTasks, doneTasks) {
     if (todoTasks < 1) {
         renderBucketsWithoutTasks('todo', 'to do');
@@ -211,6 +273,10 @@ function loadBucketsWithoutTasks(todoTasks, inProgressTasks, awaitFeedbackTasks,
 }
 
 
+/**
+ * Loads a task with detailed information in the slider.
+ * @param {number} id - ID of the task.
+ */
 function loadTask(id) {
     let i = idToIndex(id);
     let category = addedTasks[i]['category'];
@@ -231,6 +297,11 @@ function loadTask(id) {
 }
 
 
+/**
+ * Loads the date for a task and converts it to a readable format.
+ * @param {number} i - Index of the task.
+ * @returns {string} - Formatted date.
+ */
 function convertDate(i) {
     if (addedTasks[i]['duedate'] > '0001-01-01') {
         let originalDate = addedTasks[i]['duedate'];
@@ -243,6 +314,10 @@ function convertDate(i) {
 }
 
 
+/**
+ * Loads subtasks for a specific task in the slider.
+ * @param {number} id - ID of the task.
+ */
 function loadSubtasks(id) {
     let i = idToIndex(id);
 
@@ -262,12 +337,22 @@ function loadSubtasks(id) {
 }
 
 
+
+/**
+ * Finds the index of a task based on its ID in the 'addedTasks' array.
+ * @param {number} id - ID of the task.
+ * @returns {number} - Index of the task.
+ */
 function idToIndex(id) {
     let i = addedTasks.findIndex(task => task.id === id);
     return i;
 }
 
 
+/**
+ * Initializes the dragging process for a specific task.
+ * @param {number} id - ID of the task.
+ */
 function startDragging(id) {
     let i = idToIndex(id);
     currentDraggedElement = i;
@@ -279,28 +364,50 @@ function startDragging(id) {
 }
 
 
+/**
+ * Touch event handler for starting dragging a task.
+ * @param {number} id - ID of the task.
+ */
 function startTouchDragging(id) {
     console.log(id)
 }
 
 
+/**
+ * Allows dropping items.
+ * @param {Event} event - The event object triggered.
+ */
 function allowDrop(event) {
     event.preventDefault();
 }
 
 
+/**
+ * Handles UI behavior when hovering over a bucket.
+ * @param {string} bucket - The target bucket.
+ */
 function hoverDrag(bucket) {
     let hoverElement = document.getElementById(bucket);
     hoverElement.classList.add('task-hover');
 }
 
 
+/**
+ * Stops UI behavior for dragging over a bucket.
+ * @param {string} bucket - The target bucket.
+ */
 function stopDrag(bucket) {
     let hoverElement = document.getElementById(bucket);
     hoverElement.classList.remove('task-hover');
 }
 
 
+/**
+ * Moves a task to a specific bucket on the board.
+ * @param {number} id - ID of the task.
+ * @param {string} bucket - The target bucket.
+ * @param {Event} event - The event object triggered during the move.
+ */
 function moveTo(bucket) {
     addedTasks[currentDraggedElement]['bucket'] = bucket;
     let element = document.getElementById(bucket);
@@ -314,6 +421,10 @@ function moveTo(bucket) {
 }
 
 
+/**
+ * Deletes a task.
+ * @param {number} id - ID of the task to be deleted.
+ */
 function deleteTask(id) {
     let i = idToIndex(id);
     addedTasks.splice(i, 1);
@@ -342,6 +453,10 @@ function checkboxSubtask(s, id) {
 }
 
 
+/**
+ * Reloads the subtask counter for a task.
+ * @param {number} id - ID of the task.
+ */
 function reloadSubtaskCounter(id) {
     let i = idToIndex(id);
     let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
@@ -351,18 +466,32 @@ function reloadSubtaskCounter(id) {
 }
 
 
+/**
+ * Handles the UI behavior when moving a task to another bucket.
+ * @param {number} id - ID of the task to be moved.
+ * @param {Event} event - The event object triggered.
+ */
 function switchToBucket(id, event) {
     event.stopPropagation();
     document.getElementById(`task-${id}`).innerHTML = renderMoveTo(id);
 }
 
 
+/**
+ * Closes the move-to dialog.
+ * @param {number} id - ID of the task.
+ * @param {Event} event - The event object triggered.
+ */
 function closeMoveTo(id, event) {
     event.stopPropagation();
     reloadBucket(id);
 }
 
 
+/**
+ * Reloads the bucket after closing the move-to dialog.
+ * @param {number} taskId - ID of the task.
+ */
 function reloadBucket(taskId) {
     let i = idToIndex(taskId);
     let id = addedTasks[i]['id'];
@@ -381,6 +510,12 @@ function reloadBucket(taskId) {
 }
 
 
+/**
+ * Moves a task to a specific bucket and updates the task accordingly.
+ * @param {number} id - The ID of the task to be moved.
+ * @param {string} bucket - The target bucket for the task.
+ * @param {Event} event - The event object to prevent further event propagation.
+ */
 function moveToBucket(id, bucket, event) {
     event.stopPropagation();
     let i = idToIndex(id);
