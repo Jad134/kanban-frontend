@@ -1,7 +1,11 @@
+/**
+ * Initializes the summary section by rendering the greeting and calculating the total tasks.
+ */
 function initSummary() {
     renderGreeting();
     totalTasks();
 }
+
 
 /**
  * This function relates to the current time frame of the user logging in and returns the according greeting
@@ -21,6 +25,7 @@ function getGreeting() {
     }
     return greeting;
 }
+
 
 /**
  * This function renders the greeting for guest users and known users
@@ -54,6 +59,12 @@ function totalTasks() {
     let totalInBoard = document.getElementById('total-tasks');
     totalInBoard.textContent = total;
 }
+
+
+/**
+ * Resolves the promise returned by 'getTaskStorage' and triggers subsequent functions to update summary statistics.
+ * This chain of functions includes totalTasks(), urgentTasks(), nextDueDate(), and updateSummary().
+ */
 getTaskStorage().then(() => {
     totalTasks();
     urgentTasks();
@@ -76,6 +87,7 @@ function urgentTasks() {
     feedback.textContent = taskContainer;
 }
 
+
 /**
  * This function calculates and displays the task with the closest due date
  * 
@@ -89,6 +101,7 @@ function calculateClosestDueDate(closestDueDate) {
         nextDate.innerHTML = formattedDate;
     }
 }
+
 
 /**
  * This function calculates and displays the next closest due date among the added tasks
@@ -162,4 +175,9 @@ function responsiveGreeting() {
     }
 }
 
+
+/**
+ * Attaches an event listener to the 'load' event of the window, triggering the 'responsiveGreeting' function.
+ * This function handles the display and fade-out of a responsive greeting element after a short time during the initial window load.
+ */
 window.addEventListener('load', responsiveGreeting);
