@@ -1,3 +1,6 @@
+/**
+ * Opens the slider to display content.
+ */
 function openSlider() {
     document.getElementById('slider-container').classList.remove('slide-to-right');
     document.getElementById('slider-bg').classList.remove('fadeOut');
@@ -12,6 +15,9 @@ function openSlider() {
 }
 
 
+/**
+ * Closes the slider and resets elements to their initial state after animation.
+ */
 function closeSlider() {
     document.getElementById('slider-container').classList.remove('slide-from-right');
     document.getElementById('slider-bg').classList.remove('fadeIn');
