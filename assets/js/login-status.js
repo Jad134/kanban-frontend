@@ -1,6 +1,9 @@
 let loginStatus = localStorage.getItem('login-status');
 
 
+/**
+ * Checks the login status and performs UI modifications based on the status and current URL path.
+ */
 function checkLogInStatus() {
     if (loginStatus !== 'true' && (window.location.pathname == "/privacy-policy.html" || window.location.pathname === "/legal-notice.html")) {
         let sidebar = document.querySelector('.sidebar');
@@ -23,6 +26,9 @@ function checkLogInStatus() {
 }
 
 
+/**
+ * Logs the user out by removing the login status from local storage.
+ */
 function logOut() {
     localStorage.removeItem("login-status");
 }
