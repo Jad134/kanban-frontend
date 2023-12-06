@@ -221,7 +221,7 @@ function login(event) {
     displayMessage('You logged in successfully!')
     loginToLocalStorage(dataExists);
     setTimeout(() => {
-      window.location.href = '/summary.html';
+      window.location.href = 'summary.html';
     }, 1200);
   }
   else {

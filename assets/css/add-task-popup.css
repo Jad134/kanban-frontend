@@ -146,7 +146,7 @@
 }
 
 #assignedTo {
-    background-image: url('/assets/img/arrow-assign-down.svg');
+    background-image: url(../img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 95%;
@@ -313,7 +313,7 @@
     border-radius: 10px;
     font-size: 20px;
     font-family: Inter;
-    background-image: url(/assets/img/arrow-assign-down.svg);
+    background-image: url(../img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 95%;

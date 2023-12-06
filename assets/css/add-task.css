@@ -118,7 +118,7 @@ textarea::placeholder {
 }
 
 #assignedTo {
-    background-image: url(/assets/img/arrow-assign-down.svg);
+    background-image: url(../img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 95%;
@@ -134,7 +134,7 @@ select {
     cursor: pointer;
     font-size: 20px;
     appearance: none;
-    background-image: url(/assets/img/arrow-assign-down.svg);
+    background-image: url(../img/arrow-assign-down.svg);
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 95%

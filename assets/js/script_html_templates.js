@@ -23,7 +23,7 @@ function renderHtmlTemplate() {
         </div>
         <div class="login-buttons">
           <button  class="h-button border-radius-8">Log in</button>
-          <a href="/summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
+          <a href="summary.html" class="link-button-white border-radius-8" onclick="loginAsGuest()">Guest Log in</a>
         </div>
       </form>
     `;
