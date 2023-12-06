@@ -203,7 +203,7 @@ async function addTaskToStorage() {
  * Load the user Datas from the Remote storage
  */
 async function loadUserDataFromRemote() {
-    let newUserDataString = await getItem('users');
+    let newUserDataString = await getItem('contacts');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
     for (let i = 0; i < newUserDataString.length; i++) {
         let users = newUserDataString[i];

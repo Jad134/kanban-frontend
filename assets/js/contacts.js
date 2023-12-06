@@ -243,10 +243,12 @@ async function pushContactInfo() {
   let name = await formatNames();
   let email = document.getElementById("contact-email-input");
   let phoneNumber = document.getElementById("contact-phone-input");
+  let initials = getContactInitials(name);
   let newContact = {
     name: `${name}`,
     email: `${email.value}`,
     "phone-number": `${phoneNumber.value}`,
+    'initials': initials,
   };
   contacts.push(newContact);
   document.getElementById("contact-name-input").value = ``;
@@ -256,6 +258,22 @@ async function pushContactInfo() {
   await setItemsInRemoteStorage();
   closeContactAddCard();
   sortMyContacts();
+}
+
+
+/**
+ * 
+ * @param {string} name
+ * @returns the initials for the contacts. This function is used for the add Task function
+ */
+function getContactInitials(name){
+  let nameInput = name.split(' ');
+  let initials = nameInput[0].charAt(0);
+  if (nameInput.length > 1) {
+    let lastName = nameInput[nameInput.length - 1];
+    initials += lastName.charAt(0);
+  }
+  return initials;
 }
 
 /**

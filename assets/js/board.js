@@ -198,8 +198,6 @@ function addTaskSlider(bucket) {
     } else {
         location.href = "/add-task.html";
     }
-
-    
 }
 
 

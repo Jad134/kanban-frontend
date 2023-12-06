@@ -84,7 +84,7 @@ async function userDataFromSignUp(a) {
     'email': email.value,
     'password': password.value,
     'color': color,
-    'initials': initials
+    'initials': initials,
   };
   userData.push(users);
   saveUserDataInRemote();
