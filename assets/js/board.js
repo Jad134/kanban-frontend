@@ -194,9 +194,12 @@ function addTaskSlider(bucket) {
         document.getElementById('slider-container').innerHTML = addTaskHtml(); // wird zu spät ausgeführt. Morgen drum Kümmern (Jad).
         openSlider();
         loadUserDataFromRemote();// Diese funktion muss für den AddTask Slider ausgeführt werden, sonst laden die Kontakte nicht. (noch nicht Final)
+        setCalenderToTodayBoard()
     } else {
         location.href = "/add-task.html";
     }
+
+    
 }
 
 
@@ -390,4 +393,18 @@ function reloadSubtaskCounter(id) {
     let numberOfSubtasks = addedTasks[i]['subtask'].length;
 
     document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
+}
+
+
+/**
+ * This prevents you from clicking on past days in the calendar
+ */
+function setCalenderToTodayBoard(){
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); // Januar ist 0!
+    let yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById('date-input').min = today;
 }
