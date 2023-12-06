@@ -330,6 +330,10 @@ select {
     gap: 4px;
 }
 
+.subtask-edit-buttons img{
+    cursor: pointer;
+}
+
 .subtask-input-container img {
     cursor: pointer;
     height: 24px;

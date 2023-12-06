@@ -19,15 +19,14 @@ function renderSubTask(newTasks, i) {
       </ul>
         <div id="subtask-input-container${i}" class="d-none subtask-input-container" style="width: 100%;"> 
            <input onkeydown="handleEnterKeyPress(event, 'edit-Input', ${i})"  id="edit-task-input${i}" class=" edit-subtask-input" type="text" > 
-           <img onclick="renameSubTask(${i})" class="edit-done"  src="/assets/img/done.svg" alt="">
-           <img onclick="deleteSubTask(${i})"  src="/assets/img/addtasktrash.svg" alt="">
+           <img onclick="renameSubTask(${i})" class="edit-done"  src="assets/img/done.svg" alt="">
+           <img onclick="deleteSubTask(${i})"  src="assets/img/addtasktrash.svg" alt="">
         </div>
         <div id="task-edit-buttons${i}" class="d-flex subtask-edit-buttons">
-          <img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="/assets/img/addtaskedit.svg" alt="">
-          <img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="/assets/img/addtasktrash.svg" alt="">
+          <img onclick="editSubTask(${i}, '${newTasks}')" class="d-none edit-subtask" src="assets/img/addtaskedit.svg" alt="">
+          <img onclick="deleteSubTask(${i})" class="d-none" style="height: 24px; width: 24px;" src="assets/img/addtasktrash.svg" alt="">
         </div>
     </div> `;
-
 }
 
 
