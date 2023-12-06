@@ -244,11 +244,13 @@ async function pushContactInfo() {
   let email = document.getElementById("contact-email-input");
   let phoneNumber = document.getElementById("contact-phone-input");
   let initials = getContactInitials(name);
+  let color = getContactColor()
   let newContact = {
     name: `${name}`,
     email: `${email.value}`,
     "phone-number": `${phoneNumber.value}`,
     'initials': initials,
+    'color': color,
   };
   contacts.push(newContact);
   document.getElementById("contact-name-input").value = ``;
@@ -258,6 +260,12 @@ async function pushContactInfo() {
   await setItemsInRemoteStorage();
   closeContactAddCard();
   sortMyContacts();
+}
+
+
+function getContactColor(){
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+  return "#" + randomColor;
 }
 
 
