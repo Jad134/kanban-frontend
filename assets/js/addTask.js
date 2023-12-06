@@ -10,6 +10,7 @@ function init() {
     loadUserDataFromRemote();
     getTaskStorage();
     handleInputFocus();
+    setCalenderToToday()
 }
 
 

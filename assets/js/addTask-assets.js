@@ -198,3 +198,17 @@ function clearTasks() {
     removeCheckboxStyle();
     removeButtonColor();
 }
+
+
+/**
+ * This prevents you from clicking on past days in the calendar
+ */
+function setCalenderToToday(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // Januar ist 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById('date-input').min = today;
+}
