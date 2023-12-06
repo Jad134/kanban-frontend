@@ -18,7 +18,9 @@
 </head>
 
 <body onload="includeHTML(), openContacts()">
-
+    <div id="color-my-back"></div>
+    <div id="color-my-back-edit-card" class="color-my-back-edit-card" onclick="hideEditCard()"></div>
+    
     <script src="./assets/js/contacts.js"></script>
     <script src="./assets/js/storage.js"></script>
     <!-- template left menu -->
@@ -31,6 +33,7 @@
         <div class="preload-header" w3-include-html="assets/html-templates/header.html"></div>
 
         <div id="contacts">
+           
             <div id="contact-overview">
                 <div id="add-new-contact" onclick="renderAddContactCard()">
                     <p>Add new contact</p>
@@ -52,8 +55,8 @@
                 <div id="detail-view-of-contacts"></div>                
             </div>  
         </div>
-        <div id="color-my-back"></div>
-        <div id="color-my-back-edit-card" class="color-my-back-edit-card" onclick="hideEditCard()"></div>
+        
+       
         <div id="render-my-edit-card"></div>
         <div id="add-contact-card">
             <div id="slide-container" onclick="closeContactAddCard()"></div>

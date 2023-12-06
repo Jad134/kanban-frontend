@@ -11,6 +11,10 @@
     .first-letters-for-details{
         margin-right: 30px;
     }
+
+    #detail-view-of-contacts{
+        margin-left: 0;
+    }
 /*--------------------------contacts add new contact-------------------------*/
 }
 
