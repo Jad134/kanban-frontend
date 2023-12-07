@@ -79,7 +79,6 @@ textarea:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-
 }
 
 input::placeholder {
@@ -575,6 +574,42 @@ svg:hover {
     font-size: 20px;
     border: 10px;
     box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+#new-category-input-container{
+    border-radius: 10px;
+}
+
+#new-category-input{
+    width: 80%;
+    border: none;
+    width: 100%;
+    border-right: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#new-category-input{
+    outline: none !important;
+}
+
+#new-category-input-container:focus-within {
+    border: 1px solid rgb(41, 171, 226);
+}
+
+
+#new-category-input-container{
+    display: flex;
+}
+
+.new-category-input-img{
+    padding-right: 16px;
+    background-color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
 }
 
 ::-webkit-scrollbar {

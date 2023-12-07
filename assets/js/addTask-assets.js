@@ -203,7 +203,7 @@ function clearTasks() {
 /**
  * This prevents you from clicking on past days in the calendar
  */
-function setCalenderToToday(){
+function setCalenderToToday() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); // Januar ist 0!
@@ -211,4 +211,21 @@ function setCalenderToToday(){
 
     today = yyyy + '-' + mm + '-' + dd;
     document.getElementById('date-input').min = today;
+}
+
+
+function addNewCategory() {
+    let addCategoryContainer = document.getElementById('add-category');
+    let addCategoryImg = document.getElementById('add-category-img');
+
+    addCategoryImg.style = 'display: none;'
+    addCategoryContainer.innerHTML = /*html*/`
+        <div id="new-category-input-container">
+            <input id="new-category-input" type="text">
+             <div class="new-category-input-img">
+                <img src="assets/img/close.svg" alt="">
+                <img src="assets/img/checkblack.svg" alt="">
+             </div>
+        </div>
+    `
 }

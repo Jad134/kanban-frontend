@@ -193,11 +193,6 @@ function setEditCheckbox(status, name, userIndex, i) {
 }
 
 
-function uncheckCheckboxIfContactIsDeleted(name) {
-spliceContact(name)
-}
-
-
 /**
  * Removes the user's initials image from the contact list for editing.
  * @param {number} i - Index of the user.
