@@ -88,19 +88,23 @@ function loadAssignedUsers(id) {
         for (let u = 0; u < assignedUsers.length; u++) {
             let assignedUser = assignedUsers[u];
             let x = compareUser(assignedUser);
+            if (userIsFound(x)){
             let initials = addedUsers[x]['initials'];
             let color = addedUsers[x]['color'];
-
+            
             document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+            }
         }
     } else {
         for (let u = 0; u < 3; u++) {
             let assignedUser = assignedUsers[u];
             let x = compareUser(assignedUser);
+            if (userIsFound(x)){
             let initials = addedUsers[x]['initials'];
             let color = addedUsers[x]['color'];
 
             document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+            }
         }
         let remainingUsers = `+${assignedUsers.length - 3}`;
         document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(remainingUsers, '#A8A8A8');
@@ -117,11 +121,23 @@ function loadAssignedUsersForOpenTask(id) {
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
         let assignedUser = addedTasks[i]['assigned'][u];
         let x = compareUser(assignedUser);
+        if (userIsFound(x)){
         let initials = addedUsers[x]['initials'];
         let color = addedUsers[x]['color'];
 
         document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, assignedUser);
+        }
     }
+}
+
+
+/**
+ * 
+ * @param {number} x 
+ * @returns The request for a user who has not been deleted. If the user was not found, they will no longer be displayed in the board
+ */
+function userIsFound(x){
+    return x !== -1 && addedUsers[x].initials && addedUsers[x].color
 }
 
 

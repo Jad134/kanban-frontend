@@ -66,11 +66,13 @@ function loadUserCirclesForEdit(i, id) {
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
         let assignedUser = addedTasks[i]['assigned'][u];
         let x = compareUser(assignedUser);
+        if (x !== -1 && addedUsers[x].initials && addedUsers[x].color){
         let initials = addedUsers[x]['initials'];
         let color = addedUsers[x]['color'];
 
         pushContact(assignedUser);
         document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(x, initials, color);
+        }
     }
 }
 
@@ -188,6 +190,11 @@ function setEditCheckbox(status, name, userIndex, i) {
         pushContact(name);
         renderEditInitialsImg(userIndex);
     }
+}
+
+
+function uncheckCheckboxIfContactIsDeleted(name) {
+spliceContact(name)
 }
 
 
