@@ -23,7 +23,7 @@ body {
     align-items: center;
     flex-direction: column;
     width: 456px;
-    height: 1024px;
+    height: 100%;
     background-color: white;
 }
 
@@ -697,4 +697,9 @@ body {
 
 #arrow-back-mobile{
     display: none;
+}
+
+.down-placeholder{
+    display: none;
+    height: 300px;
 }

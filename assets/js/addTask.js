@@ -11,6 +11,7 @@ function init() {
     getTaskStorage();
     handleInputFocus();
     setCalenderToToday()
+    prioButtonAtStart();
 }
 
 
@@ -34,6 +35,18 @@ function ChangeButtonColor(buttonId, imgId) {
         button.classList.add('active');
         img.classList.add('active');
     }
+}
+
+
+/**
+ * This function sets the prio button to medium at the beginning. 
+ */
+function prioButtonAtStart() {
+    let button = document.getElementById('medium-btn');
+    let img = document.getElementById('medium-img');
+    lastClickedPrio = button;
+    button.classList.add('active');
+    img.classList.add('active');
 }
 
 

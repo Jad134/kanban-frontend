@@ -22,11 +22,15 @@
 /*--------------------------contacts detail view-------------------------*/
     #contact-overview{
         width: 380px;
-        height: 944px;
+        height:  calc(100vh - 80px);;
     }
 
     #add-new-contact{
         width: 340px;
+    }
+
+    .down-placeholder{
+        display: flex;
     }
 /*--------------------------contacts add new contact-------------------------*/
     #put-the-img{
@@ -216,9 +220,13 @@
         padding-bottom: 64px;
     }
 
+    .down-placeholder{
+        display: none;
+    }
+
 /*--------------------------contacts add new contact-------------------------*/
     #render-contacts-overview{
-        height: 100vh;
+        height: 83vh;
     }
 
     .move-img{
