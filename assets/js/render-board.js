@@ -247,14 +247,16 @@ function addTaskHtml() {
                         </div>
 
                         <div class="category-container">
-                            <span class="span-style">Category <span class="required-star">*</span></span>
-                            <select name="Select contacts to assign" id="select-category">
-                                <option value="" disabled selected hidden>Select task category</option>
-                                <option value="1">Technical Task</option>
-                                <option value="2">User Story</option>
-                            </select>
-                            <div class="error-message" id="category-error"></div>
-                        </div>
+                        <span class="span-style">Category <span class="required-star">*</span></span>
+                        <div id="add-category-icon"><img id="add-category-img" onclick="addNewCategory()" style="cursor: pointer;" src="./assets/img/addSub.svg" alt=""></div>
+                        <div id="add-category"></div>
+                        <select name="Select contacts to assign" id="select-category">
+                            <option value="" disabled selected hidden>Select task category</option>
+                            <option value="1">Technical Task</option>
+                            <option value="2">User Story</option>
+                        </select>
+                        <div class="error-message" id="category-error"></div>
+                    </div>
 
                         <div id="subtask-container" class="subtask-container">
                             <span class="span-style">Subtasks</span>

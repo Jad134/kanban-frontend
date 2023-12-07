@@ -107,6 +107,9 @@ function handleEnterKeyPress(event, action, i) {
         } else if (action === 'edit-Input') {
             renameSubTask(i);
         }
+        else if(action === 'new-category-input'){
+            addCategory()
+        }
     }
 }
 
@@ -214,18 +217,51 @@ function setCalenderToToday() {
 }
 
 
+/**
+ * This function is for the new category input
+ */
 function addNewCategory() {
     let addCategoryContainer = document.getElementById('add-category');
     let addCategoryImg = document.getElementById('add-category-img');
 
-    addCategoryImg.style = 'display: none;'
+    addCategoryContainer.classList.remove('d-none')
+    addCategoryImg.classList.add('d-none')
+    addCategoryContainer.classList.add('d-flex')
     addCategoryContainer.innerHTML = /*html*/`
         <div id="new-category-input-container">
-            <input id="new-category-input" type="text">
+            <input onkeydown="handleEnterKeyPress(event , 'new-category-input')" id="new-category-input" type="text">
              <div class="new-category-input-img">
-                <img src="assets/img/close.svg" alt="">
-                <img src="assets/img/checkblack.svg" alt="">
+                <img onclick="closeNewCategoryInput()" src="assets/img/close.svg" alt="">
+                <img onclick=" addCategory()" src="assets/img/checkblack.svg" alt="">
              </div>
         </div>
     `
 }
+
+
+/**
+ * This function close the input field and turn the x back for the new category
+ */
+function closeNewCategoryInput() {
+    let addCategoryImg = document.getElementById('add-category-img');
+    let addCategoryContainer = document.getElementById('add-category');
+
+    addCategoryImg.classList.remove('d-none')
+    addCategoryContainer.classList.remove('d-flex')
+    addCategoryContainer.classList.add('d-none')
+}
+
+
+/**
+ * This function adds the Category to the list
+ */
+function addCategory() {
+    let newCategory = document.getElementById('new-category-input').value;
+    let selectCategory = document.getElementById('select-category');
+
+    selectCategory.innerHTML += /*html*/`
+        <option >${newCategory}</option>
+    `
+     closeNewCategoryInput()
+}
+

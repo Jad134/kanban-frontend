@@ -578,6 +578,8 @@ svg:hover {
 
 #new-category-input-container{
     border-radius: 10px;
+    width: 100%;
+    border: 1px solid lightgray;
 }
 
 #new-category-input{
@@ -612,6 +614,8 @@ svg:hover {
     gap: 12px;
 }
 
+
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -624,6 +628,8 @@ svg:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(168, 168, 168, 1);
 }
+
+
 
 
 
