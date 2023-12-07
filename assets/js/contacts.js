@@ -206,9 +206,6 @@ async function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
   let switchZindexOverview = document.getElementById('contact-overview');
   switchZindexOverview.style.zIndex = "400";
-  let contactName = document.getElementById(`${i}-contact-name`)
-  let name = contactName.innerText;
-  uncheckCheckboxIfContactIsDeleted(name);
   contacts.splice([i], 1);
   contactDetails.innerHTML = "";
   if (document.getElementById('edit-card')) {
