@@ -4,7 +4,7 @@
  * @returns {Promise<void>} - Promise that indicates the completion of data retrieval.
  */
 async function loadRemoteUserDataForEdit() {
-    let newUserDataString = await getItem('users');
+    let newUserDataString = await getItem('contacts');
     newUserDataString = JSON.parse(newUserDataString['data']['value']);
 
     for (let i = 0; i < newUserDataString.length; i++) {

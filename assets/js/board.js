@@ -7,7 +7,7 @@ addedUsers = [];
  * @returns {Promise<void>} - A promise that resolves when the initialization is complete.
  */
 async function initBoard() {
-    let userData = await getItem('users');
+    let userData = await getItem('contacts');
     userData = JSON.parse(userData['data']['value']);
     for (let i = 0; i < userData.length; i++) {
         let users = userData[i];
@@ -132,6 +132,7 @@ function loadAssignedUsersForOpenTask(id) {
  */
 function compareUser(assignedContact) {
     let x = addedUsers.findIndex(user => user.name === assignedContact);
+    
     return x;
 }
 
