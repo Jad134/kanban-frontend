@@ -12,6 +12,7 @@ function init() {
     handleInputFocus();
     setCalenderToToday()
     prioButtonAtStart();
+    clickOutsideEventListener();
 }
 
 

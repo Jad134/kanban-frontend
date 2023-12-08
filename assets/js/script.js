@@ -380,24 +380,7 @@ function responsiveLogoOverlay() {
 window.addEventListener("load", responsiveLogoOverlay);
 
 
-/* ############ EXAMPLE DATA #############
 
-[{
-  "name": "Alexander Riedel",
-  "email": "alex@alex",
-  "password": "password123",
-  "color": "#ce2abe",
-  "initials": "AR"
-},
-{
-  "name": "Jad",
-  "email": "jadTest@Test.de",
-  "password": "12345",
-  "color": "#2fb93c",
-  "initials": "J"
-}]
-
- ###################################### */
 
 
 

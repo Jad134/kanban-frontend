@@ -43,3 +43,16 @@ function renderContacts(name, i, userInitial, youLabel) {
     </label>        
     `;
 }
+
+
+function renderNewCategoryField(){
+return /*html*/`
+<div id="new-category-input-container">
+    <input placeholder="add new Category" onkeydown="handleEnterKeyPress(event , 'new-category-input')" id="new-category-input" type="text">
+     <div class="new-category-input-img">
+        <img onclick="closeNewCategoryInput()" src="assets/img/close.svg" alt="">
+        <img onclick=" addCategory()" src="assets/img/checkblack.svg" alt="">
+     </div>
+</div>
+`
+}

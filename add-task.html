@@ -23,7 +23,7 @@
 
 </head>
 
-<body onload="includeHTML(), init()">
+<body class="add-task-page" onload="includeHTML(), init()">
     <div class="preload-side-menu" w3-include-html="assets/html-templates/side_menu.html"></div>
 
     <div class="main-content">
@@ -91,7 +91,7 @@
                             <div class="category-container">
                                 <span class="span-style">Category <span class="required-star">*</span></span>
                                 <div id="add-category-icon"><img id="add-category-img" onclick="addNewCategory()" style="cursor: pointer;" src="./assets/img/addSub.svg" alt=""></div>
-                                <div id="add-category"></div>
+                                <div class="d-none" id="add-category"></div>
                                 <select name="Select contacts to assign" id="select-category">
                                     <option value="" disabled selected hidden>Select task category</option>
                                     <option value="1">Technical Task</option>

@@ -107,7 +107,7 @@ function handleEnterKeyPress(event, action, i) {
         } else if (action === 'edit-Input') {
             renameSubTask(i);
         }
-        else if(action === 'new-category-input'){
+        else if (action === 'new-category-input') {
             addCategory()
         }
     }
@@ -158,6 +158,14 @@ function removeButtonColor() {
 function closeOnClickOutside(event) {
     let overlayContainer = document.getElementById('contact-overlay');
     let assignedTo = document.getElementById('assignedTo');
+    
+
+    let addCategoryContainer = document.getElementById('add-category');
+    let addCategoryImg = document.getElementById('add-category-img');
+
+    if (!addCategoryContainer.contains(event.target) && event.target !== addCategoryImg) {
+        closeNewCategoryInput();
+    }
 
     if (!overlayContainer.contains(event.target) && event.target !== assignedTo) {
         closeContactOverlay();
@@ -181,6 +189,18 @@ function closeContactOverlay() {
 
     document.removeEventListener('click', closeOnClickOutside);
     onclick.onclick = openContactOverlay;
+}
+
+
+/**
+ * This function checks if the Add task page is open. If its true then the click outside eventlistener for the add new category input is active. (Add edit task its not possible to change the categorys)
+ */
+function clickOutsideEventListener(){
+    let isOnAddTask = document.body.classList.contains('add-task-page') || document.body.id === 'add-task-page';
+if(isOnAddTask){
+    document.documentElement.addEventListener('click', closeOnClickOutside);
+}
+    
 }
 
 
@@ -227,15 +247,9 @@ function addNewCategory() {
     addCategoryContainer.classList.remove('d-none')
     addCategoryImg.classList.add('d-none')
     addCategoryContainer.classList.add('d-flex')
-    addCategoryContainer.innerHTML = /*html*/`
-        <div id="new-category-input-container">
-            <input onkeydown="handleEnterKeyPress(event , 'new-category-input')" id="new-category-input" type="text">
-             <div class="new-category-input-img">
-                <img onclick="closeNewCategoryInput()" src="assets/img/close.svg" alt="">
-                <img onclick=" addCategory()" src="assets/img/checkblack.svg" alt="">
-             </div>
-        </div>
-    `
+    addCategoryContainer.innerHTML = renderNewCategoryField();
+
+    document.addEventListener('click', closeOnClickOutside);
 }
 
 
@@ -246,9 +260,11 @@ function closeNewCategoryInput() {
     let addCategoryImg = document.getElementById('add-category-img');
     let addCategoryContainer = document.getElementById('add-category');
 
-    addCategoryImg.classList.remove('d-none')
-    addCategoryContainer.classList.remove('d-flex')
-    addCategoryContainer.classList.add('d-none')
+    addCategoryImg.classList.remove('d-none');
+    addCategoryContainer.classList.remove('d-flex');
+    addCategoryContainer.classList.add('d-none');
+
+    document.addEventListener('click', closeOnClickOutside);
 }
 
 
@@ -262,6 +278,6 @@ function addCategory() {
     selectCategory.innerHTML += /*html*/`
         <option >${newCategory}</option>
     `
-     closeNewCategoryInput()
+    closeNewCategoryInput()
 }
 
