@@ -71,7 +71,7 @@ function getFirstLettersForOverview(i, contacts) {
   let splitName = name.split(" ");
   let firstName = splitName[0];
   let secondName = splitName[1];
-  let firstLetter = firstName.charAt(0);  
+  let firstLetter = firstName.charAt(0);
 
   if (secondName !== undefined) {
     let secondLetter = secondName.charAt(0);
@@ -90,30 +90,15 @@ async function renderSortContainer(letterArray) {
   for (let k = 0; k < letterArray.length; k++) {
     const letter = letterArray[k];
 
-    document.getElementById("render-contacts-overview").innerHTML += /*html*/ `
-        <div class="contact-block">
-            <p class="alphabet">${letter}</p>
-            <div class="contact-seperator-horizontal"></div>            
-        </div>
-        `;
+    document.getElementById("render-contacts-overview").innerHTML += renderContactDesign(letter)
     for (let i = 0; i < contacts.length; i++) {
       let name = contacts[i]["name"];
       let email = contacts[i]["email"];
       let setLetters = getFirstLettersForOverview(i, contacts);
 
       if (name.charAt(0) === letter) {
-        document.getElementById(
-          "render-contacts-overview"
-        ).innerHTML += /*html*/ `
-                <div id="${i}sub-contact-block" class="sub-contact-block" onclick="openContactDetails(${i})">
-                    <div id="${i}first-letters" class="first-letters">${setLetters}</div>
-                    <div class="name-and-email">
-                        <p id="${k}-contact-name" class="contact-name">${name}</p>
-                        <a id="${k}-contact-email" class="contact-email" href="mailto:${email}">${email}</a>
-                    </div>
-                </div>
-            `;
-      setColorForLetters(i);
+        document.getElementById("render-contacts-overview").innerHTML += renderContactsTemplate(i, setLetters, k, name, email)
+        setColorForLetters(i);
       }
     }
   }
@@ -147,7 +132,7 @@ function deMarkMyContact() {
 /**
  * Hides the edit card and related elements.
  */
-async function hideEditCard(){
+async function hideEditCard() {
   let hideEditCard = document.getElementById('edit-card');
   let overview = document.getElementById('render-my-edit-card');
   let backgroundColor = document.getElementById('color-my-back-edit-card');
@@ -155,7 +140,7 @@ async function hideEditCard(){
   backgroundColor.style.display = 'none';
   backgroundColor.style.backgroundColor = 'transparent';
   hideEditCard.classList.add('hide-edit-card');
-  
+
   hideEditCard.addEventListener('animationend', () => {
     let deactivateOverflow = document.body;
     overview.removeChild(hideEditCard);
@@ -167,12 +152,12 @@ async function hideEditCard(){
  * Applies styles to prepare for displaying the edit card.
  * This function hides the body's overflow, sets the background color overlay, and makes the edit card visible.
  */
-function styleAboutEditCard(){
+function styleAboutEditCard() {
   let deactivateOverflow = document.body;
   let backgroundColor = document.getElementById('color-my-back-edit-card');
   deactivateOverflow.classList.add("hide-my-scrolls");
   backgroundColor.style.display = 'flex';
-  setTimeout(function() {
+  setTimeout(function () {
     backgroundColor.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
   }, 100);
 }
@@ -182,7 +167,7 @@ function styleAboutEditCard(){
  *
  * @param {number} i - The index of the contact to be edited.
  */
-async function saveEditContact(i){
+async function saveEditContact(i) {
   let editContact = contacts[i];
   let editedName = document.getElementById(`name${i}`).value;
   let editedPhone = document.getElementById(`phone${i}`).value;
@@ -209,7 +194,7 @@ async function deleteContact(i) {
   contacts.splice([i], 1);
   contactDetails.innerHTML = "";
   if (document.getElementById('edit-card')) {
-    hideEditCard(i);    
+    hideEditCard(i);
   }
   await setItemsInRemoteStorage()
   openContacts();
@@ -257,13 +242,25 @@ async function pushContactInfo() {
   email.value = ``;
   phoneNumber.value = ``;
 
+  await performContactActions();
+}
+
+
+/**
+ * This function starts the last functions to add the contact
+ */
+async function performContactActions() {
   await setItemsInRemoteStorage();
   closeContactAddCard();
   sortMyContacts();
 }
 
 
-function getContactColor(){
+/**
+ * 
+ * @returns The hex number for an color
+ */
+function getContactColor() {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
   return "#" + randomColor;
 }
@@ -274,7 +271,7 @@ function getContactColor(){
  * @param {string} name
  * @returns the initials for the contacts. This function is used for the add Task function
  */
-function getContactInitials(name){
+function getContactInitials(name) {
   let nameInput = name.split(' ');
   let initials = nameInput[0].charAt(0);
   if (nameInput.length > 1) {
@@ -337,14 +334,22 @@ function closeContactAddCard() {
 
   animation.addEventListener("transitionend", function () {
     if (animation.style.right === "-200%") {
-      let activateOverflow = document.body;
-      let shrikDiv = document.getElementById("create-contact");
-      activateOverflow.classList.remove("hide-my-scrolls");
-      animation.style.width = "0%";
-      shrikDiv.style.width = "0%";
-      shrikDiv.style.display = "none";
+      styleClosingCard(animation)
     }
   });
+}
+
+
+/**
+ * This function styles the sliding card (close slide) for example at add new contact slider
+ */
+function styleClosingCard(animation) {
+  let activateOverflow = document.body;
+  let shrikDiv = document.getElementById("create-contact");
+  activateOverflow.classList.remove("hide-my-scrolls");
+  animation.style.width = "0%";
+  shrikDiv.style.width = "0%";
+  shrikDiv.style.display = "none";
 }
 
 /**
@@ -393,7 +398,7 @@ async function setColorForLetters(i) {
 }
 
 
-function successfullyMove(){
+function successfullyMove() {
   return /*html*/`
     <div>
       <p>Successfully edit/delete/add</p>
@@ -407,7 +412,7 @@ function successfullyMove(){
  * 
  * @returns {Promise<void>} A promise that resolves when the operation is complete.
  */
-async function setItemsInRemoteStorage(){
+async function setItemsInRemoteStorage() {
   await setItem('contacts', contacts);
 }
 
@@ -417,7 +422,7 @@ async function setItemsInRemoteStorage(){
  * 
  * @returns {Promise<Array>} A promise that resolves with the 'contacts' array from remote storage.
  */
-async function getItemsInRemoteStorage(){
+async function getItemsInRemoteStorage() {
   let contactsFromStorage = await getItem('contacts');
   let contactsFromStorageAsString = JSON.parse(contactsFromStorage['data']['value']);
 
@@ -429,7 +434,7 @@ async function getItemsInRemoteStorage(){
  * 
  * This function is called to reveal the edit and delete buttons while hiding the open-edit button on mobile view.
  */
-function openEditDeleteMobile(){
+function openEditDeleteMobile() {
   let changeStyle = document.getElementById('edit-and-delete');
   let hideMyButton = document.getElementById('open-edit-function-mobile');
   changeStyle.style.display = "flex";
@@ -441,7 +446,7 @@ function openEditDeleteMobile(){
  * 
  * This function is called to hide the edit and delete buttons while showing the open-edit button on mobile view.
  */
-function closeEditDeleteMobile(){
+function closeEditDeleteMobile() {
   let changeStyle = document.getElementById('edit-and-delete');
   let showMyButton = document.getElementById('open-edit-function-mobile');
   showMyButton.style.display = "flex";
@@ -453,7 +458,7 @@ function closeEditDeleteMobile(){
  * 
  * This function sets the z-index of elements in the mobile view to show the contact list and hide the contact details view.
  */
-function backToContactListMobile(){
+function backToContactListMobile() {
   let switchZindexDetails = document.getElementById('details-of-contacts');
   let switchZindexOverview = document.getElementById('contact-overview');
   switchZindexDetails.style.zIndex = "1";

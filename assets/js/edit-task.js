@@ -66,12 +66,12 @@ function loadUserCirclesForEdit(i, id) {
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
         let assignedUser = addedTasks[i]['assigned'][u];
         let x = compareUser(assignedUser);
-        if (x !== -1 && addedUsers[x].initials && addedUsers[x].color){
-        let initials = addedUsers[x]['initials'];
-        let color = addedUsers[x]['color'];
+        if (x !== -1 && addedUsers[x].initials && addedUsers[x].color) {
+            let initials = addedUsers[x]['initials'];
+            let color = addedUsers[x]['color'];
 
-        pushContact(assignedUser);
-        document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(x, initials, color);
+            pushContact(assignedUser);
+            document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(x, initials, color);
         }
     }
 }
@@ -175,21 +175,37 @@ function setEditCheckbox(status, name, userIndex, i) {
 
     if (status === 'checked') {
         // check to uncheck:
-        checked.removeAttribute('checked');
-        checked.setAttribute('onchange', `setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i})`);
-        checkedContact.classList.remove('checked-contact-label');
-        checkedContact.classList.add('unchecked-contact-label');
+        checkToUncheck(checked, checkedContact, userIndex, name, i)
         spliceContact(name);
         removeEditInitialsImg(userIndex);
     } else {
         // uncheck to check:
-        checked.setAttribute('checked', 'checked');
-        checked.setAttribute('onchange', `setEditCheckbox('checked', '${name}', ${userIndex}, ${i})`);
-        checkedContact.classList.remove('unchecked-contact-label');
-        checkedContact.classList.add('checked-contact-label');
+        uncheckToCheck(checked, checkedContact, userIndex, name, i)
         pushContact(name);
         renderEditInitialsImg(userIndex);
     }
+}
+
+
+/**
+ * This function unchecked the contacts
+ */
+function checkToUncheck(checked, checkedContact, userIndex, name, i) {
+    checked.removeAttribute('checked');
+    checked.setAttribute('onchange', `setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i})`);
+    checkedContact.classList.remove('checked-contact-label');
+    checkedContact.classList.add('unchecked-contact-label');
+}
+
+
+/**
+ * This function checked the uncheked contacts
+ */
+function uncheckToCheck(checked, checkedContact, userIndex, name, i) {
+    checked.setAttribute('checked', 'checked');
+    checked.setAttribute('onchange', `setEditCheckbox('checked', '${name}', ${userIndex}, ${i})`);
+    checkedContact.classList.remove('unchecked-contact-label');
+    checkedContact.classList.add('checked-contact-label');
 }
 
 
@@ -251,31 +267,47 @@ async function submitEditForm(id) {
     let category = addedTasks[i]['category'];
     let prio = lastClickedPrio ? lastClickedPrio.value : '';
 
-    let tasks = {
-        "id": id,
-        "title": title.value,
-        "description": description.value,
-        "assigned": assignedContact,
-        "duedate": duedate.value,
-        "prio": prio,
-        "category": category,
-        "subtask": newSubTasks,
-        "bucket": bucket,
-    };
+    let tasks = createTaskObject(id, title.value, description.value, assignedContact, duedate.value, prio, category, newSubTasks, bucket);
 
     sliderTaskEdited();
     deleteEditTask(i);
     addEditTask(i, tasks);
     await addTaskToStorage();
 
+    resetArrays();
+    clearBuckets();
+    await initBoard();
+}
+
+
+/**
+ * 
+ * @returns the array for the edited task
+ */
+function createTaskObject(id, title, description, assignedContact, duedate, prio, category, newSubTasks, bucket) {
+    return {
+        "id": id,
+        "title": title,
+        "description": description,
+        "assigned": assignedContact,
+        "duedate": duedate,
+        "prio": prio,
+        "category": category,
+        "subtask": newSubTasks,
+        "bucket": bucket,
+    };
+}
+
+
+/**
+ * This function reset the arrays after editing tasks
+ */
+function resetArrays() {
     addedTasks = [];
     lastClickedPrio = null;
     newSubTasks = [];
     assignedContact = [];
     addedUsers = [];
-
-    clearBuckets();
-    await initBoard();
 }
 
 

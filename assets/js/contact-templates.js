@@ -151,3 +151,27 @@ function editContact(i) {
           </div>
       `;
   }
+
+
+  function renderContactDesign(letter){
+    return /*html*/ `
+    <div class="contact-block">
+        <p class="alphabet">${letter}</p>
+        <div class="contact-seperator-horizontal"></div>            
+    </div>
+    `;
+  }
+
+function renderContactsTemplate(i, setLetters, k, name, email){
+  return /*html*/ `
+  <div id="${i}sub-contact-block" class="sub-contact-block" onclick="openContactDetails(${i})">
+      <div id="${i}first-letters" class="first-letters">${setLetters}</div>
+      <div class="name-and-email">
+          <p id="${k}-contact-name" class="contact-name">${name}</p>
+          <a id="${k}-contact-email" class="contact-email" href="mailto:${email}">${email}</a>
+      </div>
+  </div>
+`;
+}
+  
+  
