@@ -217,7 +217,7 @@
     }
 
     #render-contacts-overview{
-        padding-bottom: 64px;
+        padding-bottom: 74px;
     }
 
     .down-placeholder{
@@ -292,7 +292,7 @@
     }
 
     .contact-input-area{
-        padding: 0 0 0 0;
+        padding: 0 8px 0 0;
         margin: 8px 0 8px 0;
         width: 276px;
     }
