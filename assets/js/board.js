@@ -7,20 +7,22 @@ addedUsers = [];
  * @returns {Promise<void>} - A promise that resolves when the initialization is complete.
  */
 async function initBoard() {
-    let userData = await getItem('contacts');
-    userData = JSON.parse(userData['data']['value']);
-    for (let i = 0; i < userData.length; i++) {
-        let users = userData[i];
-        addedUsers.push(users);
-    }
+    // let userData = await getItem('contacts');
+    // userData = JSON.parse(userData['data']['value']);    ----- API get item muss aus fürs entwickeln------
+    // for (let i = 0; i < userData.length; i++) {
+    //     let users = userData[i];
+    //     addedUsers.push(users);
+    // }
 
-    let currentTasks = await getItem('tasks');
-    currentTasks = JSON.parse(currentTasks['data']['value']);
+    let currentTasks = await getApiItem();  // Keine Schlüssel mehr, da wir direkt die Liste der Tasks erwarten
+    addedTasks = currentTasks;
+
+
     for (let i = 0; i < currentTasks.length; i++) {
-        let tasks = currentTasks[i];
-        addedTasks.push(tasks);
+
         loadTasksForBoard(i);
-    }
+    };
+    console.log(addedTasks);
     countBucketsWithoutTasks();
 }
 
@@ -36,14 +38,15 @@ function loadTasksForBoard(i) {
     let description = addedTasks[i]['description'];
     let category = addedTasks[i]['category'];
     let categoryCssClass = categoryClassPicker(category);
-    let prio = addedTasks[i]['prio'];
+    let prio = addedTasks[i]['priority'];
 
     document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, category, categoryCssClass);
 
     countSubtasks(id);
-    loadAssignedUsers(id);
+    // loadAssignedUsers(id);   API
     loadPrio(id, prio);
     findTasks();
+    console.log(addedTasks);
 }
 
 
@@ -67,10 +70,10 @@ function categoryClassPicker(category) {
  */
 function countSubtasks(id) {
     let i = idToIndex(id);
-    let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
-    let numberOfSubtasks = addedTasks[i]['subtask'].length;
+    let numberOfSubtasksDone = addedTasks[i]['subtasks'].filter(subtask => subtask.done).length;
+    let numberOfSubtasks = addedTasks[i]['subtasks'].length;
 
-    if (addedTasks[i]['subtask'].length > 0) {
+    if (addedTasks[i]['subtasks'].length > 0) {
         document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
     }
 }
@@ -88,22 +91,22 @@ function loadAssignedUsers(id) {
         for (let u = 0; u < assignedUsers.length; u++) {
             let assignedUser = assignedUsers[u];
             let x = compareUser(assignedUser);
-            if (userIsFound(x)){
-            let initials = addedUsers[x]['initials'];
-            let color = addedUsers[x]['color'];
-            
-            document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+            if (userIsFound(x)) {
+                let initials = addedUsers[x]['initials'];
+                let color = addedUsers[x]['color'];
+
+                document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
             }
         }
     } else {
         for (let u = 0; u < 3; u++) {
             let assignedUser = assignedUsers[u];
             let x = compareUser(assignedUser);
-            if (userIsFound(x)){
-            let initials = addedUsers[x]['initials'];
-            let color = addedUsers[x]['color'];
+            if (userIsFound(x)) {
+                let initials = addedUsers[x]['initials'];
+                let color = addedUsers[x]['color'];
 
-            document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+                document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
             }
         }
         let remainingUsers = `+${assignedUsers.length - 3}`;
@@ -121,11 +124,11 @@ function loadAssignedUsersForOpenTask(id) {
     for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
         let assignedUser = addedTasks[i]['assigned'][u];
         let x = compareUser(assignedUser);
-        if (userIsFound(x)){
-        let initials = addedUsers[x]['initials'];
-        let color = addedUsers[x]['color'];
+        if (userIsFound(x)) {
+            let initials = addedUsers[x]['initials'];
+            let color = addedUsers[x]['color'];
 
-        document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, assignedUser);
+            document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, assignedUser);
         }
     }
 }
@@ -136,7 +139,7 @@ function loadAssignedUsersForOpenTask(id) {
  * @param {number} x 
  * @returns The request for a user who has not been deleted. If the user was not found, they will no longer be displayed in the board
  */
-function userIsFound(x){
+function userIsFound(x) {
     return x !== -1 && addedUsers[x].initials && addedUsers[x].color
 }
 
@@ -148,7 +151,7 @@ function userIsFound(x){
  */
 function compareUser(assignedContact) {
     let x = addedUsers.findIndex(user => user.name === assignedContact);
-    
+
     return x;
 }
 
@@ -302,7 +305,7 @@ function loadTask(id) {
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
     let duedate = convertDate(i);
-    let prio = addedTasks[i]['prio'];
+    let prio = addedTasks[i]['priority'];
     let assigned = addedTasks[i]['assigned'];
 
     document.getElementById('slider-container').innerHTML = '';
@@ -310,7 +313,7 @@ function loadTask(id) {
 
     loadSubtasks(id);
     loadPrioForOpenTask(prio);
-    loadAssignedUsersForOpenTask(id);
+    //loadAssignedUsersForOpenTask(id);       API
     openSlider();
 }
 
@@ -322,12 +325,12 @@ function loadTask(id) {
  */
 function convertDate(i) {
     if (addedTasks[i]['duedate'] > '0001-01-01') {
-        let originalDate = addedTasks[i]['duedate'];
+        let originalDate = addedTasks[i]['due_date'];
         let parts = originalDate.split('-');
         let formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
         return formattedDate;
     } else {
-        return addedTasks[i]['duedate'];
+        return addedTasks[i]['due_date'];
     }
 }
 
@@ -339,15 +342,15 @@ function convertDate(i) {
 function loadSubtasks(id) {
     let i = idToIndex(id);
 
-    if (addedTasks[i]['subtask'].length > 0) {
+    if (addedTasks[i]['subtasks'].length > 0) {
         document.getElementById('open-task-subtasks').innerHTML = `
             <span>Subtasks</span>
             <div id="open-task-subtask"></div>
         `;
 
-        for (let s = 0; s < addedTasks[i]['subtask'].length; s++) {
-            let subtaskDone = addedTasks[i]['subtask'][s]['subdone'];
-            let subtask = addedTasks[i]['subtask'][s]['subtitle'];
+        for (let s = 0; s < addedTasks[i]['subtasks'].length; s++) {
+            let subtaskDone = addedTasks[i]['subtasks'][s]['done'];
+            let subtask = addedTasks[i]['subtasks'][s]['title'];
 
             document.getElementById('open-task-subtask').innerHTML += renderSubtasks(s, id, subtaskDone, subtask);
         }
@@ -382,7 +385,7 @@ function deleteTask(id) {
 
 function checkboxSubtask(s, id) {
     let i = idToIndex(id);
-    let subtaskStatus = addedTasks[i]['subtask'][s]['subdone'];
+    let subtaskStatus = addedTasks[i]['subtasks'][s]['done'];
 
     if (subtaskStatus === true) {
         subtaskStatus = false;
@@ -391,9 +394,16 @@ function checkboxSubtask(s, id) {
     }
 
     document.getElementById(`checkbox-${id}-${s}`).src = `./assets/img/subtask-${subtaskStatus}.svg`;
-    addedTasks[i].subtask[s].subdone = subtaskStatus;
-    setItem('tasks', addedTasks);
-
+    addedTasks[i].subtasks[s].done = subtaskStatus;
+    //setItem('tasks', addedTasks);  //API muss noch speichern wenn subdone
+    updateSubtasks(id, addedTasks[i].subtasks)
+    .then(response => {
+        console.log('Subtasks updated successfully:', response);
+        reloadSubtaskCounter(id);
+    })
+    .catch(error => {
+        console.error('Failed to update subtasks:', error);
+    });
     reloadSubtaskCounter(id);
 }
 
@@ -404,8 +414,8 @@ function checkboxSubtask(s, id) {
  */
 function reloadSubtaskCounter(id) {
     let i = idToIndex(id);
-    let numberOfSubtasksDone = addedTasks[i]['subtask'].filter(subtask => subtask.subdone).length;
-    let numberOfSubtasks = addedTasks[i]['subtask'].length;
+    let numberOfSubtasksDone = addedTasks[i]['subtasks'].filter(subtask => subtask.done).length;
+    let numberOfSubtasks = addedTasks[i]['subtasks'].length;
 
     document.getElementById(`subtasks-container-${id}`).innerHTML = renderSubtaskCounter(numberOfSubtasksDone, numberOfSubtasks);
 }
@@ -414,7 +424,7 @@ function reloadSubtaskCounter(id) {
 /**
  * This prevents you from clicking on past days in the calendar
  */
-function setCalenderToTodayBoard(){
+function setCalenderToTodayBoard() {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); // Januar ist 0!

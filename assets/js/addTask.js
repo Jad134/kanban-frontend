@@ -208,8 +208,11 @@ async function addTaskIdToStorage() {
 }
 
 
-async function addTaskToStorage() {
-    await setItem('tasks', JSON.stringify(addedTasks));
+async function addTaskToStorage(id, tasks) {
+    //await setItem('tasks', JSON.stringify(addedTasks));
+    console.log(tasks);
+    await updateTask(id, tasks)
+    
 }
 
 
@@ -249,10 +252,11 @@ async function getTaskStorage() {
 function addSubTask() {
     let subtaskContent = document.getElementById('subtask-lists');
     let newTasksText = document.getElementById('subtask-input').value;
+    
 
     let newSubtask = {
-        "subtitle": newTasksText,
-        "subdone": false
+        "title": newTasksText,
+        "done": false
     }
     if (newTasksText !== '') {
         newSubTasks.push(newSubtask);
@@ -260,10 +264,12 @@ function addSubTask() {
     subtaskContent.innerHTML = '';
 
     for (let i = 0; i < newSubTasks.length; i++) {
-        const newTasks = newSubTasks[i]['subtitle'];
+        const newTasks = newSubTasks[i]['title'];
         subtaskContent.innerHTML += renderSubTask(newTasks, i);
     }
     document.getElementById('subtask-input').value = '';
+    //createSubtask(newSubtask)
+    console.log(newSubTasks);
 }
 
 
@@ -374,7 +380,7 @@ function renameSubTask(i) {
     let editSubTask = document.getElementById(`edit-task-input${i}`).value;
     let newSubtask = {
         "subtitle": editSubTask,
-        "subdone": false
+        "done": false
     }
 
     if (editSubTask !== '') {

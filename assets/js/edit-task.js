@@ -19,19 +19,19 @@ async function loadRemoteUserDataForEdit() {
  * @param {number} id - The ID of the task to be edited.
  */
 async function openEditTask(id) {
-    await loadRemoteUserDataForEdit();
+    //await loadRemoteUserDataForEdit();API 
 
     let i = idToIndex(id);
     let title = addedTasks[i]['title'];
     let description = addedTasks[i]['description'];
-    let duedate = addedTasks[i]['duedate'];
+    let duedate = addedTasks[i]['due_date'];
 
     document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate);
 
     getPrio(i);
-    loadUserCirclesForEdit(i, id);
-    loadEditContacts(i);
-    findContactForEdit();
+    //loadUserCirclesForEdit(i, id); API
+    //loadEditContacts(i);  API
+    //findContactForEdit(); API
     loadEditSubtasks(i);
 }
 
@@ -41,13 +41,13 @@ async function openEditTask(id) {
  * @param {number} i - Index of the task.
  */
 function getPrio(i) {
-    let prio = addedTasks[i]['prio'];
+    let prio = addedTasks[i]['priority'];
 
-    if (prio === 'Low') {
+    if (prio === 'low') {
         ChangeButtonColor('low-btn', 'low-img');
-    } else if (prio === 'Medium') {
+    } else if (prio === 'medium') {
         ChangeButtonColor('medium-btn', 'medium-img');
-    } else if (prio === 'Urgent') {
+    } else if (prio === 'urgent') {
         ChangeButtonColor('urgent-btn', 'urgent-img');
     } else {
         console.log('Prio ist unbekannt.');
@@ -244,11 +244,11 @@ function renderEditInitialsImg(i) {
  * @param {number} i - Index of the task.
  */
 function loadEditSubtasks(i) {
-    newSubTasks = addedTasks[i]['subtask'];
+    newSubTasks = addedTasks[i]['subtasks'];
     let subtaskContainer = document.getElementById('subtask-lists');
 
     for (let s = 0; s < newSubTasks.length; s++) {
-        let subtask = addedTasks[i]['subtask'][s]['subtitle'];
+        let subtask = addedTasks[i]['subtasks'][s]['title'];
         subtaskContainer.innerHTML += renderSubtaskContainer(s, subtask);
     }
 }
@@ -268,11 +268,13 @@ async function submitEditForm(id) {
     let prio = lastClickedPrio ? lastClickedPrio.value : '';
 
     let tasks = createTaskObject(id, title.value, description.value, assignedContact, duedate.value, prio, category, newSubTasks, bucket);
-
+    let subtaskId = newSubTasks['id']
+    console.log(subtaskId);
+    //updateSubtasks(id)
     sliderTaskEdited();
     deleteEditTask(i);
     addEditTask(i, tasks);
-    await addTaskToStorage();
+    await addTaskToStorage(id, tasks);
 
     resetArrays();
     clearBuckets();
@@ -285,17 +287,19 @@ async function submitEditForm(id) {
  * @returns the array for the edited task
  */
 function createTaskObject(id, title, description, assignedContact, duedate, prio, category, newSubTasks, bucket) {
+    console.log(newSubTasks);
     return {
         "id": id,
         "title": title,
         "description": description,
         "assigned": assignedContact,
-        "duedate": duedate,
-        "prio": prio,
+        "due_date": duedate,
+        "priority": prio,
         "category": category,
-        "subtask": newSubTasks,
+        "subtasks": newSubTasks,
         "bucket": bucket,
     };
+
 }
 
 
