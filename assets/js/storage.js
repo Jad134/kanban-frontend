@@ -42,6 +42,22 @@ async function updateSubtasks(taskId, subtasks) {
     return await response.json();
 }
 
+async function updateBucket(taskId, bucket) {
+    const response = await fetch(`${apiURL}${taskId}/`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ bucket: bucket })
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to update subtasks');
+    }
+
+    return await response.json();
+}
+
 
 /**
  * Sets an item in the storage using the provided key and value.

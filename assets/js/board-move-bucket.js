@@ -1,9 +1,12 @@
+let currentDragTask;
+
 /**
  * Initializes the dragging process for a specific task.
  * @param {number} id - ID of the task.
  */
 function startDragging(id) {
     let i = idToIndex(id);
+    currentDragTask = id;
     currentDraggedElement = i;
     let dragField = document.querySelectorAll('.specific-content');
     if (window.innerWidth > 768) {
@@ -66,7 +69,7 @@ function moveTo(bucket) {
 
     getTaskFromArray();
     countBucketsWithoutTasks();
-    addTaskToStorage();
+    updateBucket(currentDragTask, bucket)
 }
 
 
@@ -127,5 +130,5 @@ function moveToBucket(id, bucket, event) {
 
     getTaskFromArray();
     countBucketsWithoutTasks();
-    addTaskToStorage();
+    
 }
