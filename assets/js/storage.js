@@ -59,6 +59,23 @@ async function updateBucket(taskId, bucket) {
 }
 
 
+async function createTask(taskData) {
+    const response = await fetch(apiURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(taskData)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to create task');
+    }
+
+    return await response.json();
+}
+
+
 /**
  * Sets an item in the storage using the provided key and value.
  * @param {string} key - The key for the item in the storage.

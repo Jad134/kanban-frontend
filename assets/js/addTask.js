@@ -7,7 +7,7 @@ let taskId;
 
 
 function init() {
-    loadUserDataFromRemote();
+    //loadUserDataFromRemote(); API
     getTaskStorage();
     handleInputFocus();
     setCalenderToToday()
@@ -81,12 +81,12 @@ function getValues() {
         "id": taskId = Date.now() + Math.random(),
         "title": title.value,
         "description": description.value,
-        "assigned": assignedContact,
-        "duedate": date.value,
-        "prio": prioValue,
+        //"assigned_to": assignedContact, API
+        "due_date": date.value,
+        "priority": prioValue,
         "category": categoryText,
-        "subtask": newSubTasks,
-        "bucket": getBucketFromSession()
+        "subtasks": newSubTasks,
+        //"bucket": getBucketFromSession()
     };
     sendFormular(tasks);
 }
@@ -157,7 +157,9 @@ function validateForm() {
  */
 async function sendFormular(tasks) {
     addedTasks.push(tasks);
-    await addTaskToStorage();
+    //await addTaskToStorage();
+    console.log(tasks);
+    await createTask(tasks)
     await addTaskIdToStorage();
     sliderTaskAdded();
     setTimeout(() => {
@@ -204,7 +206,7 @@ function getBucketFromSession() {
 
 
 async function addTaskIdToStorage() {
-    await setItem('taskid', taskId);
+    //await setItem('taskid', taskId); API ???
 }
 
 
@@ -212,7 +214,7 @@ async function addTaskToStorage(id, tasks) {
     //await setItem('tasks', JSON.stringify(addedTasks));
     console.log(tasks);
     await updateTask(id, tasks)
-    
+
 }
 
 
@@ -236,8 +238,7 @@ async function loadUserDataFromRemote() {
  */
 async function getTaskStorage() {
     addedTasks = [];
-    let currentTasks = await getItem('tasks');
-    currentTasks = JSON.parse(currentTasks['data']['value']);
+    let currentTasks = await getApiItem();
 
     for (let i = 0; i < currentTasks.length; i++) {
         let tasks = currentTasks[i];
@@ -252,7 +253,7 @@ async function getTaskStorage() {
 function addSubTask() {
     let subtaskContent = document.getElementById('subtask-lists');
     let newTasksText = document.getElementById('subtask-input').value;
-    
+
 
     let newSubtask = {
         "title": newTasksText,
