@@ -5,7 +5,7 @@ const apiURL = 'http://127.0.0.1:8000/tasks/'
 async function getApiItem() {
     return fetch(apiURL)
         .then(res => res.json());
-       
+
 }
 
 
@@ -74,6 +74,79 @@ async function createTask(taskData) {
 
     return await response.json();
 }
+
+async function registerUser(user) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/register/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+
+        if (!response.ok) {
+            throw new Error('Fehler bei der Benutzerregistrierung');
+        }
+
+        const data = await response.json();
+        console.log('Erfolgreich registriert:', data);
+        return data; // Rückgabe der Antwort für den Aufrufer
+    } catch (error) {
+        console.error('Fehler bei der Registrierung:', error);
+        throw error; // Fehler weiterwerfen, um im Aufrufer darauf zu reagieren
+    }
+}
+
+
+async function fetchUserData() {
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/users/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Fehler beim Abrufen der Benutzerdaten');
+        }
+
+        const data = await response.json();
+        console.log('Benutzerdaten erfolgreich abgerufen:', data);
+        return data; // Rückgabe der abgerufenen Benutzerdaten
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Benutzerdaten:', error);
+        throw error; // Fehler weiterwerfen, um im Aufrufer darauf zu reagieren
+    }
+}
+
+
+async function logInBackend(username, password) {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, password: password })
+        });
+
+        const data = await response.json();
+        return data; // Hier können Sie das Antwortdatenobjekt zurückgeben
+
+    } catch (error) { }
+}
+
+
+
+
+
+
+
+
+
 
 
 /**

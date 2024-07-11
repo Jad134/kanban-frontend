@@ -16,8 +16,9 @@ async function init() {
  * @param {string} newUserDataString - This is the parsed user data from remote
  */
 async function loadUserDataFromRemote() {
-  let newUserDataString = await getItem('users');
-  newUserDataString = JSON.parse(newUserDataString['data']['value']);
+  let newUserDataString = await fetchUserData();
+  console.log(newUserDataString);
+  // newUserDataString = JSON.parse(newUserDataString['data']['value']); API JSON USERDATA benötigt json?
   for (let i = 0; i < newUserDataString.length; i++) {
     let users = newUserDataString[i];
     userData.push(users);
@@ -80,14 +81,18 @@ async function userDataFromSignUp(a) {
   userData = [];
   await loadUserDataFromRemote();
   let users = {
-    'name': name,
+    'username': name,
     'email': email.value,
     'password': password.value,
     'color': color,
     'initials': initials,
+    'profile': {
+      'color': color,
+      'initials': initials
+    }
   };
   userData.push(users);
-  saveUserDataInRemote();
+  await registerUser(users);
 }
 
 /**
@@ -117,15 +122,15 @@ function setColor() {
  */
 function signUpUser() {
   let registerEmail = document.getElementById('email').value;
- let passwordsMatch = passwordCheck();
+  let passwordsMatch = passwordCheck();
   if (passwordsMatch) {
     emailCheck(registerEmail);
     let color = setColor();
-    userDataFromSignUp(color); 
+    userDataFromSignUp(color);
     displayMessage('You registered successfully!');
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 1500);
+    // setTimeout(() => {
+    //   window.location.href = 'index.html';
+    // }, 1500); API WEITERLEITUNG
   }
 }
 
@@ -211,21 +216,27 @@ function hideMessage() {
  * 
  * @param {Event} event - The event object from the form submission
  */
-function login(event) {
+async function login(event) {
   event.preventDefault();
-  let email = document.getElementById('user-email');
-  let password = document.getElementById('password-login');
-  let dataExists = userData.find(u => u.email == email.value && u.password == password.value);
-  if (dataExists) {
-    rememberMe();
-    displayMessage('You logged in successfully!')
-    loginToLocalStorage(dataExists);
-    setTimeout(() => {
-      window.location.href = 'summary.html';
-    }, 1200);
-  }
-  else {
-    displayMessage('Wrong Email or password')
+
+  let email = document.getElementById('user-email').value;
+  let password = document.getElementById('password-login').value;
+  let user = userData.find(u => u.email === email);
+  try {
+    const data = await logInBackend(user.username, password);
+    if (data.token) {
+      rememberMe();
+      displayMessage('You logged in successfully!');
+      loginToLocalStorage(data);
+      setTimeout(() => {
+        window.location.href = 'summary.html';
+      }, 1200);
+    } else {
+      displayMessage('Wrong email or password');
+    }
+
+  } catch (error) {
+    displayMessage('Login failed. Please try again.');
   }
 }
 
