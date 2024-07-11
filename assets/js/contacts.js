@@ -16,8 +16,8 @@ async function openContacts() {
  */
 function sortMyContacts() {
   contacts.sort((a, b) => {
-    const nameA = a.name.toLowerCase();
-    const nameB = b.name.toLowerCase();
+    const nameA = a.username.toLowerCase();
+    const nameB = b.username.toLowerCase();
 
     if (nameA < nameB) {
       return -1;
@@ -39,7 +39,7 @@ function getLettersFromNames() {
   let letters = [];
 
   for (let i = 0; i < contacts.length; i++) {
-    const firstLetterString = contacts[i]["name"].charAt(0);
+    const firstLetterString = contacts[i]["username"].charAt(0);
     for (const char of firstLetterString) {
       letters.push(char);
     }
@@ -67,7 +67,7 @@ function eliminateDoubles(letters) {
  * @returns {string[]} An array containing the first letters of the contact's name.
  */
 function getFirstLettersForOverview(i, contacts) {
-  let name = contacts[i]["name"];
+  let name = contacts[i]["username"];
   let splitName = name.split(" ");
   let firstName = splitName[0];
   let secondName = splitName[1];
@@ -92,7 +92,7 @@ async function renderSortContainer(letterArray) {
 
     document.getElementById("render-contacts-overview").innerHTML += renderContactDesign(letter)
     for (let i = 0; i < contacts.length; i++) {
-      let name = contacts[i]["name"];
+      let name = contacts[i]["username"];
       let email = contacts[i]["email"];
       let setLetters = getFirstLettersForOverview(i, contacts);
 
@@ -423,10 +423,10 @@ async function setItemsInRemoteStorage() {
  * @returns {Promise<Array>} A promise that resolves with the 'contacts' array from remote storage.
  */
 async function getItemsInRemoteStorage() {
-  let contactsFromStorage = await getItem('contacts');
-  let contactsFromStorageAsString = JSON.parse(contactsFromStorage['data']['value']);
+  let contactsFromStorage = await fetchUserData();
+  // let contactsFromStorageAsString = JSON.parse(contactsFromStorage['data']['value']); API contact download
 
-  return contactsFromStorageAsString;
+  return contactsFromStorage
 }
 
 /**
