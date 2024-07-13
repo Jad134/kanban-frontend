@@ -21,7 +21,8 @@ async function loadUserDataFromRemote() {
   // newUserDataString = JSON.parse(newUserDataString['data']['value']); API JSON USERDATA benötigt json?
   for (let i = 0; i < newUserDataString.length; i++) {
     let users = newUserDataString[i];
-    userData.push(users);
+    console.log(users);
+      userData.push(users);
   }
 }
 

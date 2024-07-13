@@ -7,7 +7,7 @@ let taskId;
 
 
 function init() {
-    //loadUserDataFromRemote(); API
+    loadUserDataFromRemote(); 
     getTaskStorage();
     handleInputFocus();
     setCalenderToToday()
@@ -222,8 +222,8 @@ async function addTaskToStorage(id, tasks) {
  * Load the user Datas from the Remote storage
  */
 async function loadUserDataFromRemote() {
-    let newUserDataString = await getItem('contacts');
-    newUserDataString = JSON.parse(newUserDataString['data']['value']);
+    let newUserDataString = await fetchUserData();
+    //newUserDataString = JSON.parse(newUserDataString['data']['value']);
     for (let i = 0; i < newUserDataString.length; i++) {
         let users = newUserDataString[i];
         userData.push(users);
@@ -283,8 +283,8 @@ function loadContacts() {
 
     for (let i = 0; i < userData.length; i++) {
         let currentContact = userData[i];
-        let name = currentContact['name'];
-        let userInitial = userData[i]['initials'];
+        let name = currentContact['username'];
+        let userInitial = userData[i].profile['initials']
         let nameColor = userData[i]['color'];
         let youLabel = loginUser === name ? '(You)' : '';
 
