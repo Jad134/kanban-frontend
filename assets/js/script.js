@@ -225,9 +225,11 @@ async function login(event) {
   try {
     const data = await logInBackend(user.username, password);
     if (data.token) {
+       userInitials = user.profile['initials']
       rememberMe();
       displayMessage('You logged in successfully!');
-      loginToLocalStorage(data);
+      loginToLocalStorage(data, userInitials);
+      console.log(data);
       setTimeout(() => {
         window.location.href = 'summary.html';
       }, 1200);
@@ -278,9 +280,9 @@ function getLoginFromLocal() {
  *
  * @param {Object} dataExists - This is the user data to be saved
  */
-function loginToLocalStorage(dataExists) {
+function loginToLocalStorage(dataExists, initials) {
   let loginName = dataExists['name'];
-  let loginInitials = dataExists['initials'];
+  let loginInitials = initials;
   let loginStatus = true;
   let loginTime = new Date();
   let userColor = dataExists['color'];

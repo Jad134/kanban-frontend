@@ -67,6 +67,8 @@ function closeUserMenu() {
  * Renders the user's initials in the designated element based on stored data in localStorage.
  */
 function renderInitials() {
+    // let userInitials = localStorage.getItem('login-initials');
+    
     let userInitials = localStorage.getItem('login-initials');
     document.getElementById('user-initials').innerHTML = userInitials;
 }
