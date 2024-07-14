@@ -81,7 +81,7 @@ function getValues() {
         "id": taskId = Date.now() + Math.random(),
         "title": title.value,
         "description": description.value,
-        //"assigned_to": assignedContact, API
+        "assigned_to": assignedContact,
         "due_date": date.value,
         "priority": prioValue,
         "category": categoryText,
@@ -286,9 +286,10 @@ function loadContacts() {
         let name = currentContact['username'];
         let userInitial = userData[i].profile['initials']
         let nameColor = userData[i].profile['color'];
+        let userId = currentContact['id']
         let youLabel = loginUser === name ? '(You)' : '';
 
-        overlayContainer.innerHTML += renderContacts(name, i, userInitial, youLabel)
+        overlayContainer.innerHTML += renderContacts(name, i, userInitial, youLabel, userId)
 
         let initialDiv = document.getElementById(`list-circle${i}`);
         initialDiv.style.backgroundColor = nameColor;
@@ -303,12 +304,12 @@ function loadContacts() {
  * @param {string} name 
  * @param {number} i 
  */
-function setCheckbox(checkbox, name, i) {
+function setCheckbox(checkbox, name, i, id) {
     let container = checkbox.closest('.contact-label');
     if (checkbox.checked) {
         container.style.backgroundColor = 'rgb(9, 25, 49)';
         container.style.color = 'white';
-        pushContact(name);
+        pushContact(name, id);
         renderInitialsimg(i);
 
     } else {
@@ -352,8 +353,9 @@ function removeInitialsimg(i) {
 }
 
 
-function pushContact(name) {
-    assignedContact.push(name);
+function pushContact(name, id) {
+    console.log(id);
+    assignedContact.push(id);
 }
 
 

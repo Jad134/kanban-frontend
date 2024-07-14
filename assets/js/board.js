@@ -7,12 +7,12 @@ addedUsers = [];
  * @returns {Promise<void>} - A promise that resolves when the initialization is complete.
  */
 async function initBoard() {
-    // let userData = await getItem('contacts');
-    // userData = JSON.parse(userData['data']['value']);    ----- API get item muss aus fürs entwickeln------
-    // for (let i = 0; i < userData.length; i++) {
-    //     let users = userData[i];
-    //     addedUsers.push(users);
-    // }
+    let userData = await fetchUserData()
+    // userData = JSON.parse(userData['data']['value']);    
+    for (let i = 0; i < userData.length; i++) {
+        let users = userData[i];
+        addedUsers.push(users);
+    }
 
     let currentTasks = await getApiItem();  // Keine Schlüssel mehr, da wir direkt die Liste der Tasks erwarten
     addedTasks = currentTasks;
@@ -43,7 +43,7 @@ function loadTasksForBoard(i) {
     document.getElementById(bucket).innerHTML += renderBuckets(id, title, description, category, categoryCssClass);
 
     countSubtasks(id);
-    // loadAssignedUsers(id);   API
+    loadAssignedUsers(id);
     loadPrio(id, prio);
     findTasks();
     console.log(addedTasks);
@@ -85,34 +85,37 @@ function countSubtasks(id) {
  */
 function loadAssignedUsers(id) {
     let i = idToIndex(id);
-    let assignedUsers = addedTasks[i]['assigned'];
+    let assignedUsers = addedTasks[i]['assigned_to'];
+    console.log(assignedUsers);
 
-    if (assignedUsers.length <= 4) {
+    let container = document.getElementById(`task-assignment-container-${id}`);
+    container.innerHTML = ''; // Clear previous content
+
+    if (assignedUsers.length <= 3) {
         for (let u = 0; u < assignedUsers.length; u++) {
             let assignedUser = assignedUsers[u];
-            let x = compareUser(assignedUser);
-            if (userIsFound(x)) {
-                let initials = addedUsers[x]['initials'];
-                let color = addedUsers[x]['color'];
-
-                document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+            let user = compareUser(assignedUser);
+            if (userIsFound(user)) {
+                let initials = user.profile['initials'];
+                let color = user.profile['color'];
+                container.innerHTML += renderAssignedUsers(initials, color);
             }
         }
     } else {
-        for (let u = 0; u < 3; u++) {
+        for (let u = 0; u < 2; u++) {
             let assignedUser = assignedUsers[u];
-            let x = compareUser(assignedUser);
-            if (userIsFound(x)) {
-                let initials = addedUsers[x]['initials'];
-                let color = addedUsers[x]['color'];
-
-                document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(initials, color);
+            let user = compareUser(assignedUser);
+            if (userIsFound(user)) {
+                let initials = user.profile['initials'];
+                let color = user.profile['color'];
+                container.innerHTML += renderAssignedUsers(initials, color);
             }
         }
-        let remainingUsers = `+${assignedUsers.length - 3}`;
-        document.getElementById(`task-assignment-container-${id}`).innerHTML += renderAssignedUsers(remainingUsers, '#A8A8A8');
+        let remainingUsers = `+${assignedUsers.length - 2}`;
+        container.innerHTML += renderAssignedUsers(remainingUsers, '#A8A8A8');
     }
 }
+
 
 
 /**
@@ -139,8 +142,8 @@ function loadAssignedUsersForOpenTask(id) {
  * @param {number} x 
  * @returns The request for a user who has not been deleted. If the user was not found, they will no longer be displayed in the board
  */
-function userIsFound(x) {
-    return x !== -1 && addedUsers[x].initials && addedUsers[x].color
+function userIsFound(user) {
+    return user && user.profile && user.profile.initials && user.profile.color;
 }
 
 
@@ -150,9 +153,7 @@ function userIsFound(x) {
  * @returns {number} - The index of the user in the user array.
  */
 function compareUser(assignedContact) {
-    let x = addedUsers.findIndex(user => user.name === assignedContact);
-
-    return x;
+    return addedUsers.find(user => user.id === assignedContact);
 }
 
 
@@ -399,13 +400,13 @@ function checkboxSubtask(s, id) {
     addedTasks[i].subtasks[s].done = subtaskStatus;
     //setItem('tasks', addedTasks);  //API muss noch speichern wenn subdone
     updateSubtasks(id, addedTasks[i].subtasks)
-    .then(response => {
-        console.log('Subtasks updated successfully:', response);
-        reloadSubtaskCounter(id);
-    })
-    .catch(error => {
-        console.error('Failed to update subtasks:', error);
-    });
+        .then(response => {
+            console.log('Subtasks updated successfully:', response);
+            reloadSubtaskCounter(id);
+        })
+        .catch(error => {
+            console.error('Failed to update subtasks:', error);
+        });
     reloadSubtaskCounter(id);
 }
 

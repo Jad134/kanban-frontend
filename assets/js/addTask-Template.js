@@ -30,14 +30,14 @@ function renderSubTask(newTasks, i) {
 }
 
 
-function renderContacts(name, i, userInitial, youLabel) {
+function renderContacts(name, i, userInitial, youLabel, id) {
     return /*html*/`
     <label class="contact-label" for="check-contact${i}">
         <div class="current-contacts">
             <div class="add-task-contacts"> 
                <div id="list-circle${i}" class="contact-circle"> <span>${userInitial}</span></div>
                <span class="current-name">${name} ${youLabel}</span>
-               <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i})">
+               <input value="${name}" class="check-contact" id="check-contact${i}" type="checkbox" onchange="setCheckbox(this, '${name}', ${i}, '${id}')">
             </div>
         </div>
     </label>        
