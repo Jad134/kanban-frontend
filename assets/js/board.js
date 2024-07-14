@@ -376,10 +376,12 @@ function idToIndex(id) {
 function deleteTask(id) {
     let i = idToIndex(id);
     addedTasks.splice(i, 1);
+    console.log(addedTasks);
     getTaskFromArray();
     countBucketsWithoutTasks();
     closeSlider();
-    addTaskToStorage();
+    console.log(id);
+    deleteTaskBackend(id);
 }
 
 

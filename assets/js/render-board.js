@@ -230,15 +230,15 @@ function addTaskHtml() {
                         <div class="prio">
                             <span class="span-style">Prio</span>
                             <div class="prio-buttons">
-                                <button value="Urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
+                                <button value="urgent" onclick=" ChangeButtonColor('urgent-btn', 'urgent-img')"
                                     type="button" id="urgent-btn">Urgent
                                     <img id="urgent-img" src="./assets/img/urgentimg.svg" alt="">
                                 </button>
-                                <button value="Medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
+                                <button value="medium" onclick=" ChangeButtonColor('medium-btn', 'medium-img')"
                                     type="button" id="medium-btn">Medium
                                     <img id="medium-img" src="./assets/img/mediumimg.svg" alt="">
                                 </button>
-                                <button value="Low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
+                                <button value="low" onclick=" ChangeButtonColor('low-btn', 'low-img')" type="button"
                                     id="low-btn">Low
                                     <img id="low-img" src="./assets/img/prio-baja.svg" alt="">
                                 </button>

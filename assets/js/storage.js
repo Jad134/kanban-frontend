@@ -25,6 +25,21 @@ async function updateTask(id, updatedTaskData) {
     return await response.json();
 }
 
+async function deleteTaskBackend(taskId) {
+    const response = await fetch(`${apiURL}${taskId}/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to delete task');
+    }
+
+    return 'Task successfully deleted';
+}
+
 
 async function updateSubtasks(taskId, subtasks) {
     const response = await fetch(`${apiURL}${taskId}/`, {

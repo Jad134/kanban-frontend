@@ -285,7 +285,7 @@ function loadContacts() {
         let currentContact = userData[i];
         let name = currentContact['username'];
         let userInitial = userData[i].profile['initials']
-        let nameColor = userData[i]['color'];
+        let nameColor = userData[i].profile['color'];
         let youLabel = loginUser === name ? '(You)' : '';
 
         overlayContainer.innerHTML += renderContacts(name, i, userInitial, youLabel)
