@@ -4,8 +4,8 @@
  * @returns {Promise<void>} - Promise that indicates the completion of data retrieval.
  */
 async function loadRemoteUserDataForEdit() {
-    let newUserDataString = await getItem('contacts');
-    newUserDataString = JSON.parse(newUserDataString['data']['value']);
+    let newUserDataString = await fetchUserData();
+   // newUserDataString = JSON.parse(newUserDataString['data']['value']);
 
     for (let i = 0; i < newUserDataString.length; i++) {
         let users = newUserDataString[i];
@@ -19,7 +19,7 @@ async function loadRemoteUserDataForEdit() {
  * @param {number} id - The ID of the task to be edited.
  */
 async function openEditTask(id) {
-    //await loadRemoteUserDataForEdit();API 
+    await loadRemoteUserDataForEdit();
 
     let i = idToIndex(id);
     let title = addedTasks[i]['title'];
@@ -29,9 +29,9 @@ async function openEditTask(id) {
     document.getElementById('slider-container').innerHTML = renderEditTask(id, title, description, duedate);
 
     getPrio(i);
-    //loadUserCirclesForEdit(i, id); API
-    //loadEditContacts(i);  API
-    //findContactForEdit(); API
+    loadUserCirclesForEdit(i, id); 
+    loadEditContacts(i);  
+    findContactForEdit(); 
     loadEditSubtasks(i);
 }
 
@@ -63,15 +63,14 @@ function getPrio(i) {
 function loadUserCirclesForEdit(i, id) {
     assignedContact = [];
 
-    for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
-        let assignedUser = addedTasks[i]['assigned'][u];
-        let x = compareUser(assignedUser);
-        if (x !== -1 && addedUsers[x].initials && addedUsers[x].color) {
-            let initials = addedUsers[x]['initials'];
-            let color = addedUsers[x]['color'];
-
-            pushContact(assignedUser);
-            document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(x, initials, color);
+    for (let u = 0; u < addedTasks[i]['assigned_to'].length; u++) {
+        let assignedUser = addedTasks[i]['assigned_to'][u];
+        let user = compareUser(assignedUser);
+        if (userIsFound(user)) {
+            let initials = user.profile['initials'];
+            let color = user.profile['color'];
+            pushContact(user.id);
+            document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(user, initials, color);
         }
     }
 }
@@ -85,10 +84,11 @@ function loadEditContacts(i) {
     let overlayContainer = document.getElementById('edit-contact-overlay');
 
     userData.forEach((user, index) => {
-        if (addedTasks[i].assigned.includes(user.name)) {
-            overlayContainer.innerHTML += renderCheckedUsers(i, user.name, user.initials, user.color, index);
+        console.log(user.username);
+        if (addedTasks[i].assigned_to.includes(user.username)) {
+            overlayContainer.innerHTML += renderCheckedUsers(i, user.username, user.profile['initials'], user.profile['color'], index);
         } else {
-            overlayContainer.innerHTML += renderUncheckedUsers(i, user.name, user.initials, user.color, index);
+            overlayContainer.innerHTML += renderUncheckedUsers(i, user.username,  user.profile['initials'], user.profile['color'], index);
         }
     });
 }

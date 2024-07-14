@@ -124,14 +124,15 @@ function loadAssignedUsers(id) {
  */
 function loadAssignedUsersForOpenTask(id) {
     let i = idToIndex(id);
-    for (let u = 0; u < addedTasks[i]['assigned'].length; u++) {
-        let assignedUser = addedTasks[i]['assigned'][u];
-        let x = compareUser(assignedUser);
-        if (userIsFound(x)) {
-            let initials = addedUsers[x]['initials'];
-            let color = addedUsers[x]['color'];
-
-            document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, assignedUser);
+    for (let u = 0; u < addedTasks[i]['assigned_to'].length; u++) {
+        let assignedUser = addedTasks[i]['assigned_to'][u];
+        let user = compareUser(assignedUser);
+        if (userIsFound(user)) {
+            let initials = user.profile['initials'];
+            let color = user.profile['color'];
+            let userName = user.username
+            console.log(userName);
+            document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, userName);
         }
     }
 }
@@ -314,7 +315,7 @@ function loadTask(id) {
 
     loadSubtasks(id);
     loadPrioForOpenTask(prio);
-    //loadAssignedUsersForOpenTask(id);       API
+    loadAssignedUsersForOpenTask(id);
     openSlider();
 }
 
