@@ -85,10 +85,10 @@ function loadEditContacts(i) {
 
     userData.forEach((user, index) => {
         console.log(user.username);
-        if (addedTasks[i].assigned_to.includes(user.username)) {
-            overlayContainer.innerHTML += renderCheckedUsers(i, user.username, user.profile['initials'], user.profile['color'], index);
+        if (addedTasks[i].assigned_to.includes(user.id)) {
+            overlayContainer.innerHTML += renderCheckedUsers(i, user.username, user.profile['initials'], user.profile['color'], index, user.id);
         } else {
-            overlayContainer.innerHTML += renderUncheckedUsers(i, user.username,  user.profile['initials'], user.profile['color'], index);
+            overlayContainer.innerHTML += renderUncheckedUsers(i, user.username,  user.profile['initials'], user.profile['color'], index, user.id);
         }
     });
 }
@@ -168,20 +168,20 @@ function findContactForEdit() {
  * @param {number} userIndex - Index of the user.
  * @param {number} i - Index of the task.
  */
-function setEditCheckbox(status, name, userIndex, i) {
-    assignedContact = addedTasks[i]['assigned'];
+function setEditCheckbox(status, name, userIndex, i, userId) {
+    assignedContact = addedTasks[i]['assigned_to'];
     let checked = document.getElementById(`check-contact${userIndex}`);
     let checkedContact = document.getElementById(`contact-${userIndex}`);
 
     if (status === 'checked') {
         // check to uncheck:
-        checkToUncheck(checked, checkedContact, userIndex, name, i)
-        spliceContact(name);
+        checkToUncheck(checked, checkedContact, userIndex, name, i, userId)
+        spliceContact(userId);
         removeEditInitialsImg(userIndex);
     } else {
         // uncheck to check:
-        uncheckToCheck(checked, checkedContact, userIndex, name, i)
-        pushContact(name);
+        uncheckToCheck(checked, checkedContact, userIndex, name, i, userId)
+        pushContact(userId);
         renderEditInitialsImg(userIndex);
     }
 }
@@ -190,9 +190,9 @@ function setEditCheckbox(status, name, userIndex, i) {
 /**
  * This function unchecked the contacts
  */
-function checkToUncheck(checked, checkedContact, userIndex, name, i) {
+function checkToUncheck(checked, checkedContact, userIndex, name, i, userId) {
     checked.removeAttribute('checked');
-    checked.setAttribute('onchange', `setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i})`);
+    checked.setAttribute('onchange', `setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i}, ${userId})`);
     checkedContact.classList.remove('checked-contact-label');
     checkedContact.classList.add('unchecked-contact-label');
 }
@@ -201,9 +201,9 @@ function checkToUncheck(checked, checkedContact, userIndex, name, i) {
 /**
  * This function checked the uncheked contacts
  */
-function uncheckToCheck(checked, checkedContact, userIndex, name, i) {
+function uncheckToCheck(checked, checkedContact, userIndex, name, i, userId) {
     checked.setAttribute('checked', 'checked');
-    checked.setAttribute('onchange', `setEditCheckbox('checked', '${name}', ${userIndex}, ${i})`);
+    checked.setAttribute('onchange', `setEditCheckbox('checked', '${name}', ${userIndex}, ${i},  ${userId})`);
     checkedContact.classList.remove('unchecked-contact-label');
     checkedContact.classList.add('checked-contact-label');
 }
@@ -229,8 +229,8 @@ function removeEditInitialsImg(i) {
  */
 function renderEditInitialsImg(i) {
     let content = document.getElementById('selected-contacts');
-    let userInitial = userData[i]['initials'];
-    let nameColor = userData[i]['color'];
+    let userInitial = userData[i].profile['initials'];
+    let nameColor = userData[i].profile['color'];
 
     content.innerHTML += `
              <div id="assigned-initials-${i}" class="assignment-circle-big"><span>${userInitial}</span></div>`;
@@ -292,7 +292,7 @@ function createTaskObject(id, title, description, assignedContact, duedate, prio
         "id": id,
         "title": title,
         "description": description,
-        "assigned": assignedContact,
+        "assigned_to": assignedContact,
         "due_date": duedate,
         "priority": prio,
         "category": category,

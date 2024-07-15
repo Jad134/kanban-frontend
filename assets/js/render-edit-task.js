@@ -110,7 +110,7 @@ function renderUserCirclesForEdit(x, initials, color) {
  * @param {number} userIndex - The identification index of the user.
  * @returns {string} - HTML structure for unchecked user display.
  */
-function renderUncheckedUsers(i, name, initials, color, userIndex) {
+function renderUncheckedUsers(i, name, initials, color, userIndex, userId) {
     return `
         <label class="unchecked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
             <div class="edit-task-contacts"> 
@@ -120,7 +120,7 @@ function renderUncheckedUsers(i, name, initials, color, userIndex) {
                     </div>
                     <span class="current-name">${name}</span>
                 </div>
-                <input value="${name}" class="check-contact" id="check-contact${userIndex}" type="checkbox" onchange="setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i})">
+                <input value="${name}" class="check-contact" id="check-contact${userIndex}" type="checkbox" onchange="setEditCheckbox('unchecked', '${name}', ${userIndex}, ${i}, ${userId})">
             </div>
         </label>        
     `;
@@ -137,7 +137,7 @@ function renderUncheckedUsers(i, name, initials, color, userIndex) {
  * @param {number} userIndex - The identification index of the user.
  * @returns {string} - HTML structure for checked user display.
  */
-function renderCheckedUsers(i, name, initials, color, userIndex) {
+function renderCheckedUsers(i, name, initials, color, userIndex, userId) {
     return `
         <label class="checked-contact-label" for="check-contact${userIndex}" id="contact-${userIndex}">
             <div class="edit-task-contacts"> 
@@ -147,7 +147,7 @@ function renderCheckedUsers(i, name, initials, color, userIndex) {
                     </div>
                     <span class="current-name">${name}</span>
                 </div>
-                <input value="${name}" class="check-contact" id="check-contact${userIndex}" type="checkbox" checked="checked" onchange="setEditCheckbox('checked', '${name}', ${userIndex}, ${i})">
+                <input value="${name}" class="check-contact" id="check-contact${userIndex}" type="checkbox" checked="checked" onchange="setEditCheckbox('checked', '${name}', ${userIndex}, ${i}, ${userId})">
             </div>
         </label>        
     `;

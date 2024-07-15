@@ -309,7 +309,7 @@ function setCheckbox(checkbox, name, i, id) {
     if (checkbox.checked) {
         container.style.backgroundColor = 'rgb(9, 25, 49)';
         container.style.color = 'white';
-        pushContact(name, id);
+        pushContact(id);
         renderInitialsimg(i);
 
     } else {
@@ -353,8 +353,9 @@ function removeInitialsimg(i) {
 }
 
 
-function pushContact(name, id) {
+function pushContact(id) {
     console.log(id);
+    console.log(assignedContact);
     assignedContact.push(id);
 }
 
