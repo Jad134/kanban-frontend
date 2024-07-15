@@ -99,7 +99,7 @@ function editContact(i) {
     const styles = window.getComputedStyle(colorOfLetters);
     const backgroundColor = styles.backgroundColor;
   
-    let name = contacts[i]["name"];
+    let name = contacts[i]["username"];
     let email = contacts[i]["email"];
     let phone = contacts[i]["phone-number"];
   

@@ -79,7 +79,7 @@ getTaskStorage().then(() => {
 function urgentTasks() {
     let taskContainer = 0;
     for (let i = 0; i < addedTasks.length; i++) {
-        if (addedTasks[i].prio === 'Urgent') {
+        if (addedTasks[i].priority === 'urgent') {
             taskContainer++;
         }
     }
