@@ -16,8 +16,8 @@ async function openContacts() {
  */
 function sortMyContacts() {
   contacts.sort((a, b) => {
-    const nameA = a.username.toLowerCase();
-    const nameB = b.username.toLowerCase();
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
 
     if (nameA < nameB) {
       return -1;
@@ -39,7 +39,7 @@ function getLettersFromNames() {
   let letters = [];
 
   for (let i = 0; i < contacts.length; i++) {
-    const firstLetterString = contacts[i]["username"].charAt(0);
+    const firstLetterString = contacts[i]["name"].charAt(0);
     for (const char of firstLetterString) {
       letters.push(char);
     }
@@ -67,7 +67,7 @@ function eliminateDoubles(letters) {
  * @returns {string[]} An array containing the first letters of the contact's name.
  */
 function getFirstLettersForOverview(i, contacts) {
-  let name = contacts[i]["username"];
+  let name = contacts[i]["name"];
   let splitName = name.split(" ");
   let firstName = splitName[0];
   let secondName = splitName[1];
@@ -86,13 +86,12 @@ function getFirstLettersForOverview(i, contacts) {
  */
 async function renderSortContainer(letterArray) {
   document.getElementById("render-contacts-overview").innerHTML = ``;
-
   for (let k = 0; k < letterArray.length; k++) {
     const letter = letterArray[k];
 
     document.getElementById("render-contacts-overview").innerHTML += renderContactDesign(letter)
     for (let i = 0; i < contacts.length; i++) {
-      let name = contacts[i]["username"];
+      let name = contacts[i]["name"];
       let email = contacts[i]["email"];
       let setLetters = getFirstLettersForOverview(i, contacts);
 
@@ -172,12 +171,12 @@ async function saveEditContact(i) {
   let editedName = document.getElementById(`name${i}`).value;
   let editedPhone = document.getElementById(`phone${i}`).value;
   let editedEmail = document.getElementById(`email${i}`).value;
-
+  console.log(editContact.id);
   editContact.name = editedName;
   editContact.email = editedEmail;
-  editContact["phone-number"] = editedPhone;
+  editContact["number"] = editedPhone;
   await hideEditCard(i);
-  await setItemsInRemoteStorage();
+  await setItemsInRemoteStorage(editContact.id, editContact);
   await openContacts();
   await openContactDetails(i);
 }
@@ -191,12 +190,13 @@ async function deleteContact(i) {
   let contactDetails = document.getElementById("detail-view-of-contacts");
   let switchZindexOverview = document.getElementById('contact-overview');
   switchZindexOverview.style.zIndex = "400";
+  let contactId = contacts[i].id
   contacts.splice([i], 1);
   contactDetails.innerHTML = "";
   if (document.getElementById('edit-card')) {
     hideEditCard(i);
   }
-  await setItemsInRemoteStorage()
+  await deleteContactInStorage(contactId)
   openContacts();
 }
 
@@ -233,7 +233,7 @@ async function pushContactInfo() {
   let newContact = {
     name: `${name}`,
     email: `${email.value}`,
-    "phone-number": `${phoneNumber.value}`,
+    "number": `${phoneNumber.value}`,
     'initials': initials,
     'color': color,
   };
@@ -241,7 +241,7 @@ async function pushContactInfo() {
   document.getElementById("contact-name-input").value = ``;
   email.value = ``;
   phoneNumber.value = ``;
-
+  await createContact(newContact);
   await performContactActions();
 }
 
@@ -250,7 +250,6 @@ async function pushContactInfo() {
  * This function starts the last functions to add the contact
  */
 async function performContactActions() {
-  await setItemsInRemoteStorage();
   closeContactAddCard();
   sortMyContacts();
 }
@@ -412,8 +411,8 @@ function successfullyMove() {
  * 
  * @returns {Promise<void>} A promise that resolves when the operation is complete.
  */
-async function setItemsInRemoteStorage() {
-  await setItem('contacts', contacts);
+async function setItemsInRemoteStorage(id, data) {
+  await updateContact(id, data)
 }
 
 /**
@@ -423,7 +422,7 @@ async function setItemsInRemoteStorage() {
  * @returns {Promise<Array>} A promise that resolves with the 'contacts' array from remote storage.
  */
 async function getItemsInRemoteStorage() {
-  let contactsFromStorage = await fetchUserData();
+  let contactsFromStorage = await getContacts();
   // let contactsFromStorageAsString = JSON.parse(contactsFromStorage['data']['value']); API contact download
 
   return contactsFromStorage

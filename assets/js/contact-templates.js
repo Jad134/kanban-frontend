@@ -14,7 +14,7 @@ function editContact(i) {
     const backgroundColor = styles.backgroundColor;
   
     let editName = editContact['name'];
-    let editPhone = editContact['phone-number'];
+    let editPhone = editContact['number'];
     let editEmail = editContact['email'];  
   
     editCard.innerHTML += /*html*/ `
@@ -99,9 +99,9 @@ function editContact(i) {
     const styles = window.getComputedStyle(colorOfLetters);
     const backgroundColor = styles.backgroundColor;
   
-    let name = contacts[i]["username"];
+    let name = contacts[i]["name"];
     let email = contacts[i]["email"];
-    let phone = contacts[i]["phone-number"];
+    let phone = contacts[i]["number"];
   
     details.innerHTML = /*html*/ `
           <div id="letters-and-name">

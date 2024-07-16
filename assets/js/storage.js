@@ -155,6 +155,94 @@ async function logInBackend(username, password) {
 }
 
 
+async function getContacts(){
+    try {
+        const response = await fetch('http://127.0.0.1:8000/contact/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Fehler beim Abrufen der Benutzerdaten');
+        }
+
+        const data = await response.json();
+        console.log('Kontakte abgerufen:', data);
+        return data; // Rückgabe der abgerufenen Benutzerdaten
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Benutzerdaten:', error);
+        throw error; // Fehler weiterwerfen, um im Aufrufer darauf zu reagieren
+    }
+}
+
+
+async function createContact(contactData){
+    try {
+        const response = await fetch('http://127.0.0.1:8000/contact/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contactData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create contact');
+        }
+
+        const data = await response.json();
+        console.log('Contact created successfully:', data);
+        return data; // Rückgabe der Antwort für den Aufrufer
+    } catch (error) {
+        console.error('Error creating contact:', error);
+        throw error; // Fehler weiterwerfen, um im Aufrufer darauf zu reagieren
+    }
+}
+
+
+async function updateContact(contactId, updatedData){
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/contact/${contactId}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update contact');
+        }
+
+        const data = await response.json();
+        console.log('Contact updated successfully:', data);
+        return data; // Rückgabe der Antwort für den Aufrufer
+    } catch (error) {
+        console.error('Error updating contact:', error);
+        throw error; // Fehler weiterwerfen, um im Aufrufer darauf zu reagieren
+    }
+}
+
+async function deleteContactInStorage(contactId){
+        const response = await fetch(`http://127.0.0.1:8000/contact/${contactId}/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    
+        if (!response.ok) {
+            throw new Error('Failed to delete task');
+        }
+    
+        return 'Contact successfully deleted';
+}
+
+
+
+
 
 
 

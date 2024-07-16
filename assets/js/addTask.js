@@ -328,8 +328,8 @@ function setCheckbox(checkbox, name, i, id) {
  */
 function renderInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
-    let userInitial = userData[i]['initials'];
-    let nameColor = userData[i]['color'];
+    let userInitial = userData[i].profile['initials'];
+    let nameColor = userData[i].profile['color'];
 
     content.innerHTML += /*html*/`
          <div id="initials${i}" class="contact-circle"> <span>${userInitial}</span></div>`;
