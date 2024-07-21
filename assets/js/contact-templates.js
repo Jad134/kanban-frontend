@@ -11,11 +11,12 @@ function editContact(i) {
     let editContact = contacts[i];
     let colorOfLetters = document.getElementById(`${i}first-letters`);
     const styles = window.getComputedStyle(colorOfLetters);
-    const backgroundColor = styles.backgroundColor;
+    //const backgroundColor = styles.backgroundColor;
   
     let editName = editContact['name'];
     let editPhone = editContact['number'];
     let editEmail = editContact['email'];  
+    let backgroundColor = editContact['color']
   
     editCard.innerHTML += /*html*/ `
       <div id="edit-card" class="edit-card">
@@ -97,11 +98,12 @@ function editContact(i) {
     details.style.zIndex = "400";
   
     const styles = window.getComputedStyle(colorOfLetters);
-    const backgroundColor = styles.backgroundColor;
+    //const backgroundColor = styles.backgroundColor;
   
     let name = contacts[i]["name"];
     let email = contacts[i]["email"];
     let phone = contacts[i]["number"];
+    let backgroundColor = contacts[i]['color']
   
     details.innerHTML = /*html*/ `
           <div id="letters-and-name">

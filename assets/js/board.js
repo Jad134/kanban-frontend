@@ -7,7 +7,7 @@ addedUsers = [];
  * @returns {Promise<void>} - A promise that resolves when the initialization is complete.
  */
 async function initBoard() {
-    let userData = await fetchUserData()
+    let userData = await getContacts()
     // userData = JSON.parse(userData['data']['value']);    
     for (let i = 0; i < userData.length; i++) {
         let users = userData[i];
@@ -96,8 +96,8 @@ function loadAssignedUsers(id) {
             let assignedUser = assignedUsers[u];
             let user = compareUser(assignedUser);
             if (userIsFound(user)) {
-                let initials = user.profile['initials'];
-                let color = user.profile['color'];
+                let initials = user['initials'];
+                let color = user['color'];
                 container.innerHTML += renderAssignedUsers(initials, color);
             }
         }
@@ -106,8 +106,8 @@ function loadAssignedUsers(id) {
             let assignedUser = assignedUsers[u];
             let user = compareUser(assignedUser);
             if (userIsFound(user)) {
-                let initials = user.profile['initials'];
-                let color = user.profile['color'];
+                let initials = user['initials'];
+                let color = user['color'];
                 container.innerHTML += renderAssignedUsers(initials, color);
             }
         }
@@ -128,9 +128,9 @@ function loadAssignedUsersForOpenTask(id) {
         let assignedUser = addedTasks[i]['assigned_to'][u];
         let user = compareUser(assignedUser);
         if (userIsFound(user)) {
-            let initials = user.profile['initials'];
-            let color = user.profile['color'];
-            let userName = user.username
+            let initials = user['initials'];
+            let color = user['color'];
+            let userName = user.name
             console.log(userName);
             document.getElementById('open-task-contacts').innerHTML += renderAssignedUsersForOpenTask(initials, color, userName);
         }
@@ -144,7 +144,7 @@ function loadAssignedUsersForOpenTask(id) {
  * @returns The request for a user who has not been deleted. If the user was not found, they will no longer be displayed in the board
  */
 function userIsFound(user) {
-    return user && user.profile && user.profile.initials && user.profile.color;
+    return user  && user.initials && user.color;
 }
 
 
@@ -155,6 +155,7 @@ function userIsFound(user) {
  */
 function compareUser(assignedContact) {
     return addedUsers.find(user => user.id === assignedContact);
+  
 }
 
 

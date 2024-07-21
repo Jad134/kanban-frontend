@@ -93,11 +93,12 @@ async function renderSortContainer(letterArray) {
     for (let i = 0; i < contacts.length; i++) {
       let name = contacts[i]["name"];
       let email = contacts[i]["email"];
+      let bg = contacts[i]['color']
       let setLetters = getFirstLettersForOverview(i, contacts);
 
       if (name.charAt(0) === letter) {
         document.getElementById("render-contacts-overview").innerHTML += renderContactsTemplate(i, setLetters, k, name, email)
-        setColorForLetters(i);
+        setColorForLetters(i, bg);
       }
     }
   }
@@ -390,10 +391,10 @@ async function colorMyBack() {
  *
  * @param {number} i - The index used to identify the target element by its ID.
  */
-async function setColorForLetters(i) {
+async function setColorForLetters(i, bg) {
   const randomColor = (Math.floor(Math.random() * 16777215)).toString(16).padStart(6, '0');
   let colorMyLetters = document.getElementById(`${i}first-letters`);
-  colorMyLetters.style.backgroundColor = `#${randomColor}`;
+  colorMyLetters.style.backgroundColor = `${bg}`;
 }
 
 

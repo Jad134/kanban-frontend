@@ -4,7 +4,7 @@
  * @returns {Promise<void>} - Promise that indicates the completion of data retrieval.
  */
 async function loadRemoteUserDataForEdit() {
-    let newUserDataString = await fetchUserData();
+    let newUserDataString = await  getContacts();
    // newUserDataString = JSON.parse(newUserDataString['data']['value']);
 
     for (let i = 0; i < newUserDataString.length; i++) {
@@ -67,8 +67,8 @@ function loadUserCirclesForEdit(i, id) {
         let assignedUser = addedTasks[i]['assigned_to'][u];
         let user = compareUser(assignedUser);
         if (userIsFound(user)) {
-            let initials = user.profile['initials'];
-            let color = user.profile['color'];
+            let initials = user['initials'];
+            let color = user['color'];
             pushContact(user.id);
             document.getElementById('selected-contacts').innerHTML += renderUserCirclesForEdit(user, initials, color);
         }
@@ -82,13 +82,13 @@ function loadUserCirclesForEdit(i, id) {
  */
 function loadEditContacts(i) {
     let overlayContainer = document.getElementById('edit-contact-overlay');
-
+console.log(userData);
     userData.forEach((user, index) => {
         console.log(user.username);
         if (addedTasks[i].assigned_to.includes(user.id)) {
-            overlayContainer.innerHTML += renderCheckedUsers(i, user.username, user.profile['initials'], user.profile['color'], index, user.id);
+            overlayContainer.innerHTML += renderCheckedUsers(i, user.name, user['initials'], user['color'], index, user.id);
         } else {
-            overlayContainer.innerHTML += renderUncheckedUsers(i, user.username,  user.profile['initials'], user.profile['color'], index, user.id);
+            overlayContainer.innerHTML += renderUncheckedUsers(i, user.name,  user['initials'], user['color'], index, user.id);
         }
     });
 }
@@ -229,8 +229,8 @@ function removeEditInitialsImg(i) {
  */
 function renderEditInitialsImg(i) {
     let content = document.getElementById('selected-contacts');
-    let userInitial = userData[i].profile['initials'];
-    let nameColor = userData[i].profile['color'];
+    let userInitial = userData[i]['initials'];
+    let nameColor = userData[i]['color'];
 
     content.innerHTML += `
              <div id="assigned-initials-${i}" class="assignment-circle-big"><span>${userInitial}</span></div>`;

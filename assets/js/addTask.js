@@ -222,7 +222,7 @@ async function addTaskToStorage(id, tasks) {
  * Load the user Datas from the Remote storage
  */
 async function loadUserDataFromRemote() {
-    let newUserDataString = await fetchUserData();
+    let newUserDataString = await getContacts();
     //newUserDataString = JSON.parse(newUserDataString['data']['value']);
     for (let i = 0; i < newUserDataString.length; i++) {
         let users = newUserDataString[i];
@@ -283,9 +283,9 @@ function loadContacts() {
 
     for (let i = 0; i < userData.length; i++) {
         let currentContact = userData[i];
-        let name = currentContact['username'];
-        let userInitial = userData[i].profile['initials']
-        let nameColor = userData[i].profile['color'];
+        let name = currentContact['name'];
+        let userInitial = userData[i]['initials']
+        let nameColor = userData[i]['color'];
         let userId = currentContact['id']
         let youLabel = loginUser === name ? '(You)' : '';
 
@@ -328,8 +328,8 @@ function setCheckbox(checkbox, name, i, id) {
  */
 function renderInitialsimg(i) {
     let content = document.getElementById('selected-contacts');
-    let userInitial = userData[i].profile['initials'];
-    let nameColor = userData[i].profile['color'];
+    let userInitial = userData[i]['initials'];
+    let nameColor = userData[i]['color'];
 
     content.innerHTML += /*html*/`
          <div id="initials${i}" class="contact-circle"> <span>${userInitial}</span></div>`;
