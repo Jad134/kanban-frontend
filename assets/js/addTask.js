@@ -383,7 +383,7 @@ function spliceContact(name) {
 function renameSubTask(i) {
     let editSubTask = document.getElementById(`edit-task-input${i}`).value;
     let newSubtask = {
-        "subtitle": editSubTask,
+        "title": editSubTask,
         "done": false
     }
 
