@@ -75,7 +75,7 @@ function getValues() {
     let date = document.getElementById('date-input');
     let category = document.getElementById('select-category');
     let categoryText = category.options[category.selectedIndex].text;
-    let prioValue = lastClickedPrio ? lastClickedPrio.value : '';
+    let prioValue = lastClickedPrio ? lastClickedPrio.value : 'medium';
 
     let tasks = {
         "id": taskId = Date.now() + Math.random(),
